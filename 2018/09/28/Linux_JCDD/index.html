@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C,进程调度," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程调度是操作系统的核心功能，本篇继续追随《Linux内核设计与实现》的脚步，摸清Linux进程调度的原理。">
+<meta name="keywords" content="C,进程调度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Linux内核设计与实现》阅读笔记：(第四章)进程调度">
+<meta property="og:url" content="https://cgiirw.github.io/2018/09/28/Linux_JCDD/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="进程调度是操作系统的核心功能，本篇继续追随《Linux内核设计与实现》的脚步，摸清Linux进程调度的原理。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r8bvhqj31160qstfe.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3t6h61tj31020ksgur.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r3v9f3j30qq0ieq8u.jpg">
+<meta property="og:updated_time" content="2018-10-31T00:48:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Linux内核设计与实现》阅读笔记：(第四章)进程调度">
+<meta name="twitter:description" content="进程调度是操作系统的核心功能，本篇继续追随《Linux内核设计与实现》的脚步，摸清Linux进程调度的原理。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r8bvhqj31160qstfe.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/09/28/Linux_JCDD/"/>
+
+
+
+
+
+  <title>《Linux内核设计与实现》阅读笔记：(第四章)进程调度 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/09/28/Linux_JCDD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Linux内核设计与实现》阅读笔记：(第四章)进程调度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T21:03:33+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/28/Linux_JCDD/" class="leancloud_visitors" data-flag-title="《Linux内核设计与实现》阅读笔记：(第四章)进程调度">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,073
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>进程调度是操作系统的核心功能，本篇继续追随《Linux内核设计与实现》的脚步，摸清Linux进程调度的原理。</p>
+<a id="more"></a>
+<h2 id="多任务"><a href="#多任务" class="headerlink" title="多任务"></a>多任务</h2><p>调度程序主要负责决定三件事：</p>
+<ul>
+<li>执行哪个进程；</li>
+<li>什么时候执行；</li>
+<li>执行多长时间；</li>
+</ul>
+<p>最大限度利用处理器时间原则：只要有可执行的进程，那么总会有进程正在执行。</p>
+<p>多任务系统分类：</p>
+<ul>
+<li>非抢占式多任务：除非进程自己停止运行，否则就会一直执行；</li>
+<li>抢占式多任务：由电镀程序决定什么时候停止一个进程的运行，以便其它进程得到执行的机会，被抢占之前能狗运行的时间是预先设置好的，这个时间称为“时间片”；</li>
+</ul>
+<p>绝大多数系统(包括Linux)是抢占式多任务系统。</p>
+<h2 id="Linux进程调度简介"><a href="#Linux进程调度简介" class="headerlink" title="Linux进程调度简介"></a>Linux进程调度简介</h2><p>Linux采用的调度算法是在不断演进的。2.5版本采用的是一种O(1)的调度程序，2.6.23用完全公平调度算法(CFS)替换了O(1)调度算法，发展历史如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r8bvhqj31160qstfe.jpg" alt=""></p>
+<p>(注：图片出自陈向群《操作系统原理》公开课)</p>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><h3 id="I-O消耗型和处理器消耗型进程"><a href="#I-O消耗型和处理器消耗型进程" class="headerlink" title="I/O消耗型和处理器消耗型进程"></a>I/O消耗型和处理器消耗型进程</h3><p>进程按执行过程划分可以用一张图表示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3t6h61tj31020ksgur.jpg" alt="进程划分"></p>
+<p>(注：图片出自陈向群《操作系统原理》公开课)</p>
+<p>对于处理器密集型进程，调度策略往往是尽量降低它们的调度频率，延长运行时间；</p>
+<p>调度策略通常要在两个矛盾的目标中间寻找平衡：进程响应迅速(响应时间短)和最大系统利用率(高吞吐量)；</p>
+<p>Linux更倾向于优先调度I/O密集型进程，但并未忽视处理器密集型进程；</p>
+<h3 id="进程优先级"><a href="#进程优先级" class="headerlink" title="进程优先级"></a>进程优先级</h3><p>Linux采用两种不同的优先级范围：</p>
+<ul>
+<li>nice值</li>
+</ul>
+<p>nice是代表静态优先级的数值，范围从-20到+19，默认值为0。越大的nice值意味更低的优先级，在Linux系统中nice值代表时间片的比例；</p>
+<ul>
+<li>实时优先级</li>
+</ul>
+<p>默认情况下它的变化范围是从0到99(包括0和99)，越高的实时优先级数值意味着进程优先级越高，实时进程的优先级高于普通进程；</p>
+<h3 id="时间片"><a href="#时间片" class="headerlink" title="时间片"></a>时间片</h3><p>Linux的CFS调度器没有直接分配时间片到进程，它将处理器的使用比划分给了进程，所以处理器时间其实和系统负载密切相关；</p>
+<p>Linux中使用新的CFS调度器后，抢占时机取决于新的可运行程序消耗了多少处理器使用比，如果消耗的使用比比当前进程小，则新进程立刻投入运行抢占当前进程，否则推迟运行；</p>
+<h2 id="Linux调度算法"><a href="#Linux调度算法" class="headerlink" title="Linux调度算法"></a>Linux调度算法</h2><p>直接看看Linux的调度算法吧。</p>
+<h3 id="调度器类"><a href="#调度器类" class="headerlink" title="调度器类"></a>调度器类</h3><p>Linux scheduler是modular的，这样允许不同算法调度不同类型的进程。每一个scheduler class有一个优先级，the base scheduler code定义在kernel/sched.c，这个基础代码按照优先级来迭代每一个scheduler class；</p>
+<p>CFS是为普通进程注册的scheduler class，定义在kernel/sched_fair.c；</p>
+<h3 id="传统Unix系统调度器的改造"><a href="#传统Unix系统调度器的改造" class="headerlink" title="传统Unix系统调度器的改造"></a>传统Unix系统调度器的改造</h3><p>Linux的CFS对时间片分配方式进行了根本性重新设计，摒弃时间片而是分配给进程一个处理器使用比重，通过这种方式CFS确保了进程调度中能有恒定的公平性但切换速率可变；</p>
+<h3 id="公平调度"><a href="#公平调度" class="headerlink" title="公平调度"></a>公平调度</h3><p>CFS在所有可运行进程总数基础上计算出一个进程应该运行多久，而不是依靠nice值来计算时间片；</p>
+<p>任何nice值对应的绝对时间不再是一个绝对值，而是处理器的使用比；</p>
+<h2 id="Linux调度实现"><a href="#Linux调度实现" class="headerlink" title="Linux调度实现"></a>Linux调度实现</h2><p>CFS四部分：</p>
+<ul>
+<li>Time Accounting</li>
+<li>Process Selection</li>
+<li>The Scheduler Entry Point</li>
+<li>Sleeping and Waking Up</li>
+</ul>
+<h3 id="Time-Accounting"><a href="#Time-Accounting" class="headerlink" title="Time Accounting"></a>Time Accounting</h3><p>在大多数Unix系统中，所有进程调度器给每一个进程分配一个时间片，用来计算处理器运行的时间，每经过一次系统的始终周期，时间片的值就相应减少，当为0时CPU被时间片没有为0的进程抢占；</p>
+<ol>
+<li>The Scheduler Entity Structure</li>
+</ol>
+<p>CFS不在有时间片的概念(我觉得主要表现在结构体没有时间片变量吧)，使用sched_entity结构体来持续记录进程运行时间(to keep track of process accounting)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">struct sched_entity &#123;</div><div class="line">    struct load_weight  load;       <span class="comment">/* for load-balancing */</span></div><div class="line">    struct rb_node      run_node;</div><div class="line">    struct list_head    group_node;</div><div class="line">    unsigned <span class="keyword">int</span>        on_rq;</div><div class="line"></div><div class="line">    u64         exec_start;</div><div class="line">    u64         sum_exec_runtime;</div><div class="line">    u64         vruntime;</div><div class="line">    u64         prev_sum_exec_runtime;</div><div class="line"></div><div class="line">    ...</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>此结构作为一个成员变量se嵌入进程描述符中。</p>
+<ol>
+<li>The Virtual Runtime</li>
+</ol>
+<p>vruntime保存了进程的虚拟运行时间，这是实际花费的运行时间按处于runnable状态的进程的权重计算出来的。它的作用：“CFS uses vruntime to account for how long a process has run and thus how much longer it ought to run.” 毕竟，如果拥有理想的处理器，就不需要vruntime，因为优先级相同的所有进程的虚拟运行时都是相同的。</p>
+<p>vruntime的更新需要update_curr函数，具体可以看kernel/sched_fair.c文件下的update_curr()实现。</p>
+<h3 id="Process-Selection"><a href="#Process-Selection" class="headerlink" title="Process Selection"></a>Process Selection</h3><p>当CFS需要选择下一个运行进程时，它会挑选一个具有最小vruntime的进程。CFS使用红黑树(红黑树在本站的某篇中已经解读过)来组织可运行进程队列(the list of runnable processes)。</p>
+<ol>
+<li>挑选下一个任务</li>
+</ol>
+<p>就是在红黑树中查找最左节点，实现这一过程的函数是__pick_next_entity()；</p>
+<p>红黑树最左节点缓存在rb_leftmost中，不需要__pick_next_entity函数在红黑树中搜索；</p>
+<p>没有最左节点就代表没有节点，那么这个时候表示没有可运行的进程，CFS调度idle任务；</p>
+<ol>
+<li>向树中加入进程</li>
+</ol>
+<p>这一步的主要工作是将进程插入红黑树，并且缓存最左节点；</p>
+<p>时机：在进程变为可运行状态(被唤醒)活着通过fork()调用第一次创建进程时，主要是enqueue_entity函数实现；</p>
+<p>缓存最左节点时，采用leftmost标志位来判断插入的节点是否是最左，一旦转向右分支，则置为0，表示它不会是最左节点，如果leftmost一直为1，那么可以更新缓存；</p>
+<ol>
+<li>从树中删除进程</li>
+</ol>
+<p>删除动作发生在进程<code>阻塞</code>(不可运行态)或<code>终止</code>；</p>
+<p>删除具体由__dequeue_entity()完成，它直接借用了红黑树的rb_erase()来完成所有删除工作；</p>
+<p>更新rb_leftmost，如果删除了最左节点，还要调用rb_next()按顺序遍历；</p>
+<h3 id="The-Scheduler-Entry-Point"><a href="#The-Scheduler-Entry-Point" class="headerlink" title="The Scheduler Entry Point"></a>The Scheduler Entry Point</h3><p>前面提到了“the base scheduler code定义在kernel/sched.c，这个基础代码按照优先级来迭代每一个scheduler class”，进程调度的入口函数schedule()就定义在文件kernel/sched.c，<br>而在schedule()里发生的唯一重要的部分就是调用pick_next_task()(该函数也定义在文件kernel/sched.c中)；</p>
+<p>一个调度类对应一个调度算法，设立涉及两个最高优先级：最高优先级调度类以及最高优先级进程；</p>
+<p>pick_next_task()要做的事是按照优先级从高到低，依次轮询调度类，每个调度类又维护着自己的运行队列，于是又查找运行队列里优先级最高的进程；</p>
+<p>CFS是普通进程的调度类，而系统中运行的绝大多数进程都是普通进程，所以一开始可以判断所有运行进程的数量是否等于CFS对应的可运行进程数，如果是就直接通过CFS查询最高优先级的线程并选择执行之；</p>
+<p>有了上面的基本结论，那么pick_next_task()的代码就不难理解了，这里直接放出：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * Pick up the highest-prio task:</div><div class="line"> */</div><div class="line"><span class="keyword">static</span> inline struct task_struct *</div><div class="line">pick_next_task(struct rq *rq)</div><div class="line">&#123;</div><div class="line">        <span class="keyword">const</span> struct sched_class *<span class="class"><span class="keyword">class</span></span>;</div><div class="line">        struct task_struct *p;</div><div class="line">        <span class="comment">/*</span></div><div class="line">         * Optimization: we know that if all tasks are in</div><div class="line">         * the fair class we can call that function directly:</div><div class="line">         */</div><div class="line">        <span class="keyword">if</span> (likely(rq-&gt;nr_running == rq-&gt;cfs.nr_running)) &#123;</div><div class="line">                p = fair_sched_class.pick_next_task(rq);</div><div class="line">                <span class="keyword">if</span> (likely(p))</div><div class="line">                        <span class="keyword">return</span> p;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="class"><span class="keyword">class</span> </span>= sched_class_highest;</div><div class="line">        <span class="keyword">for</span> ( ; ; ) &#123;</div><div class="line">                p = <span class="class"><span class="keyword">class</span>-&gt;<span class="title">pick_next_task</span>(<span class="title">rq</span>)</span>;</div><div class="line">                <span class="keyword">if</span> (p)</div><div class="line">                        <span class="keyword">return</span> p;</div><div class="line">                <span class="comment">/*</span></div><div class="line">                 * Will never be NULL as the idle class always</div><div class="line">                 * returns a non-NULL p:</div><div class="line">                 */</div><div class="line">                <span class="class"><span class="keyword">class</span> </span>= <span class="class"><span class="keyword">class</span>-&gt;<span class="title">next</span></span>;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>轮询各调度类的pick_next_task()封装出总的pick_next_task()，<code>likely(rq-&gt;nr_running == rq-&gt;cfs.nr_running)</code>中，rq结构体存储了CPU的调度信息，每个CPU都分配了一个rq。所以rq-&gt;nr_running可以求出所有该CPU被调度运行的进程，rq-&gt;cfs.nr_running求出cfs算法的运行队列有多少可运行的线程；</p>
+<h3 id="Sleeping-and-Waking-Up"><a href="#Sleeping-and-Waking-Up" class="headerlink" title="Sleeping and Waking Up"></a>Sleeping and Waking Up</h3><p>这一小节的内容符合本人对睡眠唤醒的理解，所以不赘述，一图以蔽之：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r3v9f3j30qq0ieq8u.jpg" alt="睡眠唤醒"></p>
+<h2 id="抢占和上下文切换"><a href="#抢占和上下文切换" class="headerlink" title="抢占和上下文切换"></a>抢占和上下文切换</h2><p><code>上下文切换时机</code>：当一个新的进程被选出来准备投入运行，schedule()就会调用context_switch()负责处理上下文切换；</p>
+<p>context_switch()完成两项基本工作：</p>
+<ul>
+<li>调用switch_mm()，切换虚拟内存映射；</li>
+<li>调用switch_to()，负责从上一个进程的处理器状态切换到新进程的处理器状态，包括保存和恢复(栈信息、寄存器信息以及其它)；</li>
+</ul>
+<p><code>抢占时机</code>：和schedule()的调用有关，内核需要知道什么时候调用它。need_resched是一个标志位，scheduler_tick()和try_to_wake_up()都会设置这个标志，内核检查该标志位，确认是否被设置来判断是不是要调用schedule()；</p>
+<p>每个进程都包含一个need_resched标志，2.6版本以后，它被移到thread_info结构体里；</p>
+<h3 id="用户抢占"><a href="#用户抢占" class="headerlink" title="用户抢占"></a>用户抢占</h3><p>用户抢占发生在内核返回用户空间，need_resched被设置，调度器(scheduler)被调用的时候；</p>
+<p>总的来说，用户抢占发生在如下情况：</p>
+<ul>
+<li>从内核返回用户空间时；</li>
+<li>从中断处理程序返回用户空间时；</li>
+</ul>
+<p>在这两种情况下，都会检查need_resched标志；</p>
+<h3 id="内核抢占"><a href="#内核抢占" class="headerlink" title="内核抢占"></a>内核抢占</h3><p>只要重新调度是安全的，内核就可以在任何时候抢占正在执行的任务；</p>
+<p>安全与否取决于是否持有锁，锁是非抢占区域的标志；</p>
+<p>如何实现锁？在thread_info引入preempt_count计数器，初始为0，每当使用锁的时候数值加1，释放的时候数值减1， 进程持有的所有锁都被释放了，那么preempt_count会重新置为0，释放锁的代码会检查need_resched是否被设置；</p>
+<p>内核抢占发生在如下情况：</p>
+<ul>
+<li>中断处理程序正在执行，且返回内核空间之前；</li>
+<li>内核代码再次变得可抢占式的，(When kernel code becomes preemptible again)；</li>
+<li>内核进程(task)显示调用schedule()；</li>
+<li>如果内核进程(task)被阻塞(结果就是调用schedule())；</li>
+</ul>
+<h2 id="实时调度策略"><a href="#实时调度策略" class="headerlink" title="实时调度策略"></a>实时调度策略</h2><p>Linux提供了两种实时调度策略：SCHED_FIFO和SCHED_RR，而普通的非实时的调度策略是SCHED_NORMAL；</p>
+<p>实时调度策略不受CFS调度器的管理，CFS调度在sched_fair.c中，实时调度在sched_rt.c中。</p>
+<ul>
+<li>SCHED_FIFO：</li>
+</ul>
+<p>优先级比SCHED_NORMAL高；</p>
+<p>一旦被调度就一直执行，直到阻塞或显式释放处理器为止；</p>
+<p>除非有更高级的进程才能抢占SCHED_FIFO进程；</p>
+<p>多个同级SCHED_FIFO进程可以轮流执行，但只有它们原意让出处理器时才会退出；</p>
+<ul>
+<li>SCHED_RR：</li>
+</ul>
+<p>SCHED_RR可以理解为带有时间片的SCHED_FIFO；</p>
+<p>当SCHED_RR时间片耗尽的时候，同一优先级的其它实时进程被轮流调度；</p>
+<p>对于SCHED_FIFO进程，高优先级总是立即抢占低优先级，但是低优先级进程绝对不能抢占SCHED_RR，即使后者时间片耗尽；</p>
+<p>软实时：内核调度进程，尽力使进程在它的限定时间到来前运行，但不保证满足；相反，硬实时保证在一定条件下，可以满足任何调度的要求；</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>很多资料会出现SCHED_OTHER调度策略，实际上它就是SCHED_NORMAL，对于普通进程有这三种：</p>
+<ul>
+<li>SCHED_NORMAL：CFS对应的策略；</li>
+<li>SCHED_BATCH：与SCHED_NORMAL策略一样，但针对吞吐量优化；</li>
+<li>SCHED_IDLE：优先级最低，系统空闲才跑；</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过此篇笔记，本人对Linux进程调度有了大致的理解，了解了其内部的运作机制。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《Linux内核设计与实现(第三版)》</p>
+<p>《Linux Kernel Development, 3rd Edition》</p>
+<p>陈向群《操作系统原理》公开课</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/09/28/Linux_JCDD/" title="《Linux内核设计与实现》阅读笔记：(第四章)进程调度">2018/09/28/Linux_JCDD/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/进程调度/" rel="tag"># 进程调度</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/26/Linux_JCDZKJ/" rel="next" title="《Linux内核设计与实现》阅读笔记：(第十五章)进程地址空间">
+                <i class="fa fa-chevron-left"></i> 《Linux内核设计与实现》阅读笔记：(第十五章)进程地址空间
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/10/Blocked01/" rel="prev" title="再谈阻塞(1)：从探究Java线程的状态开始">
+                再谈阻塞(1)：从探究Java线程的状态开始 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多任务"><span class="nav-number">1.</span> <span class="nav-text">多任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux进程调度简介"><span class="nav-number">2.</span> <span class="nav-text">Linux进程调度简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略"><span class="nav-number">3.</span> <span class="nav-text">策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O消耗型和处理器消耗型进程"><span class="nav-number">3.1.</span> <span class="nav-text">I/O消耗型和处理器消耗型进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程优先级"><span class="nav-number">3.2.</span> <span class="nav-text">进程优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间片"><span class="nav-number">3.3.</span> <span class="nav-text">时间片</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux调度算法"><span class="nav-number">4.</span> <span class="nav-text">Linux调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调度器类"><span class="nav-number">4.1.</span> <span class="nav-text">调度器类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传统Unix系统调度器的改造"><span class="nav-number">4.2.</span> <span class="nav-text">传统Unix系统调度器的改造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公平调度"><span class="nav-number">4.3.</span> <span class="nav-text">公平调度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux调度实现"><span class="nav-number">5.</span> <span class="nav-text">Linux调度实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Time-Accounting"><span class="nav-number">5.1.</span> <span class="nav-text">Time Accounting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-Selection"><span class="nav-number">5.2.</span> <span class="nav-text">Process Selection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Scheduler-Entry-Point"><span class="nav-number">5.3.</span> <span class="nav-text">The Scheduler Entry Point</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sleeping-and-Waking-Up"><span class="nav-number">5.4.</span> <span class="nav-text">Sleeping and Waking Up</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抢占和上下文切换"><span class="nav-number">6.</span> <span class="nav-text">抢占和上下文切换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户抢占"><span class="nav-number">6.1.</span> <span class="nav-text">用户抢占</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核抢占"><span class="nav-number">6.2.</span> <span class="nav-text">内核抢占</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实时调度策略"><span class="nav-number">7.</span> <span class="nav-text">实时调度策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">8.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

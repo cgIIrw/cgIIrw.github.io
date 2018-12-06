@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。 特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java虚拟机之Class文件(续)：探索Java异常处理原理">
+<meta property="og:url" content="https://cgiirw.github.io/2018/04/30/JVM_Class02/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。 特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/异常处理01.png">
+<meta property="og:updated_time" content="2018-08-18T01:02:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java虚拟机之Class文件(续)：探索Java异常处理原理">
+<meta name="twitter:description" content="之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。 特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。">
+<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/异常处理01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/04/30/JVM_Class02/"/>
+
+
+
+
+
+  <title>Java虚拟机之Class文件(续)：探索Java异常处理原理 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/04/30/JVM_Class02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java虚拟机之Class文件(续)：探索Java异常处理原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T20:15:13+08:00">
+                2018-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/30/JVM_Class02/" class="leancloud_visitors" data-flag-title="Java虚拟机之Class文件(续)：探索Java异常处理原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,959
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。</p>
+<p>特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。</p>
+<a id="more"></a>
+<h2 id="关于CONSTANT-NameAndType"><a href="#关于CONSTANT-NameAndType" class="headerlink" title="关于CONSTANT_NameAndType"></a>关于CONSTANT_NameAndType</h2><p>先看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClassFileDemo</span> </span>&#123;</div><div class="line">  <span class="keyword">int</span> a;</div><div class="line">  <span class="keyword">int</span> b;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add01</span><span class="params">()</span> </span>&#123;</div><div class="line">    a = a + <span class="number">1</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">add02</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    add02();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子提供了两个字段a、b，两个方法add01()、add02()。编译这段程序，然后用javap翻译字节码，输出带NameAndType的内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">...</div><div class="line">#19 = NameAndType        #9:#10         //  "&lt;init&gt;":()V</div><div class="line">#20 = NameAndType        #6:#7          //  a:I</div><div class="line">#21 = NameAndType        #14:#10        //  add02:()V</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>这段输出表明，b和add01()没有对应的CONSTANT_NameAndType表，仔细观察a与b以及add01()与add02()的区别，发现最大的不同在于，字段或者方法是否被调用过，比如a在add01()中被调用，add02()在main方法中被调用。我想这样做是为了便于解析与分派。</p>
+<h2 id="异常表实例分析"><a href="#异常表实例分析" class="headerlink" title="异常表实例分析"></a>异常表实例分析</h2><p>《深入》一书在第187页给出了一个演示异常表的例子，这里稍加修改，不吝笔墨的将代码贴出来：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionTableDemo01</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(inc(<span class="number">7</span>, <span class="number">8</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> y;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            x = <span class="number">1</span>;</div><div class="line">            <span class="keyword">return</span> x;</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            x = <span class="number">2</span>;</div><div class="line">            <span class="keyword">return</span> x;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            x = <span class="number">3</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+<p>相较于书中的原例，这里给方法inc添加了形参a、b和局部变量y，再就是将方法设为static。先用javap对Class文件进行反编译，贴出inc方法的部分：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</div><div class="line">  flags: ACC_PUBLIC, ACC_STATIC</div><div class="line">  Code:</div><div class="line">    stack=<span class="number">1</span>, locals=<span class="number">7</span>, args_size=<span class="number">2</span></div><div class="line">       <span class="number">0</span>: iconst_1      </div><div class="line">       <span class="number">1</span>: istore_3      </div><div class="line">       <span class="number">2</span>: iload_3       </div><div class="line">       <span class="number">3</span>: istore        <span class="number">4</span></div><div class="line">       <span class="number">5</span>: iconst_3      </div><div class="line">       <span class="number">6</span>: istore_3      </div><div class="line">       <span class="number">7</span>: iload         <span class="number">4</span></div><div class="line">       <span class="number">9</span>: ireturn       </div><div class="line">      <span class="number">10</span>: astore        <span class="number">4</span></div><div class="line">      <span class="number">12</span>: iconst_2      </div><div class="line">      <span class="number">13</span>: istore_3      </div><div class="line">      <span class="number">14</span>: iload_3       </div><div class="line">      <span class="number">15</span>: istore        <span class="number">5</span></div><div class="line">      <span class="number">17</span>: iconst_3      </div><div class="line">      <span class="number">18</span>: istore_3      </div><div class="line">      <span class="number">19</span>: iload         <span class="number">5</span></div><div class="line">      <span class="number">21</span>: ireturn       </div><div class="line">      <span class="number">22</span>: astore        <span class="number">6</span></div><div class="line">      <span class="number">24</span>: iconst_3      </div><div class="line">      <span class="number">25</span>: istore_3      </div><div class="line">      <span class="number">26</span>: aload         <span class="number">6</span></div><div class="line">      <span class="number">28</span>: athrow        </div><div class="line">    Exception table:</div><div class="line">       from    to  target type</div><div class="line">           <span class="number">0</span>     <span class="number">5</span>    <span class="number">10</span>   Class java/lang/Exception</div><div class="line">           <span class="number">0</span>     <span class="number">5</span>    <span class="number">22</span>   any</div><div class="line">          <span class="number">10</span>    <span class="number">17</span>    <span class="number">22</span>   any</div><div class="line">          <span class="number">22</span>    <span class="number">24</span>    <span class="number">22</span>   any</div></pre></td></tr></table></figure>
+<p>首先解释最后出现的异常表：它的逻辑是，从from到to(不包括)执行的过程中，如果发生了type类型的异常，则PC计数器指针跳转到target行。</p>
+<p>局部变量表假定用数组localVars表示，因为是静态方法所以没有this，localVars[0]和localVars[1]分别代表传入的参数a、b，localVars[2]代表y，localVars[3]代表x，此时已经确定了四个槽位。这里啰嗦一下：</p>
+<ul>
+<li>iconst_1：这个命令首先将1推入操作数栈的栈顶，而<code>不会先保存</code>值到局部变量表；</li>
+<li>istore_3：这个命令将操作数栈栈顶的int型数值存入局部变量表索引为3的位置，此时是一个出栈的过程，操作数栈<code>不会再保留</code>这个数值；</li>
+<li>iload_3：这个命令将局部变量表索引为3的位置保存的int型数值<code>复制</code>一份到操作数栈的栈顶；</li>
+</ul>
+<p>在字节码中第二行，“突然”就执行起iload_3命令，这只可能是因为程序执行到了return语句。这说明：代码中的return和字节码中的ireturn不是一一对应的，return语句会让编译器编译出多条指令。</p>
+<p>下面通过本人所作的拙劣图进行说明：</p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/异常处理01.png" alt="01"></p>
+<p>从这张图似乎明白了finally语句“一定会执行”的原理：编译器不仅将try中的return编译成多条指令，还将finally编译的指令插在其中。具体来说就是：当执行到try块中的return语句后，会将原本load的值(不妨称之为temp)保存在局部变量表中(《深入》书中说会保存在最后一个本地变量表的slot，经本机测试并非如此，本机中保存在原位置后移的一位)，等finally指令执行完后，载入temp到栈顶，最后ireturn。</p>
+<p>写到这里，很容易产生两个疑问：</p>
+<ol>
+<li>如果finally语句中存在return，会出现什么情况？</li>
+<li>如果没有执行到try中的return语句就抛出了异常，会出现什么情况？</li>
+</ol>
+<p><strong>首先来分析第一个问题</strong></p>
+<p>在前文代码finally括号内添加一行<code>return x;</code>并运行代码，结果为3，返回的是finally里的值。前面已经分析过，finally语句块被编译后得到的指令会插入在try块里return被编译后得到的指令中，可是现在的情况是，finally语句块本身就会被编译出ireturn指令，而ireturn使用汇编编写，执行jmp跳转命令。也就是说程序在执行到这一步就直接跳转了。</p>
+<p>所以，如果finally语句中存在return，执行该return，方法返回。</p>
+<p><strong>再分析第二个问题</strong></p>
+<p>将前文代码针对问题进行修改，修改后的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionTableDemo01</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(inc(<span class="number">7</span>, <span class="number">8</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> y;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            x = <span class="number">1</span>;</div><div class="line">            <span class="keyword">if</span> (x == <span class="number">1</span>) &#123;</div><div class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> x;</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</div><div class="line">            x = <span class="number">2</span>;</div><div class="line">            <span class="keyword">return</span> x;</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            x = <span class="number">3</span>;</div><div class="line">            <span class="keyword">return</span> x;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码在try里抛出一个运行时异常，然后在catch尝试捕获空指针异常，在finally里将x赋值为3并返回之。</p>
+<p>运行代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+<p>也许此时又会产生疑问：运行时异常不是catch设定的能捕获的异常，异常应该继续抛出啊，为什么结果为3呢？</p>
+<p>反编译Class文件，相关字节码行如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">public static int inc(int, int);</div><div class="line">  flags: ACC_PUBLIC, ACC_STATIC</div><div class="line">  Code:</div><div class="line">    stack=2, locals=7, args_size=2</div><div class="line">       0: iconst_1      </div><div class="line">       1: istore_3      </div><div class="line">       2: iload_3       </div><div class="line">       3: iconst_1      </div><div class="line">       4: if_icmpne     15</div><div class="line">       7: new           #5                  // class java/lang/RuntimeException</div><div class="line">      10: dup           </div><div class="line">      11: invokespecial #6                  // Method java/lang/RuntimeException."&lt;init&gt;":()V</div><div class="line">      14: athrow        </div><div class="line">      15: iload_3       </div><div class="line">      16: istore        4</div><div class="line">      18: iconst_3      </div><div class="line">      19: istore_3      </div><div class="line">      20: iload_3       </div><div class="line">      21: ireturn       </div><div class="line">      22: astore        4</div><div class="line">      24: iconst_2      </div><div class="line">      25: istore_3      </div><div class="line">      26: iload_3       </div><div class="line">      27: istore        5</div><div class="line">      29: iconst_3      </div><div class="line">      30: istore_3      </div><div class="line">      31: iload_3       </div><div class="line">      32: ireturn       </div><div class="line">      33: astore        6</div><div class="line">      35: iconst_3      </div><div class="line">      36: istore_3      </div><div class="line">      37: iload_3       </div><div class="line">      38: ireturn       </div><div class="line">    Exception table:</div><div class="line">       from    to  target type</div><div class="line">           0    18    22   Class java/lang/NullPointerException</div><div class="line">           0    18    33   any</div><div class="line">          22    29    33   any</div><div class="line">          33    35    33   any</div></pre></td></tr></table></figure>
+<p>为了进行比较，这里还需要一个finally不含return的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionTableDemo01</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        System.out.println(inc(<span class="number">7</span>, <span class="number">8</span>));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">inc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> y;</div><div class="line">        <span class="keyword">int</span> x;</div><div class="line"></div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            x = <span class="number">3</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行程序输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException</div><div class="line">	at com.demo.ExceptionTableDemo01.inc(ExceptionTableDemo01.java:17)</div><div class="line">	at com.demo.ExceptionTableDemo01.main(ExceptionTableDemo01.java:7)</div><div class="line"></div><div class="line">Process finished with exit code 1</div></pre></td></tr></table></figure>
+<p>反编译：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public static int inc(int, int);</div><div class="line">  flags: ACC_PUBLIC, ACC_STATIC</div><div class="line">  Code:</div><div class="line">    stack=2, locals=5, args_size=2</div><div class="line">       0: new           #5                  // class java/lang/RuntimeException</div><div class="line">       3: dup           </div><div class="line">       4: invokespecial #6                  // Method java/lang/RuntimeException."&lt;init&gt;":()V</div><div class="line">       7: athrow        </div><div class="line">       8: astore        4</div><div class="line">      10: iconst_3      </div><div class="line">      11: istore_3      </div><div class="line">      12: aload         4</div><div class="line">      14: athrow        </div><div class="line">    Exception table:</div><div class="line">       from    to  target type</div><div class="line">           0    10     8   any</div></pre></td></tr></table></figure>
+<p>通过比较，可以发现，throw关键字和之前解析的return关键字一样，都会被编译器编译为多条指令，然后将finally语句编译出来的指令插在其中。也就是说，如果finally中包含return语句，那么在异常真正被抛出之前，方法已经返回。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>对CONSTANT_NameAndType的困惑源自本人编写玩具JVM的实践，通过本篇小文解决了困惑；对Java的异常处理，通过本次实例分析，也有了更深理解。</p>
+<p>不同的语言，对异常的处理，体现了不同的语言特性。虽然在本文中，本人不断追溯源码以求能够彻底明白相关原理，但目前仍然处在探索之中，因为在Java里，该语言特性是通过虚拟机和编译器共同完成的。“编译器如何做到将finally编译出来的指令正确插入到return编译出的指令中的”之类的问题，还需等待后续的研究。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/ingokegel/jclasslib" target="_blank" rel="external">Jclasslib Bytecode Viewer</a>：a tool that visualizes all aspects of compiled Java class files and the contained bytecode. In addition, it contains a library that enables developers to read and write Java class files and bytecode.</p>
+<p><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html#jvms-6.5.athrow" target="_blank" rel="external">The Java Virtual Machine Instruction Set</a></p>
+<p><a href="https://cs.au.dk/~mis/dOvs/jvmspec/ref-Java.html" target="_blank" rel="external">Java Virtual Machine<br>Online Instruction Reference</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/04/30/JVM_Class02/" title="Java虚拟机之Class文件(续)：探索Java异常处理原理">2018/04/30/JVM_Class02/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/29/JVM04/" rel="next" title="Java虚拟机之Java内存模型">
+                <i class="fa fa-chevron-left"></i> Java虚拟机之Java内存模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/03/Trie/" rel="prev" title="单词查找树">
+                单词查找树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#关于CONSTANT-NameAndType"><span class="nav-number">1.</span> <span class="nav-text">关于CONSTANT_NameAndType</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常表实例分析"><span class="nav-number">2.</span> <span class="nav-text">异常表实例分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

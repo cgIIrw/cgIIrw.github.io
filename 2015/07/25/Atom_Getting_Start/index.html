@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Atom," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Atom是一款Github官方推出的文本编辑器，号称是“A hackable text editor for the 21st Century”。下面翻译自官方文档。">
+<meta name="keywords" content="Atom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Atom 上手教程">
+<meta property="og:url" content="https://cgiirw.github.io/2015/07/25/Atom_Getting_Start/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="Atom是一款Github官方推出的文本编辑器，号称是“A hackable text editor for the 21st Century”。下面翻译自官方文档。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4khd13vj30rq0dwmzs.jpg">
+<meta property="og:updated_time" content="2018-10-31T01:14:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Atom 上手教程">
+<meta name="twitter:description" content="Atom是一款Github官方推出的文本编辑器，号称是“A hackable text editor for the 21st Century”。下面翻译自官方文档。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4khd13vj30rq0dwmzs.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2015/07/25/Atom_Getting_Start/"/>
+
+
+
+
+
+  <title>Atom 上手教程 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2015/07/25/Atom_Getting_Start/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Atom 上手教程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-07-25T22:59:57+08:00">
+                2015-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文档/" itemprop="url" rel="index">
+                    <span itemprop="name">文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/07/25/Atom_Getting_Start/" class="leancloud_visitors" data-flag-title="Atom 上手教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,532
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>Atom是一款Github官方推出的文本编辑器，号称是“A hackable text editor for the 21st Century”。下面翻译自官方文档。<br><a id="more"></a></p>
+<h2 id="基本术语"><a href="#基本术语" class="headerlink" title="基本术语"></a>基本术语</h2><p>首先，让我们熟悉一下在本手册中使用到的一些术语。</p>
+<h3 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h3><p>Buffer表示Atom中一个文件的文本内容。通常情况下它相当于一个文件，但是是Atom存储在内存中的一种文件。举个例子，你可以改变buffer中的文本，这种写入操作不会作用于相应的磁盘文件，除非你进行了保存。</p>
+<h3 id="Pane"><a href="#Pane" class="headerlink" title="Pane"></a>Pane</h3><p>Pane是Atom中的可视区域，在欢迎界面上你可以看见四个Pane：the tab bar（文件标签栏），the gutter（它包括了行号），the status bar（底部的状态栏），the text editor（文本编辑器）。</p>
+<h2 id="命令面板"><a href="#命令面板" class="headerlink" title="命令面板"></a>命令面板</h2><p>在欢迎界面上，我们介绍一个可能是Atom中最重要的命令，用来呼出命令面板，当当前焦点在编辑窗时，如果你敲击<code>cmd-shift-P</code>，命令面板就会出现。</p>
+<p>在Atom中基本所有主要的操作都能通过这种搜索驱动的菜单来完成。不同于通过点击应用菜单来找寻相关操作的方式，你只需要敲击<code>cmd-shift-P</code>就能寻找到相关命令。</p>
+<p>你不仅能尽最大可能的看到并快速搜索到数以千计的命令，而且，如果这些命令存在一个相应地快捷键，你也能同时看到他们。这非常棒，因为这意味着你在用这些命令做你感兴趣的事的同时，也一并能学习这些快捷键。</p>
+<p>手册余下的部分，我们将试图弄清楚那些不同命令快捷键以及命令面板中搜索出的命令。</p>
+<h2 id="偏好设置"><a href="#偏好设置" class="headerlink" title="偏好设置"></a>偏好设置</h2><p>在设置界面上，Atom有很多偏好设置选项，你可以对它们进行修改。</p>
+<p>这包括了修改色彩框架或主题，具体为如何处理自动换行，字体设置，tab的大小，滚动速度等等。你也能用这个界面安装新的软件包和主题，这些在“Atom Packages”中介绍。</p>
+<p>为了打开设置界面，你可以去菜单栏的Atom下Prefernces菜单项。你也可以搜索<code>Settings View:open</code>或者快捷键<code>cmd-,</code>。</p>
+<h3 id="更改彩色主题"><a href="#更改彩色主题" class="headerlink" title="更改彩色主题"></a>更改彩色主题</h3><p>设置界面还能让你为Atom更改彩色主题。Atom拥有四个UI彩色主题，分别名为Atom Dark，Atom Light，One Dark和One Light，同时还包括八个不同的语法彩色主题。你可以点击设置界面侧边栏的“Themes”菜单项来更改当前主题或者安装新的主题。</p>
+<p>UI主题改变了UI元素的颜色，诸如标签和树结构的视图。而语法主题改变了载入在编辑器中的文本的语法高亮模式。我们只要简单选择下拉栏中的不同选项就能改变主题。</p>
+<p>Atom.io上有几十个主题，如果你需要一些与众不同，你可以从其中进行选择。在”Style Tweaks”章节中涉及到了定制主题内容，在“Creating a Theme”中涉及到了创建你自己的主题的内容。</p>
+<h3 id="SOFT-WRAP"><a href="#SOFT-WRAP" class="headerlink" title="SOFT WRAP"></a>SOFT WRAP</h3><p>你也可以用设置界面具体设置你的空白符以及换行偏好。</p>
+<p>开启”Soft Tabs”后，当你敲击tab键时会插入空格符来代替实际的tab字符.“Tab Length”指定了插入时会有多少个空格,或者当没有开启”Soft Tabs”时，指定了一个tab表示为多少个空格符。</p>
+<p>当在当前窗口单行键入太长时“Soft Wrap”键可以进行换行设置。当soft wrapping未开启时，行将会超出界面的显示边缘，你必须滑动窗口才能看到剩下的部分。如果切换到”Soft Wrap At Preferred Line Length”项，行的字数将在达到80后自动换行，取代原本的显示到窗口的最末端。你也能更改默认的80字数的行距值。</p>
+<p>在“Basic Customization”中，我们能了解如何根据不同种类的文件进行不同的换行设置（比如我们想在Markdown文件中进行换行，但是不在代码文件中也这样）。</p>
+<h3 id="处在beta期的功能"><a href="#处在beta期的功能" class="headerlink" title="处在beta期的功能"></a>处在beta期的功能</h3><p>随着Atom的不断发展，偶尔会有一些特性，在作为主要功能面向大众之前作为测试放出，在某些情况下，这些功能是默认关闭的，但是在设置面板中你能尝试将他们打开。</p>
+<p>在新的特性推向普通大众之前，这个功能对软件包的开发者是非常有用的，使他们开发的软件包能提前在新特性下工作。当然，如果你只是对这些即将发布的新特性感兴趣，你也可以偶尔尝试这些新的特性。</p>
+<h2 id="打开、修改以及存储文件"><a href="#打开、修改以及存储文件" class="headerlink" title="打开、修改以及存储文件"></a>打开、修改以及存储文件</h2><p>现在看起来你的编辑器已经设置成你所希望的那样，让我们开始打开并且编辑文件。这毕竟是一个文本编辑器最主要的功能，不是么？</p>
+<h3 id="打开文件"><a href="#打开文件" class="headerlink" title="打开文件"></a>打开文件</h3><p>在Atom中有一些方法来打开文件，你可以选择通过菜单栏中”File&gt;&gt;Open”的方式或者敲击<code>cmd-o</code>的方式在系统对话中选择文件。</p>
+<p>以上方法特别适合打开你当前工程中没有的文件，或者因为某些原因从一个新窗口打开文件。</p>
+<p>在Atom中打开文件的另一种方式是通过命令行。如果你使用的是Mac，Atom菜单栏有一个命令叫做“Install Shell Commands”，这个命令能在你的Terminal中安装两个新的命令：atom和apm。如果是在Windows和Linux平台上，这两个命令在Atom安装过程中被作为一部分自动生成。你可以通过运行atom命令附带一个或多个文件路径的方式来打开Atom中的文件。</p>
+<p>如果你熟悉terminal，或者你平时工作使用terminal多一点，那么这将是一个很棒的工具。你只用运行atom [files]命令就能开始编辑。</p>
+<h3 id="编辑以及存储文件"><a href="#编辑以及存储文件" class="headerlink" title="编辑以及存储文件"></a>编辑以及存储文件</h3><p>编辑文件非常简单。你可以点击并滚动你的鼠标，然后输入更改内容即可。不存在特殊的编辑模式和关键字命令。</p>
+<p>你可以通过在菜单栏选择”File&gt;&gt;Save”或者敲击<code>cmd-s</code>的方式来保存文件。你可以选择”Save As”或者敲击<code>cmd-shift-s</code>的方式对当前的编辑器中的内容进行另存为。你可以使用<code>ctrl-shift-s</code>保存Atom中所有打开的文件。</p>
+<p>Atom不只能完成单个文件的工作，而你也更倾向于花费更多的时间在包含多个文件的工程项目上。如果要打开一个目录，选择在菜单栏中”File&gt;&gt;Open”然后在弹出的对话框中选择目录。你也可以在当前的Atom窗口中添加目录，可以在菜单栏中选择”File&gt;&gt;Add Project Folder…”或者敲击<code>cmd-shift-o</code>。</p>
+<p>你可以通过在atom命令行工具中添加路径的方式来打开任意个数的目录。比如：你可以通过命令atom ./hopes ./dreams 来同时打开hopes和dreams目录。</p>
+<p>当你在Atom中打开一个或者多个目录的时候，编辑窗口的左侧会自动得到一个Tree view。</p>
+<p>Tree view允许你查看更改你的工程中的文件和目录。通过这个视图，你可以打开、重命名、删除并且新建一个文件。</p>
+<p>你可以通过<code>cmd-\</code>或者菜单栏中的“toggle tree view”命令来显示和隐藏Tree view。<code>ctrl-0</code>可以用来设置它的焦点。当Tree view被设置了焦点你就能通过a，m或者delete来添加、移动或者删除文件和文件夹。你也可以在这些文件和文件夹上点击右键来显示更多选项。包括很多本地文件系统中的文件拥有的选项、拷贝文件路径到系统剪切板上等。</p>
+<h3 id="在工程中打开文件"><a href="#在工程中打开文件" class="headerlink" title="在工程中打开文件"></a>在工程中打开文件</h3><p>一旦你在Atom中打开了一个工程，你能很轻松的找到并打开工程中的任何文件。</p>
+<p>无论你敲击键盘上的<code>cmd-T</code>或者<code>cmd-P</code>，模糊查询对话空就会呼之欲出。通过敲击文件路径中的任何一部分，你就能在任何工程目录中快速的对文件进行查询。</p>
+<p>你也可以使用<code>cmd-B</code>对当前打开的文件进行查找（而不是工程中所有的文件）。这个搜索包括了”buffers”和打开的文件。如果你只想搜索上一次Git提交后新的或者改动的文件，可以通过命令<code>cmd-shift-B</code>来限制范搜索。</p>
+<p>模糊查询会通过<code>core.ignoredNames</code>以及<code>fuzzyfinder.ignoredNames</code>配置文件来过滤哪些文件和文件夹能被查找。如果你的工程中有大量的文件你不希望查找，你可以在配置文件中添加关键字和路径。我们会在”Global Configuration Settings”章节中学习更多关于配置文件的操作。但是现在你能在设置界面的Core Settings下简单的设置。</p>
+<p>这两个配置文件对关键字进行筛选的功能是由名为minimatch的Node.js库来完成的。你可以在这里阅读更多关于minimatch的内容：<a href="https://github.com/isaacs/minimatch" target="_blank" rel="external">https://github.com/isaacs/minimatch</a></p>
+<p>当core.excludeVcsIgnoredPaths选项被选中后，该软件包同样不会显示Git忽略的文件。你能轻易的在设置视图中切换改选项，该选项位于众多选项的最上面。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>现在你已经基本明白了Atom是什么你需要用Atom做什么。并且，你已经把它安装在了你的操作系统上，可以用它来进行最基本的一些文本操作。</p>
+<p>现在你已经准备好开始深入挖掘这个有趣的东西。</p>
+<div style="text-align: center"><br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4khd13vj30rq0dwmzs.jpg" alt="Atom"><br></div>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2015/07/25/Atom_Getting_Start/" title="Atom 上手教程">2015/07/25/Atom_Getting_Start/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Atom/" rel="tag"># Atom</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/16/Django02/" rel="next" title="Django入门(二)">
+                <i class="fa fa-chevron-left"></i> Django入门(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/15/Tools/" rel="prev" title="小工具">
+                小工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本术语"><span class="nav-number">1.</span> <span class="nav-text">基本术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Buffer"><span class="nav-number">1.1.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pane"><span class="nav-number">1.2.</span> <span class="nav-text">Pane</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令面板"><span class="nav-number">2.</span> <span class="nav-text">命令面板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏好设置"><span class="nav-number">3.</span> <span class="nav-text">偏好设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更改彩色主题"><span class="nav-number">3.1.</span> <span class="nav-text">更改彩色主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SOFT-WRAP"><span class="nav-number">3.2.</span> <span class="nav-text">SOFT WRAP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处在beta期的功能"><span class="nav-number">3.3.</span> <span class="nav-text">处在beta期的功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打开、修改以及存储文件"><span class="nav-number">4.</span> <span class="nav-text">打开、修改以及存储文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#打开文件"><span class="nav-number">4.1.</span> <span class="nav-text">打开文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编辑以及存储文件"><span class="nav-number">4.2.</span> <span class="nav-text">编辑以及存储文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在工程中打开文件"><span class="nav-number">4.3.</span> <span class="nav-text">在工程中打开文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

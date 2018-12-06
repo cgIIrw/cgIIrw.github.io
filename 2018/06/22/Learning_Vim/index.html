@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Vim," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Intellij Idea上集成有IdeaVim插件，想来，一套Vim操作就可以适应多个编辑环境，确也诱人；那边厢，世界杯如火如荼，激战正酣，本人花费不少时间收看，实在精彩；怎么结合世界杯快速入门Vim命令呢？思索过后有了下文中的小小尝试。">
+<meta name="keywords" content="Vim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="收看世界杯并快记常用Vim命令">
+<meta property="og:url" content="https://cgiirw.github.io/2018/06/22/Learning_Vim/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="Intellij Idea上集成有IdeaVim插件，想来，一套Vim操作就可以适应多个编辑环境，确也诱人；那边厢，世界杯如火如荼，激战正酣，本人花费不少时间收看，实在精彩；怎么结合世界杯快速入门Vim命令呢？思索过后有了下文中的小小尝试。">
+<meta property="og:updated_time" content="2018-07-15T11:35:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="收看世界杯并快记常用Vim命令">
+<meta name="twitter:description" content="Intellij Idea上集成有IdeaVim插件，想来，一套Vim操作就可以适应多个编辑环境，确也诱人；那边厢，世界杯如火如荼，激战正酣，本人花费不少时间收看，实在精彩；怎么结合世界杯快速入门Vim命令呢？思索过后有了下文中的小小尝试。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/06/22/Learning_Vim/"/>
+
+
+
+
+
+  <title>收看世界杯并快记常用Vim命令 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/06/22/Learning_Vim/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">收看世界杯并快记常用Vim命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T21:48:20+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vim/" itemprop="url" rel="index">
+                    <span itemprop="name">Vim</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/22/Learning_Vim/" class="leancloud_visitors" data-flag-title="收看世界杯并快记常用Vim命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,963
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>Intellij Idea上集成有IdeaVim插件，想来，一套Vim操作就可以适应多个编辑环境，确也诱人；那边厢，世界杯如火如荼，激战正酣，本人花费不少时间收看，实在精彩；怎么结合世界杯快速入门Vim命令呢？思索过后有了下文中的小小尝试。</p>
+<a id="more"></a>
+<h2 id="写在之前"><a href="#写在之前" class="headerlink" title="写在之前"></a>写在之前</h2><p>足球于我实在是再熟悉不过，本人不仅常年收看足球转播，也亲上球场踢球，踢罢还玩实况足球游戏，正因如此，大脑里查询很多知名球员的信息，时间复杂度基本满足O(1)。如果借助这些球员来帮助记忆，效率可能会提高不少。这里必须强调的是，进行本次记忆尝试需要对采用的球员做到充分熟悉，至少看到名字能想到脸，看到脸能立马想到名字或者相关事迹，再就是构建模型的时候，采用第一时间联想到的事务关系。</p>
+<p>话不多说，下面就构建对应模型。</p>
+<h2 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h2><p>世界杯技术含量一般被认为达不到欧冠的水准，参与的球队也是参差不齐。本人选取了三支球队来进行实验，它们分别是德国队、西班牙队和巴西队，选取这三支的原因很简单，它们每个队的绝大部分球员我都熟稔于心，下面先构建“德国队模型”。</p>
+<h3 id="德国队模型"><a href="#德国队模型" class="headerlink" title="德国队模型"></a>德国队模型</h3><p>这里选取了十一名球员，守门员有两人，没有按照一支球队的正常结构来遴选，这也是因为本人选取球员首先要满足的条件就是对这个球员是要做到充分熟悉。</p>
+<ul>
+<li><p>戈麦斯  <code>x</code>：剪切当前光标的字符</p>
+<pre><code>老实说戈麦斯已经淡出本人视野很长时间了(x)，但是并不代表他会被人遗忘，世界杯带上他可能是因为现在德国确实缺少这样的中锋，另一方面他所具有的大赛经验也能在关键时候帮助到球队，x的有未知的意涵，代表了他就是球队里那个熟悉的陌生人；
+</code></pre></li>
+<li><p>罗伊斯  <code>dd</code>：剪切当前光标所在行</p>
+<pre><code>dd这个命令似乎配上乌姆蒂蒂更合适？不存在的，罗伊斯长着一副娃娃脸，在德国队的前锋中算是小个的了，给人小弟弟般的形象也是情理之中，罗伊斯的进攻还是很犀利的，横扫后卫线有没有？dd整条后卫线的事情时常发生；
+</code></pre></li>
+<li><p>穆勒  <code>P/p</code>：光标前粘贴/光标后粘贴(大的总在前)</p>
+<pre><code>穆勒在坊间被称作“二娃”，这个外号似乎比p孩来得更幼稚，p这个命令就你了，粘贴(p)在后卫身边，常常销魂般的被后卫挤倒，点球！！！！你不是一个人在战斗；
+</code></pre></li>
+</ul>
+<ul>
+<li><p>京多安  <code>a</code>：光标后插入字符</p>
+<pre><code>京多安是那种，只要后卫线一不留神漏出空档，他就能插入(a)的球员，这个赛季在俱乐部又多次高光时刻，德国队前场需要这样的小快灵球员；
+</code></pre></li>
+<li><p>厄齐尔  <code>O/o</code>：当前行前插入一行/当前行后插入一行</p>
+<pre><code>有人盯着你的球技，有人盯着你的眼睛...和京多安祖籍都来自土耳其，两人组成OA组合，厄齐尔通过传球将对方后场撕开一排排空档(o)，名副其实的德国队前场发动机；
+</code></pre></li>
+<li><p>赫迪拉  <code>0</code>：移动到行首</p>
+<pre><code>外号脸哥的赫迪拉，自然需要0这样的命令来搭配，有脸有首(0)，行业翘楚；
+</code></pre></li>
+<li><p>克罗斯  <code>$</code>：移动到行尾</p>
+<pre><code>克罗斯应该是德国国家队里奖金拿到手软的那个人吧，刚刚随皇马拿到了欧冠冠军，这几年不知道拿了多少冠军，给你个$可不要太骄傲。小组赛第二场最后时刻绝杀，真正的大心脏，走在最后压轴($)的球员；
+</code></pre></li>
+</ul>
+<ul>
+<li><p>博阿滕  <code>^</code>：移动到行内第一个非空白字符</p>
+<pre><code>博阿滕的发型真的像极了^这个符号，行内第一个非空白字符(^)，脸哥背后的屏障；
+</code></pre></li>
+<li><p>胡梅尔斯  <code>g_</code>：移动到行内最后一个非空白字符</p>
+<pre><code>一副大哥哥(g_)的样子，行内最后一个非空白字符(g_)，协防着克罗斯；
+</code></pre></li>
+</ul>
+<ul>
+<li><p>诺伊尔  <code>/pattern(配合n)</code>：搜索pattern</p>
+<pre><code>诺伊尔的大脚就是一个搜索器(/pattern)，每次都能找到前场不停挥手的二娃；
+</code></pre></li>
+<li><p>特尔施特根  <code>yy</code>：复制当前行</p>
+<pre><code>特尔施特根是我见过好胜心最强的守门员了，刚到的时候在巴萨打替补(但是是欧冠主力门将)，就暗暗表达想踢全勤主力，世界杯之前对诺伊尔伤愈复出就踢主力门将颇有想法，私底下没少yy自己是德国第一门将吧，有上进心的球员都是好榜样！希望他以后复制(yy)德国门将一贯优良的表现；
+</code></pre></li>
+</ul>
+<p>十一个命令就这样解析完了，似乎也不是很难，而且这个构建的过程也没有花费太长时间，</p>
+<h3 id="西班牙队模型"><a href="#西班牙队模型" class="headerlink" title="西班牙队模型"></a>西班牙队模型</h3><ul>
+<li><p>迭戈科斯塔  <code>N command</code>：重复某个命令N次</p>
+<pre><code>迭戈科斯塔外号盛世美颜，一直觉得这个外号非常霸气。给盛世美颜搭配这个命令没有什么大的逻辑，就是认准了美颜足够霸气，命令足够强大，不需要讲额外的大道理；
+</code></pre></li>
+<li><p>伊斯科  <code>gg</code>：到第一行</p>
+<pre><code>在皇马人人都要守法，长传找前排(gg)C罗啊，这个命令够直接；
+</code></pre></li>
+<li><p>伊涅斯塔  <code>*</code>：匹配光标当前所在单词，移动光标到下一个</p>
+<pre><code>Tiki-taka讲究传控，将球短传给下一个相同风格(*)的球员；
+</code></pre></li>
+<li><p>席尔瓦  <code>#</code>：匹配光标当前所在单词，移动光标到上一个</p>
+<pre><code>席尔瓦也是注重短传渗透的球员，接到球会给上一个相同风格的球员一个大拇指；
+</code></pre></li>
+<li><p>蒂亚戈  <code>%</code>：光标移动到匹配括号</p>
+<pre><code>能力非常强，我非常喜欢的球员，但比起前辈还稍显稚嫩，匹配括号(%)吧；
+</code></pre></li>
+<li><p>科克  <code>.</code>：重复上一个命令</p>
+<pre><code>和美颜都隶属马德里竞技队，工兵型球员，严格执行教练上一条战术命令(.)，一个`.`诠释了这个球员的踢球特点；
+</code></pre></li>
+<li><p>布斯克茨  <code>G</code>：到最后一行</p>
+<pre><code>巴萨球员和皇马球员就像是正负的两极，伊斯科爱前场找C罗，布斯克茨爱回传门将(G)；
+</code></pre></li>
+<li><p>拉莫斯  <code>w</code>：到下一个单词的开头</p>
+<pre><code>拉莫斯的头球确实是好，以至于到下一个单词(w)也是他开头；
+</code></pre></li>
+<li><p>皮克  <code>e</code>：到下一个单词的结尾</p>
+<pre><code>皮主席说，拉莫斯啊，你开头那我结尾(e)，我们组成we组合，我们(we)都是一一个球队，我们要相亲相爱；
+</code></pre></li>
+<li><p>阿尔巴  <code>cw(dw)</code>：从光标位置开始，修改单词</p>
+<pre><code>见过阿尔巴长途奔袭截断(cw)对方前锋的球么？铲(c)完(w)会露出鼹鼠般的微笑；
+</code></pre></li>
+<li><p>德赫亚  <code>:N</code>：跳转到第N行</p>
+<pre><code>不止诺伊尔会踢大脚啊，德赫亚也会啊，你说你要踢到哪一排(:N)去，他保准差不离；
+</code></pre></li>
+</ul>
+<p>西班牙的球员也已经解析完毕，下面赶快去领略花哨的桑巴足球吧。</p>
+<h3 id="巴西队模型"><a href="#巴西队模型" class="headerlink" title="巴西队模型"></a>巴西队模型</h3><p>这一小节会涉及两个花哨的技巧，我将它们分别赋予内马尔和库蒂尼奥，他们也是巴西队最重要的两名球员，</p>
+<ul>
+<li>内马尔  <code>&lt;C-v&gt; &lt;C-d&gt;/k I/A [ESC]</code>：块操作<pre><code>块操作其实也是一套“组合拳”，下面示例了一个简单的例子，实现了在圈选的块区域后面添加test01。具体命令是这样的：首先&lt;C-v&gt;，然后hjkl选取区域，接着传给后排插入的米兰达(A/I)，让他完成最后的动作；
+</code></pre></li>
+</ul>
+<!-- [![asciicast](https://asciinema.org/a/vvIoLBukmETz5JWH13U4Cdn7c.png)](https://asciinema.org/a/vvIoLBukmETz5JWH13U4Cdn7c) -->
+<center><script type="text/javascript" src="https://asciinema.org/a/vvIoLBukmETz5JWH13U4Cdn7c.js" id="asciicast-vvIoLBukmETz5JWH13U4Cdn7c" async></script></center>
+
+<ul>
+<li><p>威廉  <code>fx</code>：当前行中，移动到字符x(可选)下次出现的位置</p>
+<pre><code>威廉不仅是一匹快马，还有一脚远射的能力，下一次射门能迅速将球轰向相同(fx)的地方(威廉的远射有一种魔力，那就是每次都是相同角度相同发力相同打到门柱...)
+</code></pre></li>
+<li><p>道格拉斯科斯塔  tx：在当前行中，移动到字符x(可选)前一个字符</p>
+<pre><code>和威廉一样，跑动非常积极，出现在威廉炮轰前一个位置(tx)；
+</code></pre></li>
+<li><p>库蒂尼奥  <code>&lt;action&gt;a&lt;object&gt; 、 &lt;action&gt;i&lt;object&gt;</code>：区域选择(vaw、vi[、vw、vb)</p>
+<pre><code>区域选择可以很方便的对某些范围内的字符串进行操作，比如下面示例中，使用了`v2i[`获取最外层中括号内的内容；
+</code></pre></li>
+</ul>
+<center><script type="text/javascript" src="https://asciinema.org/a/XIGQBKTncY8fzXDcJ1SRqdpdp.js" id="asciicast-XIGQBKTncY8fzXDcJ1SRqdpdp" async></script></center>
+
+<!-- [![asciicast](https://asciinema.org/a/XIGQBKTncY8fzXDcJ1SRqdpdp.png)](https://asciinema.org/a/XIGQBKTncY8fzXDcJ1SRqdpdp) -->
+<ul>
+<li><p>保利尼奥  <code>b</code>：移动到上一个单词的开头</p>
+<pre><code>中超的骄傲，巴萨球员再一次和皇马球员打了个对立面，拉莫斯是下一个单词的开头，保利尼奥是上一个单词的开头(b)，让我们记住：b字开头，保利尼奥；
+</code></pre></li>
+<li><p>费尔南迪尼奥  <code>J</code>： 把后续行连接起来</p>
+<pre><code>一个后场的组织者，连接器(J)，很好的把后场串联起来；
+</code></pre></li>
+<li><p>米兰达  <code>A/I</code>：从行尾开始插入字符/从行首开始插入字符</p>
+<pre><code>我认识的米兰达永远是马竞那个时期的米兰达，长相不输马云，马云是ET，你是AI人，米兰达作为后卫在对方禁区插上头球在本方禁区插入补位(A/I)还是很给力的；
+</code></pre></li>
+<li><p>蒂亚戈席尔瓦  <code>xp</code>：当前字符右移</p>
+<pre><code>xp本是组合命令，在这里不应单独列出，但是xp很好的诠释了一个后卫的职责，那就是从前绕到前锋后面进行断抢；
+</code></pre></li>
+<li><p>费利佩  <code>=</code>：一种自动缩进</p>
+<pre><code>费利佩是我见过最坚强的球员，他在球场多次断腿，但每次一次的等待(＝)后，都能见证他重回球场，他的收缩防守也是一个特点，我很佩服这样的球员；
+</code></pre></li>
+<li><p>马塞洛  <code>&lt;&gt;</code>：左右缩进</p>
+<pre><code>还用介绍么？全场缩进防守又飞奔助攻啦(&lt;&gt;)，太恐怖啦；
+</code></pre></li>
+<li><p>达尼洛  <code>r</code>：替换当前字符</p>
+<pre><code>心爱的阿尔维斯受伤了，达尼洛替换掉(r)了阿尔维斯；
+</code></pre></li>
+</ul>
+<p>到这里巴西队的模型也已经建构完成。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>整个记忆的过程其实是非常轻松的，因为Vim常用命令并不是很多，只采用了三支有代表性的足球队，当然，Vim的强大还在于它命令的组合方式，比如%s/[被替换的部分]/[替换的部分]/g、yaw、daw等等，但这些组合也是基于前文给出的基本命令，需要在实战中慢慢掌握摸索；还有要说明的是，本篇小文重点在于识记，没有介绍宏录制(比本操作：@q[指定一个键] [具体操作] esc q)以及分屏(split)等功能，这些功能不便于利用文中介绍的方法记忆，而是需要不断的练习；一些最最基础的命令比如hjkl、:wq、:q!，也没有罗列，因为本就很熟悉，大脑查询它们已经可以做到时间复杂度O(1)了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>录屏采用asciinema，相关命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> brew install asciinema</div><div class="line"><span class="meta">$</span> asciinema rec</div></pre></td></tr></table></figure>
+<p><a href="https://vim.rtorr.com/lang/zh_cn/" target="_blank" rel="external">Vim Cheat Sheet</a></p>
+<p><a href="https://coolshell.cn/articles/5426.html" target="_blank" rel="external">简明VIM练级攻略</a></p>
+<p><a href="https://www.howtoing.com/reasons-to-learn-vi-vim-editor-in-linux" target="_blank" rel="external">为什么你应该在Linux中使用Vi / Vim文本编辑器的10个理由</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/28423868" target="_blank" rel="external">教你使用asciinema录制命令行操作</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/06/22/Learning_Vim/" title="收看世界杯并快记常用Vim命令">2018/06/22/Learning_Vim/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vim/" rel="tag"># Vim</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/21/Java8_FuncPro03/" rel="next" title="学习Java函数式编程(三)：收集器入门">
+                <i class="fa fa-chevron-left"></i> 学习Java函数式编程(三)：收集器入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/26/Java8_FuncPro04/" rel="prev" title="学习Java函数式编程(四)：使用Lambda重构代码">
+                学习Java函数式编程(四)：使用Lambda重构代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在之前"><span class="nav-number">1.</span> <span class="nav-text">写在之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建模"><span class="nav-number">2.</span> <span class="nav-text">建模</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#德国队模型"><span class="nav-number">2.1.</span> <span class="nav-text">德国队模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#西班牙队模型"><span class="nav-number">2.2.</span> <span class="nav-text">西班牙队模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#巴西队模型"><span class="nav-number">2.3.</span> <span class="nav-text">巴西队模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

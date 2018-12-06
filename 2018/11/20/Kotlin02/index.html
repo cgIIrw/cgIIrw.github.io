@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kotlin,重构,持续更新," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
+<meta name="keywords" content="Kotlin,重构,持续更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一些Java场景在Kotlin下的解决之道">
+<meta property="og:url" content="https://cgiirw.github.io/2018/11/20/Kotlin02/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
+<meta property="og:updated_time" content="2018-12-01T03:47:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一些Java场景在Kotlin下的解决之道">
+<meta name="twitter:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/11/20/Kotlin02/"/>
+
+
+
+
+
+  <title>一些Java场景在Kotlin下的解决之道 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/11/20/Kotlin02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一些Java场景在Kotlin下的解决之道</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T21:10:11+08:00">
+                2018-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">Kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/20/Kotlin02/" class="leancloud_visitors" data-flag-title="一些Java场景在Kotlin下的解决之道">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,282
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。</p>
+<a id="more"></a>
+<h2 id="Java静态块改写"><a href="#Java静态块改写" class="headerlink" title="Java静态块改写"></a>Java静态块改写</h2><p>Kotlin中没有静态的概念，可以使用伴生对象来实现。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticDemo</span> </span>&#123;</div><div class="line">    companion object &#123;</div><div class="line">        var i: Int = <span class="number">3</span></div><div class="line">        var j: Int = <span class="number">7</span></div><div class="line">        init &#123;</div><div class="line">            j = <span class="number">4</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对其使用javap反编译，摘取其中static{}部分：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">static &#123;&#125;;</div><div class="line">  Code:</div><div class="line">     0: new           #42                 // class kotlindemo01/StaticDemo$Companion</div><div class="line">     3: dup</div><div class="line">     4: aconst_null</div><div class="line">     5: invokespecial #45                 // Method kotlindemo01/StaticDemo$Companion."&lt;init&gt;":(Lkotlin/jvm/internal/DefaultConstructorMarker;)V</div><div class="line">     8: putstatic     #47                 // Field Companion:Lkotlindemo01/StaticDemo$Companion;</div><div class="line">    11: iconst_3</div><div class="line">    12: putstatic     #20                 // Field i:I</div><div class="line">    15: bipush        7</div><div class="line">    17: putstatic     #26                 // Field j:I</div><div class="line">    20: iconst_4</div><div class="line">    21: putstatic     #26                 // Field j:I</div><div class="line">    24: return</div></pre></td></tr></table></figure>
+<p>内部会创建静态字段i、j以及指向内部类对象的静态引用(public static final kotlindemo01.StaticDemo$Companion Companion)。Kotlin的init{}相当于Java的Static{}。</p>
+<p>在上面的例子中，StaticDemo可以直接调用i或j属性，和Java不一样的是，StaticDemo对象并不能调用i或j的属性。在main方法中执行StaticDemo.i语句，反编译有：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static final void main(java.lang.String[]);</div><div class="line">   Code:</div><div class="line">      0: aload_0</div><div class="line">      1: ldc           #9                  // String args</div><div class="line">      3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkParameterIsNotNull:(Ljava/lang/Object;Ljava/lang/String;)V</div><div class="line">      6: getstatic     #21                 // Field kotlindemo01/StaticDemo.Companion:Lkotlindemo01/StaticDemo$Companion;</div><div class="line">      9: invokevirtual #27                 // Method kotlindemo01/StaticDemo$Companion.getI:()I</div><div class="line">     12: pop</div><div class="line">     13: return</div></pre></td></tr></table></figure>
+<p>可见StaticDemo.i会被编译器编译为内部类的实例调用后者的getI方法(结合后文另一种调用方式解释了为什么在Java中需要写全为StaticDemo.Companion.j，Java的编译器不会编译出Kotlin编译器的结果)，反编译该内部类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">public final class kotlindemo01.StaticDemo$Companion &#123;</div><div class="line">  public final int getI();</div><div class="line">    Code:</div><div class="line">       0: invokestatic  #11                 // Method kotlindemo01/StaticDemo.access$getI$cp:()I</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public final void setI(int);</div><div class="line">    Code:</div><div class="line">       0: iload_1</div><div class="line">       1: invokestatic  #18                 // Method kotlindemo01/StaticDemo.access$setI$cp:(I)V</div><div class="line">       4: return</div><div class="line"></div><div class="line">  public final int getJ();</div><div class="line">    Code:</div><div class="line">       0: invokestatic  #24                 // Method kotlindemo01/StaticDemo.access$getJ$cp:()I</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public final void setJ(int);</div><div class="line">    Code:</div><div class="line">       0: iload_1</div><div class="line">       1: invokestatic  #28                 // Method kotlindemo01/StaticDemo.access$setJ$cp:(I)V</div><div class="line">       4: return</div><div class="line"></div><div class="line">  public kotlindemo01.StaticDemo$Companion(kotlin.jvm.internal.DefaultConstructorMarker);</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: invokespecial #34                 // Method "&lt;init&gt;":()V</div><div class="line">       4: return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>每一个普通方法调用的又是StaticDemo下的kotlindemo01/StaticDemo.access$getI$cp等静态方法。这也解释了为什么StaticDemo.Companion.j也可以运行的原因。</p>
+<p>通过反编译还可以了解的是：companion object括号内声明的属性，是属于StaticDemo的字段(kotlindemo01/StaticDemo.i:I)，而且是静态字段。</p>
+<p>使用@JvmStatic可以将半生对象中的字段转化为纯Java中的静态字段。</p>
+<h2 id="避免双感叹号使用"><a href="#避免双感叹号使用" class="headerlink" title="避免双感叹号使用"></a>避免双感叹号使用</h2><p>在改写Java代码的时候，最常遇见的问题是IDE提示“Only safe(?.) or non-null asserted(!!.)…”，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotNullDemo</span> </span>&#123;</div><div class="line"></div><div class="line">    var b: B? = <span class="function"><span class="keyword">null</span></span></div><div class="line">    fun <span class="title">testMethod</span><span class="params">()</span> &#123;</div><div class="line">        var s = b.pr <span class="comment">// 点号处报错</span></div><div class="line">        print(s)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</div><div class="line">    var pr:Int = <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">    var n = NotNullDemo()</div><div class="line">    n.testMethod()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时采用双感叹号会立马解决问题，但是本人认为采用了这种方法后和在Java中使用null指针别无二致了，因为一旦方法接收者或者字段持有对象等为空就会抛出异常。另外的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var s = b?.let &#123; it.pr &#125;</div><div class="line"><span class="comment">// 或者：  var s = b?.pr</span></div><div class="line"><span class="comment">// 如果希望返回指定值： var s = b?.pr?: 2</span></div></pre></td></tr></table></figure>
+<p>注释中<code>?:</code>是猫王操作符，用法类似三元运算符。</p>
+<h2 id="Kotlin之迭代"><a href="#Kotlin之迭代" class="headerlink" title="Kotlin之迭代"></a>Kotlin之迭代</h2><p>通常一般性的迭代可以有两种等价的方式，下面用一个小例子说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">    var l = listOf&lt;Int&gt;(<span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>)</div><div class="line">    <span class="keyword">for</span> (i in l.iterator())</div><div class="line">        print(<span class="string">"$i "</span>)</div><div class="line">    println()</div><div class="line"></div><div class="line">    var iter = l.iterator()</div><div class="line">    <span class="keyword">while</span> (iter.hasNext()) &#123;</div><div class="line">        var e = iter.next()</div><div class="line">        print(<span class="string">"$e "</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Java中对集合进行迭代时不能进行remove等操作，在Kotlin中分可变集合和不可变集合，对不可变集合可以进行相应的更改操作，通常后者类名或接口名的前缀会多出“Mutable”字样，表示可变。</p>
+<p>在写代码的过程中，forEach可能嵌套多层，这个时候可能出现it重复的问题，可以更改一层的it：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">l?.let &#123; it.forEach &#123;e -&gt; print(<span class="string">"$e "</span>)&#125; &#125;</div></pre></td></tr></table></figure>
+<h2 id="数组的运用"><a href="#数组的运用" class="headerlink" title="数组的运用"></a>数组的运用</h2><p>用一组代码比较Java和Kotlin：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int[] intArr = &#123;<span class="number">1</span>, <span class="number">2</span>&#125; <span class="comment">// var intArr = arrayOf(1, 2)</span></div><div class="line">int[] intArr01 = <span class="keyword">new</span> int[<span class="number">3</span>] <span class="comment">// var intArr01 = InitArray(3)</span></div><div class="line"><span class="built_in">String</span>[] intArr02 = <span class="keyword">new</span> <span class="built_in">String</span>[<span class="number">4</span>]      <span class="comment">// var arr04 = arrayOfNulls&lt;String&gt;(4)</span></div></pre></td></tr></table></figure>
+<p>采用Array(3)编译不会通过，基本类型的Array可以采用<code>类型名</code>加<code>Array</code>加<code>数组范围</code>的初始化形式(例如InitArray(3))，非基本类型可以使用arrayOfNulls。</p>
+<p>Array初始化的基本方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var arr = Array(<span class="number">3</span>) &#123;Array(<span class="number">3</span>, &#123;it -&gt; it.inc() - <span class="number">1</span>&#125;) &#125;</div></pre></td></tr></table></figure>
+<p>相当于对一个[0, 1, 2]数组的每个元素进行Lambda表达式的处理，上述代码是支持Lambda柯里化的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var arr = Array(<span class="number">3</span>) &#123; Array(<span class="number">3</span>) &#123;it -&gt; it.inc() - <span class="number">1</span>&#125; &#125;</div></pre></td></tr></table></figure>
+<p>当然参数也可以传入函数变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var f = (fun(x: Int): Int &#123;</div><div class="line">    <span class="keyword">return</span> x</div><div class="line">&#125;)</div><div class="line"></div><div class="line">var arr02 = Array(<span class="number">3</span>, f)</div></pre></td></tr></table></figure>
+<p>创建空数组：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> empty = emptyArray&lt;Int&gt;()</div></pre></td></tr></table></figure>
+<p>必须配置泛型。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本人在重构Java代码的时候遇到了一些常见的代码问题，以上是解决这些问题后的总结，后续还会适时更新。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.oracle.com/technetwork/cn/articles/java/breslav-1932170-zhs.html" target="_blank" rel="external">Kotlin的诞生：专访JetBrains的Andrey Breslav</a></p>
+<p><a href="https://stackoverflow.com/questions/29268526/how-to-overcome-same-jvm-signature-error-when-implementing-a-java-interface" target="_blank" rel="external">How to overcome “same JVM signature” error when implementing a Java interface?</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/11/20/Kotlin02/" title="一些Java场景在Kotlin下的解决之道">2018/11/20/Kotlin02/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          
+            <a href="/tags/重构/" rel="tag"># 重构</a>
+          
+            <a href="/tags/持续更新/" rel="tag"># 持续更新</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/Scala04/" rel="next" title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
+                <i class="fa fa-chevron-left"></i> Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/25/Kotlin03/" rel="prev" title="设计模式之Kotlin实现(上)">
+                设计模式之Kotlin实现(上) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java静态块改写"><span class="nav-number">1.</span> <span class="nav-text">Java静态块改写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免双感叹号使用"><span class="nav-number">2.</span> <span class="nav-text">避免双感叹号使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin之迭代"><span class="nav-number">3.</span> <span class="nav-text">Kotlin之迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的运用"><span class="nav-number">4.</span> <span class="nav-text">数组的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

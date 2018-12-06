@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google Java编程风格规范">
+<meta property="og:url" content="https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。">
+<meta property="og:updated_time" content="2018-10-31T01:15:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google Java编程风格规范">
+<meta name="twitter:description" content="编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/"/>
+
+
+
+
+
+  <title>Google Java编程风格规范 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Google Java编程风格规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-07-20T23:33:41+08:00">
+                2014-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/文档/" itemprop="url" rel="index">
+                    <span itemprop="name">文档</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2014/07/20/Google_Java_styleguide/" class="leancloud_visitors" data-flag-title="Google Java编程风格规范">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,633
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。<br><a id="more"></a></p>
+<h1 id="源文件基础"><a href="#源文件基础" class="headerlink" title="源文件基础"></a>源文件基础</h1><h2 id="文件名"><a href="#文件名" class="headerlink" title="文件名"></a>文件名</h2><p>文件名以最顶层的类名来命名，大小写敏感，文件扩展名为<em>.java</em>.</p>
+<h2 id="文件编码"><a href="#文件编码" class="headerlink" title="文件编码"></a>文件编码</h2><p>源文件编码的格式采用UTF-8.</p>
+<h2 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h2><h3 id="空白字符"><a href="#空白字符" class="headerlink" title="空白字符"></a>空白字符</h3><p>除了行结束符序列，ASCII水平空格字符（0x20,即空格）是源文件中唯一允许出现的空白字符。也就是说：</p>
+<ol>
+<li>其它情况下出现的空白字符都要进行转义；</li>
+<li>制表符不用于缩进；<h3 id="特殊转义序列"><a href="#特殊转义序列" class="headerlink" title="特殊转义序列"></a>特殊转义序列</h3>对于具有特殊转义序列的任意字符（\b,\t,\n,\f,\r,\”,\’以及\），我们使用它的转义序列，而不是相应的八进制（比如\012）或Unicode（比如\u000a)转义。<h3 id="非ASCII字符"><a href="#非ASCII字符" class="headerlink" title="非ASCII字符"></a>非ASCII字符</h3>对于剩余的非ASCII字符，是使用实际的Unicode字符（比如∞），还是使用等价的Unicode转义符（比如\u221e），取决于哪个能让代码更易于阅读和理解。</li>
+</ol>
+<blockquote>
+<p>Tip:<u>在使用Unicode转义符或是一些实际的Unicode字符时，建议做些注释给出解释，这有助于别人阅读和理解。</u></p>
+</blockquote>
+<h1 id="源文件结构"><a href="#源文件结构" class="headerlink" title="源文件结构"></a>源文件结构</h1><p>按顺序地，一个源文件包含：</p>
+<ol>
+<li>许可证和版权信息（如有需要）</li>
+<li>package语句</li>
+<li>import语句</li>
+<li>一个顶级类（只有一个）</li>
+</ol>
+<p>以上每个部分用一个空行隔开。</p>
+<h2 id="许可证和版权信息"><a href="#许可证和版权信息" class="headerlink" title="许可证和版权信息"></a>许可证和版权信息</h2><p>如果一个文件包含许可证和版权信息，那么它应该放在文件的最前面。</p>
+<h2 id="package语句"><a href="#package语句" class="headerlink" title="package语句"></a>package语句</h2><p>package语句不换行，列限制（4.4节）并不适用于package语句。（即package语句写在一行里）</p>
+<h2 id="import语句"><a href="#import语句" class="headerlink" title="import语句"></a>import语句</h2><h3 id="import不要使用通配符"><a href="#import不要使用通配符" class="headerlink" title="import不要使用通配符"></a>import不要使用通配符</h3><p>即，不要出现类似这样的import语句：<em>import java.util.* ;</em></p>
+<h3 id="不要换行"><a href="#不要换行" class="headerlink" title="不要换行"></a>不要换行</h3><p>import语句不换行，列限制（4.4节）并不适用于import语句。（即每个import语句独立成行）</p>
+<h3 id="顺序和间距"><a href="#顺序和间距" class="headerlink" title="顺序和间距"></a>顺序和间距</h3><p>import语句可以分为以下几组，按照下面的顺序，组各由一个空行分隔：</p>
+<ol>
+<li>所有的静态导入独立成组</li>
+<li>com.google导入（源文件在com.google包下）</li>
+<li>第三方的包，每个顶级包一组，字典序。例如：android,com,junit,org,sun</li>
+<li>java包导入</li>
+<li>javax导入</li>
+</ol>
+<p>组内不空行，按字典排序。</p>
+<h2 id="类声明"><a href="#类声明" class="headerlink" title="类声明"></a>类声明</h2><h3 id="只有一个顶级类声明"><a href="#只有一个顶级类声明" class="headerlink" title="只有一个顶级类声明"></a>只有一个顶级类声明</h3><p>每个顶级类都在一个和它同名的源文件中（当然，包含.java后缀）</p>
+<p>例外，package-info.java,该文件中可没有package-info类。</p>
+<h3 id="类成员顺序"><a href="#类成员顺序" class="headerlink" title="类成员顺序"></a>类成员顺序</h3><p>不存在唯一的通用法则，每种类以某种逻辑排列它的成员，维护者应该能解释这种排列逻辑。比如新的方法不应该总是添加在类的最后面，因为这是按照时间顺序而不是某种逻辑来排列的。</p>
+<blockquote>
+<p>tip:<u>永不分离的重载：当一个类有多个构造函数，或者是多个同名方法，它们应该按照顺序出现在一起，中间不要放进其它函数、方法。</u></p>
+</blockquote>
+<h1 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h1><p>术语说明：块状结构指的是一个类、方法或构造函数的主体。需要注意的是，数组初始化中的初始值可被选择性的视为块状结构。</p>
+<h2 id="大括号"><a href="#大括号" class="headerlink" title="大括号"></a>大括号</h2><h3 id="使用大括号（即便是可选的）"><a href="#使用大括号（即便是可选的）" class="headerlink" title="使用大括号（即便是可选的）"></a>使用大括号（即便是可选的）</h3><p>大括号与<em>if、else、for、do、while</em>语句一起使用，即使只有一条语句（或是空），也应该把大括号写上。</p>
+<h3 id="非空块：K-amp-R风格"><a href="#非空块：K-amp-R风格" class="headerlink" title="非空块：K&amp;R风格"></a>非空块：K&amp;R风格</h3><p>对于非空块和块状结构，大括号遵循Kernighan和Ritche风格：</p>
+<ul>
+<li>左大括号前不换行</li>
+<li>左大括号后换行</li>
+<li>右大括号前换行</li>
+<li>如果右大括号是一个语句、函数体或类的终止，则右大括号后换行；否则不换行。例如，如果右大括号后面是else或逗号，则不换行。</li>
+</ul>
+<p>示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="keyword">new</span> MyClass() &#123;</div><div class="line">  <span class="keyword">if</span> (condition()) &#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      something();</div><div class="line">    &#125; <span class="keyword">catch</span> (ProblemException e) &#123;</div><div class="line">      recover();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>后续给出了enum类的一些例外。</p>
+<h3 id="空块：可以用简洁版本"><a href="#空块：可以用简洁版本" class="headerlink" title="空块：可以用简洁版本"></a>空块：可以用简洁版本</h3><p>一个空的块状结构里什么也不包含，大括号可以简洁地写成<em>{}</em>，不需要换行。例外：如果它是一个多块语句的一部分（if/else或try/catch/finally），即使大括号内没内容，右大括号也要换行。</p>
+<p>示例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">doNothing</span><span class="params">()</span> </span>&#123;&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="块缩进：2个空格"><a href="#块缩进：2个空格" class="headerlink" title="块缩进：2个空格"></a>块缩进：2个空格</h2><p>每当开始新的块，缩进增加<u>2个空格</u>，当块结束时，缩进返回先前的缩进级别，缩进级别适用于代码和注释。</p>
+<h2 id="一行一个语句"><a href="#一行一个语句" class="headerlink" title="一行一个语句"></a>一行一个语句</h2><p>每个语句后要换行。</p>
+<h2 id="列限制：80或100"><a href="#列限制：80或100" class="headerlink" title="列限制：80或100"></a>列限制：80或100</h2><p>一个项目可以选择一行80个字符或100个字符的列限制，除了下述例外，任何一行如果超过这个字符数限制，必须自动换行。</p>
+<p>例外：</p>
+<ol>
+<li>不可能满足列限制的行（例如Javadoc中的一个厂URL，或是一个厂的JSNI方法参考）；</li>
+<li>package和import语句；</li>
+<li>注释中那些可能被剪切并粘贴到shell中的命令行；</li>
+</ol>
+<h2 id="自动换行"><a href="#自动换行" class="headerlink" title="自动换行"></a>自动换行</h2><p>术语说明：line-wrapping指的是一行代码为了避免超出列限制而被分为多行。</p>
+<p>很多时候，对于一段代码会有好几种有效地自动换行方式。</p>
+<blockquote>
+<p>Tip:<u>提取方法或局部变量可以在不换行的情况下解决代码过长的问题（合理缩短命名长度）。</u></p>
+</blockquote>
+<h3 id="从哪断开"><a href="#从哪断开" class="headerlink" title="从哪断开"></a>从哪断开</h3><p>自动换行的基本准则：更倾向于在更高的语法级别处断开。</p>
+<ol>
+<li>在<code>非赋值运算符</code>处断开：在该符号前断开（比如+，它将位于下一行）。这条规则也适用于以下“类运算符”符号，点分隔符（.），类型界限中的&amp;（<t extends="" foo="" &="" bar="">），catch块中的管道符号（catch (FooException | BarException e)；</t></li>
+<li>在<code>赋值运算符</code>处断开：通常做法是在该符号后断开（比如=，它与前面的内容留在同一行）。这条规则也适用于foreach语句中的分号；</li>
+<li>方法名或构造函数名与左括号留在同一行；</li>
+<li>逗号（,）与其前面的内容留在同一行；</li>
+</ol>
+<h3 id="自动换行时缩进至少-4个空格"><a href="#自动换行时缩进至少-4个空格" class="headerlink" title="自动换行时缩进至少+4个空格"></a>自动换行时缩进至少+4个空格</h3><p>自动换行时，第一行后的每一行至少比第一行多缩进4个空格（注意：制表符在前面说过了，制表符不用于缩进）。当存在连续自动换行时，缩进可能会多缩进不只4个空格（语法元素存在多级时）。一般而言，两个连续行使用相同的缩进当且仅当他们开始于同级语法元素。</p>
+<h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><h3 id="垂直空白"><a href="#垂直空白" class="headerlink" title="垂直空白"></a>垂直空白</h3><p>一下情况需要使用一个空行：</p>
+<ol>
+<li>类内连续的成员之间：字段，构造函数，方法，潜入类，静态初始化块，实例初始化块；<ul>
+<li>例外：两个连续的字段之间的空行是可选的，用于字段的空行主要是用来对字段进行逻辑分组。</li>
+</ul>
+</li>
+<li>在函数内，语句的逻辑分组间使用空行；</li>
+<li>类内的第一个成员前或最后一个成员后的空行是可选的（既不鼓励也不反对这样做，视个人喜好而定）；</li>
+<li>满足本规范个其它关于空行的要求。</li>
+</ol>
+<p>多个连续的空行是允许的，但是没必要这么做（也不鼓励这样做）。</p>
+<h3 id="水平空白"><a href="#水平空白" class="headerlink" title="水平空白"></a>水平空白</h3><p>除了语言需求和其它规则，并且除了文字，注释和Javadoc用到单个空格，单个ASCII空格也出现在以下几个地方：</p>
+<ol>
+<li><p>分割任何保留字与紧随其后的左括号（<em>(</em>）（如if、for或catch等）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (; ; ) &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>分割任何保留字与其前面的右大括号（<em>}</em>）（如else,catch）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">      something();</div><div class="line">    &#125; <span class="keyword">catch</span> (ProblemException e) &#123;</div><div class="line">      recover();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在任何大括号前（<em>{</em>）。但是有两个例外：</p>
+<ul>
+<li>@SomeAnnotation({a, b})（不使用空格）</li>
+<li>String[][] x = foo;（大括号间没有空格，见第八条下面的那点）</li>
+</ul>
+</li>
+<li>任何二元或三元运算符的两侧。这也适用于以下“类运算符”符号：<ul>
+<li>类型界限中的&amp;（<t extends="" foo="" &="" bar="">）</t></li>
+<li>catch块中的管道符号|（catch (FooException | BarException e)）</li>
+<li>foreach语句中的分号</li>
+</ul>
+</li>
+<li>在, : ;及右括号（<em>)</em>）后</li>
+<li>如果在一条语句后做注释，则双斜杠两遍都需要空格，可以允许多个空格，但是没有必要</li>
+<li>类型和变量之间，比如：List list</li>
+<li>数组初始化中，大括号内的空格是可选的，即new int[] {5, 6}和new int[] {5, 6 }都是可以的<ul>
+<li>这个规则并不要求或禁止一行的开关或结尾需要额外的空格，只对内部空格做要求</li>
+</ul>
+</li>
+</ol>
+<h3 id="水平对齐：never-required"><a href="#水平对齐：never-required" class="headerlink" title="水平对齐：never required"></a>水平对齐：never required</h3><p>属于说明：水平对齐指的是通过增加可变数量的空格来使某一行的字符与上一行的相应字符对齐。</p>
+<p>这是允许的，但是Google编程风格对此不作要求。</p>
+<blockquote>
+<p>Tip:<u>对齐可增加代码可读性，但它为日后的维护带来问题。考虑未来某个时候，我们需要修改一堆对齐的代码中的一行。这可能导致原本很漂亮的对齐代码变得错位。很可能它会提示你调整周围代码的空白来使这一堆代码重新水平对齐(比如程序员想保持这种水平对齐的风格)，这就会让你做许多的无用功，增加了reviewer的工作并且可能导致更多的合并冲突。</u></p>
+</blockquote>
+<h2 id="用小括号来限定组：推荐"><a href="#用小括号来限定组：推荐" class="headerlink" title="用小括号来限定组：推荐"></a>用小括号来限定组：推荐</h2><p>除非认为去掉小括号不会使代码被误解，或者去掉小括号能让代码更易于阅读，否则我们不应该去掉小括号。没有理由假设读者能记住整个Java运算符优先级表。</p>
+<h2 id="具体结构"><a href="#具体结构" class="headerlink" title="具体结构"></a>具体结构</h2><h3 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h3><p>枚举常量间用逗号隔开，换行可选。</p>
+<p>没有方法和文档的枚举类可写成数组初始化的格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">enum</span> Suit &#123; CLUBS, HEARTS, SPADES, DIAMONDS &#125;</div></pre></td></tr></table></figure>
+<p>由于枚举类也是一个类，因此所有适用于其它类的格式规则也适用于枚举类。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><h4 id="每次只声明一个变量"><a href="#每次只声明一个变量" class="headerlink" title="每次只声明一个变量"></a>每次只声明一个变量</h4><p>不要使用组合声明，比如int a, b;。</p>
+<h4 id="需要时才声明，并尽快进行初始化"><a href="#需要时才声明，并尽快进行初始化" class="headerlink" title="需要时才声明，并尽快进行初始化"></a>需要时才声明，并尽快进行初始化</h4><p>不要在一个代码块的开头把局部变量一次性都声明了(这是c语言的做法)，而是在第一次需要使用它时才声明。 局部变量在声明时最好就进行初始化，或者声明后尽快进行初始化。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="数组初始化：可写成块状结构"><a href="#数组初始化：可写成块状结构" class="headerlink" title="数组初始化：可写成块状结构"></a>数组初始化：可写成块状结构</h4><p>数组初始化可以写成块状结构，比如，下面的写法都是OK的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>,</div><div class="line">  <span class="number">1</span>,</div><div class="line">  <span class="number">2</span>,</div><div class="line">  <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>, <span class="number">1</span>,</div><div class="line">  <span class="number">2</span>, <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[]</div><div class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="非C风格的数组声明"><a href="#非C风格的数组声明" class="headerlink" title="非C风格的数组声明"></a>非C风格的数组声明</h4><p>中括号是类型的一部分：String[] args， 而非String args[]。</p>
+<h3 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a>switch语句</h3><p>术语说明：switch块的大括号内是一个或多个语句组。每个语句组包含一个或多个switch标签(case FOO:或default:)，后面跟着一条或多条语句。</p>
+<h4 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h4><p>与其它块状结构一致，switch块中的内容缩进为2个空格。</p>
+<p>每个switch标签后新起一行，再缩进2个空格，写下一条或多条语句。</p>
+<h4 id="Fall-through-注释"><a href="#Fall-through-注释" class="headerlink" title="Fall-through:注释"></a>Fall-through:注释</h4><p>在一个switch块内，每个语句组要么通过break, continue, return或抛出异常来终止，要么通过一条注释来说明程序将继续执行到下一个语句组，任何能表达这个意思的注释都是OK的(典型的是用// fall through)。这个特殊的注释并不需要在最后一个语句组(一般是default)中出现。示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">switch</span> (input) &#123;</div><div class="line">  <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">  <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">    prepareOneOrTwo();</div><div class="line">    <span class="comment">// fall through</span></div><div class="line">  <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">    handleOneTwoOrThree();</div><div class="line">    <span class="keyword">break</span>;</div><div class="line">  <span class="keyword">default</span>:</div><div class="line">    handleLargeNumber(input);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="default的情况要写出来"><a href="#default的情况要写出来" class="headerlink" title="default的情况要写出来"></a>default的情况要写出来</h4><p>每个switch语句都要包含一个default语句组，即使什么代码都不包含。</p>
+<h3 id="注解（Annotations）"><a href="#注解（Annotations）" class="headerlink" title="注解（Annotations）"></a>注解（Annotations）</h3><p>注解紧跟在文档块后面，应用于类、方法和构造函数，一个注解独占一行。这些换行不属于自动换行，因此缩进级别不变。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getNameIfPresent</span><span class="params">()</span> </span>&#123; ... &#125;</div></pre></td></tr></table></figure></p>
+<p>例外：单个的注解可以和签名的第一行出现在同一行。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123; ... &#125;</div></pre></td></tr></table></figure></p>
+<p>应用于字段的注解紧随文档块出现，应用于字段的多个注解允许与字段出现在同一行。例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Partial</span> <span class="meta">@Mock</span> DataLoader loader;</div></pre></td></tr></table></figure></p>
+<p>参数和局部变量注解没有特定规则。</p>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><h4 id="块注释风格"><a href="#块注释风格" class="headerlink" title="块注释风格"></a>块注释风格</h4><p>块注释与其周围的代码在同一缩进级别，以下注释都是OK的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * This is          // And so           /* Or you can</div><div class="line"> * okay.            // is this.          * even do this. */</div><div class="line"> */</div></pre></td></tr></table></figure></p>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>类和成员的修饰符如果存在，则按Java语言规范中推荐的顺序出现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">protected</span> <span class="keyword">private</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> <span class="keyword">synchronized</span> <span class="keyword">native</span> <span class="keyword">strictfp</span></div></pre></td></tr></table></figure></p>
+<h1 id="命名约定"><a href="#命名约定" class="headerlink" title="命名约定"></a>命名约定</h1><h2 id="对所有标识符都有通用的规则"><a href="#对所有标识符都有通用的规则" class="headerlink" title="对所有标识符都有通用的规则"></a>对所有标识符都有通用的规则</h2><p>标识符只能使用ASCII字母、数字和下划线，字母大小写敏感，因此每一个有效地标识符名称都能匹配正则表达式\w+.</p>
+<p>在Google其它编程语言风格中使用的特殊前缀或后缀，如name_，mName，s_name和kName,在Java编程风格中都不再使用。</p>
+<h2 id="标识符类型的规则"><a href="#标识符类型的规则" class="headerlink" title="标识符类型的规则"></a>标识符类型的规则</h2><h3 id="包名"><a href="#包名" class="headerlink" title="包名"></a>包名</h3><p>包名全部用小写，通过.将各级连在一起，不使用下划线。</p>
+<h3 id="类名"><a href="#类名" class="headerlink" title="类名"></a>类名</h3><p>类型的命名，采用以大写字母开头的大小写字符间隔的方式（UpperCamelCase）。</p>
+<p>class命名一般使用名词或名词短语。interface的命名有时也可以使用形容词或形容词短语。annotation没有明确固定的规范。</p>
+<p>测试类的命名，应该以它所测试的类的名字为开头，并在最后加上Test结尾。例如：HashTest 、 HashIntegrationTest.</p>
+<h3 id="方法名"><a href="#方法名" class="headerlink" title="方法名"></a>方法名</h3><p>类名都以UpperCamelCase风格编写。</p>
+<p>方法名通常是动词或动词短语。</p>
+<p>在JUnit的测试方法中，可以使用下划线，用来区分测试逻辑的名字，经常使用如下的结构，例如：testPop_emptyStack.并不存在唯一正确的方式来命名测试方法。</p>
+<h3 id="常量名"><a href="#常量名" class="headerlink" title="常量名"></a>常量名</h3><p>常量是一个静态成员变量，但不是所有的静态成员变量都是常量。在选择使用常量命名规则给变量命名时，你需要明确这个变量是否是常量。例如，如果这个变量的状态可以发生改变，那么这个变量几乎可以肯定不是常量。只是计划不会发生改变的变量不足以成为一个常量。下面是常量和非常量的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Constants</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> NUMBER = <span class="number">5</span>;</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> ImmutableList&lt;String&gt; NAMES = ImmutableList.of(<span class="string">"Ed"</span>, <span class="string">"Ann"</span>);</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> Joiner COMMA_JOINER = Joiner.on(<span class="string">','</span>);  <span class="comment">// because Joiner is immutable</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> SomeMutableType[] EMPTY_ARRAY = &#123;&#125;;</div><div class="line"><span class="keyword">enum</span> SomeEnum &#123; ENUM_CONSTANT &#125;</div><div class="line"></div><div class="line"><span class="comment">// Not constants</span></div><div class="line"><span class="keyword">static</span> String nonFinal = <span class="string">"non-final"</span>;</div><div class="line"><span class="keyword">final</span> String nonStatic = <span class="string">"non-static"</span>;</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> Set&lt;String&gt; mutableCollection = <span class="keyword">new</span> HashSet&lt;String&gt;();</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> ImmutableSet&lt;SomeMutableType&gt; mutableElements = ImmutableSet.of(mutable);</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> Logger logger = Logger.getLogger(MyClass.getName());</div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> String[] nonEmptyArray = &#123;<span class="string">"these"</span>, <span class="string">"can"</span>, <span class="string">"change"</span>&#125;;</div></pre></td></tr></table></figure>
+<p>这些名词通常是名词短语。</p>
+<h3 id="非常量字段名"><a href="#非常量字段名" class="headerlink" title="非常量字段名"></a>非常量字段名</h3><p>非常量字段名以lowerCamelCase风格编写。</p>
+<p>参数应该避免用单个字符命名。</p>
+<h3 id="局部变量名"><a href="#局部变量名" class="headerlink" title="局部变量名"></a>局部变量名</h3><p>局部变量名以lowerCamelCase风格编写，比起其它类型的名称，局部变量名可以有更为宽松的缩写。</p>
+<p>虽然缩写更宽松，但还是要避免用单字符进行命名，除了临时变量和循环变量。</p>
+<p>即使局部变量是final和不可改变的，也不应该把它示为常量，自然也不能用常量的规则去命名它。</p>
+<h3 id="类型变量名"><a href="#类型变量名" class="headerlink" title="类型变量名"></a>类型变量名</h3><p>类型名有两种命名方式：<br>a、单独一个大写字母，有时后面再跟一个数字。（例如，E、T、X、T2）。<br>b、像一般的class命名一样（见5.2.2节），再在最后接一个大写字母。（例如，RequestT、FooBarT）。</p>
+<h1 id="编程实践"><a href="#编程实践" class="headerlink" title="编程实践"></a>编程实践</h1><h2 id="Override：能用则用"><a href="#Override：能用则用" class="headerlink" title="@Override：能用则用"></a>@Override：能用则用</h2><p>只要是合法的，就要把@Override注解给用上。</p>
+<h2 id="捕获的异常：不能忽视"><a href="#捕获的异常：不能忽视" class="headerlink" title="捕获的异常：不能忽视"></a>捕获的异常：不能忽视</h2><p>对捕获的异常不作响应是极少正确的。如果确实是不需要在catch中做任何响应，需要做注释甲乙说明。</p>
+<p>例外：在测试中，如果一个捕获的异常被命名为expected，则它可以被不加注释地忽略。下面是一种非常常见的情形，用以确保所测试的方法会抛出一个期望中的异常， 因此在这里就没有必要加注释。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">  emptyStack.pop();</div><div class="line">  fail();</div><div class="line">&#125; <span class="keyword">catch</span> (NoSuchElementException expected) &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="静态成员：使用类进行调用"><a href="#静态成员：使用类进行调用" class="headerlink" title="静态成员：使用类进行调用"></a>静态成员：使用类进行调用</h2><p>使用类名调用静态的类成员，而不是具体某个对象或表达式。</p>
+<h2 id="Finalizers-禁用"><a href="#Finalizers-禁用" class="headerlink" title="Finalizers:禁用"></a>Finalizers:禁用</h2><p>极少会去重载Object.finalize.</p>
+<blockquote>
+<p>tip:<u>不要使用finalize。如果你非要使用它，请先仔细阅读和理解Effective Java 第7条款：“Avoid Finalizers”，然后不要使用它。</u></p>
+</blockquote>
+<h1 id="Javadoc"><a href="#Javadoc" class="headerlink" title="Javadoc"></a>Javadoc</h1><h2 id="格式-1"><a href="#格式-1" class="headerlink" title="格式"></a>格式</h2><h3 id="一般形式"><a href="#一般形式" class="headerlink" title="一般形式"></a>一般形式</h3><p>Javadoc块额基本格式如下所示：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Multiple lines of Javadoc text are written here,</div><div class="line"> * wrapped normally...</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">method</span><span class="params">(String p1)</span> </span>&#123; ... &#125;</div></pre></td></tr></table></figure></p>
+<p>或者是以下单行形式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** An especially short bit of Javadoc. */</span></div></pre></td></tr></table></figure></p>
+<p>基本格式总是OK的。当整个Javadoc块能容纳于一行时(且没有Javadoc标记@XXX)，可以使用单行形式。</p>
+<h2 id="哪里需要使用Javadoc"><a href="#哪里需要使用Javadoc" class="headerlink" title="哪里需要使用Javadoc"></a>哪里需要使用Javadoc</h2><p>至少在每个public类及它的每个public和protected成员处使用Javadoc，以下是一些例外：</p>
+<h3 id="例外：不言自明的方法"><a href="#例外：不言自明的方法" class="headerlink" title="例外：不言自明的方法"></a>例外：不言自明的方法</h3><p>对于简单明显的方法如getFoo，Javadoc是可选的(即，是可以不写的)。这种情况下除了写“Returns the foo”，确实也没有什么值得写了。</p>
+<p>单元测试类中的测试方法可能是不言自明的最常见例子了，我们通常可以从这些方法的描述性命名中知道它是干什么的，因此不需要额外的文档说明。</p>
+<blockquote>
+<p>tip:<u>如果有一些相关信息是需要读者了解的，那么以上的例外不应作为忽视这些信息的理由。例如，对于方法名getCanonicalName， 就不应该忽视文档说明，因为读者很可能不知道词语canonical name指的是什么。</u></p>
+</blockquote>
+<h3 id="例外：重载"><a href="#例外：重载" class="headerlink" title="例外：重载"></a>例外：重载</h3><p>如果一个方法重载了超类中的方法，那么Javadoc并非必需的。</p>
+<h3 id="可选的Javadoc"><a href="#可选的Javadoc" class="headerlink" title="可选的Javadoc"></a>可选的Javadoc</h3><p>对于包外不可见的类和方法，如有需要，也是要使用Javadoc的。如果一个注释是用来定义一个类，方法，字段的整体目的或行为，那么这个注释应该写成Javadoc，这样更统一更友好。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="http://google-styleguide.googlecode.com/svn/trunk/javaguide.html" target="_blank" rel="external">英文版</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2014/07/20/Google_Java_styleguide/" title="Google Java编程风格规范">2014/07/20/Google_Java_styleguide/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/06/23/Prototype_Pat/" rel="next" title="原型模式">
+                <i class="fa fa-chevron-left"></i> 原型模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/07/25/Pyenv_Tutorial/" rel="prev" title="pyenv的安装和应用">
+                pyenv的安装和应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#源文件基础"><span class="nav-number">1.</span> <span class="nav-text">源文件基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文件名"><span class="nav-number">1.1.</span> <span class="nav-text">文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件编码"><span class="nav-number">1.2.</span> <span class="nav-text">文件编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特殊字符"><span class="nav-number">1.3.</span> <span class="nav-text">特殊字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#空白字符"><span class="nav-number">1.3.1.</span> <span class="nav-text">空白字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊转义序列"><span class="nav-number">1.3.2.</span> <span class="nav-text">特殊转义序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非ASCII字符"><span class="nav-number">1.3.3.</span> <span class="nav-text">非ASCII字符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源文件结构"><span class="nav-number">2.</span> <span class="nav-text">源文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#许可证和版权信息"><span class="nav-number">2.1.</span> <span class="nav-text">许可证和版权信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#package语句"><span class="nav-number">2.2.</span> <span class="nav-text">package语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import语句"><span class="nav-number">2.3.</span> <span class="nav-text">import语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#import不要使用通配符"><span class="nav-number">2.3.1.</span> <span class="nav-text">import不要使用通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要换行"><span class="nav-number">2.3.2.</span> <span class="nav-text">不要换行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序和间距"><span class="nav-number">2.3.3.</span> <span class="nav-text">顺序和间距</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类声明"><span class="nav-number">2.4.</span> <span class="nav-text">类声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#只有一个顶级类声明"><span class="nav-number">2.4.1.</span> <span class="nav-text">只有一个顶级类声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类成员顺序"><span class="nav-number">2.4.2.</span> <span class="nav-text">类成员顺序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#格式"><span class="nav-number">3.</span> <span class="nav-text">格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大括号"><span class="nav-number">3.1.</span> <span class="nav-text">大括号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用大括号（即便是可选的）"><span class="nav-number">3.1.1.</span> <span class="nav-text">使用大括号（即便是可选的）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非空块：K-amp-R风格"><span class="nav-number">3.1.2.</span> <span class="nav-text">非空块：K&R风格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空块：可以用简洁版本"><span class="nav-number">3.1.3.</span> <span class="nav-text">空块：可以用简洁版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块缩进：2个空格"><span class="nav-number">3.2.</span> <span class="nav-text">块缩进：2个空格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一行一个语句"><span class="nav-number">3.3.</span> <span class="nav-text">一行一个语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列限制：80或100"><span class="nav-number">3.4.</span> <span class="nav-text">列限制：80或100</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动换行"><span class="nav-number">3.5.</span> <span class="nav-text">自动换行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从哪断开"><span class="nav-number">3.5.1.</span> <span class="nav-text">从哪断开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动换行时缩进至少-4个空格"><span class="nav-number">3.5.2.</span> <span class="nav-text">自动换行时缩进至少+4个空格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空白"><span class="nav-number">3.6.</span> <span class="nav-text">空白</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#垂直空白"><span class="nav-number">3.6.1.</span> <span class="nav-text">垂直空白</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平空白"><span class="nav-number">3.6.2.</span> <span class="nav-text">水平空白</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#水平对齐：never-required"><span class="nav-number">3.6.3.</span> <span class="nav-text">水平对齐：never required</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用小括号来限定组：推荐"><span class="nav-number">3.7.</span> <span class="nav-text">用小括号来限定组：推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体结构"><span class="nav-number">3.8.</span> <span class="nav-text">具体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类"><span class="nav-number">3.8.1.</span> <span class="nav-text">枚举类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量声明"><span class="nav-number">3.8.2.</span> <span class="nav-text">变量声明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每次只声明一个变量"><span class="nav-number">3.8.2.1.</span> <span class="nav-text">每次只声明一个变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#需要时才声明，并尽快进行初始化"><span class="nav-number">3.8.2.2.</span> <span class="nav-text">需要时才声明，并尽快进行初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">3.8.3.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数组初始化：可写成块状结构"><span class="nav-number">3.8.3.1.</span> <span class="nav-text">数组初始化：可写成块状结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#非C风格的数组声明"><span class="nav-number">3.8.3.2.</span> <span class="nav-text">非C风格的数组声明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch语句"><span class="nav-number">3.8.4.</span> <span class="nav-text">switch语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缩进"><span class="nav-number">3.8.4.1.</span> <span class="nav-text">缩进</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fall-through-注释"><span class="nav-number">3.8.4.2.</span> <span class="nav-text">Fall-through:注释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#default的情况要写出来"><span class="nav-number">3.8.4.3.</span> <span class="nav-text">default的情况要写出来</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解（Annotations）"><span class="nav-number">3.8.5.</span> <span class="nav-text">注解（Annotations）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">3.8.6.</span> <span class="nav-text">注释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#块注释风格"><span class="nav-number">3.8.6.1.</span> <span class="nav-text">块注释风格</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符"><span class="nav-number">3.8.7.</span> <span class="nav-text">修饰符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命名约定"><span class="nav-number">4.</span> <span class="nav-text">命名约定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对所有标识符都有通用的规则"><span class="nav-number">4.1.</span> <span class="nav-text">对所有标识符都有通用的规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符类型的规则"><span class="nav-number">4.2.</span> <span class="nav-text">标识符类型的规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包名"><span class="nav-number">4.2.1.</span> <span class="nav-text">包名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类名"><span class="nav-number">4.2.2.</span> <span class="nav-text">类名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法名"><span class="nav-number">4.2.3.</span> <span class="nav-text">方法名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量名"><span class="nav-number">4.2.4.</span> <span class="nav-text">常量名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非常量字段名"><span class="nav-number">4.2.5.</span> <span class="nav-text">非常量字段名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#局部变量名"><span class="nav-number">4.2.6.</span> <span class="nav-text">局部变量名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型变量名"><span class="nav-number">4.2.7.</span> <span class="nav-text">类型变量名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编程实践"><span class="nav-number">5.</span> <span class="nav-text">编程实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Override：能用则用"><span class="nav-number">5.1.</span> <span class="nav-text">@Override：能用则用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获的异常：不能忽视"><span class="nav-number">5.2.</span> <span class="nav-text">捕获的异常：不能忽视</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态成员：使用类进行调用"><span class="nav-number">5.3.</span> <span class="nav-text">静态成员：使用类进行调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Finalizers-禁用"><span class="nav-number">5.4.</span> <span class="nav-text">Finalizers:禁用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Javadoc"><span class="nav-number">6.</span> <span class="nav-text">Javadoc</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#格式-1"><span class="nav-number">6.1.</span> <span class="nav-text">格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一般形式"><span class="nav-number">6.1.1.</span> <span class="nav-text">一般形式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哪里需要使用Javadoc"><span class="nav-number">6.2.</span> <span class="nav-text">哪里需要使用Javadoc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例外：不言自明的方法"><span class="nav-number">6.2.1.</span> <span class="nav-text">例外：不言自明的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例外：重载"><span class="nav-number">6.2.2.</span> <span class="nav-text">例外：重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选的Javadoc"><span class="nav-number">6.2.3.</span> <span class="nav-text">可选的Javadoc</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

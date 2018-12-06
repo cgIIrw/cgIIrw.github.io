@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MySQL,LeetCode," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LeetCode有一些数据库的题目，部分免费的题做一下；MySQL有一些最基础的知识，捡重要的mark一下。">
+<meta name="keywords" content="MySQL,LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode Database习题 &amp;&amp; MySQL基础">
+<meta property="og:url" content="https://cgiirw.github.io/2018/07/01/MySQL-Getting-Start/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="LeetCode有一些数据库的题目，部分免费的题做一下；MySQL有一些最基础的知识，捡重要的mark一下。">
+<meta property="og:updated_time" content="2018-07-21T01:05:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeetCode Database习题 &amp;&amp; MySQL基础">
+<meta name="twitter:description" content="LeetCode有一些数据库的题目，部分免费的题做一下；MySQL有一些最基础的知识，捡重要的mark一下。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/07/01/MySQL-Getting-Start/"/>
+
+
+
+
+
+  <title>LeetCode Database习题 && MySQL基础 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/07/01/MySQL-Getting-Start/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LeetCode Database习题 && MySQL基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-01T19:51:36+08:00">
+                2018-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/01/MySQL-Getting-Start/" class="leancloud_visitors" data-flag-title="LeetCode Database习题 && MySQL基础">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,648
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>LeetCode有一些数据库的题目，部分免费的题做一下；MySQL有一些最基础的知识，捡重要的mark一下。</p>
+<a id="more"></a>
+<h2 id="LeetCode-Database习题"><a href="#LeetCode-Database习题" class="headerlink" title="LeetCode Database习题"></a>LeetCode Database习题</h2><p>下列习题都通过了Navicat Premium环境的测试。</p>
+<h3 id="Swap-Salary"><a href="#Swap-Salary" class="headerlink" title="Swap Salary"></a>Swap Salary</h3><p>描述：</p>
+<p>基本意思就是交换男女性别那栏，原本是‘男’就设为‘女’，原本是‘女’就设为‘男’，要求不使用临时表；</p>
+<p>思路：</p>
+<p>这里可以使用IF(expr1, expr2, expr3)，类似三目运算，expr1为条件。</p>
+<p>解答如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">UPDATE</span> <span class="string">`salary`</span> <span class="keyword">set</span> <span class="string">`sex`</span> = <span class="keyword">if</span>(<span class="string">`sex`</span> = <span class="string">'m'</span>, <span class="string">'f'</span>, <span class="string">'m'</span>);</div></pre></td></tr></table></figure>
+<h3 id="Exchange-Seats"><a href="#Exchange-Seats" class="headerlink" title="Exchange Seats"></a>Exchange Seats</h3><p>描述：</p>
+<p>基本意思就是每两行中的奇数行和偶数行互换id，如果整个表中行数是奇数，那么最后一行不变；</p>
+<p>解答如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> count01 (</div><div class="line">    counts1 <span class="built_in">int</span>(<span class="number">11</span>)</div><div class="line">);</div><div class="line"></div><div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> count01</div><div class="line"> ( counts1 )</div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> seat;</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span></div><div class="line">    <span class="keyword">CASE</span></div><div class="line">        <span class="keyword">WHEN</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">id</span> != counts1  <span class="keyword">THEN</span> <span class="keyword">id</span> + <span class="number">1</span></div><div class="line">        <span class="keyword">WHEN</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">id</span> = counts1 <span class="keyword">THEN</span> <span class="keyword">id</span></div><div class="line">        <span class="keyword">ELSE</span> <span class="keyword">id</span> - <span class="number">1</span></div><div class="line">    <span class="keyword">END</span> <span class="keyword">id</span>, student</div><div class="line"><span class="keyword">FROM</span> seat, count01</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span>;</div></pre></td></tr></table></figure>
+<p>CASE END是sql用来做条件语句的，这段代码先构造了一个表，然后把seat条目数存在表中，然后在后面的查询语句中，引用两个表seat和count01的栏位名来调用具体的值，进行逻辑处理，最后ORDER BY一下；</p>
+<p>但是题目要求的是用查询语句，所以稍微改一下原本的代码：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span></div><div class="line">    <span class="keyword">CASE</span></div><div class="line">        <span class="keyword">WHEN</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">id</span> != (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> seat) <span class="keyword">THEN</span> <span class="keyword">id</span> + <span class="number">1</span></div><div class="line">        <span class="keyword">WHEN</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">id</span> = (<span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> seat) <span class="keyword">THEN</span> <span class="keyword">id</span></div><div class="line">        <span class="keyword">ELSE</span> <span class="keyword">id</span> - <span class="number">1</span></div><div class="line">    <span class="keyword">END</span> <span class="keyword">id</span>, student</div><div class="line"><span class="keyword">FROM</span> seat, count01</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span>;</div></pre></td></tr></table></figure>
+<h3 id="Not-Boring-Movies"><a href="#Not-Boring-Movies" class="headerlink" title="Not Boring Movies"></a>Not Boring Movies</h3><p>描述：</p>
+<p>基本意思就是在表中，查询奇数id且描述非“无聊”的电影，然后按照评分由高到低排列；</p>
+<p>思路：</p>
+<p>可以使用where语句，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> cinema <span class="keyword">WHERE</span> <span class="keyword">id</span> % <span class="number">2</span> = <span class="number">1</span> <span class="keyword">AND</span> description &lt;&gt; <span class="string">'boring'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> rating <span class="keyword">DESC</span>;</div></pre></td></tr></table></figure>
+<h3 id="Classes-More-Than-5-Students"><a href="#Classes-More-Than-5-Students" class="headerlink" title="Classes More Than 5 Students"></a>Classes More Than 5 Students</h3><p>描述：</p>
+<p>大致意思就是给你一个课程表，列出有五个及五个以上学生上课的课程；</p>
+<p>思路：</p>
+<p>GROUP BY配合一些聚合函数使用，使用通用方法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="string">"欄位1"</span>, <span class="keyword">SUM</span>(<span class="string">"欄位2"</span>)</div><div class="line"><span class="keyword">FROM</span> <span class="string">"表格名"</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="string">"欄位1"</span>;</div></pre></td></tr></table></figure>
+<p>同时where不能和聚合函数一起使用，所以采用having，having进一步约束组数据，通用方法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="string">"欄位1"</span>, <span class="keyword">SUM</span>(<span class="string">"欄位2"</span>)</div><div class="line"><span class="keyword">FROM</span> <span class="string">"表格名"</span></div><div class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="string">"欄位1"</span></div><div class="line"><span class="keyword">HAVING</span> (函數條件);</div></pre></td></tr></table></figure>
+<p>所以代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="string">`courses`</span>.<span class="string">`class`</span> <span class="keyword">FROM</span> courses <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="string">`courses`</span>.<span class="string">`class`</span></div><div class="line"><span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(*) &gt;= <span class="number">5</span>;</div></pre></td></tr></table></figure>
+<p>但是题目中有个提示：</p>
+<p>The students should not be counted duplicate in each course.</p>
+<p>所以having的条件应该做一番更改：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="string">`courses`</span>.<span class="string">`class`</span> <span class="keyword">FROM</span> courses <span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="string">`courses`</span>.<span class="string">`class`</span></div><div class="line"><span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> student) &gt;= <span class="number">5</span>;</div></pre></td></tr></table></figure>
+<h3 id="Big-Countries"><a href="#Big-Countries" class="headerlink" title="Big Countries"></a>Big Countries</h3><p>描述：</p>
+<p>大致意思是编写sql输出大国名称、人口以及面积，其中大国指的是面积超过300万活着人口超过2500万的国家；</p>
+<p>思路：</p>
+<p>使用where，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, population, area <span class="keyword">FROM</span> World <span class="keyword">WHERE</span> population &gt; <span class="number">25000000</span></div><div class="line"><span class="keyword">OR</span> area &gt; <span class="number">3000000</span>;</div></pre></td></tr></table></figure>
+<h3 id="Rising-Temperature"><a href="#Rising-Temperature" class="headerlink" title="Rising Temperature"></a>Rising Temperature</h3><p>描述：</p>
+<p>大致意思就是找出比昨天温度高的日期的id；</p>
+<p>思路：</p>
+<p>使用表格别名，采用TO_DAYS函数编写条件语句，具体代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> wtr01.Id</div><div class="line"><span class="keyword">FROM</span> Weather <span class="keyword">AS</span> wtr01, Weather <span class="keyword">AS</span> wtr02</div><div class="line"><span class="keyword">WHERE</span> <span class="keyword">TO_DAYS</span>(wtr01.RecordDate) - <span class="keyword">TO_DAYS</span>(wtr02.RecordDate) = <span class="number">1</span></div><div class="line"><span class="keyword">AND</span> wtr01.Temperature &gt; wtr02.Temperature;</div></pre></td></tr></table></figure>
+<h3 id="Delete-Duplicate-Emails"><a href="#Delete-Duplicate-Emails" class="headerlink" title="Delete Duplicate Emails"></a>Delete Duplicate Emails</h3><p>描述：</p>
+<p>大致意思是说编写SQL删除表中的相同条目的重复条目，仅保留相同条目中最小id的那一个条目；</p>
+<p>思路：</p>
+<p>如果给一个表创建两个别名，比如Person per01和Person per02，调用Id和Email进行比较，每次都是等号左边的先遍历完，通过这个性质可以删除重复的数据，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">DELETE</span> per01</div><div class="line"><span class="keyword">FROM</span> Person per01, Person per02</div><div class="line"><span class="keyword">WHERE</span> per01.Email = per02.Email <span class="keyword">AND</span> per01.Id &gt; per02.Id;</div></pre></td></tr></table></figure>
+<h3 id="Customers-Who-Never-Order"><a href="#Customers-Who-Never-Order" class="headerlink" title="Customers Who Never Order"></a>Customers Who Never Order</h3><p>描述：</p>
+<p>大致意思是有两个表，分表表示订单和客户，订单中有标识消费过的客户的Id，找出订单中没有标识的客户（也就是没有买任何东西的客户）；</p>
+<p>思路：</p>
+<p>查询出Id不存在于订单中的客户，这里可以使in语法，in配合where使用，可以遍历多个值，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> c.<span class="string">`Name`</span> <span class="keyword">AS</span> Customers</div><div class="line"><span class="keyword">FROM</span> Customers c</div><div class="line"><span class="keyword">WHERE</span> c.Id <span class="keyword">NOT</span> <span class="keyword">IN</span></div><div class="line">(<span class="keyword">SELECT</span> o.CustomerId <span class="keyword">FROM</span> Orders o)</div></pre></td></tr></table></figure>
+<h3 id="Duplicate-Emails"><a href="#Duplicate-Emails" class="headerlink" title="Duplicate Emails"></a>Duplicate Emails</h3><p>描述：</p>
+<p>大致意思是查找Person01表中所有重复的emails；</p>
+<p>思路：</p>
+<p>前面某题Delete Duplicate Emails类似，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> per01.Email</div><div class="line"><span class="keyword">FROM</span> Person01 per01, Person01 per02</div><div class="line"><span class="keyword">WHERE</span> per01.Email = per02.Email <span class="keyword">AND</span> per01.Id &gt; per02.Id;</div></pre></td></tr></table></figure>
+<p>注：重复的数据在查询的结果中只出现一次；</p>
+<h3 id="Employees-Earning-More-Than-Their-Managers"><a href="#Employees-Earning-More-Than-Their-Managers" class="headerlink" title="Employees Earning More Than Their Managers"></a>Employees Earning More Than Their Managers</h3><p>描述：</p>
+<p>大致意思就是Employee表中包含了所有员工，每个员工对应一个经理Id，表拥有一个经理栏位，通过这个表查询出所有比经理赚得多的员工；</p>
+<p>思路：</p>
+<p>用别名的方式进行判断，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> em01.<span class="string">`Name`</span> <span class="keyword">AS</span> Employee</div><div class="line"><span class="keyword">FROM</span> Employee em01, Employee em02</div><div class="line"><span class="keyword">WHERE</span> em01.ManagerId = em02.Id <span class="keyword">AND</span> em01.Salary &gt; em02.Salary;</div></pre></td></tr></table></figure>
+<h3 id="Second-Highest-Salary"><a href="#Second-Highest-Salary" class="headerlink" title="Second Highest Salary"></a>Second Highest Salary</h3><p>描述：</p>
+<p>意思就是查询Employee第二高薪；</p>
+<p>思路：</p>
+<p>使用LIMIT OFFSET，OFFSET采用习惯的从0起始，LIMIT表示条数，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> Salary <span class="keyword">as</span> SecondHighestSalary</div><div class="line"><span class="keyword">FROM</span> Employee01</div><div class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Salary <span class="keyword">DESC</span> <span class="keyword">LIMIT</span> <span class="number">1</span> <span class="keyword">OFFSET</span> <span class="number">1</span>;</div></pre></td></tr></table></figure>
+<h3 id="Combine-Two-Tables"><a href="#Combine-Two-Tables" class="headerlink" title="Combine Two Tables"></a>Combine Two Tables</h3><p>描述：</p>
+<p>大意就是按要求合并两张表；</p>
+<p>思路：</p>
+<p>要求里有一句“regardless if there is an address for each of those people”，感觉可以用一个left join合并表，代码如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> FirstName, LastName, City, State</div><div class="line"><span class="keyword">FROM</span> Person02 <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Address <span class="keyword">ON</span> Person02.PersonId = Address.AddressId;</div></pre></td></tr></table></figure>
+<h2 id="MySQL基础"><a href="#MySQL基础" class="headerlink" title="MySQL基础"></a>MySQL基础</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li><p>brew install mysql的坑<br><a href="https://www.jianshu.com/p/bfb2569a017f" target="_blank" rel="external">https://www.jianshu.com/p/bfb2569a017f</a> 有具体步骤的注释；</p>
+</li>
+<li><p>涉及MySQL服务services <a href="https://zhuanlan.zhihu.com/p/30216245；" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/30216245；</a></p>
+</li>
+<li><p>彻底删除过去版本的MySQL <a href="https://gist.github.com/vitorbritto/0555879fe4414d18569d" target="_blank" rel="external">https://gist.github.com/vitorbritto/0555879fe4414d18569d</a> 注意底下的留言；</p>
+</li>
+<li><p>MySQL报错 <a href="http://blog.51cto.com/732233048/1636409" target="_blank" rel="external">http://blog.51cto.com/732233048/1636409</a> 虽然对我没用；</p>
+</li>
+<li>查看版本：mysql –version；</li>
+<li>启动MySQL：mysql.server start</li>
+<li>登录，命令行：mysql -u root -p，然后输入密码；</li>
+</ul>
+<h3 id="基本库操作"><a href="#基本库操作" class="headerlink" title="基本库操作"></a>基本库操作</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>CREATE DATABASE 数据库名;</p>
+<p>CREATE DATABASE IF NOT EXISTS 数据库名 DEFAULT CHARSET utf8 COLLATE utf8_general_ci;</p>
+<ul>
+<li>不存在则创建，存在就不创建；</li>
+<li>创建设定编码集为utf8；</li>
+</ul>
+<p>倒入数据库，比如： source /Users/yin/Downloads/cgdb.sql;</p>
+<h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><p>drop databse 数据库名;</p>
+<h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><p>use 数据库名;</p>
+<p>查询当前选择的数据库，使用select database();或者在命令模式使用status命令；</p>
+<h3 id="基本表操作"><a href="#基本表操作" class="headerlink" title="基本表操作"></a>基本表操作</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><p>通用语法：</p>
+<p>CREATE TABLE table_name (column_name column_type);</p>
+<ul>
+<li>如果不想字段为NULL可以设置字段的属性为NOT NULL，在操作数据库时如果输入该字段的数据为NULL，就会报错；</li>
+<li>AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1；</li>
+<li>PRIMARY KEY关键字用于定义列为主键。可以使用多列来定义主键，列间以逗号分隔；</li>
+<li>ENGINE设置存储引擎，CHARSET设置编码；</li>
+</ul>
+<p>可以通过命令提示符创建表；</p>
+<p>符号``是用来区分MySQL关键字与普通字符而引入的符号，一般表名和字段名都是用这个符号；</p>
+<h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><p>通用语法：</p>
+<p>DROP TABLE table_name;</p>
+<p>drop truncate delete区别：</p>
+<p>drop整表删除，truncate会保留表结构，delete一般用在有条件删除部分表数据的情况；</p>
+<h3 id="基本表数据操作"><a href="#基本表数据操作" class="headerlink" title="基本表数据操作"></a>基本表数据操作</h3><h4 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">INSERT INTO table_name ( field1, field2,...fieldN )</div><div class="line">                       VALUES</div><div class="line">                       ( value1, value2,...valueN );</div></pre></td></tr></table></figure>
+<p>如果数据是字符型，必须使用单引号或者双引号；</p>
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT column_name,column_name</div><div class="line">FROM table_name</div><div class="line">[WHERE Clause]</div><div class="line">[LIMIT N][ OFFSET M]</div></pre></td></tr></table></figure>
+<ul>
+<li>select * ：返回所有记录；</li>
+<li>limitN ：返回N条记录；</li>
+<li>offset M ：跳过M条记录，默认 M=0，单独使用似乎不起作用；</li>
+<li>limit N,M ：相当于offset N limit M，从第N条记录开始，返回M条记录；</li>
+</ul>
+<h4 id="WHERE语句"><a href="#WHERE语句" class="headerlink" title="WHERE语句"></a>WHERE语句</h4><p>通用语法：</p>
+<p>SELECT field1, field2,…fieldN FROM table_name1, table_name2…<br>[WHERE condition1 [AND [OR]] condition2…</p>
+<p>WHERE中比较运算符需要注意：&lt;&gt;，它表示不等于；</p>
+<h4 id="UPDATE查询"><a href="#UPDATE查询" class="headerlink" title="UPDATE查询"></a>UPDATE查询</h4><p>UPDATE table_name SET field1=new-value1, field2=new-value2<br>[WHERE Clause]</p>
+<h4 id="DELETE语句"><a href="#DELETE语句" class="headerlink" title="DELETE语句"></a>DELETE语句</h4><p>DELETE FROM table_name [WHERE Clause]</p>
+<h4 id="LIKE子句"><a href="#LIKE子句" class="headerlink" title="LIKE子句"></a>LIKE子句</h4><p>在WHERE子句中使用LIKE，如果没有％单独使用LIKE，则效果和＝相同。</p>
+<p>通用语法：</p>
+<p>SELECT field1, field2,…fieldN<br>FROM table_name<br>WHERE field1 LIKE condition1 [AND [OR]] filed2 = ‘somevalue’</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">'%a'     //以a结尾的数据</div><div class="line">'a%'     //以a开头的数据</div><div class="line">'%a%'    //含有a的数据</div><div class="line">'_a_'    //三位且中间字母是a的</div><div class="line">'_a'     //两位且结尾字母是a的</div><div class="line">'a_'     //两位且开头字母是a的</div></pre></td></tr></table></figure>
+<h4 id="UNION操作符"><a href="#UNION操作符" class="headerlink" title="UNION操作符"></a>UNION操作符</h4><p>通用语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">SELECT expression1, expression2, ... expression_n</div><div class="line">FROM tables</div><div class="line">[WHERE conditions]</div><div class="line">UNION [ALL | DISTINCT]</div><div class="line">SELECT expression1, expression2, ... expression_n</div><div class="line">FROM tables</div><div class="line">[WHERE conditions];</div></pre></td></tr></table></figure>
+<p>UNION操作符用于连接两个以上的SELECT语句，将结果组合到一个集合中，多个SELECT语句会删除重复的数据；</p>
+<p>UNION只会选取不同的值(类似set)，如果要保留重复的值，使用UNION ALL；</p>
+<h4 id="ORDER-BY语句"><a href="#ORDER-BY语句" class="headerlink" title="ORDER BY语句"></a>ORDER BY语句</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SELECT field1, field2,...fieldN table_name1, table_name2...</div><div class="line">ORDER BY field1, [field2...] [ASC [DESC]]</div></pre></td></tr></table></figure>
+<p>你可以使用ASC或DESC关键字来设置查询结果是按升序或降序排列。默认情况下，它是按升序排列；</p>
+<p>字符集采用utf8需转码：</p>
+<p>ORDER BY CONVERT([xxxxx] using gbk);</p>
+<h4 id="GROUP-BY语句"><a href="#GROUP-BY语句" class="headerlink" title="GROUP BY语句"></a>GROUP BY语句</h4><p>通用语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT column_name, function(column_name)</div><div class="line">FROM table_name</div><div class="line">WHERE column_name operator value</div><div class="line">GROUP BY column_name;</div></pre></td></tr></table></figure>
+<p>WITH ROLLUP：统计之后再做统计；</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>在 MySQL中只有使用了Innodb数据库引擎的数据库或表才支持事务；</p>
+<p>事务处理可以用来维护数据库的完整性，保证成批的SQL语句要么全部执行，要么全部不执行；</p>
+<p>事务用来管理insert, update, delete语句；</p>
+<p>A原子性C一致性I隔离性D持久性；</p>
+<ul>
+<li>BEGIN或START TRANSACTION；显式地开启一个事务；</li>
+<li>COMMIT；也可以使用COMMIT WORK，不过二者是等价的。COMMIT会提交事务，并使已对数据库进行的所有修改成为永久性的；</li>
+<li>ROLLBACK；有可以使用ROLLBACK WORK，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改；</li>
+<li>SAVEPOINT identifier；SAVEPOINT允许在事务中创建一个保存点，一个事务中可以有多个SAVEPOINT；</li>
+<li>RELEASE SAVEPOINT identifier；删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常；</li>
+<li>ROLLBACK TO identifier；把事务回滚到标记点；</li>
+<li>SET TRANSACTION；用来设置事务的隔离级别。InnoDB存储引擎提供事务的隔离级别有READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ和SERIALIZABLE；</li>
+</ul>
+<h3 id="临时表"><a href="#临时表" class="headerlink" title="临时表"></a>临时表</h3><p>临时表只在当前连接可见，当关闭连接时，Mysql会自动删除表并释放所有空间。</p>
+<p>通用写法：</p>
+<p>CREATE TEMPORARY…</p>
+<p>可以使用DROP TABLE手动删除MySQL临时表；</p>
+<h3 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h3><p>要注意的几点：</p>
+<ul>
+<li>通过字符串拼接容易产生SQL注入，Java里可以用PreparedStatement处理，原理就是转义单引号，但是％没有转义(可以通过严格限制用户输入来解决)；</li>
+<li>mybatis不会对${}参数进行预处理，会对#{name}进行预处理；</li>
+</ul>
+<h3 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h3><p>SET FOREIGN_KEY_CHECKS = 0; 取消外键约束；</p>
+<p>\G 按列打印；</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://leetcode.com/problemset/database/" target="_blank" rel="external">LeetCode</a></p>
+<p><a href="http://www.runoob.com/mysql/mysql-tutorial.html" target="_blank" rel="external">MySQL教程</a></p>
+<p><a href="https://www.1keydata.com/tw/sql/sql.html" target="_blank" rel="external">SQL语法教学</a></p>
+<p><a href="http://www.runoob.com/sql/sql-tutorial.html" target="_blank" rel="external">runoob.com SQL教程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/07/01/MySQL-Getting-Start/" title="LeetCode Database习题 && MySQL基础">2018/07/01/MySQL-Getting-Start/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/29/Java8_FuncPro06/" rel="next" title="学习Java函数式编程(六)：重构设计模式">
+                <i class="fa fa-chevron-left"></i> 学习Java函数式编程(六)：重构设计模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/02/Java8_FuncPro07/" rel="prev" title="学习Java函数式编程(七)：CompletableFuture实战">
+                学习Java函数式编程(七)：CompletableFuture实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-Database习题"><span class="nav-number">1.</span> <span class="nav-text">LeetCode Database习题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swap-Salary"><span class="nav-number">1.1.</span> <span class="nav-text">Swap Salary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exchange-Seats"><span class="nav-number">1.2.</span> <span class="nav-text">Exchange Seats</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Not-Boring-Movies"><span class="nav-number">1.3.</span> <span class="nav-text">Not Boring Movies</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Classes-More-Than-5-Students"><span class="nav-number">1.4.</span> <span class="nav-text">Classes More Than 5 Students</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Big-Countries"><span class="nav-number">1.5.</span> <span class="nav-text">Big Countries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rising-Temperature"><span class="nav-number">1.6.</span> <span class="nav-text">Rising Temperature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Delete-Duplicate-Emails"><span class="nav-number">1.7.</span> <span class="nav-text">Delete Duplicate Emails</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Customers-Who-Never-Order"><span class="nav-number">1.8.</span> <span class="nav-text">Customers Who Never Order</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Duplicate-Emails"><span class="nav-number">1.9.</span> <span class="nav-text">Duplicate Emails</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Employees-Earning-More-Than-Their-Managers"><span class="nav-number">1.10.</span> <span class="nav-text">Employees Earning More Than Their Managers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Second-Highest-Salary"><span class="nav-number">1.11.</span> <span class="nav-text">Second Highest Salary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Combine-Two-Tables"><span class="nav-number">1.12.</span> <span class="nav-text">Combine Two Tables</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL基础"><span class="nav-number">2.</span> <span class="nav-text">MySQL基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本库操作"><span class="nav-number">2.2.</span> <span class="nav-text">基本库操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除数据库"><span class="nav-number">2.2.2.</span> <span class="nav-text">删除数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择数据库"><span class="nav-number">2.2.3.</span> <span class="nav-text">选择数据库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本表操作"><span class="nav-number">2.3.</span> <span class="nav-text">基本表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-number">2.3.1.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除表"><span class="nav-number">2.3.2.</span> <span class="nav-text">删除表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本表数据操作"><span class="nav-number">2.4.</span> <span class="nav-text">基本表数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入数据"><span class="nav-number">2.4.1.</span> <span class="nav-text">插入数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询数据"><span class="nav-number">2.4.2.</span> <span class="nav-text">查询数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WHERE语句"><span class="nav-number">2.4.3.</span> <span class="nav-text">WHERE语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UPDATE查询"><span class="nav-number">2.4.4.</span> <span class="nav-text">UPDATE查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DELETE语句"><span class="nav-number">2.4.5.</span> <span class="nav-text">DELETE语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIKE子句"><span class="nav-number">2.4.6.</span> <span class="nav-text">LIKE子句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UNION操作符"><span class="nav-number">2.4.7.</span> <span class="nav-text">UNION操作符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY语句"><span class="nav-number">2.4.8.</span> <span class="nav-text">ORDER BY语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GROUP-BY语句"><span class="nav-number">2.4.9.</span> <span class="nav-text">GROUP BY语句</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务"><span class="nav-number">2.5.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临时表"><span class="nav-number">2.6.</span> <span class="nav-text">临时表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL注入"><span class="nav-number">2.7.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些概念"><span class="nav-number">2.8.</span> <span class="nav-text">一些概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java虚拟机之对象探秘">
+<meta property="og:url" content="https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm01.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm02.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm03.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm04.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm05.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/重排序01.png">
+<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/重排序02.png">
+<meta property="og:updated_time" content="2018-08-02T09:59:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java虚拟机之对象探秘">
+<meta name="twitter:description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
+<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/jvm01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/"/>
+
+
+
+
+
+  <title>Java虚拟机之对象探秘 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java虚拟机之对象探秘</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T22:21:51+08:00">
+                2018-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/16/JVM_Oop_Desc/" class="leancloud_visitors" data-flag-title="Java虚拟机之对象探秘">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,624
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp; Klass &amp; KlassKlass浅析以及实例数据重排序等内容。</p>
+<a id="more"></a>
+<h2 id="创建对象的基本流程"><a href="#创建对象的基本流程" class="headerlink" title="创建对象的基本流程"></a>创建对象的基本流程</h2><p>Java里创建对象通常有五种方式，new，Class类调用newInstance方法，Constructor类调用newInstance方法，clone方法以及反序列化，后四种反编译后可知使用的是invokevirtual指令来做方法调用，而第一种使用的是new和invokespecial指令。一般的，我们都是用new来创建对象，这里以new为例分析创建对象的基本流程，其大致如下：</p>
+<ul>
+<li>检查指令参数能否定位符号引用；</li>
+<li>检查符号引用代表的类是否已经被加载、解析和初始化过，没有就要先执行这些过程(《深》P210)；</li>
+<li>分配内存(CAS / TLAB)；</li>
+<li>初始化零值(不包括对象头)；</li>
+<li>对对象头进行必要设置；</li>
+<li>通常，执行<init\>方法(由invokespecial决定)；</init\></li>
+</ul>
+<p>类的初始化自有其它篇章进行介绍，这里需要知道的是，在遇到new等字节码指令时，需要先触发类的初始化。在类加载的连接过程中，准备阶段也会为类变量设置初始化零值，注意区别和类比。</p>
+<h2 id="对象内存布局简析"><a href="#对象内存布局简析" class="headerlink" title="对象内存布局简析"></a>对象内存布局简析</h2><p>对象在内存中的布局包括三个部分：对象头、实例数据和对齐填充。</p>
+<p>为了很好的研究这一部分，采用实验的方式来进行，这里用到了一个小工具<a href="http://openjdk.java.net/projects/code-tools/jol/" target="_blank" rel="external">jol</a>，本人的Java环境为jdk1.8.0_171，64-bit HotSpot VM。</p>
+<p>首先看看官方提供的JOLSample_01_Basic代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JOLSample_01_Basic</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * This sample showcases the basic field layout.</div><div class="line">     * You can see a few notable things here:</div><div class="line">     *   a) how much the object header consumes;</div><div class="line">     *   b) how fields are laid out;</div><div class="line">     *   c) how the external alignment beefs up the object size</div><div class="line">     */</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        out.println(VM.current().details());</div><div class="line">        out.println(ClassLayout.parseClass(A.class).toPrintable());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> f;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子的作用注释已经说明清楚，这段代码的输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"># Running 64-bit HotSpot VM.</div><div class="line"># Using compressed oop with 3-bit shift.</div><div class="line"># Using compressed klass with 3-bit shift.</div><div class="line"># WARNING | Compressed references base/shifts are guessed by the experiment!</div><div class="line"># WARNING | Therefore, computed addresses are just guesses, and ARE NOT RELIABLE.</div><div class="line"># WARNING | Make sure to attach Serviceability Agent to get the reliable addresses.</div><div class="line"># Objects are 8 bytes aligned.</div><div class="line"># Field sizes by type: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]</div><div class="line"># Array element sizes: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]</div><div class="line"></div><div class="line">org.openjdk.jol.samples.JOLSample_01_Basic$A object internals:</div><div class="line"> OFFSET  SIZE      TYPE DESCRIPTION                               VALUE</div><div class="line">      0    12           (object header)                           N/A</div><div class="line">     12     1   boolean A.f                                       N/A</div><div class="line">     13     3           (loss due to the next object alignment)</div><div class="line">Instance size: 16 bytes</div><div class="line">Space losses: 0 bytes internal + 3 bytes external = 3 bytes total</div></pre></td></tr></table></figure>
+<p>前篇已经总结过，这里再提一下：对象头(object header)分为两个部分：一部分称为Mark Word，用于存储对象自身的运行时数据；另一部分是类型指针：用来确定对象是哪个类的实例。(当然，在数组里，对象头还记录了数组大小)</p>
+<p>对以上输出结果做一个简要说明：</p>
+<p>Field sizes by type: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]对应：[Oop(Ordinary Object Pointer), boolean, byte, char, short, int, float, long, double]大小。</p>
+<p>OFFSET是基于首地址偏移量，SIZE是大小，因为本人采用的Java虚拟机是64位，那么object header中Mark Word占据64位，也就是8个单位的大小，类型指针占据4个单位大小，所以一共占据12个单位。instance data占据一个单位大小，由于对象大小必须是8字节的整数倍，所以还要对齐填充，此时填充三个单位。</p>
+<h2 id="对象内存布局深入"><a href="#对象内存布局深入" class="headerlink" title="对象内存布局深入"></a>对象内存布局深入</h2><p>首先贴出RednaxelaFX的PPT中的相关章节：</p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm01.png" alt="01"></p>
+<p><center>图1</center></p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm02.png" alt="02"></p>
+<p><center>图2</center></p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm03.png" alt="03"></p>
+<p><center>图3</center></p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm04.png" alt="04"></p>
+<p><center>图4</center></p>
+<p>虽然图中的有些描述并不适用较新的Java版本——实际上这些图依据的是JDK6(或之前)的HotSpot VM，但大体来说，我们仍然可以从中有所收获。</p>
+<p>图1描述了Mark Word存储了哪些信息，最后一句话提到了并非一次性记录所有信息；</p>
+<p>图2中提到的PermGen在Java8里面已经被删除掉了(见文末参考链接)，但通过图中的讲解，我们还是能get到有用的信息。</p>
+<p>比如，Java对象实例中对象头存储的klass并不是Java语言级别的那个java.lang.Class类的实例。接下来就重点写写这方面的内容。</p>
+<h3 id="Class-amp-Klass-amp-KlassKlass"><a href="#Class-amp-Klass-amp-KlassKlass" class="headerlink" title="Class &amp; Klass &amp; KlassKlass"></a>Class &amp; Klass &amp; KlassKlass</h3><p>常常能听到有人问，对象的Class实例到底存在哪里。回答这个问题之前，先要搞清楚，想要问的真的是java.lang.Class实例吗？</p>
+<p>我们继续欣赏RednaxelaFX的分享：</p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm05.png" alt="05"></p>
+<p><center>图5</center></p>
+<p>如果是第一次看到这张图是不是想感慨Java果然是面向对象语言：instanceOopDesc –&gt; instanceKlass –&gt; instanceKlassKlass –&gt; KlassKlass。(后三个归为klassOopDesc包装层，包装在GC管理的klassOopDesc对象中)</p>
+<p>RednaxelaFX的解释：</p>
+<blockquote>
+<p>HotSpot VM里，Klass其实是用于描述能被GC的对象的类型信息的元数据对象。在JDK8之前的HotSpot VM里，类元数据存在由GC管理的PermGen区里。这些xxxKlass对象（例如instanceKlass的实例）自身也是被GC管理的，所以也需要有Klass对象去描述它们，叫做xxxKlassKlass。然后它们又…所以就有了KlassKlass这个终极的描述xxxKlassKlass对象的东西。</p>
+</blockquote>
+<p>而：</p>
+<blockquote>
+<p>从JDK8开始，既然元数据不由GC直接管理了，Klass这系对象就都不需要再被KlassKlass所描述，所以KlassKlass就全去除了。</p>
+</blockquote>
+<p>看到这里可能会问，为什么元数据不由GC直接管理了，Klass就不需要KlassKlass描述了呢？</p>
+<p>RednaxelaFX在留言区回答了热心网友：</p>
+<blockquote>
+<p>因为HotSpot的GC框架通过Klass来获得被GC管理的对象的结构信息；在Metaspace里内存管理是人工写特化的代码做的而不是GC自动做的，就不需要这个KlassKlass结构来描述Klass了。</p>
+</blockquote>
+<p>关于Klass所在的Metaspace的回收，RednaxelaFX也点到：</p>
+<blockquote>
+<p>Metaspace有特殊的收集逻辑，跟GC可以联动但是不直接由GC管理</p>
+</blockquote>
+<p>回到本小节起初提到的问题，也许一开始，我们并没有区分InstanceKlass和java.lang.Class，这两个是不同的东西。java.lang.Class对象从来都是存储在普通的Java堆中。那么它们彼此有什么关系呢？</p>
+<blockquote>
+<p>每个Java对象的对象头里，_klass字段会指向一个VM内部用来记录类的元数据用的InstanceKlass对象；InsanceKlass里有个_java_mirror字段，指向该类所对应的Java镜像——java.lang.Class实例。HotSpot VM会给Class对象注入一个隐藏字段“klass”，用于指回到其对应的InstanceKlass对象。这样，klass与mirror之间就有双向引用，可以来回导航。java.lang.Class实例并不负责记录真正的类元数据，而只是对VM内部的InstanceKlass对象的一个包装供Java的反射访问用。</p>
+</blockquote>
+<h3 id="对象实例数据重排序"><a href="#对象实例数据重排序" class="headerlink" title="对象实例数据重排序"></a>对象实例数据重排序</h3><p>我们继续看图3中的内容，“宽度相同的字段总是相邻分配”？显然宽度相同的字段肯定不一定按顺序声明初始化，那么如果要满足引号中给出的要求，则需要重排序。下面本人写一个简单的例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CumTest02</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        out.println(VM.current().details());</div><div class="line">        out.println(ClassLayout.parseClass(A.class).toPrintable());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i01;</div><div class="line">        <span class="keyword">int</span> i02;</div><div class="line">        <span class="keyword">long</span> l;</div><div class="line">        <span class="keyword">int</span> i03;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先按照一般逻辑分析对象的内存分布情况：</p>
+<ul>
+<li>Mark Word：八个单位；</li>
+<li>类型指针：四个单位；</li>
+<li>i01：四个单位；</li>
+<li>i02：四个单位；</li>
+<li>l：八个单位；</li>
+<li>i03：四个单位；</li>
+</ul>
+<p>布局应该是这样的：</p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/重排序01.png" alt="重排序01"></p>
+<p>实际输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">org.openjdk.jol.samples.CumTest02$A object internals:</div><div class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</div><div class="line">      0    12        (object header)                           N/A</div><div class="line">     12     4    int A.i01                                     N/A</div><div class="line">     16     8   long A.l                                       N/A</div><div class="line">     24     4    int A.i02                                     N/A</div><div class="line">     28     4    int A.i03                                     N/A</div><div class="line">Instance size: 32 bytes</div><div class="line">Space losses: 0 bytes internal + 0 bytes external = 0 bytes total</div></pre></td></tr></table></figure>
+<p>没有对齐填充，实例的大小也只是32字节，也就是说，产生了重排序，布局见下图：</p>
+<p><img src="http://oowdnxekq.bkt.clouddn.com/重排序02.png" alt="重排序02"></p>
+<p>图中l在i02和i03之前，遵照的规则(排序的先后顺序)和Field sizes by type: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]列出的顺序相反。i01在l之前是因为已经排好一部分后，剩下的空间能容纳size满足的实例数据，尽管这个数据并不是后续数据中最大的。</p>
+<h3 id="对基类是否生成对象的判断"><a href="#对基类是否生成对象的判断" class="headerlink" title="对基类是否生成对象的判断"></a>对基类是否生成对象的判断</h3><p>创建派生类对象的过程中，基类会生成对象吗？</p>
+<p>首先这个问题可以通过实验轻松验证，但是此问题是在本人看图3想到的，自然就用图3的逻辑稍微判断一下。</p>
+<p>在图3中，有这么一句：“笼统的说，基类声明的实例字段会出现在派生类声明的实例字段之前。” 所以基类字段的数据是会在派生类对象中存储一份的，想象一下，如果每一个派生类生成实例时，都需要基类创建一个对象，那么字段等数据就会既存储在基类又存储在派生类中，造成资源浪费，在如今这个追求性能优化极致的时代，一款商业级虚拟机怎么会犯这种让人不能忍受的“错误”？</p>
+<p>所以基类并没有生成对象，只是通过super()调用了构造器。</p>
+<p>为了判断是否理解了本篇涉及的一些内容，这里举个例子，看看输出是多少：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base</span> </span>&#123;</div><div class="line"></div><div class="line">     <span class="keyword">private</span> String baseName = <span class="string">"base"</span>;</div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="title">Base</span><span class="params">()</span> </span>&#123;</div><div class="line">         callName();</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callName</span><span class="params">()</span> </span>&#123;</div><div class="line">         System.out.println(baseName);</div><div class="line">     &#125;</div><div class="line"></div><div class="line">     <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Sub</span> <span class="keyword">extends</span> <span class="title">Base</span> </span>&#123;</div><div class="line">         <span class="keyword">private</span> <span class="keyword">static</span> String baseName = <span class="string">"sub"</span>;<span class="comment">// 删去static后运行再观察结果</span></div><div class="line"></div><div class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callName</span><span class="params">()</span> </span>&#123;</div><div class="line">             System.out.println(baseName);</div><div class="line">         &#125;</div><div class="line">     &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Base b = <span class="keyword">new</span> Sub();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个小问题，涉及到对象的创建流程，涉及到基类是否生成对象等等，注意观察注解部分更改后的输出结果。</p>
+<p>注：设置VM options参数为-XX:+TraceClassLoading，可以追踪类的加载过程。</p>
+<h2 id="鸣谢"><a href="#鸣谢" class="headerlink" title="鸣谢"></a>鸣谢</h2><p>看过《深入理解Java虚拟机》的读者对RednaxelaFX这个名字不会感到陌生，这篇小文引用了很多他在某平台分享的内容，得益于这些分享，本人对对象内存的布局有了更清晰的理解和认识，在此由衷感谢。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/50258991" target="_blank" rel="external">RednaxelaFX回答01</a></p>
+<p><a href="https://www.zhihu.com/question/61829482" target="_blank" rel="external">RednaxelaFX回答02</a></p>
+<p><a href="https://www.cnblogs.com/paddix/p/5309550.html" target="_blank" rel="external">Java8内存模型—永久代(PermGen)和元空间(Metaspace)</a>：通过实验印证永久代和元空间在不同Java版本下存在与否</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/04/16/JVM_Oop_Desc/" title="Java虚拟机之对象探秘">2018/04/16/JVM_Oop_Desc/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/15/JVM00/" rel="next" title="Java虚拟机之内存区域">
+                <i class="fa fa-chevron-left"></i> Java虚拟机之内存区域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/17/JVM01/" rel="prev" title="Java虚拟机之自己编写命令行工具">
+                Java虚拟机之自己编写命令行工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建对象的基本流程"><span class="nav-number">1.</span> <span class="nav-text">创建对象的基本流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象内存布局简析"><span class="nav-number">2.</span> <span class="nav-text">对象内存布局简析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象内存布局深入"><span class="nav-number">3.</span> <span class="nav-text">对象内存布局深入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-amp-Klass-amp-KlassKlass"><span class="nav-number">3.1.</span> <span class="nav-text">Class & Klass & KlassKlass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象实例数据重排序"><span class="nav-number">3.2.</span> <span class="nav-text">对象实例数据重排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对基类是否生成对象的判断"><span class="nav-number">3.3.</span> <span class="nav-text">对基类是否生成对象的判断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鸣谢"><span class="nav-number">4.</span> <span class="nav-text">鸣谢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

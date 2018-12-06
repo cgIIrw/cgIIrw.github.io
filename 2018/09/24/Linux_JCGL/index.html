@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C,进程管理," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本人第一次翻看《Linux内核设计与实现》的时候，非常享受其中关于Linux进程调度的内容。不同于《深入理解计算机系统》泛而全，此书对于特定领域知识的介绍更加详细，且作者就是Linux抢占式内核、进程调度器等项目的参与者，书中的描述具有权威性。本人将开启一个文章系列作为对此书的阅读笔记。">
+<meta name="keywords" content="C,进程管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Linux内核设计与实现》阅读笔记：(第三章)进程管理">
+<meta property="og:url" content="https://cgiirw.github.io/2018/09/24/Linux_JCGL/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="本人第一次翻看《Linux内核设计与实现》的时候，非常享受其中关于Linux进程调度的内容。不同于《深入理解计算机系统》泛而全，此书对于特定领域知识的介绍更加详细，且作者就是Linux抢占式内核、进程调度器等项目的参与者，书中的描述具有权威性。本人将开启一个文章系列作为对此书的阅读笔记。">
+<meta property="og:updated_time" content="2018-10-17T01:32:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Linux内核设计与实现》阅读笔记：(第三章)进程管理">
+<meta name="twitter:description" content="本人第一次翻看《Linux内核设计与实现》的时候，非常享受其中关于Linux进程调度的内容。不同于《深入理解计算机系统》泛而全，此书对于特定领域知识的介绍更加详细，且作者就是Linux抢占式内核、进程调度器等项目的参与者，书中的描述具有权威性。本人将开启一个文章系列作为对此书的阅读笔记。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/09/24/Linux_JCGL/"/>
+
+
+
+
+
+  <title>《Linux内核设计与实现》阅读笔记：(第三章)进程管理 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/09/24/Linux_JCGL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Linux内核设计与实现》阅读笔记：(第三章)进程管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T19:08:12+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/24/Linux_JCGL/" class="leancloud_visitors" data-flag-title="《Linux内核设计与实现》阅读笔记：(第三章)进程管理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,319
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>本人第一次翻看《Linux内核设计与实现》的时候，非常享受其中关于Linux进程调度的内容。不同于《深入理解计算机系统》泛而全，此书对于特定领域知识的介绍更加详细，且作者就是Linux抢占式内核、进程调度器等项目的参与者，书中的描述具有权威性。本人将开启一个文章系列作为对此书的阅读笔记。</p>
+<a id="more"></a>
+<h2 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a>进程概念</h2><p>书中给出了一些概念：</p>
+<ul>
+<li>进程：处于执行期的程序以及相关资源的总称、正在执行的程序代码的实时结果 / 内核视进程为任务；</li>
+<li>可执行代码：在Unix称为代码段，text section；</li>
+<li>进程描述符：包含一个进程的所有信息；</li>
+</ul>
+<p>Linux系统的线程实现：对线程和进程不特别区分；</p>
+<p>进程提供两种虚拟机制：虚拟处理器和虚拟内存，分别将在第四章和第十二章详细描述；</p>
+<p>一些系统级函数：fork、exec、exit、wait4()等；</p>
+<p>Linux内核通常也把进程叫做任务task，书中“任务”“进程”这两个术语交替使用。</p>
+<h2 id="进程描述符"><a href="#进程描述符" class="headerlink" title="进程描述符"></a>进程描述符</h2><p>内核把进程放在任务队列中，这个队列是一个双向循环链表，链表每一项都是task_struct类型，称为进程描述符。这个描述符包含一个进程的所有信息。</p>
+<p>分配进程描述符：Linux通过slab分配器分配task_struct，在这个过程中会创建新的结构struct thread_info，这个结构有助于计算偏移量。</p>
+<p>PID用来标识进程，每个进程的PID都存放在各自的进程描述符中，默认最大值32768，但可以修改。</p>
+<p>进程上下文：可执行文件 -&gt; 进程地址空间 -&gt; 用户空间执行 -&gt; 系统调用 or 触发异常则内核空间执行，此时的内核处于进程上下文中。</p>
+<p>进程/线程状态</p>
+<p>每个进程/线程都处于下列五种状态的一种：</p>
+<ol>
+<li>TASK_RUNNING：或者正在执行，或者在运行队列中等待执行；</li>
+<li>TASK_INTERRUPTIBLE：进程睡眠，等待条件，可接受信号并被其提前唤醒；</li>
+<li>TASK_UNINTERRUPTIBLE：进程睡眠，不响应信号；</li>
+<li>__TASK_TRACED：被其它进程跟踪；</li>
+<li>__TASK_STOPPED：停止执行，没有投入运行也不能投入运行；</li>
+</ol>
+<p>进程家族树</p>
+<ul>
+<li>所有进程都是PID为1的init进程的后代；</li>
+<li>每个进程都有一个父进程，每个进程也拥有0个到多个子进程，子进程构成链表；</li>
+<li>可以从系统的任何进程出发，查找到任意指定的其它进程；</li>
+</ul>
+<h2 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h2><p>产生进程的机制：新的地址空间创建<code>进程</code>，读入可<code>执行文件</code>，最后开始执行。</p>
+<p>进程和可执行文件的关系是什么？我的理解是，进程是Linux的任务，执行文件是实体。</p>
+<h3 id="fork"><a href="#fork" class="headerlink" title="fork"></a>fork</h3><p>fork的作用是创建进程，子进程和父进程的区别在于PID、PPID以及某些资源和统计量；</p>
+<p>exec的作用是读取可执行文件载入地址空间执行；</p>
+<p>COW，即写时复制，父子进程对资源进行只读共享，只有在写入时才对页复制；</p>
+<p>fork的开销：复制父子进程的页表以及给子进程创建唯一的进程描述符；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">fork()</div><div class="line">           \</div><div class="line">           _\|</div><div class="line">vfork()  ---&gt; clone() ---&gt; do_fork() ---&gt; copy_process()</div><div class="line">           _</div><div class="line">           /|</div><div class="line">          /</div><div class="line">__clone()</div></pre></td></tr></table></figure>
+<p>copy_process：</p>
+<ol>
+<li>调用dup_task_struct()，为新进程创建一个内核栈、thread_info以及task_struct，父子进程的这些值以及描述符都是相同的；</li>
+<li>资源限制检查；</li>
+<li>更改某些资源和统计量，父子进程开始彼此区分；</li>
+<li>设置进程态：TASK_UNINTERRUPTIBLE；</li>
+<li>一些标志位的设定；</li>
+<li>为新进程分配有效PID；</li>
+<li>根据传递给clone()的标志位，要么复制要么共享资源，公共的就共享，独有的就复制到该处；</li>
+<li>做一些进程创建的收尾工作，返回指向新进程的指针；</li>
+</ol>
+<p>子进程优先开始的目的是让其先执行exec()，避免写时复制的开销，是一种优化(这个复制开销可能指的是父进程写入)。</p>
+<h3 id="vfork"><a href="#vfork" class="headerlink" title="vfork()"></a>vfork()</h3><p>vfork()和fork()有相同的功效，但和fork主要有两点区别：</p>
+<ul>
+<li>不复制父进程页表；</li>
+<li>父进程会阻塞直到子进程执行exec()或者调用_exit()。</li>
+</ul>
+<p>通常来说除非给性能带来重大提升，否则一般避免使用此调用。</p>
+<h2 id="线程实现"><a href="#线程实现" class="headerlink" title="线程实现"></a>线程实现</h2><p>Linux中，线程被视为一个与其它进程共享某些资源(地址空间)的进程；</p>
+<p>创建方式和fork()差不多，但是会通过标志位来决定共享资源的种类；</p>
+<p>内核进程：</p>
+<p>内核进行的后台操作通过内核线程完成，内核<code>线程</code>独立运行在内核空间，它和普通进程间的区别是没有<code>独立</code>的地址空间，不会将上下文切换至用户空间；</p>
+<p>后续章节还会讨论这个概念。</p>
+<h2 id="进程终结"><a href="#进程终结" class="headerlink" title="进程终结"></a>进程终结</h2><p>进程终结将释放资源并通知父进程。</p>
+<p>终结的方式通常有：</p>
+<ul>
+<li>显式调用exit()；</li>
+<li>隐式调用exit()；</li>
+<li>遇到不能处理也不能忽略的信号或异常；</li>
+</ul>
+<p>exit()主要靠do_exit()代码：</p>
+<ol>
+<li>设置task_struct标志位为PF_EXITING；</li>
+<li>删除内核定时器；</li>
+<li>若开启了记账功能，调用相关方法输出记账；</li>
+<li>调用exit_mm()释放mm_struct；</li>
+<li>调用sem__exit()，如果进程进队是等候IPC信号，则出队；</li>
+<li>调用exit_files()和exit_fs()来递减相关资源的引用计数，计数为0就释放资源；</li>
+<li>设置退出代码，供父进程检索；</li>
+<li>exit_notify()发信号给父进程，然后寻找养父，养父为线程组其它线程活着init进程，然后把子进程的退出状态设置为EXIT_ZOMBIE；</li>
+<li>do_exit调用schedule()，因为处于僵尸状态所以这是进程所执行的最后一段代码；</li>
+</ol>
+<p>处于僵尸状态的进程还占用内核栈、thread_info以及task_struct，目的是给父类提供信息，父类检索后或者通知内核后，释放最后的资源。</p>
+<p>最后的资源主要由进程描述符以及其相关结构组成，父进程调用wait()然后被挂起，直到它的一个子进程退出，然后会返回该子进程的PID，不仅如此，一个指针被提供给该函数，返回时会持有子进程的退出码。最终的释放还会调用release_task()。</p>
+<p>当然上面还可能会遇到一种问题，那就是父进程在子进程之前就退出了，这就涉及到上面列举的第8步，寻找养父，不然就是孤儿进程永远处在僵尸状态不能释放。找到养父后就同上，调用wait()检查子进程，清除其中的僵尸进程。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="进程的布局"><a href="#进程的布局" class="headerlink" title="进程的布局"></a>进程的布局</h3><p>逻辑划分如下(也称段)：</p>
+<ul>
+<li>文本：程序指令；</li>
+<li>数据：程序使用的静态变量；</li>
+<li>堆：程序可从该区域动态分配额外内存；</li>
+<li>栈：随函数调用；</li>
+</ul>
+<p>以上可以类比Java线程的组成结构。</p>
+<h3 id="fork之后的竞态条件"><a href="#fork之后的竞态条件" class="headerlink" title="fork之后的竞态条件"></a>fork之后的竞态条件</h3><p>前文提到了“子进程优先开始的目的是让其先执行exec()”，为什么子进程优先执行exec()会避免无谓的复制和开销？</p>
+<p>这要从子进程的执行说起。当fork出子进程后，常常会去执行和父进程共享代码段的另一组不同函数，在Redis源码中就出现过；另一种常见的情况是使用系统调用exec()去加载全新的程序，exec()会销毁现有的文本、数据、堆以及栈，建立新的堆栈页。</p>
+<p>父进程在fork()之后继续修改数据页和栈页，那么如果父进程先执行，内核就要为子进程复制那些“将要修改”的页。而先调度子进程，它会立即执行exec()，当下一次调度到父进程的时候，就无需复制内存页了。</p>
+<p>不过在Linux2.6.32又改成父进程先执行，因为父进程在CPU处于活跃状态，并且内存管理信息也被置于内存管理单元的转译后背缓冲器(TLB)，所以线运行父进程可以提高性能。</p>
+<p>其实这两种策略性能差异很小，对大部分应用程序几无影响。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文是对《Linux内核设计与实现》一书第三章所做的笔记，主要探究了Linux进程的生命周期，并对一些内容进行了补充。</p>
+<p>为什么vfork会存在子进程有新地址空间的说法？地址空间不共享吗？毕竟写时复制时“内核此时并不复制整个进程地址空间”？关于地址空间的理解会在后续文章展开。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>书中写道”If Linux one day gains copy-on-write page table entries, there will no longer be any benefit”，这句话感觉有歧义也不好理解，fork不是已经提供了这一功能么？</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《Linux内核设计与实现(第三版)》</p>
+<p>《Linux Kernel Development, 3rd Edition》</p>
+<p>《Linux_UNIX系统编程手册(上)》</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/09/24/Linux_JCGL/" title="《Linux内核设计与实现》阅读笔记：(第三章)进程管理">2018/09/24/Linux_JCGL/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C</a>
+          
+            <a href="/tags/进程管理/" rel="tag"># 进程管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/23/JZOffer01/" rel="next" title="小猪快跑，算法快刷(第一部分)">
+                <i class="fa fa-chevron-left"></i> 小猪快跑，算法快刷(第一部分)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/25/Linux_NCGL/" rel="prev" title="《Linux内核设计与实现》阅读笔记：(第十二章)内存管理">
+                《Linux内核设计与实现》阅读笔记：(第十二章)内存管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程概念"><span class="nav-number">1.</span> <span class="nav-text">进程概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程描述符"><span class="nav-number">2.</span> <span class="nav-text">进程描述符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程创建"><span class="nav-number">3.</span> <span class="nav-text">进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork"><span class="nav-number">3.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vfork"><span class="nav-number">3.2.</span> <span class="nav-text">vfork()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程实现"><span class="nav-number">4.</span> <span class="nav-text">线程实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程终结"><span class="nav-number">5.</span> <span class="nav-text">进程终结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">6.</span> <span class="nav-text">补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的布局"><span class="nav-number">6.1.</span> <span class="nav-text">进程的布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fork之后的竞态条件"><span class="nav-number">6.2.</span> <span class="nav-text">fork之后的竞态条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">8.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

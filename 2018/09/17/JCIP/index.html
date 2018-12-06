@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,多线程,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta name="keywords" content="Java,多线程,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Java Concurrency in Practice》学习总结(Part I)">
+<meta property="og:url" content="https://cgiirw.github.io/2018/09/17/JCIP/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r7orhlj31di0do7aw.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn5vl7j30yi0fwn16.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qrf0vvj30yc0bo43q.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3t37vvkj31280bcqa8.jpg">
+<meta property="og:updated_time" content="2018-10-31T00:56:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Java Concurrency in Practice》学习总结(Part I)">
+<meta name="twitter:description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r7orhlj31di0do7aw.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/09/17/JCIP/"/>
+
+
+
+
+
+  <title>《Java Concurrency in Practice》学习总结(Part I) | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/09/17/JCIP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《Java Concurrency in Practice》学习总结(Part I)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T18:56:31+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/多线程/" itemprop="url" rel="index">
+                    <span itemprop="name">多线程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/17/JCIP/" class="leancloud_visitors" data-flag-title="《Java Concurrency in Practice》学习总结(Part I)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,884
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于<code>发布逸出</code>、<code>安全发布</code>、<code>线程安全类添加功能</code>、<code>构建高效且可伸缩的结果内存</code>等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。</p>
+<a id="more"></a>
+<h2 id="第一章-简介"><a href="#第一章-简介" class="headerlink" title="第一章 简介"></a>第一章 简介</h2><p>简要介绍了并发历史、线程优势、线程风险以及线程应用。</p>
+<h3 id="线程风险"><a href="#线程风险" class="headerlink" title="线程风险"></a>线程风险</h3><ul>
+<li>安全性问题：存在竞态条件，线程无法预料数据变化所产生的错误；</li>
+<li>活跃性问题：死锁、饥饿、活锁；</li>
+<li>性能问题：保存恢复线程执行的上下文、CPU时间花费在调度上、同步机制会清空锁定内存和高速缓存并在共享内存总线创建同步通信；</li>
+</ul>
+<h2 id="第二章-线程安全"><a href="#第二章-线程安全" class="headerlink" title="第二章 线程安全"></a>第二章 线程安全</h2><p>编写安全代码的本质：管理对状态的访问，而且通常是共享、可变的状态；</p>
+<p>共享：变量被多个线程访问；</p>
+<p>可变：变量的值在生命周期内可变；</p>
+<p>访问同一可变状态的变量没有使用合适的同步而出现了错误，修复的方式：</p>
+<ul>
+<li>不在线程间共享该状态变量；</li>
+<li>状态变量修改为不可变变量；</li>
+<li>访问状态变量时使用同步；</li>
+</ul>
+<p>编写并发应用程序时，一种正确的编程方法：首先使代码正确运行，然后再提高代码的速度；</p>
+<p>线程安全性：当多个线程访问某个类时，这个类始终都能表现出正确的行为，那么就称这个类是线程安全的；</p>
+<p>无状态对象一定是线程安全的；</p>
+<p>多个线程交替执行时序时，会发生竞态条件，最常见的竞态条件是“先检查后执行”操作；</p>
+<p>“重入”意味着获取锁的操作的粒度是“线程”，而不是“调用”，这与pthread(POSIX线程)互斥体默认加锁行为不同，后者是以“调用”为粒度；</p>
+<p>如果持有锁的时间过长，就会带来活跃性和性能的问题，比如执行中会有I/O操作，那么一定不要持有锁；</p>
+<h2 id="第三章-对象的共享"><a href="#第三章-对象的共享" class="headerlink" title="第三章 对象的共享"></a>第三章 对象的共享</h2><p>当前大多数架构中，读取volatile变量的开销只比读取非volatile变量的开销略高一点；</p>
+<p>逸出：当某个不应该发布的对象被发布时，这种状况就被称为逸出；</p>
+<p>发布对象的最简单方法：将对象的引用保存在一个公有的静态变量中，以便任何类和线程都能看到该对象；</p>
+<p>当发布一个对象时，对该对象的非私有域中引用的所有对象同样会被发布；</p>
+<p>不要在构造过程中使this引用逸出；</p>
+<p>构造过程中使<code>this引用逸出</code>的错误有：</p>
+<ul>
+<li>构造函数中启动一个线程；</li>
+<li>在构造函数中调用可被改写的实例方法；</li>
+</ul>
+<p>这里用代码解释<code>在构造函数中调用可被改写的实例方法</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThisEscape</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> i;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ThisEscape</span><span class="params">(EventSource source)</span> </span>&#123;</div><div class="line">        source.registerListener(</div><div class="line">            <span class="keyword">new</span> EventListener() &#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Event e)</span> </span>&#123;</div><div class="line">                    doSomething(e);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        );</div><div class="line">        i = <span class="number">7</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// result can be 0 or 10</span></div><div class="line">    <span class="function"><span class="keyword">int</span> <span class="title">doSomething</span><span class="params">(Event e)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> i;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在构造函数中注册一个监听器来监听事件，doSomething()是内部类触发事件调用的外围类的实例方法，所以存在外围类this逸出的错误，当监听器监听到事件并最终调用doSomething(e)的时候，外部类可能还没有完全构造。</p>
+<p>解决此错误的方法：使用工厂方法。具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeListener</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> EventListener listener;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">SafeListener</span><span class="params">()</span> </span>&#123;</div><div class="line">    listener = <span class="keyword">new</span> EventListener() &#123;</div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Event e)</span> </span>&#123;</div><div class="line">        doSomething(e);</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SafeListener <span class="title">newInstance</span><span class="params">(EventSource source)</span> </span>&#123;</div><div class="line">    SafeListener safe = <span class="keyword">new</span> SafeListener();</div><div class="line">    source.registerListener(safe.listener);</div><div class="line">    <span class="keyword">return</span> safe;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里之所以可以避免在构造函数中出现this逸出，是因为final能确保初始化的过程的安全性。</p>
+<p>栈封闭只能通过局部变量才能访问对象，比Ad-hoc线程封闭更易于维护，也更加健壮；</p>
+<p>某个对象在创建后状态就不能被更改，那么这个对象就称为不可变对象；</p>
+<p>不可变对象一定是线程安全的；</p>
+<p>除非需要某个域是可变的，否则将其声明为final是一个良好的编程习惯；</p>
+<h3 id="安全发布"><a href="#安全发布" class="headerlink" title="安全发布"></a>安全发布</h3><p>手边的童云兰版对英文版3.5.3小节部分内容的翻译与原意有出入，这里先放上英文原文：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r7orhlj31di0do7aw.jpg" alt="Safe_Publication_Idioms"></p>
+<p>这里无非是要处理对象修改状态对其它线程的可见性问题：</p>
+<p>首先<code>可以通过静态初始化器初始化对象的引用</code>(翻译版翻译为“在静态初始化函数中初始化一个对象引用”)；</p>
+<p>在此之后可以通过三种方式将对象的引用保存，属于选择关系，而不是分步串行，即：</p>
+<ul>
+<li>要么保存在volatile字段或者原子引用中；</li>
+<li>要么保存在可以正确构造对象的final字段中；</li>
+<li>要么保存在加了锁的字段中；</li>
+</ul>
+<p>《深入理解Java虚拟机》一书已经介绍了静态字段初始化的时机，这里需要强调的是，JVM内部存在同步机制，所以通过静态初始化器初始化对象的引用可以被安全的发布。</p>
+<h2 id="第四章-对象的组合"><a href="#第四章-对象的组合" class="headerlink" title="第四章 对象的组合"></a>第四章 对象的组合</h2><p>本章主要是介绍一些构造类的模式，将线程安全的组件安全的组合成更大的组件或程序。</p>
+<p>如果一个对象的域引用了其它对象，那么它的状态也同时包含被引用对象的域，比如一些容器类；</p>
+<h3 id="实例限制"><a href="#实例限制" class="headerlink" title="实例限制"></a>实例限制</h3><p>被限制的对象一定不能逸出到它期望可用的范围之外，可以把对象限制在类实例(私有类成员)、lexical scope(比如本地变量)或线程(比如对象从线程内的一个方法传递给另一个方法，但不支持跨线程分享)；</p>
+<p>限制性使构造线程安全的类变得更容易，因为类的状态被限制后，分析它的线程安全性时，就不必检查完整的程序；</p>
+<h3 id="Java监视器模式"><a href="#Java监视器模式" class="headerlink" title="Java监视器模式"></a>Java监视器模式</h3><p>遵循Java监视器模式的对象会把对象的所有可变状态都封装起来，并由对象自己的内置锁来保护；</p>
+<p>使用私有锁对象而不是对象的内置锁(或任何可以被公共访问的锁)有许多优点；</p>
+<h3 id="在现有线程安全类中添加功能"><a href="#在现有线程安全类中添加功能" class="headerlink" title="在现有线程安全类中添加功能"></a>在现有线程安全类中添加功能</h3><p>要添加一个新的原子操作，最安全的方法是修改原始的类，“but this is not always possible because you may not have access to the source code or may not be free to modify it. ”；</p>
+<p>另外的方法是extend the class，“but not all classes expose enough of their state to subclasses to admit this approach. ”</p>
+<p>第三种策略是扩展类的功能，但并不扩展类本身，而是将扩展类放在一个“辅助类”中；</p>
+<p>这种方法常常会出现在错误的锁上进行同步的问题，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ListHelper</span>&lt;<span class="title">E</span>&gt; </span>&#123;</div><div class="line">  <span class="keyword">public</span> List&lt;E&gt; list = ...;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">putIfAbsent</span><span class="params">(E x)</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> absent = !list.contains(x);</div><div class="line">    <span class="keyword">if</span> (absent) &#123;</div><div class="line">      list.add(x);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> absent;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该代码不能达到线程安全性的原因就是没有对list对象的monitor锁进行同步，修改的方式是添加<code>synchronized (list)</code>，但这种方法比之前的方法更脆弱，因为将加锁的代码放到了无关的地方；</p>
+<p>第四种：组合，这是一种更好的方法；</p>
+<h2 id="第五章-基础构建模块"><a href="#第五章-基础构建模块" class="headerlink" title="第五章 基础构建模块"></a>第五章 基础构建模块</h2><p>本章主要是涵盖了最有用的并发构建块，特别是Java 5.0和Java 6引入的，以及它们构造并发程序时用到的一些模式。</p>
+<p>本章首先要注意区分同步容器和并发容器的区别；</p>
+<p>容器复合操作包括：迭代、导航(根据顺序寻找下一个元素)以及条件运算(put-if-absent)，通常情况下这些复合操作即便没有客户端加锁保护，也是线程安全的，但是当其它线程能够并发修改容器的时候，就会产生线程安全问题；</p>
+<p>通过for迭代的时候，如果并发进行删除操作，可能会抛出数组越界异常，通过客户端加锁解决该问题，会使程序牺牲伸缩性，比如没有进行删除操作，仍然要去获取锁增加开销；同时，这样做也会造成for迭代的时候其它线程无法访问，降低了并发性；</p>
+<p>用Iterator迭代的过程如果发生了修改操作会抛出ConcurrentModificationException异常，如果不想采用客户端加锁来解决，则可以采用<code>克隆容器在副本上迭代</code>的方法，采用该方法同样要考虑性能；</p>
+<p>隐藏迭代器：一个容器作为另一个容器的元素或者键值，就要注意可能发生的隐藏迭代操作，包括调用hashCode()和equals()等，甚至是toString()；</p>
+<p>同步容器通过将容器状态的访问串行化来实现线程安全；</p>
+<p>通过并发容器来替代同步容器，可以极大的提高伸缩性并降低风险；</p>
+<p>关于ConcurrentHashMap将会单独进行源码分析；</p>
+<p>ConcurrentHashMap不能加锁独占访问，所以可以采用ConcurrentMap接口；</p>
+<p>关于JUC提供的队列将单独进行源码分析；</p>
+<h3 id="构建高效且可伸缩的结果缓存"><a href="#构建高效且可伸缩的结果缓存" class="headerlink" title="构建高效且可伸缩的结果缓存"></a>构建高效且可伸缩的结果缓存</h3><p>就是实现并发下的享元模式。</p>
+<p>首先，使用HashMap组合加锁的方式，并发效率非常低，因为每次只有一个线程能够执行compute()，相当于为了同步而串行：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn5vl7j30yi0fwn16.jpg" alt="m1"></p>
+<p>由图可见，纵向每次只有一个线程在执行。</p>
+<p>改进的方法是将HashMap替换为ConcurrentHashMap，考虑下图这种情形：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qrf0vvj30yc0bo43q.jpg" alt="m2"></p>
+<p>在图中当线程A正在执行compute f(1)的时候，线程B发现缓存不中，就也开始调用compute f(1)，如此这般最终相当于计算了两次。而且还要看具体的应用场景，有些场景只要求缓存对象初始化一次，那么这就产生了安全风险。</p>
+<p>继续方法改进，增加FutureTask，这样当上图中B线程查找f(1)的值时，会发现f(1)的Future，从而不会认为缓存不中，但是此时会遇到新的问题，如下图：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3t37vvkj31280bcqa8.jpg" alt="m3"></p>
+<p>A线程检测到f(1)没有在缓存，于是开始put Future for f(1)，在成功之前，线程B也检测到f(1)没有在缓存，于是也开始put Future for f(1)。这是“检测再运行”带来的重复计算的问题。</p>
+<p>改进的方法是利用ConcurrentMap，该接口提供了原子操作putIfAbsent()，最终代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Memoizer</span>&lt;<span class="title">A</span>, <span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Computable</span>&lt;<span class="title">A</span>, <span class="title">V</span>&gt; </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> ConcurrentMap&lt;A, Future&lt;V&gt;&gt; cache = <span class="keyword">new</span> ConcurrentHashMap&lt;A, Future&lt;V&gt;&gt;();</div><div class="line">  <span class="keyword">private</span> <span class="keyword">final</span> Computable&lt;A, V&gt; c;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Memoizer</span><span class="params">(Computable&lt;A, V&gt; c)</span> </span>&#123;</div><div class="line">    <span class="keyword">this</span>.c = c;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> V <span class="title">compute</span><span class="params">(<span class="keyword">final</span> A arg)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">      Future&lt;V&gt; f = cache.get(arg);</div><div class="line">      <span class="keyword">if</span> (f == <span class="keyword">null</span>) &#123;</div><div class="line">        Callable&lt;V&gt; eval = <span class="keyword">new</span> Callable&lt;V&gt;() &#123;</div><div class="line">          <span class="function"><span class="keyword">public</span> V <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">            <span class="keyword">return</span> c.compute(arg);</div><div class="line">          &#125;</div><div class="line">        &#125;;</div><div class="line">        FutureTask&lt;V&gt; ft = <span class="keyword">new</span> FutureTask&lt;V&gt;(eval);</div><div class="line">        f = cache.putIfAbsent(arg, ft);</div><div class="line">        <span class="keyword">if</span> (f == <span class="keyword">null</span>) &#123; f = ft; ft.run(); &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">return</span> f.get();</div><div class="line">      &#125; <span class="keyword">catch</span> (CancellationException e) &#123;</div><div class="line">        cache.remove(arg, f);</div><div class="line">      &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</div><div class="line">        <span class="keyword">throw</span> launderThrowable(e.getCause());</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码中的异常处理用来应对<code>缓存污染</code>，考虑了计算被取消或者失败的情形。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/09/17/JCIP/" title="《Java Concurrency in Practice》学习总结(Part I)">2018/09/17/JCIP/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/多线程/" rel="tag"># 多线程</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/13/Redis_RDB/" rel="next" title="Redis享知享学：RDB原理解析">
+                <i class="fa fa-chevron-left"></i> Redis享知享学：RDB原理解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/23/JZOffer01/" rel="prev" title="小猪快跑，算法快刷(第一部分)">
+                小猪快跑，算法快刷(第一部分) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">111</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-简介"><span class="nav-number">1.</span> <span class="nav-text">第一章 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程风险"><span class="nav-number">1.1.</span> <span class="nav-text">线程风险</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-线程安全"><span class="nav-number">2.</span> <span class="nav-text">第二章 线程安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章-对象的共享"><span class="nav-number">3.</span> <span class="nav-text">第三章 对象的共享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全发布"><span class="nav-number">3.1.</span> <span class="nav-text">安全发布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四章-对象的组合"><span class="nav-number">4.</span> <span class="nav-text">第四章 对象的组合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例限制"><span class="nav-number">4.1.</span> <span class="nav-text">实例限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java监视器模式"><span class="nav-number">4.2.</span> <span class="nav-text">Java监视器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在现有线程安全类中添加功能"><span class="nav-number">4.3.</span> <span class="nav-text">在现有线程安全类中添加功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第五章-基础构建模块"><span class="nav-number">5.</span> <span class="nav-text">第五章 基础构建模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#构建高效且可伸缩的结果缓存"><span class="nav-number">5.1.</span> <span class="nav-text">构建高效且可伸缩的结果缓存</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
