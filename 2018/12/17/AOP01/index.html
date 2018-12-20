@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Kotlin,AOP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文将简单介绍如何用Kotlin实现一个AOP框架(在此之前本人先行编写了IOC框架，IOC实现为采用xml配置的方式，比较简单，可直接在GitHub参阅源码，这里就不赘述了)。">
+<meta name="keywords" content="Kotlin,AOP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin语言实现AOP框架">
+<meta property="og:url" content="https://cgiirw.github.io/2018/12/17/AOP01/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="本文将简单介绍如何用Kotlin实现一个AOP框架(在此之前本人先行编写了IOC框架，IOC实现为采用xml配置的方式，比较简单，可直接在GitHub参阅源码，这里就不赘述了)。">
+<meta property="og:updated_time" content="2018-12-20T08:20:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin语言实现AOP框架">
+<meta name="twitter:description" content="本文将简单介绍如何用Kotlin实现一个AOP框架(在此之前本人先行编写了IOC框架，IOC实现为采用xml配置的方式，比较简单，可直接在GitHub参阅源码，这里就不赘述了)。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/12/17/AOP01/"/>
+
+
+
+
+
+  <title>Kotlin语言实现AOP框架 | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/12/17/AOP01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://oowdnxekq.bkt.clouddn.com/179755884.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kotlin语言实现AOP框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-17T16:25:12+08:00">
+                2018-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/自实现AOP框架/" itemprop="url" rel="index">
+                    <span itemprop="name">自实现AOP框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/17/AOP01/" class="leancloud_visitors" data-flag-title="Kotlin语言实现AOP框架">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,245
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>本文将简单介绍如何用Kotlin实现一个AOP框架(在此之前本人先行编写了IOC框架，IOC实现为采用xml配置的方式，比较简单，可直接在GitHub参阅源码，这里就不赘述了)。</p>
+<a id="more"></a>
+<h2 id="基本注意事项"><a href="#基本注意事项" class="headerlink" title="基本注意事项"></a>基本注意事项</h2><p>Spring AOP构建在动态代理基础之上，因此Spring对AOP的支持局限于方法的拦截；</p>
+<p>目标对象实现了接口，Spring默认采用JDK动态代理实现AOP；</p>
+<p>条件满足时，CGLIB可以强行取代JDK动态代理来实现AOP；</p>
+<p>如果目标对象没有实现接口，则采用CGLIB实现AOP；</p>
+<h2 id="框架类-接口介绍"><a href="#框架类-接口介绍" class="headerlink" title="框架类/接口介绍"></a>框架类/接口介绍</h2><p>Spring AOP的核心是代理模式，而代理模式有多种，包括JDK动态代理以及CGLIB，这里首先采用JDK动态代理来实现。</p>
+<p>和Spring一样，本框架倚赖AspectJ框架，以期快速完成框架的编写。</p>
+<p>下面介绍一些主要的类/接口。</p>
+<h3 id="TargetSource"><a href="#TargetSource" class="headerlink" title="TargetSource"></a>TargetSource</h3><p>被代理的目标对象包，之所以称之为包是因为它除了包含目标对象，还包含目标对象的元数据。</p>
+<h3 id="Advisor"><a href="#Advisor" class="headerlink" title="Advisor"></a>Advisor</h3><p>用于获得Advice，Advice是AspectJ框架提供的接口。</p>
+<h3 id="Pointcut"><a href="#Pointcut" class="headerlink" title="Pointcut"></a>Pointcut</h3><p>切点接口，表示在哪里切入，它包括两个方法，分别用来获取ClassFilter和MethodMatcher，一个是类过滤器，一个是方法匹配器。</p>
+<h3 id="ClassFilter-amp-MethodMatcher"><a href="#ClassFilter-amp-MethodMatcher" class="headerlink" title="ClassFilter &amp; MethodMatcher"></a>ClassFilter &amp; MethodMatcher</h3><p>类过滤器接口和方法匹配器接口，分别包含匹配方法判断是否满足匹配条件。</p>
+<h3 id="PointcutAdvisor"><a href="#PointcutAdvisor" class="headerlink" title="PointcutAdvisor"></a>PointcutAdvisor</h3><p>切面接口，提供切点和advice的获取方法。</p>
+<h3 id="AdvisedSupport"><a href="#AdvisedSupport" class="headerlink" title="AdvisedSupport"></a>AdvisedSupport</h3><p>一个支持类，它包含目标对象包引用、拦截器对象引用以及判断方法匹配接口的引用。MethodInterceptor是拦截器接口，本质上仍然是一个Advice，MethodMatcher代表切点，所以AdvisedSupport提供了“在什么地方对什么样的目标对象进行什么样的拦截”的信息。</p>
+<h3 id="AopProxy"><a href="#AopProxy" class="headerlink" title="AopProxy"></a>AopProxy</h3><p>代理类的接口，不同模式的代理都实现该接口。</p>
+<h3 id="ReflectiveMethodInvocation"><a href="#ReflectiveMethodInvocation" class="headerlink" title="ReflectiveMethodInvocation"></a>ReflectiveMethodInvocation</h3><p>该类的作用主要是通过反射调用目标对象的方法。ReflectiveMethodInvocation是MethodInvocation的具体实现，MethodInvocation是AspectJ框架提供的接口，该接口还继承了AspectJ提供的另一接口Invocation。</p>
+<h3 id="AspectJExpressionPointcut"><a href="#AspectJExpressionPointcut" class="headerlink" title="AspectJExpressionPointcut"></a>AspectJExpressionPointcut</h3><p>切点的具体实现类。AspectJ框架提供了AspectJExpressionPointcut类，本人在此基础上修改了一些内容，去掉了暂时不需要的部分。</p>
+<h3 id="AspectJExpressionPointcutAdvisor"><a href="#AspectJExpressionPointcutAdvisor" class="headerlink" title="AspectJExpressionPointcutAdvisor"></a>AspectJExpressionPointcutAdvisor</h3><p>切面的实现类。</p>
+<h3 id="BeanFactoryAware"><a href="#BeanFactoryAware" class="headerlink" title="BeanFactoryAware"></a>BeanFactoryAware</h3><p>设置工厂类的接口。</p>
+<h3 id="JdkDynamicAopProxy"><a href="#JdkDynamicAopProxy" class="headerlink" title="JdkDynamicAopProxy"></a>JdkDynamicAopProxy</h3><p>JDK动态代理类，实现AOP的核心。</p>
+<h3 id="AspectJAwareAdvisorAutoProxyCreator"><a href="#AspectJAwareAdvisorAutoProxyCreator" class="headerlink" title="AspectJAwareAdvisorAutoProxyCreator"></a>AspectJAwareAdvisorAutoProxyCreator</h3><p>它是一个BeanPostProcessor的实现类，用于给拦截到的Bean对象创建代理实例。</p>
+<h2 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h2><p>首先贴出代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class JdkDynamicAopProxy(var advised: AdvisedSupport) : AopProxy, InvocationHandler&#123;</div><div class="line"></div><div class="line">    override fun getProxy(): Any? &#123;</div><div class="line">        return Proxy.newProxyInstance(advised.targetSource!!.target!!.javaClass.classLoader, advised.targetSource!!.targetClass, this)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override fun invoke(proxy: Any?, method: Method?, args: Array&lt;Any&gt;?): Any? &#123;</div><div class="line">        var methodInterceptor = advised.methodInterceptor</div><div class="line">        var methodMatcher = advised.methodMatcher</div><div class="line"></div><div class="line">        if (methodMatcher != null &amp;&amp; methodMatcher.matches(method!!, advised.targetSource!!.target!!::class.java))</div><div class="line">            // 匹配时返回拦截器的处理方法</div><div class="line">            return methodInterceptor?.invoke(ReflectiveMethodInvocation(advised.targetSource!!.target, method, args))</div><div class="line">        else &#123;</div><div class="line">            // 不匹配时返回目标对象的原本方法</div><div class="line">            return method?.invoke(advised.targetSource!!.target, *(p2 ?: arrayOfNulls&lt;Any&gt;(0)))</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和通常JDK动态代理的实现最大区别是，增加了MethodInterceptor和ReflectiveMethodInvocation对象的参与，比较if…else的两个返回部分就可以知道一切都是为了将逻辑更进一层的封装，这样通过实现MethodInterceptor就可以完成前置Advice、后置Advice等等切面工作。</p>
+<p>比如在后文还将运用于项目代码的SimpleInterceptor：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class SimpleInterceptor : MethodInterceptor &#123;</div><div class="line">    override fun invoke(invocation: MethodInvocation?): Any? &#123;</div><div class="line">        println("Before ...")</div><div class="line">        var rval = invocation!!.proceed()</div><div class="line">        println("After ...")</div><div class="line">        return rval</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这就是一个简单的环绕Advice拦截器。</p>
+<h2 id="测试JDK动态代理"><a href="#测试JDK动态代理" class="headerlink" title="测试JDK动态代理"></a>测试JDK动态代理</h2><p>写一个测试来检测目前写的代码。</p>
+<p>首先写一个环切Advice：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class SimpleInterceptor : MethodInterceptor &#123;</div><div class="line">    override fun invoke(invocation: MethodInvocation?): Any? &#123;</div><div class="line">        println("Before ...")</div><div class="line">        var rval = invocation!!.proceed()</div><div class="line">        println("After ...")</div><div class="line">        return rval</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后是目标被代理类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">interface HelloJDKFather &#123;</div><div class="line">    fun helloMethod(x: Int)</div><div class="line">&#125;</div><div class="line"></div><div class="line">interface HelloJDKMother</div><div class="line"></div><div class="line">class HelloJDKProxy : HelloJDKFather, HelloJDKMother &#123;</div><div class="line"></div><div class="line">    override fun helloMethod(x: Int) &#123;</div><div class="line">        println("I am Hello! $x")</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JdkDynamicAopProxyTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function">fun <span class="title">getProxy</span><span class="params">()</span> </span>&#123;</div><div class="line">        var helloJDKProxy = HelloJDKProxy()</div><div class="line">        var aspectJExpressionPointcut = AspectJExpressionPointcut()</div><div class="line">        var expression = <span class="string">"execution(* testresources.beans.*.*(..))"</span></div><div class="line">        var advisedSupport = AdvisedSupport()</div><div class="line">        var simpleInterceptor = SimpleInterceptor()</div><div class="line"></div><div class="line"></div><div class="line">        aspectJExpressionPointcut.expression = expression</div><div class="line">        var targetSource = TargetSource(helloJDKProxy, *helloJDKProxy.javaClass.interfaces)</div><div class="line">        var methodMatcher = aspectJExpressionPointcut.getMethodMatcher()</div><div class="line"></div><div class="line">        advisedSupport.targetSource = targetSource</div><div class="line">        advisedSupport.methodMatcher = methodMatcher</div><div class="line">        advisedSupport.methodInterceptor = simpleInterceptor</div><div class="line"></div><div class="line">        var jdkDynamicAopProxy = JdkDynamicAopProxy(advisedSupport).getProxy() as HelloJDKFather</div><div class="line">        jdkDynamicAopProxy.helloMethod(<span class="number">5</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Before ...</div><div class="line">I am Hello! 5</div><div class="line">After ...</div><div class="line"></div><div class="line">Process finished with exit code 0</div></pre></td></tr></table></figure>
+<p>成功完成动态代理的工作。</p>
+<h2 id="Kotlin编写问题-amp-解决"><a href="#Kotlin编写问题-amp-解决" class="headerlink" title="Kotlin编写问题 &amp; 解决"></a>Kotlin编写问题 &amp; 解决</h2><p>暂时停下框架的编写，讨论在之前使用Kotlin语言的过程中积累的几个问题。</p>
+<h3 id="问题一"><a href="#问题一" class="headerlink" title="问题一"></a>问题一</h3><p>这是编写ReflectiveMethodInvocation的方法proceed()时产生的问题。如果是代理没有显示参数的方法，原本的代码在IDE下会报IllegalArgumentException异常。内部调用的是public Object invoke(Object obj, Object… args)，由于可变参数需要星号投影，且如果args是null需要生成零长null型数组，所以解决代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function">override fun <span class="title">proceed</span><span class="params">()</span>: Any? </span>&#123;</div><div class="line">    var re = method!!.invoke(target, *(args ?: arrayOfNulls&lt;Any&gt;(<span class="number">0</span>)))</div><div class="line">    <span class="keyword">return</span> re</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="问题二"><a href="#问题二" class="headerlink" title="问题二"></a>问题二</h3><p>编写TargetSource类时传入的可变参数(vararg)赋值给数组出现Type mismatch问题。本人解决的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">constructor(target: Any, vararg targetClass: Class&lt;*&gt;) &#123;</div><div class="line">    <span class="keyword">this</span>.target = target</div><div class="line">    <span class="keyword">this</span>.targetClass = Array(targetClass.size) &#123; i -&gt; targetClass[i] &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="问题三"><a href="#问题三" class="headerlink" title="问题三"></a>问题三</h3><p>在编写initializeBean方法时，出现参数Val cannot be reassigned的问题。用代码描述就是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function">fun <span class="title">testMethod</span><span class="params">(bean: Bean)</span> </span>&#123;</div><div class="line">  bean = otherMethod(bean)</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">protected</span> fun <span class="title">initializeBean</span><span class="params">(bean: Any, id: String)</span> </span>&#123;</div><div class="line">    <span class="keyword">for</span> (beanPostProcessor in beanPostProcessors) &#123;</div><div class="line">        bean = beanPostProcessor.postProcessAfterInitialization(bean, id)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在本文最后的参考链接<a href="https://discuss.kotlinlang.org/t/function-parameters-are-val-not-var/897/8" target="_blank" rel="external">Function parameters are “val” not “var”?</a>下的回答中，语言设计的作者给出了问题产生原因。在这里，本人用返回值来解决，结合</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> fun <span class="title">initializeBean</span><span class="params">(_bean: Any, id: String)</span>: Any </span>&#123;</div><div class="line">    var bean = <span class="function">_bean</span></div><div class="line">    <span class="title">for</span> <span class="params">(beanPostProcessor in beanPostProcessors)</span> &#123;</div><div class="line">        bean = beanPostProcessor.postProcessAfterInitialization(bean, id)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> bean</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="问题四"><a href="#问题四" class="headerlink" title="问题四"></a>问题四</h3><p>继承父类get、set方法和Kotlin的属性机制冲突。这个问题可以通过@JvmField解决：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class ReflectiveMethodInvocation(var target: Any?, @JvmField var method: Method?, var args: Array&lt;Any&gt;?) : MethodInvocation &#123;</div><div class="line"></div><div class="line">    override fun getMethod(): Method? &#123;</div><div class="line">        return method</div><div class="line">    &#125;</div><div class="line">  ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="CGLIB动态代理"><a href="#CGLIB动态代理" class="headerlink" title="CGLIB动态代理"></a>CGLIB动态代理</h2><p>继续代码的编写，创造一个类CglibAopProxy，整个代码结构和JdkDynamicAopProxy是很相似的，直接贴出：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">class CglibAopProxy(var advised: AdvisedSupport) : MethodInterceptor, AopProxy &#123;</div><div class="line">    var targetObject = advised.targetSource!!.target</div><div class="line"></div><div class="line">    override fun getProxy(): Any? &#123;</div><div class="line">        return createProxyInstance()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    fun createProxyInstance(): Any? &#123;</div><div class="line">        var enhancer = Enhancer()</div><div class="line">        enhancer.setSuperclass(this.targetObject!!::class.java)</div><div class="line">        enhancer.setCallback(this)</div><div class="line">        return enhancer.create()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override fun intercept(p0: Any?, p1: Method?, p2: Array&lt;Any&gt;?, p3: MethodProxy?): Any? &#123;</div><div class="line">        var methodInterceptor = advised.methodInterceptor</div><div class="line">        var methodMatcher = advised.methodMatcher</div><div class="line"></div><div class="line">        if (methodMatcher != null &amp;&amp; methodMatcher.matches(p1!!, advised.targetSource!!.target!!::class.java))</div><div class="line">        // 匹配时返回拦截器的处理方法</div><div class="line">            return methodInterceptor?.invoke(ReflectiveMethodInvocation(advised.targetSource!!.target, p1, p2))</div><div class="line">        else &#123;</div><div class="line">            // 不匹配时返回目标对象的原本方法</div><div class="line">            return p1?.invoke(advised.targetSource!!.target, *(p2 ?: arrayOfNulls&lt;Any&gt;(0)))</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>intercept方法中的逻辑和JDK动态代理的一样，AspectJ框架能将引用部分的代码和被代理的方法解耦合。</p>
+<h2 id="测试CglibAopProxy"><a href="#测试CglibAopProxy" class="headerlink" title="测试CglibAopProxy"></a>测试CglibAopProxy</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CglibAopProxyTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function">fun <span class="title">intercept</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        var helloJDKProxy = HelloJDKProxy()</div><div class="line">        var aspectJExpressionPointcut = AspectJExpressionPointcut()</div><div class="line">        var expression = <span class="string">"execution(* testresources.beans.*.*(..))"</span></div><div class="line">        var advisedSupport = AdvisedSupport()</div><div class="line">        var simpleInterceptor = SimpleInterceptor()</div><div class="line"></div><div class="line">        aspectJExpressionPointcut.expression = expression</div><div class="line">        var targetSource = TargetSource(helloJDKProxy, *helloJDKProxy.javaClass.interfaces)</div><div class="line">        var methodMatcher = aspectJExpressionPointcut.getMethodMatcher()</div><div class="line"></div><div class="line">        advisedSupport.targetSource = targetSource</div><div class="line">        advisedSupport.methodMatcher = methodMatcher</div><div class="line">        advisedSupport.methodInterceptor = simpleInterceptor</div><div class="line"></div><div class="line">        var CglibAopProxy = CglibAopProxy(advisedSupport).getProxy() as HelloJDKProxy</div><div class="line">        CglibAopProxy.helloMethod(<span class="number">5</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>测试逻辑基本上和JdkDynamicAopProxyTest一摸一样，只有两点不同：</p>
+<ul>
+<li>HelloJDKProxy要声明为open；</li>
+<li>生成的代理对象转换为被代理类而非公共接口；</li>
+</ul>
+<p>这也说明了JDK动态代理和CGLIB动态代理的区别：前者被代理的类需要实现接口，而后者被代理的类不需要实现接口，但是该类不能是final的，是需要open的。</p>
+<h2 id="完成框架主逻辑"><a href="#完成框架主逻辑" class="headerlink" title="完成框架主逻辑"></a>完成框架主逻辑</h2><p>这一步即完善程序，在和之前测试条件相同的情况下，运行Main方法达到环切的效果。</p>
+<p>整个程序的执行流程在于方法refresh：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function">fun <span class="title">refresh</span><span class="params">()</span> </span>&#123;</div><div class="line">    loadBeanDefinitions(beanFac)</div><div class="line">    registerBeanPostProcessors(beanFac)</div><div class="line">    onRefresh()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>loadBeanDefinitions方法用来将对xml解析的(name, BeanDef)键值对装入工厂的容器中；</p>
+</li>
+<li><p>registerBeanPostProcessors方法用来注册BeanPostProcessor，BeanPostProcessor对象可以在initializeBean方法中拦截bean，并将动态代理作用在他们身上；</p>
+</li>
+<li><p>onRefresh方法通过beanId获得创建的bean对象，其中最重要的是getBean方法；</p>
+</li>
+</ul>
+<p>getBean()代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function">override fun <span class="title">getBean</span><span class="params">(id: String)</span>: Any </span>&#123;</div><div class="line">    var beanDef = beanDefMap[id]</div><div class="line"></div><div class="line">    <span class="comment">// Elvis操作符的作用是为null则返回":"右边的表达式</span></div><div class="line">    beanDef ?: <span class="keyword">throw</span> IllegalArgumentException(<span class="string">"该bean没有定义"</span>)</div><div class="line"></div><div class="line">    var bean = beanDef.bean</div><div class="line"></div><div class="line">    <span class="comment">// 添加bean初始化处理</span></div><div class="line">    <span class="keyword">return</span> bean ?: initializeBean(doCreateBean(beanDef)!!, id)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果只是创建对象，那么应该使用doCreateBean()而不是getBean()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 依赖注入产生bean</span></div><div class="line"><span class="function">fun <span class="title">doCreateBean</span><span class="params">(beanDef: BeanDef)</span>: Any? </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 添加判断语句避免重复创建对象</span></div><div class="line">    <span class="keyword">if</span> (beanDef.bean != <span class="keyword">null</span>)</div><div class="line">        <span class="keyword">return</span> beanDef.bean</div><div class="line"></div><div class="line">    var bean = createBeanInstance(beanDef)</div><div class="line">    applyPropertyValues(bean, beanDef)</div><div class="line">    beanDef.bean = bean</div><div class="line">    <span class="keyword">return</span> bean</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在代码中为避免创建多个对象产生覆盖问题，可以使用if语句在创建前先进行判断bean是否已然存在。</p>
+<p>最后要说明的是，动态代理产生的代理对象需要在beandefMap中取代原本的bean，不然在最终调用时获得的仍然是没有被代理的对象，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">    ...</div><div class="line"></div><div class="line">beanFac!!.beanDefMap[beanName]!!.bean = CglibAopProxy(advisedSupport).getProxy()!!</div><div class="line">  <span class="keyword">return</span> beanFac!!.beanDefMap[beanName]!!.bean!!</div><div class="line"></div><div class="line">    ...</div></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过编写本项目了解AOP的实现原理，对用Kotlin编程中遇到的问题进行了分析和解决。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://yooodooo.github.io/java/2013/05/08/spring-aop-4/" target="_blank" rel="external">Spring AOP对AspectJ的支持</a>：介绍了几种原语；</p>
+<p><a href="https://stackoverflow.com/questions/41774450/why-is-kotlin-throw-illegalargumentexception-when-using-proxy" target="_blank" rel="external">Why is Kotlin throw IllegalArgumentException when using Proxy</a></p>
+<p><a href="https://stackoverflow.com/questions/42540035/kotlin-function-parameter-val-cannot-be-reassigned" target="_blank" rel="external">Kotlin function parameter: Val cannot be reassigned</a></p>
+<p><a href="https://discuss.kotlinlang.org/t/function-parameters-are-val-not-var/897/8" target="_blank" rel="external">Function parameters are “val” not “var”?</a></p>
+<p><a href="https://blog.jetbrains.com/kotlin/2013/02/kotlin-m5-1/" target="_blank" rel="external">Parameters are Immutable</a></p>
+<p><a href="https://stackoverflow.com/questions/46627421/whats-the-difference-between-fooclass-java-and-foojavaclass" target="_blank" rel="external">What’s the difference between Foo::class.java and Foo::javaClass?</a></p>
+<p><a href="https://it.520mwx.com/view/16060" target="_blank" rel="external">Spring Aop原理之Advisor过滤</a>：内有matches方法的详解</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/12/17/AOP01/" title="Kotlin语言实现AOP框架">2018/12/17/AOP01/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          
+            <a href="/tags/AOP/" rel="tag"># AOP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/26/Kotlin04/" rel="next" title="设计模式之Kotlin实现(下)">
+                <i class="fa fa-chevron-left"></i> 设计模式之Kotlin实现(下)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://oowdnxekq.bkt.clouddn.com/179755884.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">113</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本注意事项"><span class="nav-number">1.</span> <span class="nav-text">基本注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#框架类-接口介绍"><span class="nav-number">2.</span> <span class="nav-text">框架类/接口介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TargetSource"><span class="nav-number">2.1.</span> <span class="nav-text">TargetSource</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advisor"><span class="nav-number">2.2.</span> <span class="nav-text">Advisor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pointcut"><span class="nav-number">2.3.</span> <span class="nav-text">Pointcut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ClassFilter-amp-MethodMatcher"><span class="nav-number">2.4.</span> <span class="nav-text">ClassFilter & MethodMatcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PointcutAdvisor"><span class="nav-number">2.5.</span> <span class="nav-text">PointcutAdvisor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AdvisedSupport"><span class="nav-number">2.6.</span> <span class="nav-text">AdvisedSupport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AopProxy"><span class="nav-number">2.7.</span> <span class="nav-text">AopProxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReflectiveMethodInvocation"><span class="nav-number">2.8.</span> <span class="nav-text">ReflectiveMethodInvocation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectJExpressionPointcut"><span class="nav-number">2.9.</span> <span class="nav-text">AspectJExpressionPointcut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectJExpressionPointcutAdvisor"><span class="nav-number">2.10.</span> <span class="nav-text">AspectJExpressionPointcutAdvisor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BeanFactoryAware"><span class="nav-number">2.11.</span> <span class="nav-text">BeanFactoryAware</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JdkDynamicAopProxy"><span class="nav-number">2.12.</span> <span class="nav-text">JdkDynamicAopProxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AspectJAwareAdvisorAutoProxyCreator"><span class="nav-number">2.13.</span> <span class="nav-text">AspectJAwareAdvisorAutoProxyCreator</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK动态代理"><span class="nav-number">3.</span> <span class="nav-text">JDK动态代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试JDK动态代理"><span class="nav-number">4.</span> <span class="nav-text">测试JDK动态代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin编写问题-amp-解决"><span class="nav-number">5.</span> <span class="nav-text">Kotlin编写问题 & 解决</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题一"><span class="nav-number">5.1.</span> <span class="nav-text">问题一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题二"><span class="nav-number">5.2.</span> <span class="nav-text">问题二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题三"><span class="nav-number">5.3.</span> <span class="nav-text">问题三</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题四"><span class="nav-number">5.4.</span> <span class="nav-text">问题四</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CGLIB动态代理"><span class="nav-number">6.</span> <span class="nav-text">CGLIB动态代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试CglibAopProxy"><span class="nav-number">7.</span> <span class="nav-text">测试CglibAopProxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成框架主逻辑"><span class="nav-number">8.</span> <span class="nav-text">完成框架主逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">10.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
