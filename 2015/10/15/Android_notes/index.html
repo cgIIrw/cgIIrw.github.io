@@ -86,18 +86,18 @@
 <meta property="og:url" content="https://cgiirw.github.io/2015/10/15/Android_notes/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="以下是Android基础知识笔记。">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag图片01.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务00.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务01.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务02.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务03.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/XML解析.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/GSON01.png">
-<meta property="og:updated_time" content="2018-07-15T04:51:45.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kkryrqj30my0jotea.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4keq9wdj30lq0fgwf9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kf43qsj30kq0bqaal.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kjtbgfj313w0e2aea.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4khijelj313a0d0777.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4knlsc8j30vk0e6grr.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kjp56hj311g0lm43d.jpg">
+<meta property="og:updated_time" content="2018-12-21T22:14:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android学习笔记">
 <meta name="twitter:description" content="以下是Android基础知识笔记。">
-<meta name="twitter:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/imag图片01.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kkryrqj30my0jotea.jpg">
 
 
 
@@ -596,7 +596,7 @@
 <li>提交事务；</li>
 </ul>
 <p><u>通过这个实验，产生了疑问，fragment到底是替换还是覆盖？？因为替换为第三个fragment后，出现了一个现象，那就是前一个fragment的一部分图片仍然显示，背景颜色也是原有颜色。后来将新的fragment的颜色改为了黄色，这个时候才没有出现前一个fragment.</u>如图所示：</p>
-<center><br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/imag图片01.png" alt="图片01">.<br></center>
+<center><br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kkryrqj30my0jotea.jpg" alt="图片01">.<br></center>
 
 <h3 id="碎片中模拟返回栈"><a href="#碎片中模拟返回栈" class="headerlink" title="碎片中模拟返回栈"></a>碎片中模拟返回栈</h3><p>在前面的例子中，如果按下back键程序会直接退出。添加生成的事务的方法<em>addTobackStack(null);</em></p>
 <p><u>但是我在我的模拟器上试验没有成功。</u></p>
@@ -647,7 +647,7 @@
 </ul>
 </li>
 <li>onCreate和onStartCommand的区别？？我觉得类似Activity中的onCreate和onStart.如果没有创讲过服务，那么两者都要执行。而服务创建好后，多次点击启动的那个button，只执行后者了</li>
-<li>服务是在活动里启动的，但是启动了服务后，活动与服务基本就没什么关系了。当我把Activity destroy以后，具体看图（服务1）：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务00.png" alt="服务00"><br>以及图（服务2）：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务01.png" alt="服务01"><br>从图（服务00）和图（服务01）可以看出，后台中还有一个服务在跑，中间其实经过了一次小小的重新创建，process曾经变味了0，为了证实这一点，可以看图（服务3）和图（服务03）的结果，图（服务3）如下：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务02.png" alt="服务02"><br>图（服务4）：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/imag服务03.png" alt="服务03"></li>
+<li>服务是在活动里启动的，但是启动了服务后，活动与服务基本就没什么关系了。当我把Activity destroy以后，具体看图（服务1）：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4keq9wdj30lq0fgwf9.jpg" alt="服务00"><br>以及图（服务2）：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kf43qsj30kq0bqaal.jpg" alt="服务01"><br>从图（服务00）和图（服务01）可以看出，后台中还有一个服务在跑，中间其实经过了一次小小的重新创建，process曾经变为了0，为了证实这一点，可以看图（服务3）和图（服务03）的结果，图（服务3）如下：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kjtbgfj313w0e2aea.jpg" alt="服务02"><br>图（服务4）：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4khijelj313a0d0777.jpg" alt="服务03"></li>
 </ul>
 <p>你会发现，当我关掉Activity后，onCreate()又执行了一次。</p>
 <h2 id="网络技术"><a href="#网络技术" class="headerlink" title="网络技术"></a>网络技术</h2><h3 id="WebView的用法"><a href="#WebView的用法" class="headerlink" title="WebView的用法"></a>WebView的用法</h3><p>首先研究基本的语法，在layout中加入一个WebView的控件，这个很容易，其次是在设置文件中添加一个permission权限，来访问网络功能，接下来主要分析一下activity中的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">webView = (WebView)findViewById(R.id.web_view);</div><div class="line">        webView.getSettings().setJavaScriptEnabled(<span class="keyword">true</span>);</div><div class="line">        webView.setWebViewClient(<span class="keyword">new</span> WebViewClient()&#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldOverrideUrlLoading</span><span class="params">(WebView view, String url)</span> </span>&#123;</div><div class="line">                view.loadUrl(url);</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        webView.loadUrl(<span class="string">"http://www.baidu.com"</span>);</div></pre></td></tr></table></figure></p>
@@ -668,7 +668,7 @@
 <li>Pull解析方式<br>在书上，作者采用了Apache服务器，这里我们简单的实用Django自带的服务器进行测试。</li>
 </ul>
 <p>在Django工程目录下新建一个static文件夹，然后在该文件夹下新建一个get_data.xml，填写XML格式的内容：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">apps</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">app</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>1<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Google Maps<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">app</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">app</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>2<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Chrome<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">app</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">app</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>3<span class="tag">&lt;/<span class="name">id</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Google Play<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">app</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">apps</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>浏览器显示如图所示（Safari呈现）：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/XML解析.png" alt="xml解析"></p>
+<p>浏览器显示如图所示（Safari呈现）：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4knlsc8j30vk0e6grr.jpg" alt="xml解析"></p>
 <p>这里我们继续使用HttpURLConnection的那个项目开发，重点关注XML的解析。</p>
 <p><u>在genymotion中指向localhost的地址不是10.0.2.2，而是10.0.3.2…</u></p>
 <p>在原有的代码中，我们获得了一个叫response的String对象，然后将该对象传入一个叫做parseXMLWithPull()的方法中，用该方法来解析XML文件。</p>
@@ -688,7 +688,7 @@
 </ol>
 <h3 id="解析JSON格式数据"><a href="#解析JSON格式数据" class="headerlink" title="解析JSON格式数据"></a>解析JSON格式数据</h3><p>JSON的优点是体积小，省流量，但是缺点是语义性差。</p>
 <p>这里简单说说使用GSON来解析数据。</p>
-<p>首先安装GSON插件，如图所示：<br><img src="http://7xkn2c.com1.z0.glb.clouddn.com/GSON01.png" alt="GSON01"></p>
+<p>首先安装GSON插件，如图所示：<br><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kjp56hj311g0lm43d.jpg" alt="GSON01"></p>
 <ul>
 <li><p>如果是单个GSON数据，可以有如下示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Gson gson = <span class="keyword">new</span> Gson();</div><div class="line">Person person = gson.fromJson(jsonData, Person.class);</div></pre></td></tr></table></figure>
@@ -869,7 +869,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

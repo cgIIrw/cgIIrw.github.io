@@ -86,15 +86,15 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/30/ThreadLocal/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="写这篇解析再一次花费了本人整整一天时间，希望通过本篇文章，能将ThreadLocal的原理说清楚，讲明白。全文主要完成了以下四个部分的工作：  摸清了ThreadLocal是如何做到在不同线程set()、get()的值不被其它线程访问的； 介绍了弱引用在ThreadLocalMap中的应用； 探寻了ThreadLocalMap如何实现hash map功能； 列举了一个使用ThreadLocal而出">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadLocal图片.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadLocal02.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadLocal001.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadLocal002.png">
-<meta property="og:updated_time" content="2018-06-23T08:44:36.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3odm0a4j30rp09rwf9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3odm5kzj30rp0i3ta0.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qce3sbj30z80qwwhv.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qev8xfj30ze0qqn0l.jpg">
+<meta property="og:updated_time" content="2018-12-21T21:54:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一次ThreadLocal源码解析之旅">
 <meta name="twitter:description" content="写这篇解析再一次花费了本人整整一天时间，希望通过本篇文章，能将ThreadLocal的原理说清楚，讲明白。全文主要完成了以下四个部分的工作：  摸清了ThreadLocal是如何做到在不同线程set()、get()的值不被其它线程访问的； 介绍了弱引用在ThreadLocalMap中的应用； 探寻了ThreadLocalMap如何实现hash map功能； 列举了一个使用ThreadLocal而出">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadLocal图片.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3odm0a4j30rp09rwf9.jpg">
 
 
 
@@ -452,7 +452,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Before GC, <span class="keyword">this</span> is the result</div><div class="line">After GC, fruitWeakReference.get() is <span class="keyword">null</span></div></pre></td></tr></table></figure>
 <p>通过fruitWeakReference.get()，可以得到弱引用指向的对象，当执行System.gc()后，该对象被回收。</p>
 <p>用一张图表示强弱引用彼此间的关系：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/ThreadLocal图片.png" alt="图1"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3odm0a4j30rp09rwf9.jpg" alt="图1"></p>
 <p>要明确的是，类似“Object obj ＝ new Object()”这般产生的引用属于强引用，所以fruitWeakReference是强引用，此时它指向的是一个WeakReference对象，在new这个对象时，我们还传入了一个new出来的Fruit对象，整行代码的目的，就是要创造一个弱引用，指向这个Fruit对象。而这个弱引用，就在fruitWeakReference指向的对象里。</p>
 <p>用个不严谨的比喻，弱引用就像一只薛定谔的猫，我们想知道它的状态，却不能通过普通的Java代码调用出它本身来观测它，如果将前文列出的WeakReferenceDemo内的双斜杠注释去掉，用一个变量f指向fruitWeakReference.get()，不过就是将一个强引用指向了原本由弱引用指向的对象而已，此时再运行程序，得到如下结果：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Before GC, <span class="keyword">this</span> is the result</div><div class="line">After GC, fruitWeakReference.get() is not <span class="keyword">null</span></div><div class="line"></div><div class="line">Process finished with exit code <span class="number">0</span></div></pre></td></tr></table></figure>
@@ -460,7 +460,7 @@
 <h4 id="弱引用Entry的键"><a href="#弱引用Entry的键" class="headerlink" title="弱引用Entry的键"></a>弱引用Entry的键</h4><p>有了前面的基础，很容易就能理解Entry的构造原理。为了方便说明，不妨假设我们能创建一个Entry对象，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Entry entry = <span class="keyword">new</span> Entry(local, <span class="number">100</span>);</div></pre></td></tr></table></figure>
 <p>此时强弱引用彼此间的关系图如下：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/ThreadLocal02.png" alt="图2"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3odm5kzj30rp0i3ta0.jpg" alt="图2"></p>
 <p>到这里，就能理解前面那两句注释了，entry继承自WeakReference，内部维护一个弱引用，指向main方法中local指向的对象；entry.get()返回的是弱引用指向的对象，如果entry.get() == null，自然表示的就是键将不再被引用了。</p>
 <p>所以，和普通Map的Entry类不同，ThreadLocalMap的Entry实例被创建是时，键是弱引用，至此ThreadLocal内部ThreadLocalMap的基本结构也就清楚了。</p>
 <h2 id="set-进阶"><a href="#set-进阶" class="headerlink" title="set()进阶"></a>set()进阶</h2><p>再次贴出ThreadLocal中set()的源码：</p>
@@ -493,10 +493,10 @@
 <p>该程序旨在构造出一种内存泄漏的情况：当线程池执行完当前任务处于等待状态的时候，将local置null，回收main方法一开始new出来的MyThreadLocal对象，线程池内单个线程的ThreadLocalMap实例虽然弱引用于这个MyThreadLocal对象，但内部持有的value却仍然被强引用着不能回收。</p>
 <p>在该程序中，我们自定义了一个MyThreadLocal，目的是使new出来的MyThreadLocal对象的大小能达到500MB；Create50MB是创建出来的容量包，每个线程最后持有的value就是一个50MB大小的Create50MB对象；线程池也是自定义传参，做到更好的掌控，一次能同时工作5个线程；for循环中用到了两个临时变量，是为了规避匿名内部类引用外部变量必须要声明为final的语言限制。</p>
 <p>启动程序，运行状态见下图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/ThreadLocal001.png" alt="001"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qce3sbj30z80qwwhv.jpg" alt="001"></p>
 <p>使用的堆的大小是750MB，这符合预期，new出来的MyThreadLocal对象500MB，有五个线程，每个线程50MB，加起来一共750MB。</p>
 <p>50秒后，将local置null，这个时候不再有强引用指向new的MyThreadLocal对象，此时执行垃圾回收，结果如下：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/ThreadLocal002.png" alt="002"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qev8xfj30ze0qqn0l.jpg" alt="002"></p>
 <p>使用的堆大小变为250MB，单就这个结果还不能证明每个线程内对MyThreadLocal对象存在弱引用，但是一定不存在强引用。</p>
 <p>之前本人曾研究过线程池的源码，线程池内的线程在执行完一个任务后，并没有销毁，在本例中，它们处于waiting状态，所以，本程序始终维持在250MB大小，得不到释放，一旦将程序中的条件改得足够大，就能出现明显的性能问题。解决的方法通常是在线程内调用ThreadLocal的remove方法，实际上，ThreadLocal提供的公有API并不多，但是这个方法足够解决问题。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>不得不说，通过对ThreadLocal的解析，本人收获很多。整篇文章写起来也是一气呵成(所以可能也包藏着错误)，估摸着如果以后有对共享变量进行私有设置的需求时，也可以参考这种方法来写；之前对四种引用只是了解，这次算是弄明白怎么运用；用线性探测解决hash表的碰撞冲突，有别于HashMap，也是ThreadLocal的特点；最后列举的内存泄漏，算是对前面写的内容进行了一次实战。</p>
@@ -679,7 +679,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

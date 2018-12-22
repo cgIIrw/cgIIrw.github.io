@@ -86,13 +86,13 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/13/Git_Prac02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图2-1.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图2-2.png">
-<meta property="og:updated_time" content="2018-07-06T13:49:23.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ov2afkj30og09qmz6.jpg">
+<meta property="og:updated_time" content="2018-12-21T22:03:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(二)">
 <meta name="twitter:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/图2-1.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg">
 
 
 
@@ -408,7 +408,7 @@
 <p>将branch02分支中add的文件commit，切换到各支线测试，结果：不能。</p>
 <p>不仅如此，<code>git log --oneline --decorate</code>这个命令，只会追踪HEAD指针，当其它分支都停留在HEAD指针指向的地方时，命令才会将它们的名字打印出来。</p>
 <p>但是使用<code>git log --oneline --decorate --graph --all</code>可以打印出所有支线组成的树状结构。</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图2-1.png" alt="图2-1"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg" alt="图2-1"></p>
 <p><strong>分支怎么合并到master?</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout master</div><div class="line"><span class="meta">$</span> git merge branch01</div></pre></td></tr></table></figure>
 <p>此时输出：</p>
@@ -469,7 +469,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout -b branchname v1.1</div></pre></td></tr></table></figure>
 <p><strong>如何看待git checkout [标签名]</strong></p>
 <p>切换tag和切换branch的命令相同，在实际的测试中，输入该命令后，各branch列表如下：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图2-2.png" alt="图2-2"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ov2afkj30og09qmz6.jpg" alt="图2-2"></p>
 <p>当切换到其它分支后，“临时”branch就不见了，这种状态被称为<code>detached HEAD</code>状态。</p>
 <p>上传到远程仓库：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git push origin tag名</div></pre></td></tr></table></figure>
@@ -643,7 +643,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">78</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
