@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/04/30/JVM_Class02/</loc>
+    
+    <lastmod>2018-12-25T07:06:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/04/18/JVM012/</loc>
     
     <lastmod>2018-12-24T06:06:19.000Z</lastmod>
@@ -719,13 +726,6 @@
     <loc>https://cgiirw.github.io/2018/06/18/Java8_FuncPro01/</loc>
     
     <lastmod>2018-08-21T10:54:31.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/04/30/JVM_Class02/</loc>
-    
-    <lastmod>2018-08-18T01:02:44.000Z</lastmod>
     
   </url>
   

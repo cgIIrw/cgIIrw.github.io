@@ -86,12 +86,12 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/30/JVM_Class02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。 特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/异常处理01.png">
-<meta property="og:updated_time" content="2018-08-18T01:02:44.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa1wzrj318k0fmjvu.jpg">
+<meta property="og:updated_time" content="2018-12-25T07:06:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之Class文件(续)：探索Java异常处理原理">
 <meta name="twitter:description" content="之前通过《Java虚拟机之Class文件》成功解析了目标Class文件，了解了类文件结构，本篇是对之前的补充，内容涉及CONSTANT_NameAndType表以及Code属性表中的异常表。 特别是本人通过分析Code属性表中的字节码指令，对Java异常处理有了更深入的理解。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/异常处理01.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa1wzrj318k0fmjvu.jpg">
 
 
 
@@ -357,7 +357,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,959
+                  2,217
                 </span>
               
 
@@ -373,7 +373,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  10
                 </span>
               
             </div>
@@ -419,7 +419,7 @@
 </ul>
 <p>在字节码中第二行，“突然”就执行起iload_3命令，这只可能是因为程序执行到了return语句。这说明：代码中的return和字节码中的ireturn不是一一对应的，return语句会让编译器编译出多条指令。</p>
 <p>下面通过本人所作的拙劣图进行说明：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/异常处理01.png" alt="01"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa1wzrj318k0fmjvu.jpg" alt="01"></p>
 <p>从这张图似乎明白了finally语句“一定会执行”的原理：编译器不仅将try中的return编译成多条指令，还将finally编译的指令插在其中。具体来说就是：当执行到try块中的return语句后，会将原本load的值(不妨称之为temp)保存在局部变量表中(《深入》书中说会保存在最后一个本地变量表的slot，经本机测试并非如此，本机中保存在原位置后移的一位)，等finally指令执行完后，载入temp到栈顶，最后ireturn。</p>
 <p>写到这里，很容易产生两个疑问：</p>
 <ol>
@@ -444,7 +444,14 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException</div><div class="line">	at com.demo.ExceptionTableDemo01.inc(ExceptionTableDemo01.java:17)</div><div class="line">	at com.demo.ExceptionTableDemo01.main(ExceptionTableDemo01.java:7)</div><div class="line"></div><div class="line">Process finished with exit code 1</div></pre></td></tr></table></figure>
 <p>反编译：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public static int inc(int, int);</div><div class="line">  flags: ACC_PUBLIC, ACC_STATIC</div><div class="line">  Code:</div><div class="line">    stack=2, locals=5, args_size=2</div><div class="line">       0: new           #5                  // class java/lang/RuntimeException</div><div class="line">       3: dup           </div><div class="line">       4: invokespecial #6                  // Method java/lang/RuntimeException."&lt;init&gt;":()V</div><div class="line">       7: athrow        </div><div class="line">       8: astore        4</div><div class="line">      10: iconst_3      </div><div class="line">      11: istore_3      </div><div class="line">      12: aload         4</div><div class="line">      14: athrow        </div><div class="line">    Exception table:</div><div class="line">       from    to  target type</div><div class="line">           0    10     8   any</div></pre></td></tr></table></figure>
-<p>通过比较，可以发现，throw关键字和之前解析的return关键字一样，都会被编译器编译为多条指令，然后将finally语句编译出来的指令插在其中。也就是说，如果finally中包含return语句，那么在异常真正被抛出之前，方法已经返回。</p>
+<p>要想明白执行流程必须弄懂字节码指令athrow。<a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-6.html" target="_blank" rel="external">Oracle官网某章</a>有这样一段描述：</p>
+<blockquote>
+<p>The objectref must be of type reference and must refer to an object that is an instance of class Throwable or of a subclass of Throwable. It is popped from the operand stack. The objectref is then thrown by searching the current method (§2.6) for the first exception handler that matches the class of objectref, as given by the algorithm in §2.10.</p>
+</blockquote>
+<p>所以当执行到这一指令时RuntimeException对象从操作数栈顶pop出，然后会被抛给通过§<a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html#jvms-2.10" target="_blank" rel="external">2.10算法</a>在当前方法中查找到的第一个匹配该异常的异常处理的地方；如果当前方法找不到处理该异常的地方，那么该方法的调用就会突然完成并弹出当前的栈帧，继续向调用该栈帧的栈帧抛异常，如此向上传递。</p>
+<p>匹配该异常的异常处理的地方就需要借助前文分析过的异常表了，这里以finally有返回值的ExceptionTableDemo01程序为例，它的异常表如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Exception table:</div><div class="line">   from    to  target type</div><div class="line">       <span class="number">0</span>    <span class="number">18</span>    <span class="number">22</span>   Class java/lang/NullPointerException</div><div class="line">       <span class="number">0</span>    <span class="number">18</span>    <span class="number">33</span>   any</div><div class="line">      <span class="number">22</span>    <span class="number">29</span>    <span class="number">33</span>   any</div><div class="line">      <span class="number">33</span>    <span class="number">35</span>    <span class="number">33</span>   any</div></pre></td></tr></table></figure>
+<p>第一个匹配的是<code>0 18 33 any</code>这一行，所以当虚拟机执行到athrow的时候，会跳转到target为33的地方执行，之后异常对象会astore，先行完成finally中的内容。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>对CONSTANT_NameAndType的困惑源自本人编写玩具JVM的实践，通过本篇小文解决了困惑；对Java的异常处理，通过本次实例分析，也有了更深理解。</p>
 <p>不同的语言，对异常的处理，体现了不同的语言特性。虽然在本文中，本人不断追溯源码以求能够彻底明白相关原理，但目前仍然处在探索之中，因为在Java里，该语言特性是通过虚拟机和编译器共同完成的。“编译器如何做到将finally编译出来的指令正确插入到return编译出的指令中的”之类的问题，还需等待后续的研究。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/ingokegel/jclasslib" target="_blank" rel="external">Jclasslib Bytecode Viewer</a>：a tool that visualizes all aspects of compiled Java class files and the contained bytecode. In addition, it contains a library that enables developers to read and write Java class files and bytecode.</p>
