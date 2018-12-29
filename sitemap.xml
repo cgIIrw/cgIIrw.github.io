@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/</loc>
+    
+    <lastmod>2018-12-29T22:25:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/06/22/Learning_Vim/</loc>
+    
+    <lastmod>2018-12-27T21:46:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/04/30/JVM_Class02/</loc>
     
     <lastmod>2018-12-25T07:06:55.000Z</lastmod>
@@ -751,13 +765,6 @@
   </url>
   
   <url>
-    <loc>https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/</loc>
-    
-    <lastmod>2018-08-02T09:59:52.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://cgiirw.github.io/2018/07/11/Elem_Geometry/</loc>
     
     <lastmod>2018-07-31T04:10:15.000Z</lastmod>
@@ -789,13 +796,6 @@
     <loc>https://cgiirw.github.io/2018/07/01/MySQL-Getting-Start/</loc>
     
     <lastmod>2018-07-21T01:05:33.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/06/22/Learning_Vim/</loc>
-    
-    <lastmod>2018-07-15T11:35:57.000Z</lastmod>
     
   </url>
   

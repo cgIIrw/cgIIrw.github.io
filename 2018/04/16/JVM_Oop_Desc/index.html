@@ -86,18 +86,18 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm01.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm02.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm03.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm04.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/jvm05.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/重排序01.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/重排序02.png">
-<meta property="og:updated_time" content="2018-08-02T09:59:52.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3trdrnlj319o0seakr.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tk35v3j31680r4qd9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3uaa46qj315q0w6wrq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tlarozj315k0yuwp6.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3u5jyu0j31fi0zywrp.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oah88hj30k40gmq3s.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oa49aqj30k40e8aao.jpg">
+<meta property="og:updated_time" content="2018-12-29T22:25:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之对象探秘">
 <meta name="twitter:description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/jvm01.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3trdrnlj319o0seakr.jpg">
 
 
 
@@ -425,13 +425,13 @@
 <p>Field sizes by type: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]对应：[Oop(Ordinary Object Pointer), boolean, byte, char, short, int, float, long, double]大小。</p>
 <p>OFFSET是基于首地址偏移量，SIZE是大小，因为本人采用的Java虚拟机是64位，那么object header中Mark Word占据64位，也就是8个单位的大小，类型指针占据4个单位大小，所以一共占据12个单位。instance data占据一个单位大小，由于对象大小必须是8字节的整数倍，所以还要对齐填充，此时填充三个单位。</p>
 <h2 id="对象内存布局深入"><a href="#对象内存布局深入" class="headerlink" title="对象内存布局深入"></a>对象内存布局深入</h2><p>首先贴出RednaxelaFX的PPT中的相关章节：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm01.png" alt="01"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3trdrnlj319o0seakr.jpg" alt="01"></p>
 <p><center>图1</center></p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm02.png" alt="02"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tk35v3j31680r4qd9.jpg" alt="02"></p>
 <p><center>图2</center></p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm03.png" alt="03"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3uaa46qj315q0w6wrq.jpg" alt="03"></p>
 <p><center>图3</center></p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm04.png" alt="04"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tlarozj315k0yuwp6.jpg" alt="04"></p>
 <p><center>图4</center></p>
 <p>虽然图中的有些描述并不适用较新的Java版本——实际上这些图依据的是JDK6(或之前)的HotSpot VM，但大体来说，我们仍然可以从中有所收获。</p>
 <p>图1描述了Mark Word存储了哪些信息，最后一句话提到了并非一次性记录所有信息；</p>
@@ -439,7 +439,7 @@
 <p>比如，Java对象实例中对象头存储的klass并不是Java语言级别的那个java.lang.Class类的实例。接下来就重点写写这方面的内容。</p>
 <h3 id="Class-amp-Klass-amp-KlassKlass"><a href="#Class-amp-Klass-amp-KlassKlass" class="headerlink" title="Class &amp; Klass &amp; KlassKlass"></a>Class &amp; Klass &amp; KlassKlass</h3><p>常常能听到有人问，对象的Class实例到底存在哪里。回答这个问题之前，先要搞清楚，想要问的真的是java.lang.Class实例吗？</p>
 <p>我们继续欣赏RednaxelaFX的分享：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/jvm05.png" alt="05"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3u5jyu0j31fi0zywrp.jpg" alt="05"></p>
 <p><center>图5</center></p>
 <p>如果是第一次看到这张图是不是想感慨Java果然是面向对象语言：instanceOopDesc –&gt; instanceKlass –&gt; instanceKlassKlass –&gt; KlassKlass。(后三个归为klassOopDesc包装层，包装在GC管理的klassOopDesc对象中)</p>
 <p>RednaxelaFX的解释：</p>
@@ -475,11 +475,11 @@
 <li>i03：四个单位；</li>
 </ul>
 <p>布局应该是这样的：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/重排序01.png" alt="重排序01"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oah88hj30k40gmq3s.jpg" alt="重排序01"></p>
 <p>实际输出结果如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">org.openjdk.jol.samples.CumTest02$A object internals:</div><div class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</div><div class="line">      0    12        (object header)                           N/A</div><div class="line">     12     4    int A.i01                                     N/A</div><div class="line">     16     8   long A.l                                       N/A</div><div class="line">     24     4    int A.i02                                     N/A</div><div class="line">     28     4    int A.i03                                     N/A</div><div class="line">Instance size: 32 bytes</div><div class="line">Space losses: 0 bytes internal + 0 bytes external = 0 bytes total</div></pre></td></tr></table></figure>
 <p>没有对齐填充，实例的大小也只是32字节，也就是说，产生了重排序，布局见下图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/重排序02.png" alt="重排序02"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oa49aqj30k40e8aao.jpg" alt="重排序02"></p>
 <p>图中l在i02和i03之前，遵照的规则(排序的先后顺序)和Field sizes by type: 4, 1, 1, 2, 2, 4, 4, 8, 8 [bytes]列出的顺序相反。i01在l之前是因为已经排好一部分后，剩下的空间能容纳size满足的实例数据，尽管这个数据并不是后续数据中最大的。</p>
 <h3 id="对基类是否生成对象的判断"><a href="#对基类是否生成对象的判断" class="headerlink" title="对基类是否生成对象的判断"></a>对基类是否生成对象的判断</h3><p>创建派生类对象的过程中，基类会生成对象吗？</p>
 <p>首先这个问题可以通过实验轻松验证，但是此问题是在本人看图3想到的，自然就用图3的逻辑稍微判断一下。</p>
