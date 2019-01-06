@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/04/JVM_032/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
-<meta property="og:updated_time" content="2019-01-06T10:55:27.000Z">
+<meta property="og:updated_time" content="2019-01-06T11:00:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之方法引用实现原理(下)">
 <meta name="twitter:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
@@ -440,7 +440,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (method.isNative() &amp;&amp; method.getName().equals(<span class="string">"registerNatives"</span>)) &#123;</div><div class="line">    thread.popStackFrame_();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>最后的测试就不附上了，达到了应有的效果。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>通过本篇可以很好的了解Java方法调用的实现，帮助本人进一步巩固动态分派、静态分派和类初始化的知识。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html#jvms-2.9" target="_blank" rel="external">2.9. Special Methods</a>：第2.9.小节介绍了<clinit></clinit></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-2.html#jvms-2.9" target="_blank" rel="external">2.9. Special Methods</a>：第2.9.小节介绍了<clinit\></clinit\></p>
 
       
     </div>
