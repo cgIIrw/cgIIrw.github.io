@@ -86,18 +86,18 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/12/Git_Prac/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图1.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图2.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图3.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图4.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图5.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图6.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/图7.png">
-<meta property="og:updated_time" content="2018-08-30T07:01:58.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oz0uafj30v40femzx.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otxtsmj30sg0ccwg7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oxe7qbj30t40m4whl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ou52jxj30um0ietbh.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa5em4j30rk0nstcc.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg">
+<meta property="og:updated_time" content="2019-01-16T03:35:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(一)">
 <meta name="twitter:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/图1.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oz0uafj30v40femzx.jpg">
 
 
 
@@ -407,7 +407,7 @@
 <h2 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h2><p>在Git里文件有四种状态：untracked、unmodified、modified和staged。</p>
 <p><strong>第一个问题是：untracked是一个什么状态？</strong></p>
 <p>笔者在已经git init过的环境下，新touch一个文件text02.md，运行git status，结果如下：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图1.png" alt="图1"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oz0uafj30v40femzx.jpg" alt="图1"></p>
 <p>此时的text02.md就处于untracked状态，它就像一个还未进行任何Git操作的“路人甲”，一旦进行add操作，就不再处于untracked状态。</p>
 <p>这个时候，文件夹下还有一个名叫text.md文件，它之前被add过，也被commit过，现在图上显示它处于modified状态。</p>
 <p><strong>第二个问题：如何查看modified状态下更改过的内容？</strong></p>
@@ -422,12 +422,12 @@
 <p>或者：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff --cached test.md</div></pre></td></tr></table></figure>
 <p>结果如图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图2.png" alt="图2"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otxtsmj30sg0ccwg7.jpg" alt="图2"></p>
 <p>如果完全是staged状态的改动，没有未add的改动，那么运行git diff不会打印任何内容，前面已经提过，这里再次强调一遍。</p>
 <p>现在很容易产生另外的问题：</p>
 <p><strong>如果test.md文件既有没处于staged状态的modified内容，又有处于staged状态的modified内容，分别运行上文刚刚提到的命令，会得到什么结果？</strong></p>
 <p>vi test.md，在Hello后面添加world，分别运行上文的命令，结果如图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图3.png" alt="图3"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oxe7qbj30t40m4whl.jpg" alt="图3"></p>
 <p>git diff –staged命令不会理会未进入staged状态的modified部分，所以它只会显示Hello。</p>
 <p><strong>staged状态怎么理解？</strong></p>
 <p>之前看过一些资料，有说法认为这是模仿这样一种功能：比如Windows上，当你要进行批处理操作时，在确定之前会给你一个勾选界面进行勾选。额，大概就是给你一个巴洛特利式思考人生的时间吧。</p>
@@ -446,13 +446,13 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD test02.md</div></pre></td></tr></table></figure>
 <p>test02.md回到了untracked状态。</p>
 <p>运行git status，现在的状态是这样的：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图4.png" alt="图4"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ou52jxj30um0ietbh.jpg" alt="图4"></p>
 <p>test.md有一个处于staged的modified修改和一个没有处于staged的modified修改，现在问题来了：</p>
 <p><strong>能不能撤销test.md没有处于staged的modified修改？</strong></p>
 <p>只需要运行如下命令就可以了：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout -- test.md</div></pre></td></tr></table></figure>
 <p>结果如图所示：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图5.png" alt="图5"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa5em4j30rk0nstcc.jpg" alt="图5"></p>
 <p>从图中可以看出，git diff已经没有任何内容，修改了没有处于staged的modified的内容。如果此时test02.md进行了add操作，然后更改了内部内容，但是这些内容没有add，那么test.md和test02.md都有非staged的修改，如果想要同时消除这些修改，只需要运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout -- .</div></pre></td></tr></table></figure>
 <p>接着运行git log命令，该命令能查看过往的所有提交。</p>
@@ -470,14 +470,14 @@
 <p>使用下面的命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git diff xxxx xxxx</div></pre></td></tr></table></figure>
 <p>两个参数xxxx对应要比较的两次提交id。此时虽然test02.md已经commit，但是如果运行前面所说的命令git rm –cached test02.md，那么test02.md将返回untracked状态，所以该命令不仅仅只适用staged状态，运行结果如图所示：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图6.png" alt="图6"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg" alt="图6"></p>
 <p>和之前staged状态下的情况不同，这里会提示你deleted: test02.md，而且给你一个选择方案：(use “git reset HEAD <file>…” to unstage)，staged状态下也存在内容。</file></p>
 <p>接着运行git reset HEAD <file>…，然后再运行git status，结果输出为：</file></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">On branch master</div><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
 <p>发生了什么？回到了上一次提交后的状态！</p>
 <p><strong>如果git rm –cached test02.md后，那么此时再add刚刚已经untracked的test02.md后会发生什么呢？</strong></p>
 <p>结果如图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/图7.png" alt="图7"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg" alt="图7"></p>
 <p><strong>git reset HEAD <file>的作用不是unstage吗？为什么运行后原本期望删掉的test02.md又还原到未删除之的commit状态？</file></strong></p>
 <p>我的理解是，git reset HEAD <file>的确做了unstage，而“错的不是git，不是世界，错的是本人”，对staged状态进行回退，指的是往上一次commit的方向回退。而且，这里的git reset HEAD <file>和之前回退add时候的命令虽然名字相同，但是存在本质区别，这里的更重量级，reflog可以显示reset记录。</file></file></p>
 <p>《Pro Git》中强调过，任何提交到Git的数据都可以被恢复，但没提交过的数据，对Git来说就像从未存在过一样。</p>
