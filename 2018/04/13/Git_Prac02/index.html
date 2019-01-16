@@ -88,7 +88,7 @@
 <meta property="og:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ov2afkj30og09qmz6.jpg">
-<meta property="og:updated_time" content="2018-12-21T22:03:19.000Z">
+<meta property="og:updated_time" content="2019-01-16T06:46:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(二)">
 <meta name="twitter:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
@@ -358,7 +358,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,775
+                  1,848
                 </span>
               
 
@@ -402,8 +402,9 @@
 <h2 id="冲突-amp-合并"><a href="#冲突-amp-合并" class="headerlink" title="冲突&amp;合并"></a>冲突&amp;合并</h2><p>在上一篇的基础上，git跳转到哈希码头四位9533的commit版本上，用命令git branch命令创建分支branch01和branch02，这个时候产生疑问：</p>
 <p><strong>在某分支上做改动，其它支线看得到改动的部分吗？</strong></p>
 <p>切换到branch01上，将最后一行添加“branch01”到Hello后面。此时用git checkout命令切换到master或者branch02上，cat test.md，查看内容发现，都能看见改动的部分，再次切换到branch01，add改动的文件，再次切换到其它支线，此时在其它支线仍然能看见staged状态下modified的部分。切换到branch01，将刚刚add的文件commit，然后再切换到其它支线，此时将看不见modified(无论是否staged)的部分。</p>
-<p>需要说明的是，如果再次用同样的方法，对branch02进行修改，只是更改test.md最后一行为Hello branch02，那么此时可以切换回branch01将会报错：</p>
+<p>需要说明的是，如果再次用同样的方法，对branch02进行修改，只是更改test.md最后一行为Hello branch02，那么此时切换回branch01将会报错：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">error: Your local changes to the following files would be overwritten by checkout:</div><div class="line">	test.md</div><div class="line">Please, commit your changes or stash them before you can switch branches.</div><div class="line">Aborting</div></pre></td></tr></table></figure>
+<p>以上说明，当分支没有commit之前，虽然进行了内容修改，但是还是能够自由切换分支。</p>
 <p><strong>在各支线，用git log命令可以看到其它支线提交的情况吗？</strong></p>
 <p>将branch02分支中add的文件commit，切换到各支线测试，结果：不能。</p>
 <p>不仅如此，<code>git log --oneline --decorate</code>这个命令，只会追踪HEAD指针，当其它分支都停留在HEAD指针指向的地方时，命令才会将它们的名字打印出来。</p>
@@ -445,15 +446,18 @@
 <p>命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git stash drop stash@&#123;0&#125;</div></pre></td></tr></table></figure>
 <p>这条命令可以指定删除哪一条stash存储的内容。</p>
-<p>再就是下面这条恢复后弹出栈命令：</p>
+<p>再就是下面这条<code>恢复后</code>弹出栈命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git stash pop</div></pre></td></tr></table></figure>
 <p>它会恢复栈顶stash储存的内容，恢复后，这条stash也从栈弹出，相当于删除栈顶。</p>
 <p><strong>工作目录下untracked状态的test02.md属于多余的“看客”，使用什么命令可以删除？</strong></p>
 <p>答案是 git clean。但通常最后添加参数-n，比如这里运行如下代码：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clean -d -n</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clean -n</div></pre></td></tr></table></figure>
 <p>会输出这样的结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Would remove test02.md</div></pre></td></tr></table></figure>
-<p>参数 -f 表示强制。</p>
+<p>所以上面的命令并不会真正删除，只不过是个提醒。</p>
+<p>如果使用命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clean -df</div></pre></td></tr></table></figure>
+<p>即删除当前目录吓没有被track的文件和文件夹。</p>
 <h2 id="打标签"><a href="#打标签" class="headerlink" title="打标签"></a>打标签</h2><p>Git可以给历史中的某一个提交打上标签。</p>
 <p><strong>如何列出标签？</strong></p>
 <p>只需要输入git tag就可以了。而打轻量标签，是在git tag后面添加参数作为标签名，此参数不需要打引号表示字符串。</p>

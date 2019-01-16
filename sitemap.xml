@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/04/13/Git_Prac02/</loc>
+    
+    <lastmod>2019-01-16T06:46:33.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/04/12/Git_Prac/</loc>
     
     <lastmod>2019-01-16T05:27:30.000Z</lastmod>
@@ -82,13 +89,6 @@
     <loc>https://cgiirw.github.io/2015/09/05/GIT_CHEAT_SHEET/</loc>
     
     <lastmod>2018-12-21T22:03:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/04/13/Git_Prac02/</loc>
-    
-    <lastmod>2018-12-21T22:03:19.000Z</lastmod>
     
   </url>
   
