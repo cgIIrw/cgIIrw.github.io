@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa5em4j30rk0nstcc.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg">
-<meta property="og:updated_time" content="2019-01-16T05:12:28.000Z">
+<meta property="og:updated_time" content="2019-01-16T05:27:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(一)">
 <meta name="twitter:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,779
+                  1,774
                 </span>
               
 
@@ -434,16 +434,16 @@
 <p><strong>如果不需要思考人生，能不能跨过staged状态直接commit呢？</strong></p>
 <p>只要给commit添加参数 -a就可以了。</p>
 <p>如果本人原本打算运行git add test.md，可是输入成git add test02.md，那么问题来了：</p>
-<p><strong>如果仅仅是一次add犯了错，如何将test02.md还原成untracked状态？</strong></p>
+<p><strong>如何将test02.md还原成untracked状态？</strong></p>
 <p>可以使用如下命令：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rm --cached test02.md</div></pre></td></tr></table></figure>
 <p>不能只使用rm，这样会出现“Changed but not updated:”(而且如果有内容处于staged状态还要添加-f参数)，如果你希望保存文件夹下存在test02.md，那么你也不仅仅要使用git rm，而应该添加–cached参数。</p>
 <h2 id="历史-amp-撤销"><a href="#历史-amp-撤销" class="headerlink" title="历史&amp;撤销"></a>历史&amp;撤销</h2><p>其实所谓历史&amp;撤销，和上一小节联系是很紧密的，之所以单起一节，即是因为这一节更专注于“操作”，也是因为不想全文没什么章节，整篇垮掉…</p>
 <p>承接上一个问题，产生新的问题：</p>
-<p><strong>使test02.md还原成untracked状态的通用方法是什么？</strong></p>
+<p><strong>如果仅仅是一次add犯了错，使test02.md还原成untracked状态还可以使用什么方法？</strong></p>
 <p>本人再一次add test02.md，然后运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD test02.md</div></pre></td></tr></table></figure>
-<p>test02.md回到了untracked状态。无论还原成untracked状态的内容之前有没有提交史，都可以才用这种方法。</p>
+<p>test02.md回到了untracked状态。若需要还原成untracked状态的内容之前有没有提交史，就可以才用这种方法。</p>
 <p>运行git status，现在的状态是这样的：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ou52jxj30um0ietbh.jpg" alt="图4"></p>
 <p>test.md有一个处于staged的modified修改和一个没有处于staged的modified修改，现在问题来了：</p>
@@ -479,7 +479,7 @@
 <p>结果如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg" alt="图7"></p>
 <p><strong>git reset HEAD <file>的作用不是unstage吗？为什么运行后原本期望删掉的test02.md又还原到未删除之的commit状态？</file></strong></p>
-<p>我的理解是，git reset HEAD <file>的确做了unstage，而“错的不是git，不是世界，错的是本人”，对staged状态进行回退，指的是往上一次commit的方向回退。而且，这里的git reset HEAD <file>和之前回退add时候的命令虽然名字相同，但是存在本质区别，这里的更重量级，reflog可以显示reset记录。</file></file></p>
+<p>我的理解是，git reset HEAD <file>的确做了unstage，但并不仅仅只做unstage。对staged状态进行回退，指的是往上一次commit的方向回退。而且，这里的git reset HEAD <file>和之前回退add时候的命令虽然名字相同，但是存在本质区别，这里的更重量级，reflog可以显示reset记录。</file></file></p>
 <p>《Pro Git》中强调过，任何提交到Git的数据都可以被恢复，但没提交过的数据，对Git来说就像从未存在过一样。</p>
 <p>可以通过<code>git reset --hard xxxx</code>指定到任何commit的状态，适用git log可以在控制台打印出最初到当前提交的所有信息，但是问题来了。</p>
 <p><strong>如何列出所有的SHA-1哈希码？</strong></p>
