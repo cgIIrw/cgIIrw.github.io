@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa5em4j30rk0nstcc.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg">
-<meta property="og:updated_time" content="2019-01-16T03:35:47.000Z">
+<meta property="og:updated_time" content="2019-01-16T05:12:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(一)">
 <meta name="twitter:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,794
+                  1,779
                 </span>
               
 
@@ -413,9 +413,8 @@
 <p><strong>第二个问题：如何查看modified状态下更改过的内容？</strong></p>
 <p>也就是查看modified和unmodified区别。</p>
 <p>使用如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git diff text.md</div></pre></td></tr></table></figure>
-<p>就可以查看想要查看的内容了，这里要注意git diff只会高亮更改过但没有add的部分，但是会显示已经add的部分，如果更改的都已经被add了，那么不会显示任何东西，后面还会强调。</p>
-<p>此时，运行git add test.md，再运行git status，test.md处于modified状态，但是文本已经高亮为绿色，之前是红色，因为test.md已经进入staged状态，由此可见，staged是一种特殊状态的modified。那么问题来了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git diff test.md</div></pre></td></tr></table></figure>
+<p>就可以查看想要查看的内容了，这里要注意git diff只会高亮更改过但没有add的部分，但是会显示已经add的部分，如果modify的部分都已经被add了，那么不会显示任何东西。</p>
 <p><strong>第三个问题：如何查看进入staged状态后的内容？</strong></p>
 <p>使用如下命令：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff --staged test.md</div></pre></td></tr></table></figure>
@@ -423,8 +422,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git diff --cached test.md</div></pre></td></tr></table></figure>
 <p>结果如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otxtsmj30sg0ccwg7.jpg" alt="图2"></p>
-<p>如果完全是staged状态的改动，没有未add的改动，那么运行git diff不会打印任何内容，前面已经提过，这里再次强调一遍。</p>
-<p>现在很容易产生另外的问题：</p>
+<p>如果完全是staged状态的改动，没有未经add的改动，那么运行git diff不会打印任何内容，前面已经提过，这里再次强调一遍。</p>
+<p>现在很容易想到另外的问题：</p>
 <p><strong>如果test.md文件既有没处于staged状态的modified内容，又有处于staged状态的modified内容，分别运行上文刚刚提到的命令，会得到什么结果？</strong></p>
 <p>vi test.md，在Hello后面添加world，分别运行上文的命令，结果如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oxe7qbj30t40m4whl.jpg" alt="图3"></p>
@@ -434,17 +433,17 @@
 <p>那么：</p>
 <p><strong>如果不需要思考人生，能不能跨过staged状态直接commit呢？</strong></p>
 <p>只要给commit添加参数 -a就可以了。</p>
-<p>接着，本人原本打算运行git add test.md，可是输入成git add test02.md，那么问题来了：</p>
-<p><strong>如何将test02.md还原成untracked状态？</strong></p>
+<p>如果本人原本打算运行git add test.md，可是输入成git add test02.md，那么问题来了：</p>
+<p><strong>如果仅仅是一次add犯了错，如何将test02.md还原成untracked状态？</strong></p>
 <p>可以使用如下命令：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rm --cached test02.md</div></pre></td></tr></table></figure>
 <p>不能只使用rm，这样会出现“Changed but not updated:”(而且如果有内容处于staged状态还要添加-f参数)，如果你希望保存文件夹下存在test02.md，那么你也不仅仅要使用git rm，而应该添加–cached参数。</p>
 <h2 id="历史-amp-撤销"><a href="#历史-amp-撤销" class="headerlink" title="历史&amp;撤销"></a>历史&amp;撤销</h2><p>其实所谓历史&amp;撤销，和上一小节联系是很紧密的，之所以单起一节，即是因为这一节更专注于“操作”，也是因为不想全文没什么章节，整篇垮掉…</p>
 <p>承接上一个问题，产生新的问题：</p>
-<p><strong>如果仅仅是一次add犯了错，就没有撤销的方法使test02.md还原成untracked状态吗？</strong></p>
-<p>答案是有的，本人再一次add test02.md，然后运行：</p>
+<p><strong>使test02.md还原成untracked状态的通用方法是什么？</strong></p>
+<p>本人再一次add test02.md，然后运行：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git reset HEAD test02.md</div></pre></td></tr></table></figure>
-<p>test02.md回到了untracked状态。</p>
+<p>test02.md回到了untracked状态。无论还原成untracked状态的内容之前有没有提交史，都可以才用这种方法。</p>
 <p>运行git status，现在的状态是这样的：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ou52jxj30um0ietbh.jpg" alt="图4"></p>
 <p>test.md有一个处于staged的modified修改和一个没有处于staged的modified修改，现在问题来了：</p>
@@ -466,10 +465,11 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git log -p -1</div></pre></td></tr></table></figure>
 <p>经本人比较以上两条命令输出结果是一样的。该条命令中，-1如果改为-n，表示查看最近n条更新，省去查看全部更新。</p>
 <p>此时进行一次提交git commit -m “3”，那么现在就拥有三次提交。</p>
-<p><strong>如果比较某两次提交的变化？</strong></p>
+<p><strong>如何比较某两次提交的变化？</strong></p>
 <p>使用下面的命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git diff xxxx xxxx</div></pre></td></tr></table></figure>
-<p>两个参数xxxx对应要比较的两次提交id。此时虽然test02.md已经commit，但是如果运行前面所说的命令git rm –cached test02.md，那么test02.md将返回untracked状态，所以该命令不仅仅只适用staged状态，运行结果如图所示：</p>
+<p>两个参数xxxx对应要比较的两次提交id，谁作为第一个参数，谁就是参照物，最后的打印会显示以参照物为标准的变化。</p>
+<p>此时虽然test02.md已经commit，但是如果运行前面所说的命令git rm –cached test02.md，那么test02.md将返回untracked状态，所以该命令不仅仅只适用staged状态，运行结果如图所示：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg" alt="图6"></p>
 <p>和之前staged状态下的情况不同，这里会提示你deleted: test02.md，而且给你一个选择方案：(use “git reset HEAD <file>…” to unstage)，staged状态下也存在内容。</file></p>
 <p>接着运行git reset HEAD <file>…，然后再运行git status，结果输出为：</file></p>
