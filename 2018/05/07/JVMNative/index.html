@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式，但是并不遵守JNI规范。">
+<meta name="description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式来模仿编写。">
 <meta name="keywords" content="Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java虚拟机之本地方法调用实现">
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/07/JVMNative/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式，但是并不遵守JNI规范。">
-<meta property="og:updated_time" content="2019-01-27T02:00:12.000Z">
+<meta property="og:description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式来模仿编写。">
+<meta property="og:updated_time" content="2019-01-28T11:31:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之本地方法调用实现">
-<meta name="twitter:description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式，但是并不遵守JNI规范。">
+<meta name="twitter:description" content="Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式来模仿编写。">
 
 
 
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  981
+                  1,572
                 </span>
               
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  7
                 </span>
               
             </div>
@@ -394,7 +394,7 @@
       
 
       
-        <p>Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式，但是并不遵守JNI规范。</p>
+        <p>Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式来模仿编写。</p>
 <a id="more"></a>
 <p>很容易想到，要调用本地方法，可以采用一个Map来做映射：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 一一映射</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">registerMethod</span><span class="params">(String className, String methodName, String methodDescriptor, NativeMethod nativeMethod)</span> </span>&#123;</div><div class="line">    String key = className + <span class="string">"~"</span> + methodName + <span class="string">"~"</span> + methodDescriptor;</div><div class="line">    register.put(key, nativeMethod);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -413,9 +413,26 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (methodDescriptor.equals(<span class="string">"()V"</span>) &amp;&amp; methodName.equals(<span class="string">"registerNatives"</span>)) &#123;</div><div class="line">    <span class="keyword">return</span> frame -&gt; &#123;</div><div class="line">        <span class="comment">// do nothing</span></div><div class="line">                System.out.println(frame.getMethod_().getClass_().getThisClassName());</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>会打印出：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">java/lang/Object</div><div class="line">java/lang/System</div></pre></td></tr></table></figure>
-<p>这两个类会用到本地方法，所以在static语句块内会先运行registerNatives()，不知不觉已经完成了一次本地方法的调用。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>要完成更多本地方法的调用，就需要先行完成库的编写。本篇旨在了解基本原理，要想探究商业级虚拟机本地方法调用的过程，可以参考相关技术规范。</p>
+<p>这两个类都拥有registerNatives方法，在static语句块内会先运行registerNatives()，输出打印语句。</p>
+<p>不知不觉已经完成了一次本地方法的调用。</p>
+<h2 id="实现hashCode"><a href="#实现hashCode" class="headerlink" title="实现hashCode()"></a>实现hashCode()</h2><p>本地方法的实现都大同小异，这里列举如何实现Object类的hashCode方法。</p>
+<p>首先进入Object.java的源代码有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>
+<p>然后在OpenJDK里查询Object.c有：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">static JNINativeMethod methods[] = &#123;</div><div class="line">    &#123;"hashCode",    "()I",                    (void *)&amp;JVM_IHashCode&#125;,</div><div class="line">    &#123;"wait",        "(J)V",                   (void *)&amp;JVM_MonitorWait&#125;,</div><div class="line">    &#123;"notify",      "()V",                    (void *)&amp;JVM_MonitorNotify&#125;,</div><div class="line">    &#123;"notifyAll",   "()V",                    (void *)&amp;JVM_MonitorNotifyAll&#125;,</div><div class="line">    &#123;"clone",       "()Ljava/lang/Object;",   (void *)&amp;JVM_Clone&#125;,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">JNIEXPORT void JNICALL</div><div class="line">Java_java_lang_Object_registerNatives(JNIEnv *env, jclass cls)</div><div class="line">&#123;</div><div class="line">    (*env)-&gt;RegisterNatives(env, cls,</div><div class="line">                            methods, sizeof(methods)/sizeof(methods[0]));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>按照这个结构仿写。</p>
+<h3 id="JObject-amp-JSystem"><a href="#JObject-amp-JSystem" class="headerlink" title="JObject &amp; JSystem"></a>JObject &amp; JSystem</h3><p>这里的JObject和JSystem对应Object.c和System.c。JObject代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JObject</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> JNINativeMethod[] methods = &#123;</div><div class="line">            <span class="keyword">new</span> JNINativeMethod(<span class="string">"hashCode"</span>, <span class="string">"()I"</span>, <span class="keyword">new</span> JVM_IHashCode()),</div><div class="line">            <span class="keyword">new</span> JNINativeMethod(<span class="string">"wait"</span>, <span class="string">"(J)V"</span>, <span class="keyword">new</span> JVM_MonitorWait()),</div><div class="line">            <span class="keyword">new</span> JNINativeMethod(<span class="string">"notify"</span>, <span class="string">"()V"</span>, <span class="keyword">new</span> JVM_MonitorNotify()),</div><div class="line">            <span class="keyword">new</span> JNINativeMethod(<span class="string">"notifyAll"</span>, <span class="string">"()V"</span>, <span class="keyword">new</span> JVM_MonitorNotifyAll()),</div><div class="line">            <span class="keyword">new</span> JNINativeMethod(<span class="string">"clone"</span>, <span class="string">"()Ljava/lang/Object;"</span>, <span class="keyword">new</span> JVM_Clone()),</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="comment">// 传入className，对本地方法进行注册</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Java_java_lang_Object_registerNatives</span><span class="params">(String className)</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span> (JNINativeMethod jniNativeMethod : methods) &#123;</div><div class="line">            Registry.registerMethod(className, jniNativeMethod.getMethodName()</div><div class="line">                    , jniNativeMethod.getMethodDescriptor(), jniNativeMethod.getNativeMethod());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>JNINativeMethod类用来存储参数，这些参数可以用来注册本地方法。而本地方法都声明在JVM_ENTRY接口中。</p>
+<p>接下来需要修改Registry类，处理查找到registerNatives方法时的逻辑。前面已经提到了，在Java中Object和System都拥有registerNatives方法用来注册本地方法。当查找到registerNatives方法后，应该确定是哪一个类的registerNatives()，具体代码见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">String[] temp = className.split(<span class="string">"/"</span>);</div><div class="line">String string = <span class="string">""</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length - <span class="number">1</span>; i++) &#123;</div><div class="line">    string = string + temp[i] + <span class="string">"."</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 将原本className的最后的简单名前添加一个“J”，在className前添加“native_.”</span></div><div class="line">String name = <span class="string">"native_."</span> + string + <span class="string">"J"</span> + temp[temp.length - <span class="number">1</span>];</div><div class="line"></div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    Class&lt;?&gt; c = Class.forName(name);</div><div class="line">    <span class="keyword">for</span> (Method method : c.getMethods()) &#123;</div><div class="line">      <span class="comment">// 方法名以"registerNatives"结尾时，为要寻找的方法</span></div><div class="line">        <span class="keyword">if</span> (method.getName().endsWith(<span class="string">"registerNatives"</span>))</div><div class="line">            <span class="comment">// 静态方法，所以第一个参数为null</span></div><div class="line">            method.invoke(<span class="keyword">null</span>, className);</div><div class="line">    &#125;</div><div class="line">&#125; <span class="keyword">catch</span> (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) &#123;</div><div class="line">    e.printStackTrace();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一些核心代码的理解见注释。同理可以修改JSystem.java中的代码。</p>
+<h2 id="完成JVM-IHashCode"><a href="#完成JVM-IHashCode" class="headerlink" title="完成JVM_IHashCode"></a>完成JVM_IHashCode</h2><p>接下来只要完成JVM_ENTRY下的JVM_IHashCode类，就能实现调用本地方法的功能，下面给出代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">JVM_IHashCode</span> <span class="keyword">implements</span> <span class="title">NativeMethod</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(StackFrame_ frame)</span> </span>&#123;</div><div class="line">        Instance_ thisRef = frame.getLocalVars().getRef(<span class="number">0</span>);</div><div class="line">        <span class="comment">// 本地方法的调用</span></div><div class="line">        <span class="keyword">int</span> hashCode = thisRef.hashCode();</div><div class="line">        frame.getOperandStack().pushInt(hashCode);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码中没有自己去实现hashCode的计算，而是直接采用的虚拟机编写语言Java的API，这样就完成了本地方法调用。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>要完成更多本地方法的调用，就需要先行完成库的编写。本篇旨在了解基本原理，实现的过程中借用了<code>0xfe</code>这个保留的字节码来触发执行本地方法的逻辑，也可以采用其它方式。而如果要探究商业级虚拟机本地方法调用的过程，可以参考相关技术规范。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/88fbe27621fc" target="_blank" rel="external">JNI技术规范：JNI 6.0官方技术文档翻译</a></p>
+<p><a href="https://juejin.im/post/5b8c7f54e51d4538b63d3db8" target="_blank" rel="external">向JVM注册本地方法是怎么实现的</a></p>
 
       
     </div>
@@ -633,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法的调用"><span class="nav-number">1.</span> <span class="nav-text">本地方法的调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地方法的调用"><span class="nav-number">1.</span> <span class="nav-text">本地方法的调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现hashCode"><span class="nav-number">2.</span> <span class="nav-text">实现hashCode()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JObject-amp-JSystem"><span class="nav-number">2.1.</span> <span class="nav-text">JObject & JSystem</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完成JVM-IHashCode"><span class="nav-number">3.</span> <span class="nav-text">完成JVM_IHashCode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
