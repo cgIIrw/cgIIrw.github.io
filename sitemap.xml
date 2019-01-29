@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/05/04/JVM_032/</loc>
+    
+    <lastmod>2019-01-29T08:55:53.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/05/07/JVMNative/</loc>
     
     <lastmod>2019-01-28T11:31:54.000Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>https://cgiirw.github.io/2018/04/12/Git_Prac/</loc>
     
     <lastmod>2019-01-16T05:27:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/05/04/JVM_032/</loc>
-    
-    <lastmod>2019-01-06T11:00:33.000Z</lastmod>
     
   </url>
   

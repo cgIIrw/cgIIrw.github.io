@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/04/JVM_032/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
-<meta property="og:updated_time" content="2019-01-06T11:00:33.000Z">
+<meta property="og:updated_time" content="2019-01-29T08:55:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之方法引用实现原理(下)">
 <meta name="twitter:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,529
+                  1,534
                 </span>
               
 
@@ -420,17 +420,17 @@
 <li>执行的主类需要先初始化；</li>
 <li>使用JDK1.7动态语言支持时的某些场景；</li>
 </ul>
-<p>类或接口最多只能调用一个初始化方法进行类或接口的初始化，该方法名为<clinit>，不带参数且是void的。关于<clinit>，甲骨文文献有这样一段话：</clinit></clinit></p>
+<p>类或接口最多只能调用一个初始化方法进行类或接口的初始化，该方法名为<code>&lt;clinit&gt;</code>，不带参数且是void的。关于<code>&lt;clinit&gt;</code>，甲骨文文献有这样一段话：</p>
 <blockquote>
 <p>Class and interface initialization methods are invoked implicitly by the Java Virtual Machine; they are never invoked directly from any Java Virtual Machine instruction, but are invoked only indirectly as part of the class initialization process.</p>
 </blockquote>
 <p>这就是为什么反编译后看不到字节码指令调用该方法，因为Java虚拟机会隐式调用处理。</p>
-<p>在51.0以上的JDK版本该方法必须设置ACC_STATIC才能被当作是初始化方法，而之前的版本没有该要求，皆表示初始化方法。之所以可以通过查询静态方法找到<clinit>正是因为：</clinit></p>
+<p>在51.0以上的JDK版本该方法必须设置ACC_STATIC才能被当作是初始化方法，而之前的版本没有该要求，皆表示初始化方法。之所以可以通过查询静态方法找到<code>&lt;clinit&gt;</code>正是因为：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isStatic</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span> != (accessFlags &amp; AccessFlags.ACC_STATIC);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>接下来看看类初始化方法的具体实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类初始化方法</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clinitClass</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    getClinitMethod(thread, class_);</div><div class="line">    clinitSuperClass(thread, class_);</div><div class="line">    class_.setClinitedFlag(<span class="keyword">true</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 获取&lt;clinit&gt;方法，一旦获取到就生成栈帧压入虚拟机栈中</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getClinitMethod</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    Method_ clinit = class_.getStaticMethod(<span class="string">"&lt;clinit&gt;"</span>, <span class="string">"()V"</span>);</div><div class="line">    <span class="comment">// 从当前的类查找类初始化器，如果不存在就要考虑在父类中查找了，</span></div><div class="line">    <span class="comment">// 后者相当于递归调用，将在clinitSuperClass方法中实现</span></div><div class="line">    <span class="keyword">if</span> (clinit != <span class="keyword">null</span>) &#123;</div><div class="line">        StackFrame_ clinitFrame = <span class="keyword">new</span> StackFrame_(thread, clinit);</div><div class="line">        thread.pushStackFrame_(clinitFrame);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在父类中递归查找和获取&lt;clinit&gt;方法</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clinitSuperClass</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!class_.isInterface()) &#123;</div><div class="line">        Class_ superClass = class_.getSuperClass();</div><div class="line">        <span class="keyword">if</span> (superClass != <span class="keyword">null</span> &amp;&amp; !superClass.getClinitFlag())</div><div class="line">            clinitClass(thread, superClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>后两个方法封装在前一个方法中。getClinitMethod方法查找当前类的<clinit>方法，查找不到就通过clinitSuperClass方法在父类中递归查找和获取。</clinit></p>
-<p>再就是因为获取<clinit>方法后，会将新栈帧压入虚拟机栈执行，所以nextPC要重新设置为执行指令之前的状态：</clinit></p>
+<p>后两个方法封装在前一个方法中。getClinitMethod方法查找当前类的<code>&lt;clinit&gt;</code>方法，查找不到就通过clinitSuperClass方法在父类中递归查找和获取。</p>
+<p>再就是因为获取<code>&lt;clinit&gt;</code>方法后，会将新栈帧压入虚拟机栈执行，所以nextPC要重新设置为执行指令之前的状态：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 修改frame中的nextPC(用以重置线程pc)</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">revertNextPc</span><span class="params">(StackFrame_ frame)</span> </span>&#123;</div><div class="line">    frame.setNextPC(frame.getThread_().getPc());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>限于当前的虚拟机实现，在类初始化的五种情形中，可以先满足1、3、4三种情形。在相关指令中添加下面这段代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类初始化</span></div><div class="line"><span class="keyword">if</span> (!class_.getClinitFlag()) &#123;</div><div class="line">    Clinit.revertNextPc(frame);</div><div class="line">    Clinit.clinitClass(frame.getThread_(), class_);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
