@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/04/JVM_032/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
-<meta property="og:updated_time" content="2019-01-29T08:55:53.000Z">
+<meta property="og:updated_time" content="2019-01-29T10:34:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之方法引用实现原理(下)">
 <meta name="twitter:description" content="本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,534
+                  1,679
                 </span>
               
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  7
                 </span>
               
             </div>
@@ -430,8 +430,9 @@
 <p>接下来看看类初始化方法的具体实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类初始化方法</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clinitClass</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    getClinitMethod(thread, class_);</div><div class="line">    clinitSuperClass(thread, class_);</div><div class="line">    class_.setClinitedFlag(<span class="keyword">true</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 获取&lt;clinit&gt;方法，一旦获取到就生成栈帧压入虚拟机栈中</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getClinitMethod</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    Method_ clinit = class_.getStaticMethod(<span class="string">"&lt;clinit&gt;"</span>, <span class="string">"()V"</span>);</div><div class="line">    <span class="comment">// 从当前的类查找类初始化器，如果不存在就要考虑在父类中查找了，</span></div><div class="line">    <span class="comment">// 后者相当于递归调用，将在clinitSuperClass方法中实现</span></div><div class="line">    <span class="keyword">if</span> (clinit != <span class="keyword">null</span>) &#123;</div><div class="line">        StackFrame_ clinitFrame = <span class="keyword">new</span> StackFrame_(thread, clinit);</div><div class="line">        thread.pushStackFrame_(clinitFrame);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 在父类中递归查找和获取&lt;clinit&gt;方法</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clinitSuperClass</span><span class="params">(Thread_ thread, Class_ class_)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (!class_.isInterface()) &#123;</div><div class="line">        Class_ superClass = class_.getSuperClass();</div><div class="line">        <span class="keyword">if</span> (superClass != <span class="keyword">null</span> &amp;&amp; !superClass.getClinitFlag())</div><div class="line">            clinitClass(thread, superClass);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>后两个方法封装在前一个方法中。getClinitMethod方法查找当前类的<code>&lt;clinit&gt;</code>方法，查找不到就通过clinitSuperClass方法在父类中递归查找和获取。</p>
-<p>再就是因为获取<code>&lt;clinit&gt;</code>方法后，会将新栈帧压入虚拟机栈执行，所以nextPC要重新设置为执行指令之前的状态：</p>
+<p>假设现在遇到了指令NEW，此时没有进行类初始化会去获取<code>&lt;clinit&gt;</code>方法进行类初始化，新栈帧压入虚拟机栈执行，类初始化代码中包含<code>return</code>表示不会继续完成NEW指令后续的操作，于是类初始化后需要再次执行之前的指令NEW，所以nextPC要重新设置为执行指令之前的状态：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 修改frame中的nextPC(用以重置线程pc)</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">revertNextPc</span><span class="params">(StackFrame_ frame)</span> </span>&#123;</div><div class="line">    frame.setNextPC(frame.getThread_().getPc());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然这不是必须的，如果类初始化后继续执行指令内未完成的代码，就不需要设置计数器记录之前的指令状态。前提是在类初始化之前不要引用未初始化的变量，类初始化完后要确保初始化完成。</p>
 <p>限于当前的虚拟机实现，在类初始化的五种情形中，可以先满足1、3、4三种情形。在相关指令中添加下面这段代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类初始化</span></div><div class="line"><span class="keyword">if</span> (!class_.getClinitFlag()) &#123;</div><div class="line">    Clinit.revertNextPc(frame);</div><div class="line">    Clinit.clinitClass(frame.getThread_(), class_);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>最后，因为所有的类都是java.lang.Object类的子类，所以所有的类在初始化之前会先进行java.lang.Object类的初始化，在该类中存在：</p>
