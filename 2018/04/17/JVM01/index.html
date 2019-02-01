@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/17/JVM01/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要涉及如何用Java编写命令行工具(此命令行工具用来加载.class文件)。">
-<meta property="og:updated_time" content="2019-01-23T12:41:12.000Z">
+<meta property="og:updated_time" content="2019-01-30T07:05:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之自己编写命令行工具(上)">
 <meta name="twitter:description" content="本篇主要涉及如何用Java编写命令行工具(此命令行工具用来加载.class文件)。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  630
+                  634
                 </span>
               
 
@@ -398,7 +398,7 @@
 <a id="more"></a>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>在Java中本人使用Apache Commons CLI这款开源的工具，这里是官方主页：<a href="http://commons.apache.org/proper/commons-cli/" target="_blank" rel="external">Commons CLI</a>。</p>
 <p>工具包下载地址为<a href="http://commons.apache.org/proper/commons-cli/download_cli.cgi" target="_blank" rel="external">Apache Commons CLI</a>，也可以通过在maven中配置依赖的方式使用。</p>
-<h2 id="定义-amp-解析"><a href="#定义-amp-解析" class="headerlink" title="定义 &amp; 解析"></a>定义 &amp; 解析</h2><p>原书中通过cmd.go文件进行定义(Definition Stage)和解析(Parsing Stage)，所以新建一个Cmd.java文件，创建一个Cmd类，用一个静态方法进行封装：</p>
+<h2 id="定义-amp-解析"><a href="#定义-amp-解析" class="headerlink" title="定义 &amp; 解析"></a>定义 &amp; 解析</h2><p>为了编写一个命令行工具，首先需要完成定义(Definition Stage)和解析(Parsing Stage)。新建一个Cmd.java文件，创建一个Cmd类，用一个静态方法进行封装：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cmd</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> CommandLine <span class="title">cmd</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ParseException </span>&#123;</div><div class="line">    <span class="comment">//定义</span></div><div class="line">    Options options = <span class="keyword">new</span> Options();</div><div class="line">    options.addOption(<span class="string">"help"</span>, <span class="keyword">false</span>, <span class="string">"print help message"</span>);</div><div class="line">    options.addOption(<span class="string">"?"</span>, <span class="keyword">false</span>, <span class="string">"print help message"</span>);</div><div class="line">    options.addOption(<span class="string">"version"</span>, <span class="keyword">false</span>, <span class="string">"print version and exit"</span>);</div><div class="line">    <span class="comment">//解析</span></div><div class="line">    CommandLineParser paraer = <span class="keyword">new</span> DefaultParser();</div><div class="line">    CommandLine cmd = paraer.parse(options, args);</div><div class="line">    <span class="keyword">return</span> cmd;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printUsage</span><span class="params">(String classMainName)</span> </span>&#123;</div><div class="line">      System.out.println(<span class="string">"Usage: java "</span> + classMainName + <span class="string">" [-options] class [args...]"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>注意：</p>
 <ul>

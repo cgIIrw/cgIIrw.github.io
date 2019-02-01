@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/08/25/Jenv_Tutorial/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="很久之前写过一篇《pyenv的安装和应用》，没想到现在也要去安装一个Java的版本管理器，不过在本人看来这是一件好事，因为这侧面说明Java一直都在与时俱进，本篇主要记录jenv的安装和使用。">
-<meta property="og:updated_time" content="2018-10-27T00:43:29.000Z">
+<meta property="og:updated_time" content="2019-01-31T17:04:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jenv的安装和使用">
 <meta name="twitter:description" content="很久之前写过一篇《pyenv的安装和应用》，没想到现在也要去安装一个Java的版本管理器，不过在本人看来这是一件好事，因为这侧面说明Java一直都在与时俱进，本篇主要记录jenv的安装和使用。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  565
+                  597
                 </span>
               
 
@@ -423,6 +423,7 @@
 </ul>
 <p>使用全局版本的方法是在shell中运行命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> jenv global 1.7</div></pre></td></tr></table></figure>
+<p><code>全局版本最好不要设置为System，在给jar包传递命令行参数时产生了无效路径的bug。</code></p>
 <ul>
 <li>设置局部版本</li>
 </ul>
