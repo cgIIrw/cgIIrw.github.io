@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta name="description" content="《Java Concurrency in Practice》的前言已经写明了如何使用这本书：提供一个简化的并发程序编写规则，使开发人员无须掌握Java内存模型底层细节就能编写正确的并发程序。而该书的第一部分(Part I)就介绍了其中最重要的一些规则。下面来列出这一部分各章节的主要内容：  第二、三章：给出了几乎所有用于避免并发危险、构造线程安全的类以及验证线程安全的规则； 第四章：介绍如何将一些">
 <meta name="keywords" content="Java,多线程,笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Java Concurrency in Practice》学习总结(Part I)">
 <meta property="og:url" content="https://cgiirw.github.io/2018/09/17/JCIP/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta property="og:description" content="《Java Concurrency in Practice》的前言已经写明了如何使用这本书：提供一个简化的并发程序编写规则，使开发人员无须掌握Java内存模型底层细节就能编写正确的并发程序。而该书的第一部分(Part I)就介绍了其中最重要的一些规则。下面来列出这一部分各章节的主要内容：  第二、三章：给出了几乎所有用于避免并发危险、构造线程安全的类以及验证线程安全的规则； 第四章：介绍如何将一些">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r7orhlj31di0do7aw.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn5vl7j30yi0fwn16.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qrf0vvj30yc0bo43q.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3t37vvkj31280bcqa8.jpg">
-<meta property="og:updated_time" content="2018-10-31T00:56:41.000Z">
+<meta property="og:updated_time" content="2019-02-15T00:22:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Java Concurrency in Practice》学习总结(Part I)">
-<meta name="twitter:description" content="《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于发布逸出、安全发布、线程安全类添加功能、构建高效且可伸缩的结果内存等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。">
+<meta name="twitter:description" content="《Java Concurrency in Practice》的前言已经写明了如何使用这本书：提供一个简化的并发程序编写规则，使开发人员无须掌握Java内存模型底层细节就能编写正确的并发程序。而该书的第一部分(Part I)就介绍了其中最重要的一些规则。下面来列出这一部分各章节的主要内容：  第二、三章：给出了几乎所有用于避免并发危险、构造线程安全的类以及验证线程安全的规则； 第四章：介绍如何将一些">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3r7orhlj31di0do7aw.jpg">
 
 
@@ -360,7 +360,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,884
+                  3,078
                 </span>
               
 
@@ -399,7 +399,13 @@
       
 
       
-        <p>《Java Concurrency in Practice》Part I用来讲基础，其中有些技术知识不太容易通过阅读源码习得，特别是关于<code>发布逸出</code>、<code>安全发布</code>、<code>线程安全类添加功能</code>、<code>构建高效且可伸缩的结果内存</code>等内容的章节，让人醍醐灌顶。本篇将对部分内容进行笔记，没有涉及的内容可以从本站其它小文中查找。</p>
+        <p>《Java Concurrency in Practice》的前言已经写明了如何使用这本书：提供一个简化的并发程序编写规则，使开发人员无须掌握Java内存模型底层细节就能编写正确的并发程序。而该书的第一部分(Part I)就介绍了其中最重要的一些规则。下面来列出这一部分各章节的主要内容：</p>
+<ul>
+<li>第二、三章：给出了几乎所有用于避免并发危险、构造线程安全的类以及验证线程安全的规则；</li>
+<li>第四章：介绍如何将一些小的线程安全类组合成更大的线程安全类；</li>
+<li>第五章：介绍了在平台库中提供的一些基础的并发构建模块，包括线程安全的容器类和同步工具类；</li>
+</ul>
+<p>其中关于<code>发布逸出</code>、<code>安全发布</code>、<code>线程安全类添加功能</code>、<code>构建高效且可伸缩的结果内存</code>等内容让人醍醐灌顶，本篇将对这些进行笔记。</p>
 <a id="more"></a>
 <h2 id="第一章-简介"><a href="#第一章-简介" class="headerlink" title="第一章 简介"></a>第一章 简介</h2><p>简要介绍了并发历史、线程优势、线程风险以及线程应用。</p>
 <h3 id="线程风险"><a href="#线程风险" class="headerlink" title="线程风险"></a>线程风险</h3><ul>
@@ -407,6 +413,7 @@
 <li>活跃性问题：死锁、饥饿、活锁；</li>
 <li>性能问题：保存恢复线程执行的上下文、CPU时间花费在调度上、同步机制会清空锁定内存和高速缓存并在共享内存总线创建同步通信；</li>
 </ul>
+<p>安全性含义是“不能错”，活跃性是“正确事的最终会发生”，性能说的则是“正确的事更好更快的发生”。</p>
 <h2 id="第二章-线程安全"><a href="#第二章-线程安全" class="headerlink" title="第二章 线程安全"></a>第二章 线程安全</h2><p>编写安全代码的本质：管理对状态的访问，而且通常是共享、可变的状态；</p>
 <p>共享：变量被多个线程访问；</p>
 <p>可变：变量的值在生命周期内可变；</p>
@@ -640,7 +647,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">119</span>
+                  <span class="site-state-item-count">120</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -662,7 +669,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-count">80</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
