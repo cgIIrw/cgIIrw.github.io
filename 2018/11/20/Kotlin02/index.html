@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/20/Kotlin02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
-<meta property="og:updated_time" content="2018-12-01T03:47:57.000Z">
+<meta property="og:updated_time" content="2019-02-25T11:19:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些Java场景在Kotlin下的解决之道">
 <meta name="twitter:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,282
+                  1,275
                 </span>
               
 
@@ -400,7 +400,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticDemo</span> </span>&#123;</div><div class="line">    companion object &#123;</div><div class="line">        var i: Int = <span class="number">3</span></div><div class="line">        var j: Int = <span class="number">7</span></div><div class="line">        init &#123;</div><div class="line">            j = <span class="number">4</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>对其使用javap反编译，摘取其中static{}部分：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">static &#123;&#125;;</div><div class="line">  Code:</div><div class="line">     0: new           #42                 // class kotlindemo01/StaticDemo$Companion</div><div class="line">     3: dup</div><div class="line">     4: aconst_null</div><div class="line">     5: invokespecial #45                 // Method kotlindemo01/StaticDemo$Companion."&lt;init&gt;":(Lkotlin/jvm/internal/DefaultConstructorMarker;)V</div><div class="line">     8: putstatic     #47                 // Field Companion:Lkotlindemo01/StaticDemo$Companion;</div><div class="line">    11: iconst_3</div><div class="line">    12: putstatic     #20                 // Field i:I</div><div class="line">    15: bipush        7</div><div class="line">    17: putstatic     #26                 // Field j:I</div><div class="line">    20: iconst_4</div><div class="line">    21: putstatic     #26                 // Field j:I</div><div class="line">    24: return</div></pre></td></tr></table></figure>
-<p>内部会创建静态字段i、j以及指向内部类对象的静态引用(public static final kotlindemo01.StaticDemo$Companion Companion)。Kotlin的init{}相当于Java的Static{}。</p>
+<p>内部会创建静态字段i、j以及指向内部类对象的静态引用(public static final kotlindemo01.StaticDemo$Companion Companion)。</p>
 <p>在上面的例子中，StaticDemo可以直接调用i或j属性，和Java不一样的是，StaticDemo对象并不能调用i或j的属性。在main方法中执行StaticDemo.i语句，反编译有：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static final void main(java.lang.String[]);</div><div class="line">   Code:</div><div class="line">      0: aload_0</div><div class="line">      1: ldc           #9                  // String args</div><div class="line">      3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkParameterIsNotNull:(Ljava/lang/Object;Ljava/lang/String;)V</div><div class="line">      6: getstatic     #21                 // Field kotlindemo01/StaticDemo.Companion:Lkotlindemo01/StaticDemo$Companion;</div><div class="line">      9: invokevirtual #27                 // Method kotlindemo01/StaticDemo$Companion.getI:()I</div><div class="line">     12: pop</div><div class="line">     13: return</div></pre></td></tr></table></figure>
 <p>可见StaticDemo.i会被编译器编译为内部类的实例调用后者的getI方法(结合后文另一种调用方式解释了为什么在Java中需要写全为StaticDemo.Companion.j，Java的编译器不会编译出Kotlin编译器的结果)，反编译该内部类：</p>
