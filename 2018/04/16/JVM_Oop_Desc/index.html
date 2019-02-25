@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3u5jyu0j31fi0zywrp.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oah88hj30k40gmq3s.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oa49aqj30k40e8aao.jpg">
-<meta property="og:updated_time" content="2018-12-29T22:25:27.000Z">
+<meta property="og:updated_time" content="2019-02-25T21:30:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机之对象探秘">
 <meta name="twitter:description" content="前篇《Java虚拟机之内存区域》做了一个提纲式的总结，这里将“对象探秘”部分做一个稍稍的展开，包括创建对象的基本流程、对象的内存布局、Class &amp;amp; Klass &amp;amp; KlassKlass浅析以及实例数据重排序等内容。">
@@ -363,7 +363,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,624
+                  2,667
                 </span>
               
 
@@ -409,11 +409,12 @@
 <li>检查指令参数能否定位符号引用；</li>
 <li>检查符号引用代表的类是否已经被加载、解析和初始化过，没有就要先执行这些过程(《深》P210)；</li>
 <li>分配内存(CAS / TLAB)；</li>
-<li>初始化零值(不包括对象头)；</li>
+<li>初始化为零值(不包括对象头)；</li>
 <li>对对象头进行必要设置；</li>
 <li>通常，执行<init\>方法(由invokespecial决定)；</init\></li>
 </ul>
 <p>类的初始化自有其它篇章进行介绍，这里需要知道的是，在遇到new等字节码指令时，需要先触发类的初始化。在类加载的连接过程中，准备阶段也会为类变量设置初始化零值，注意区别和类比。</p>
+<p>普通字段的初始化器会在每个构造方法中被执行，而且是在写进构造方法内初始化内容执行前执行。</p>
 <h2 id="对象内存布局简析"><a href="#对象内存布局简析" class="headerlink" title="对象内存布局简析"></a>对象内存布局简析</h2><p>对象在内存中的布局包括三个部分：对象头、实例数据和对齐填充。</p>
 <p>为了很好的研究这一部分，采用实验的方式来进行，这里用到了一个小工具<a href="http://openjdk.java.net/projects/code-tools/jol/" target="_blank" rel="external">jol</a>，本人的Java环境为jdk1.8.0_171，64-bit HotSpot VM。</p>
 <p>首先看看官方提供的JOLSample_01_Basic代码：</p>

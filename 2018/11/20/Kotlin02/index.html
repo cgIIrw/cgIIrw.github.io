@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/20/Kotlin02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
-<meta property="og:updated_time" content="2019-02-25T11:19:09.000Z">
+<meta property="og:updated_time" content="2019-02-25T22:19:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些Java场景在Kotlin下的解决之道">
 <meta name="twitter:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,275
+                  1,928
                 </span>
               
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  9
                 </span>
               
             </div>
@@ -396,6 +396,31 @@
       
         <p>Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。</p>
 <a id="more"></a>
+<h2 id="伴生对象硬核原理"><a href="#伴生对象硬核原理" class="headerlink" title="伴生对象硬核原理"></a>伴生对象硬核原理</h2><p>虽然在Kotlin的世界里，人们一直强调没有static没有static，但本人还是想通过查看字节码文件这种硬核的方式理解一些概念。编写一个Kotlin例子，package为ObjectDemo：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AA</span> </span>&#123;</div><div class="line">    var i = <span class="number">19</span></div><div class="line"></div><div class="line">    <span class="function">fun <span class="title">methodA</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    companion object BB&#123;</div><div class="line">        var j = <span class="number">29</span></div><div class="line">        <span class="function">fun <span class="title">methodB</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<p>这个例子在AA中放一个i属性，一个methodA方法；伴生对象内放一个j属性以及methodB方法。</p>
+<p>编译之后会生成三个文件<code>AA$BB.class</code>、<code>AA.class</code>、<code>ObjectDemoKt.class</code>。</p>
+<p>虽说main在源文件里是一个所谓的顶层函数，但其实编译后会将其放入一个ObjectDemoKt类中，默认类名就是包名+Kt。</p>
+<p>接下来本人将主要分析AA$BB.class、AA.class这两个文件。</p>
+<p>首先是AA.class，对其进行反编译有：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">public final class ObjectDemo.AA &#123;</div><div class="line">  public static final ObjectDemo.AA$BB BB;</div><div class="line"></div><div class="line">  public final int getI();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: getfield      #10                 // Field i:I</div><div class="line">       4: ireturn</div><div class="line"></div><div class="line">  public final void setI(int);</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: iload_1</div><div class="line">       2: putfield      #10                 // Field i:I</div><div class="line">       5: return</div><div class="line"></div><div class="line">  public final void methodA();</div><div class="line">    Code:</div><div class="line">       0: return</div><div class="line"></div><div class="line">  public ObjectDemo.AA();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: invokespecial #20                 // Method java/lang/Object."&lt;init&gt;":()V</div><div class="line">       4: aload_0</div><div class="line">       5: bipush        19</div><div class="line">       7: putfield      #10                 // Field i:I</div><div class="line">      10: return</div><div class="line"></div><div class="line">  static &#123;&#125;;</div><div class="line">    Code:</div><div class="line">       0: new           #43                 // class ObjectDemo/AA$BB</div><div class="line">       3: dup</div><div class="line">       4: aconst_null</div><div class="line">       5: invokespecial #46                 // Method ObjectDemo/AA$BB."&lt;init&gt;":(Lkotlin/jvm/internal/DefaultConstructorMarker;)V</div><div class="line">       8: putstatic     #48                 // Field BB:LObjectDemo/AA$BB;</div><div class="line">      11: bipush        29</div><div class="line">      13: putstatic     #27                 // Field j:I</div><div class="line">      16: return</div><div class="line"></div><div class="line">  public static final int access$getJ$cp();</div><div class="line">    Code:</div><div class="line">       0: getstatic     #27                 // Field j:I</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public static final void access$setJ$cp(int);</div><div class="line">    Code:</div><div class="line">       0: iload_0</div><div class="line">       1: putstatic     #27                 // Field j:I</div><div class="line">       4: return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过这个反编译结果，可以迅速得到一些结论：</p>
+<ol>
+<li>写在伴生对象内j属性会被编译成AA的静态字段j；</li>
+<li>写在AA中的var属性i会被编译为普通字段i，并配有final的普通get、set方法；</li>
+<li>j还会在AA中被编译出隐含的static final的get、set方法 ；</li>
+<li>methodA()在AA中是final的普通方法；</li>
+<li>AA内还会存在一个static、final的BB对象的静态初始化器；</li>
+</ol>
+<p>再来看看AA$BB.class：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public final class ObjectDemo.AA$BB &#123;</div><div class="line">  public final int getJ();</div><div class="line">    Code:</div><div class="line">       0: invokestatic  #11                 // Method ObjectDemo/AA.access$getJ$cp:()I</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public final void setJ(int);</div><div class="line">    Code:</div><div class="line">       0: iload_1</div><div class="line">       1: invokestatic  #18                 // Method ObjectDemo/AA.access$setJ$cp:(I)V</div><div class="line">       4: return</div><div class="line"></div><div class="line">  public final void methodB();</div><div class="line">    Code:</div><div class="line">       0: return</div><div class="line"></div><div class="line">  public ObjectDemo.AA$BB(kotlin.jvm.internal.DefaultConstructorMarker);</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: invokespecial #27                 // Method "&lt;init&gt;":()V</div><div class="line">       4: return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过这个反编译结果，又可以得出些结论：</p>
+<ol>
+<li>BB按照Java中来理解，相当于是AA的内部类；</li>
+<li>在BB内会编译出j的get、set方法，它们是普通的、final的，包装了AA中隐含的static final的get、set方法；</li>
+<li>methodB()也是final、非静态的；</li>
+</ol>
+<p>由此很多概念就不陌生了。</p>
 <h2 id="Java静态块改写"><a href="#Java静态块改写" class="headerlink" title="Java静态块改写"></a>Java静态块改写</h2><p>Kotlin中没有静态的概念，可以使用伴生对象来实现。例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">StaticDemo</span> </span>&#123;</div><div class="line">    companion object &#123;</div><div class="line">        var i: Int = <span class="number">3</span></div><div class="line">        var j: Int = <span class="number">7</span></div><div class="line">        init &#123;</div><div class="line">            j = <span class="number">4</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>对其使用javap反编译，摘取其中static{}部分：</p>
@@ -654,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java静态块改写"><span class="nav-number">1.</span> <span class="nav-text">Java静态块改写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免双感叹号使用"><span class="nav-number">2.</span> <span class="nav-text">避免双感叹号使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin之迭代"><span class="nav-number">3.</span> <span class="nav-text">Kotlin之迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的运用"><span class="nav-number">4.</span> <span class="nav-text">数组的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象硬核原理"><span class="nav-number">1.</span> <span class="nav-text">伴生对象硬核原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java静态块改写"><span class="nav-number">2.</span> <span class="nav-text">Java静态块改写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免双感叹号使用"><span class="nav-number">3.</span> <span class="nav-text">避免双感叹号使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin之迭代"><span class="nav-number">4.</span> <span class="nav-text">Kotlin之迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的运用"><span class="nav-number">5.</span> <span class="nav-text">数组的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
