@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="全局变量 、静态变量初始值为0局部变量，自动变量初始值随机分配 函数结构体结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。 结构体的形式一般如下： 1struct [&amp;lt;structuretag&amp;gt;] &amp;#123;&amp;#125; structuretag是可选的，可以作为括号内声明部分的简写形式。 结构体声明在通过struct &amp;lt;structuretag">
+<meta name="description" content="快速复习 C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。  1234567891011int a; // 声明字段avoid method01(); // 声明方法method01int main() &amp;#123;    method01();    printf(&quot;%d&quot;,">
 <meta name="keywords" content="持续更新,review">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java程序员快速复习C语言语法(TCPL)">
 <meta property="og:url" content="https://cgiirw.github.io/2018/12/20/Review_TCPL/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="全局变量 、静态变量初始值为0局部变量，自动变量初始值随机分配 函数结构体结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。 结构体的形式一般如下： 1struct [&amp;lt;structuretag&amp;gt;] &amp;#123;&amp;#125; structuretag是可选的，可以作为括号内声明部分的简写形式。 结构体声明在通过struct &amp;lt;structuretag">
-<meta property="og:updated_time" content="2019-03-03T07:06:17.000Z">
+<meta property="og:description" content="快速复习 C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。  1234567891011int a; // 声明字段avoid method01(); // 声明方法method01int main() &amp;#123;    method01();    printf(&quot;%d&quot;,">
+<meta property="og:updated_time" content="2019-03-03T11:02:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java程序员快速复习C语言语法(TCPL)">
-<meta name="twitter:description" content="全局变量 、静态变量初始值为0局部变量，自动变量初始值随机分配 函数结构体结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。 结构体的形式一般如下： 1struct [&amp;lt;structuretag&amp;gt;] &amp;#123;&amp;#125; structuretag是可选的，可以作为括号内声明部分的简写形式。 结构体声明在通过struct &amp;lt;structuretag">
+<meta name="twitter:description" content="快速复习 C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。  1234567891011int a; // 声明字段avoid method01(); // 声明方法method01int main() &amp;#123;    method01();    printf(&quot;%d&quot;,">
 
 
 
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,183
+                  1,716
                 </span>
               
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  7
                 </span>
               
             </div>
@@ -394,7 +394,33 @@
       
 
       
-        <p>全局变量 、静态变量初始值为0<br>局部变量，自动变量初始值随机分配</p>
+        <h2 id="快速复习"><a href="#快速复习" class="headerlink" title="快速复习"></a>快速复习</h2><ul>
+<li>C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a; <span class="comment">// 声明字段a</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span></span>; <span class="comment">// 声明方法method01</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    method01();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, a);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Hello!\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>int和float等类型的取值范围取决于机器。</p>
+</li>
+<li><p>#define在预编译阶段将符号名或者符号常量定义为特定的字符串，指令的末尾没有分号。</p>
+</li>
+<li><p>C语言的函数参数通过值传递。</p>
+</li>
+<li><p>自动变量对标Java中局部变量，每次entry函数时都需要显式为其赋值，如果没有，那么存放的将是“garbage”。</p>
+</li>
+<li>外部变量指的是函数外的变量，可以在函数内显式声明，即用“extern”关键字，也可以通过上下文隐式声明，即比如定义在使用函数之前就可以不使用“extern”关键字。</li>
+<li>通常习惯把extern声明的变量和函数放在单独的一个文件中，该文件成为头文件。</li>
+</ul>
+<h2 id="类型、操作符和表达式"><a href="#类型、操作符和表达式" class="headerlink" title="类型、操作符和表达式"></a>类型、操作符和表达式</h2><ul>
+<li>C中的const对标Java中的final，但是和Java又有区别，例如如果用const修饰数组，那么数组中的元素就不能改变了，而且在声明的同时就应该初始化赋值：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">     <span class="keyword">const</span> <span class="keyword">char</span> i[] = <span class="string">"abc"</span>;</div><div class="line"><span class="comment">//    i[0] = 'c'; 这里修改值是错误的做法</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>, i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>下划线在C中被看作是字母，但是通常不应以下划线开头来命名变量或函数，因为library routines常常使用这样的方式命名。</li>
+<li>C的字符串和Java的相比，最后多了一个<code>\0</code>字符，程序是需要扫描整个字符串才能确定字符串的长度，该长度不包括<code>\0</code>字符。</li>
+<li>取模运算符％不能作用于float活着double类型。</li>
+<li>C没有指定char类型的变量是无符号还是带符号变量，这个由不同的机器决定。</li>
+<li>全局变量 、静态变量初始值为0，局部变量，自动变量如果没有初始化值随机分配(“garbage”)。</li>
+</ul>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。</p>
 <p>结构体的形式一般如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> [&lt;structuretag&gt;] &#123;</span>&#125;</div></pre></td></tr></table></figure>
@@ -659,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">1.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体"><span class="nav-number">2.</span> <span class="nav-text">结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体声明"><span class="nav-number">2.1.</span> <span class="nav-text">结构体声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体与函数"><span class="nav-number">2.2.</span> <span class="nav-text">结构体与函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体数组"><span class="nav-number">2.3.</span> <span class="nav-text">结构体数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指向结构体指针"><span class="nav-number">2.4.</span> <span class="nav-text">指向结构体指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">2.5.</span> <span class="nav-text">typedef</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合体"><span class="nav-number">3.</span> <span class="nav-text">联合体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位字段"><span class="nav-number">4.</span> <span class="nav-text">位字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速复习"><span class="nav-number">1.</span> <span class="nav-text">快速复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型、操作符和表达式"><span class="nav-number">2.</span> <span class="nav-text">类型、操作符和表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体"><span class="nav-number">4.</span> <span class="nav-text">结构体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体声明"><span class="nav-number">4.1.</span> <span class="nav-text">结构体声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体与函数"><span class="nav-number">4.2.</span> <span class="nav-text">结构体与函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结构体数组"><span class="nav-number">4.3.</span> <span class="nav-text">结构体数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指向结构体指针"><span class="nav-number">4.4.</span> <span class="nav-text">指向结构体指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">4.5.</span> <span class="nav-text">typedef</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#联合体"><span class="nav-number">5.</span> <span class="nav-text">联合体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位字段"><span class="nav-number">6.</span> <span class="nav-text">位字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
