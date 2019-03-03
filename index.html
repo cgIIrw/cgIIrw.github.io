@@ -549,7 +549,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  837
+                  955
                 </span>
               
 
@@ -565,7 +565,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -626,7 +626,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">typedef <span class="title">int</span> <span class="params">(*methodref)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</div></pre></td></tr></table></figure>
 <p>此时之前的methodref02可以这样定义：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">methodref methodref02 = method;</div></pre></td></tr></table></figure>
-<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
+<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>联合体开辟的内存，等于它所有成员中所占内存最大的成员的内存。读取的类型必须是最近一次存入的类型，初始化的时候使用第一个成员类型的值进行初始化，其它操作大体和结构体相同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">union</span> u &#123;</div><div class="line">        <span class="keyword">int</span> val01;</div><div class="line">        <span class="keyword">long</span> val02;</div><div class="line">    &#125; a = &#123;<span class="number">1</span>&#125;;</div><div class="line">    a.val01 = <span class="number">7</span>;</div><div class="line">    a.val02 = <span class="number">12</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%zu %i %li\n"</span>, <span class="keyword">sizeof</span>(a), a.val01, a.val02);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">8 12 12</div></pre></td></tr></table></figure>
+<h2 id="位字段"><a href="#位字段" class="headerlink" title="位字段"></a>位字段</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
 
           
         
