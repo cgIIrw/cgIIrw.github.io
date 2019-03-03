@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/12/20/Review_TCPL/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="全局变量 、静态变量初始值为0局部变量，自动变量初始值随机分配 函数结构体结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。 结构体的形式一般如下： 1struct [&amp;lt;structuretag&amp;gt;] &amp;#123;&amp;#125; structuretag是可选的，可以作为括号内声明部分的简写形式。 结构体声明在通过struct &amp;lt;structuretag">
-<meta property="og:updated_time" content="2019-03-03T02:48:18.000Z">
+<meta property="og:updated_time" content="2019-03-03T07:06:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java程序员快速复习C语言语法(TCPL)">
 <meta name="twitter:description" content="全局变量 、静态变量初始值为0局部变量，自动变量初始值随机分配 函数结构体结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。 结构体的形式一般如下： 1struct [&amp;lt;structuretag&amp;gt;] &amp;#123;&amp;#125; structuretag是可选的，可以作为括号内声明部分的简写形式。 结构体声明在通过struct &amp;lt;structuretag">
@@ -355,7 +355,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  955
+                  1,183
                 </span>
               
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  5
                 </span>
               
             </div>
@@ -434,7 +434,12 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">union</span> u &#123;</div><div class="line">        <span class="keyword">int</span> val01;</div><div class="line">        <span class="keyword">long</span> val02;</div><div class="line">    &#125; a = &#123;<span class="number">1</span>&#125;;</div><div class="line">    a.val01 = <span class="number">7</span>;</div><div class="line">    a.val02 = <span class="number">12</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%zu %i %li\n"</span>, <span class="keyword">sizeof</span>(a), a.val01, a.val02);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>打印结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">8 12 12</div></pre></td></tr></table></figure>
-<h2 id="位字段"><a href="#位字段" class="headerlink" title="位字段"></a>位字段</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
+<h2 id="位字段"><a href="#位字段" class="headerlink" title="位字段"></a>位字段</h2><p>位字段一个主要的作用就是节约内存，在Java中boolean类型的变量在虚拟机占用了一个int的大小，也就是四个字节。实际上，原本一个bit就能完成同样功能。Java这样做当然有它自己的实现机理，而在C语言中，为了节约内存采用了一种新的手段，即位字段。来看一个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Bitfield</span> &#123;</span></div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> a : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> b : <span class="number">2</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> c : <span class="number">20</span>;</div><div class="line"></div><div class="line">    &#125; bf;</div><div class="line">    bf.a = <span class="number">1</span>;</div><div class="line">    bf.b = <span class="number">2</span>;</div><div class="line">    bf.c = <span class="number">503432</span>;</div><div class="line">    <span class="keyword">int</span> testBitfield = <span class="number">3</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, testBitfield &amp; (bf.b | bf.a));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, bf.c);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"unsigned int字节数：%zu\n"</span>, <span class="keyword">sizeof</span>(bf));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">503432</div><div class="line">unsigned int字节数：4</div></pre></td></tr></table></figure>
+<p>a占了一比特，b占了2比特，c占了20比特，如果单独声明，它们可能会占用更多的内存，但是现在仅仅一个unsigned int大小的内存就能搞定，也就是4字节。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
 
       
     </div>
