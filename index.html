@@ -453,269 +453,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/12/20/Review_TCPL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Cgrw">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g08j17vbifj30h00mc79v.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CGRW_BLOG">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/20/Review_TCPL/" itemprop="url">Java程序员快速复习C语言语法(TCPL)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T22:10:11+08:00">
-                2018-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/12/20/Review_TCPL/" class="leancloud_visitors" data-flag-title="Java程序员快速复习C语言语法(TCPL)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,716
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-
-
-      
-      
-
-      
-        
-          
-            <h2 id="快速复习"><a href="#快速复习" class="headerlink" title="快速复习"></a>快速复习</h2><ul>
-<li>C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a; <span class="comment">// 声明字段a</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span></span>; <span class="comment">// 声明方法method01</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    method01();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, a);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Hello!\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p>int和float等类型的取值范围取决于机器。</p>
-</li>
-<li><p>#define在预编译阶段将符号名或者符号常量定义为特定的字符串，指令的末尾没有分号。</p>
-</li>
-<li><p>C语言的函数参数通过值传递。</p>
-</li>
-<li><p>自动变量对标Java中局部变量，每次entry函数时都需要显式为其赋值，如果没有，那么存放的将是“garbage”。</p>
-</li>
-<li>外部变量指的是函数外的变量，可以在函数内显式声明，即用“extern”关键字，也可以通过上下文隐式声明，即比如定义在使用函数之前就可以不使用“extern”关键字。</li>
-<li>通常习惯把extern声明的变量和函数放在单独的一个文件中，该文件成为头文件。</li>
-</ul>
-<h2 id="类型、操作符和表达式"><a href="#类型、操作符和表达式" class="headerlink" title="类型、操作符和表达式"></a>类型、操作符和表达式</h2><ul>
-<li>C中的const对标Java中的final，但是和Java又有区别，例如如果用const修饰数组，那么数组中的元素就不能改变了，而且在声明的同时就应该初始化赋值：</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">     <span class="keyword">const</span> <span class="keyword">char</span> i[] = <span class="string">"abc"</span>;</div><div class="line"><span class="comment">//    i[0] = 'c'; 这里修改值是错误的做法</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>, i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li>下划线在C中被看作是字母，但是通常不应以下划线开头来命名变量或函数，因为library routines常常使用这样的方式命名。</li>
-<li>C的字符串和Java的相比，最后多了一个<code>\0</code>字符，程序是需要扫描整个字符串才能确定字符串的长度，该长度不包括<code>\0</code>字符。</li>
-<li>取模运算符％不能作用于float活着double类型。</li>
-<li>C没有指定char类型的变量是无符号还是带符号变量，这个由不同的机器决定。</li>
-<li>全局变量 、静态变量初始值为0，局部变量，自动变量如果没有初始化值随机分配(“garbage”)。</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。</p>
-<p>结构体的形式一般如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> [&lt;structuretag&gt;] &#123;</span>&#125;</div></pre></td></tr></table></figure>
-<p>structuretag是可选的，可以作为括号内声明部分的简写形式。</p>
-<h3 id="结构体声明"><a href="#结构体声明" class="headerlink" title="结构体声明"></a>结构体声明</h3><p>在通过<code>struct &lt;structuretag&gt; {...} &lt;var&gt;</code>进行声明后，可以用<code>struct &lt;structuretag&gt; &lt;var&gt;</code>进行简化声明，例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> &#123;</span></div><div class="line">    <span class="keyword">char</span> number[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">&#125; ss;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> <span class="title">dd</span>;</span></div></pre></td></tr></table></figure>
-<h3 id="结构体与函数"><a href="#结构体与函数" class="headerlink" title="结构体与函数"></a>结构体与函数</h3><p>给函数传入一个结构体参数很像Java中的引用传递，毕竟很多人可能将结构体类比为Java中的类或对象，但结构体依然是值传递，例如：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> &#123;</span></div><div class="line">    <span class="keyword">char</span> number[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> <span class="title">dd</span>;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">changeStruct</span><span class="params">(struct s)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"age01: %d\n"</span>, dd.age);</div><div class="line">    changeStruct(dd);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"age02: %d\n"</span>, dd.age);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">changeStruct</span><span class="params">(struct s a1)</span> </span>&#123;</div><div class="line">    a1.age = <span class="number">7</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>打印为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">age01: 0</div><div class="line">age02: 0</div></pre></td></tr></table></figure>
-<p>结构体会在函数内整个复制，如果该结构体很大，那么采用这种方式效率较低，好的方法是使用指针。</p>
-<p>使用指针时首先要注意的是<code>*</code>的优先级低于<code>.</code>，所以<code>*p.x</code>和<code>(*p).x</code>是不一样的。</p>
-<p>其次，指针的使用频率很高，所以可以采用一种简写方式<code>p-&gt;x</code>来代替前面<code>(*p).x</code>的写法。</p>
-<h3 id="结构体数组"><a href="#结构体数组" class="headerlink" title="结构体数组"></a>结构体数组</h3><p>借助结构体，可以将多个长度相同的数组构成的集合，改写成数组相同索引下数据的集合(结构体)构成的数组。</p>
-<p>初始化的格式：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">struct arr &#123;</div><div class="line">    <span class="keyword">char</span> *word;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">&#125; keytab[] = &#123;<span class="string">"aaa"</span>, <span class="number">1</span>, <span class="string">"bbb"</span>, <span class="number">2</span>&#125;;</div></pre></td></tr></table></figure>
-<p>如果要求结构体数组的长度，可以使用sizeof函数，它会返回无符号整型值，类型为size_t。</p>
-<p>sizeof接结构体参数时，可以采用sizeof(struct <structuretag>)的形式。</structuretag></p>
-<p>预处理器不对类型名进行分析，但预处理器并不计算#define里的表达式，所以可以用#define搭配sizeof函数使用。</p>
-<h3 id="指向结构体指针"><a href="#指向结构体指针" class="headerlink" title="指向结构体指针"></a>指向结构体指针</h3><p>这里要注意的是，指针的加法运算是非法的，而减法是合法的。</p>
-<p>其次，C中的结构体内存在字节对齐现象，所以结构体的长度未必等于它成员长度只和。</p>
-<p>再次，返回结构体指针的函数，可以用如下格式来书写：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function">struct key *</span></div><div class="line"><span class="title">binsearch</span><span class="params">(<span class="keyword">char</span> *word, struct key *tab, <span class="keyword">int</span> n)</span></div></pre></td></tr></table></figure>
-<h3 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h3><p>typedef的功能一言以蔽之：“it merely adds a new name for some existing type”。</p>
-<p>下面举一个最简单的typedef例子来说明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Len;</div></pre></td></tr></table></figure>
-<p>此时Len和int具有等同意涵。这里最好遵照一定的规范，即typedef定义的类型名首字母大写。</p>
-<p>编写了一个函数如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">method</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在假设需要声明一个变量，它的类型是指向函数的指针，该函数是这样一种函数：参数是(int, int)，返回值是int，该指针变量指向之前编写的method函数，所以有：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> (*methodref02)(<span class="keyword">int</span>, <span class="keyword">int</span>) = method;</div></pre></td></tr></table></figure>
-<p>总是这样写相较麻烦，为这种类型创建一个新名称吧：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">typedef <span class="title">int</span> <span class="params">(*methodref)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</div></pre></td></tr></table></figure>
-<p>此时之前的methodref02可以这样定义：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">methodref methodref02 = method;</div></pre></td></tr></table></figure>
-<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>联合体开辟的内存，等于它所有成员中所占内存最大的成员的内存。读取的类型必须是最近一次存入的类型，初始化的时候使用第一个成员类型的值进行初始化，其它操作大体和结构体相同。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">union</span> u &#123;</div><div class="line">        <span class="keyword">int</span> val01;</div><div class="line">        <span class="keyword">long</span> val02;</div><div class="line">    &#125; a = &#123;<span class="number">1</span>&#125;;</div><div class="line">    a.val01 = <span class="number">7</span>;</div><div class="line">    a.val02 = <span class="number">12</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%zu %i %li\n"</span>, <span class="keyword">sizeof</span>(a), a.val01, a.val02);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>打印结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">8 12 12</div></pre></td></tr></table></figure>
-<h2 id="位字段"><a href="#位字段" class="headerlink" title="位字段"></a>位字段</h2><p>位字段一个主要的作用就是节约内存，在Java中boolean类型的变量在虚拟机占用了一个int的大小，也就是四个字节。实际上，原本一个bit就能完成同样功能。Java这样做当然有它自己的实现机理，而在C语言中，为了节约内存采用了一种新的手段，即位字段。来看一个例子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Bitfield</span> &#123;</span></div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> a : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> b : <span class="number">2</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> c : <span class="number">20</span>;</div><div class="line"></div><div class="line">    &#125; bf;</div><div class="line">    bf.a = <span class="number">1</span>;</div><div class="line">    bf.b = <span class="number">2</span>;</div><div class="line">    bf.c = <span class="number">503432</span>;</div><div class="line">    <span class="keyword">int</span> testBitfield = <span class="number">3</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, testBitfield &amp; (bf.b | bf.a));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, bf.c);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"unsigned int字节数：%zu\n"</span>, <span class="keyword">sizeof</span>(bf));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">503432</div><div class="line">unsigned int字节数：4</div></pre></td></tr></table></figure>
-<p>a占了一比特，b占了2比特，c占了20比特，如果单独声明，它们可能会占用更多的内存，但是现在仅仅一个unsigned int大小的内存就能搞定，也就是4字节。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-    
-    <div>
-     
-     
-    </div>
-
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/12/17/AOP01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1645,6 +1382,279 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+    </div>
+
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/10/20/Review_TCPL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g08j17vbifj30h00mc79v.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/20/Review_TCPL/" itemprop="url">Java程序员快速复习C语言语法(TCPL)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T22:10:11+08:00">
+                2018-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/10/20/Review_TCPL/" class="leancloud_visitors" data-flag-title="Java程序员快速复习C语言语法(TCPL)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,044
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        
+          
+            <h2 id="走马观花"><a href="#走马观花" class="headerlink" title="走马观花"></a>走马观花</h2><ul>
+<li>C语言和Java语言一样，变量使用前需要先声明，但是由于Java特有的初始化机制，使得声明的语句并非一定要显式摆放在执行的方法之前，但C语言在调用函数之前需要显式声明。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a; <span class="comment">// 声明字段a</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span></span>; <span class="comment">// 声明方法method01</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    method01();</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, a);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">method01</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Hello!\n"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>int和float等类型的取值范围取决于机器。</p>
+</li>
+<li><p>#define在预编译阶段将符号名或者符号常量定义为特定的字符串，指令的末尾没有分号。</p>
+</li>
+<li><p>C语言的函数参数通过值传递。</p>
+</li>
+<li><p>自动变量对标Java中局部变量，每次entry函数时都需要显式为其赋值，如果没有，那么存放的将是“garbage”。</p>
+</li>
+<li>外部变量指的是函数外的变量，可以在函数内显式声明，即用“extern”关键字，也可以通过上下文隐式声明，即比如定义在使用函数之前就可以不使用“extern”关键字。</li>
+<li>通常习惯把extern声明的变量和函数放在单独的一个文件中，该文件成为头文件。</li>
+</ul>
+<h2 id="类型、操作符和表达式"><a href="#类型、操作符和表达式" class="headerlink" title="类型、操作符和表达式"></a>类型、操作符和表达式</h2><ul>
+<li>C中的const对标Java中的final，但是和Java又有区别，例如如果用const修饰数组，那么数组中的元素就不能改变了，而且在声明的同时就应该初始化赋值：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">     <span class="keyword">const</span> <span class="keyword">char</span> i[] = <span class="string">"abc"</span>;</div><div class="line"><span class="comment">//    i[0] = 'c'; 这里修改值是错误的做法</span></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>, i);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>下划线在C中被看作是字母，但是通常不应以下划线开头来命名变量或函数，因为library routines常常使用这样的方式命名。</li>
+<li>C的字符串和Java的相比，最后多了一个<code>\0</code>字符，程序是需要扫描整个字符串才能确定字符串的长度，该长度不包括<code>\0</code>字符。</li>
+<li>取模运算符％不能作用于float活着double类型。</li>
+<li>C没有指定char类型的变量是无符号还是带符号变量，这个由不同的机器决定。</li>
+<li>全局变量 、静态变量初始值为0，局部变量，自动变量如果没有初始化值随机分配(“garbage”)。</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li>和Java不同，C中函数的定义中各个部分都可以省略，比如dumy() {}的书写是合法的，这种函数可以作为钩子函数在开发期间进行保留。</li>
+<li>外部变量或函数的作用域和Java中的各种变量的相比并不相同，它是从声明的地方开始，在其所以在的文件的末尾结束。</li>
+<li>静态变量只供所在源文件的函数使用，其他函数不能访问。</li>
+<li>静态变量也可以存在于函数内，这和局部变量一样，但它不仅是该函数私有的，而且无论函数调用是否结束，它仍然占据内存空间。所以静态变量和外部变量相比，能让编码者更细腻地控制作用范围。</li>
+<li>寄存器变量只适用于自动变量以及函数的形参。</li>
+<li>寄存器变量的地址不能访问，且过量使用没有什么害处。</li>
+<li>外部变量和静态变量在没有显式初始化的时候都被初始化为0，而自动变量和寄存器变量不会，它们的值是“garbage”。</li>
+</ul>
+<h2 id="指针和数组"><a href="#指针和数组" class="headerlink" title="指针和数组"></a>指针和数组</h2><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>结构体可以视为一种数据结构，它集合了一个或者多个变量，这些变量可以是不同类型的。</p>
+<p>结构体的形式一般如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> [&lt;structuretag&gt;] &#123;</span>&#125;</div></pre></td></tr></table></figure>
+<p>structuretag是可选的，可以作为括号内声明部分的简写形式。</p>
+<h3 id="结构体声明"><a href="#结构体声明" class="headerlink" title="结构体声明"></a>结构体声明</h3><p>在通过<code>struct &lt;structuretag&gt; {...} &lt;var&gt;</code>进行声明后，可以用<code>struct &lt;structuretag&gt; &lt;var&gt;</code>进行简化声明，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> &#123;</span></div><div class="line">    <span class="keyword">char</span> number[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">&#125; ss;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> <span class="title">dd</span>;</span></div></pre></td></tr></table></figure>
+<h3 id="结构体与函数"><a href="#结构体与函数" class="headerlink" title="结构体与函数"></a>结构体与函数</h3><p>给函数传入一个结构体参数很像Java中的引用传递，毕竟很多人可能将结构体类比为Java中的类或对象，但结构体依然是值传递，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> &#123;</span></div><div class="line">    <span class="keyword">char</span> number[<span class="number">3</span>];</div><div class="line">    <span class="keyword">int</span> age;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">s</span> <span class="title">dd</span>;</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">changeStruct</span><span class="params">(struct s)</span></span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"age01: %d\n"</span>, dd.age);</div><div class="line">    changeStruct(dd);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"age02: %d\n"</span>, dd.age);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">changeStruct</span><span class="params">(struct s a1)</span> </span>&#123;</div><div class="line">    a1.age = <span class="number">7</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">age01: 0</div><div class="line">age02: 0</div></pre></td></tr></table></figure>
+<p>结构体会在函数内整个复制，如果该结构体很大，那么采用这种方式效率较低，好的方法是使用指针。</p>
+<p>使用指针时首先要注意的是<code>*</code>的优先级低于<code>.</code>，所以<code>*p.x</code>和<code>(*p).x</code>是不一样的。</p>
+<p>其次，指针的使用频率很高，所以可以采用一种简写方式<code>p-&gt;x</code>来代替前面<code>(*p).x</code>的写法。</p>
+<h3 id="结构体数组"><a href="#结构体数组" class="headerlink" title="结构体数组"></a>结构体数组</h3><p>借助结构体，可以将多个长度相同的数组构成的集合，改写成数组相同索引下数据的集合(结构体)构成的数组。</p>
+<p>初始化的格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">struct arr &#123;</div><div class="line">    <span class="keyword">char</span> *word;</div><div class="line">    <span class="keyword">int</span> count;</div><div class="line">&#125; keytab[] = &#123;<span class="string">"aaa"</span>, <span class="number">1</span>, <span class="string">"bbb"</span>, <span class="number">2</span>&#125;;</div></pre></td></tr></table></figure>
+<p>如果要求结构体数组的长度，可以使用sizeof函数，它会返回无符号整型值，类型为size_t。</p>
+<p>sizeof接结构体参数时，可以采用sizeof(struct <structuretag>)的形式。</structuretag></p>
+<p>预处理器不对类型名进行分析，但预处理器并不计算#define里的表达式，所以可以用#define搭配sizeof函数使用。</p>
+<h3 id="指向结构体指针"><a href="#指向结构体指针" class="headerlink" title="指向结构体指针"></a>指向结构体指针</h3><p>这里要注意的是，指针的加法运算是非法的，而减法是合法的。</p>
+<p>其次，C中的结构体内存在字节对齐现象，所以结构体的长度未必等于它成员长度只和。</p>
+<p>再次，返回结构体指针的函数，可以用如下格式来书写：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function">struct key *</span></div><div class="line"><span class="title">binsearch</span><span class="params">(<span class="keyword">char</span> *word, struct key *tab, <span class="keyword">int</span> n)</span></div></pre></td></tr></table></figure>
+<h3 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h3><p>typedef的功能一言以蔽之：“it merely adds a new name for some existing type”。</p>
+<p>下面举一个最简单的typedef例子来说明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Len;</div></pre></td></tr></table></figure>
+<p>此时Len和int具有等同意涵。这里最好遵照一定的规范，即typedef定义的类型名首字母大写。</p>
+<p>编写了一个函数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">method</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> a + b;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在假设需要声明一个变量，它的类型是指向函数的指针，该函数是这样一种函数：参数是(int, int)，返回值是int，该指针变量指向之前编写的method函数，所以有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> (*methodref02)(<span class="keyword">int</span>, <span class="keyword">int</span>) = method;</div></pre></td></tr></table></figure>
+<p>总是这样写相较麻烦，为这种类型创建一个新名称吧：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">typedef <span class="title">int</span> <span class="params">(*methodref)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</div></pre></td></tr></table></figure>
+<p>此时之前的methodref02可以这样定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">methodref methodref02 = method;</div></pre></td></tr></table></figure>
+<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>联合体开辟的内存，等于它所有成员中所占内存最大的成员的内存。读取的类型必须是最近一次存入的类型，初始化的时候使用第一个成员类型的值进行初始化，其它操作大体和结构体相同。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">union</span> u &#123;</div><div class="line">        <span class="keyword">int</span> val01;</div><div class="line">        <span class="keyword">long</span> val02;</div><div class="line">    &#125; a = &#123;<span class="number">1</span>&#125;;</div><div class="line">    a.val01 = <span class="number">7</span>;</div><div class="line">    a.val02 = <span class="number">12</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%zu %i %li\n"</span>, <span class="keyword">sizeof</span>(a), a.val01, a.val02);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">8 12 12</div></pre></td></tr></table></figure>
+<h2 id="位字段"><a href="#位字段" class="headerlink" title="位字段"></a>位字段</h2><p>位字段一个主要的作用就是节约内存，在Java中boolean类型的变量在虚拟机占用了一个int的大小，也就是四个字节。实际上，原本一个bit就能完成同样功能。Java这样做当然有它自己的实现机理，而在C语言中，为了节约内存采用了一种新的手段，即位字段。来看一个例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Bitfield</span> &#123;</span></div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> a : <span class="number">1</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> b : <span class="number">2</span>;</div><div class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> c : <span class="number">20</span>;</div><div class="line"></div><div class="line">    &#125; bf;</div><div class="line">    bf.a = <span class="number">1</span>;</div><div class="line">    bf.b = <span class="number">2</span>;</div><div class="line">    bf.c = <span class="number">503432</span>;</div><div class="line">    <span class="keyword">int</span> testBitfield = <span class="number">3</span>;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, testBitfield &amp; (bf.b | bf.a));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, bf.c);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"unsigned int字节数：%zu\n"</span>, <span class="keyword">sizeof</span>(bf));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">3</div><div class="line">503432</div><div class="line">unsigned int字节数：4</div></pre></td></tr></table></figure>
+<p>a占了一比特，b占了2比特，c占了20比特，如果单独声明，它们可能会占用更多的内存，但是现在仅仅一个unsigned int大小的内存就能搞定，也就是4字节。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上就是本人针对Java和C的语法区别做的一个记录，旨在复习C语法。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/1236999/" target="_blank" rel="external">The C Programming Language</a></p>
+
+          
         
       
     </div>
