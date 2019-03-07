@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kqueue," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。">
+<meta name="keywords" content="kqueue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kqueue ooo...">
+<meta property="og:url" content="https://cgiirw.github.io/2018/11/10/kqueue/index.html">
+<meta property="og:site_name" content="CGRW_BLOG">
+<meta property="og:description" content="实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。">
+<meta property="og:updated_time" content="2019-03-07T11:17:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kqueue ooo...">
+<meta name="twitter:description" content="实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cgiirw.github.io/2018/11/10/kqueue/"/>
+
+
+
+
+
+  <title>kqueue ooo... | CGRW_BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/cgIIrw" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#fff; color:#151513; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="site-title">CGRW_BLOG</span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/11/10/kqueue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Cgrw">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g08j17vbifj30h00mc79v.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CGRW_BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kqueue ooo...</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T23:20:17+08:00">
+                2018-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IO多路复用/" itemprop="url" rel="index">
+                    <span itemprop="name">IO多路复用</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/10/kqueue/" class="leancloud_visitors" data-flag-title="kqueue ooo...">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,304
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+
+
+      
+      
+
+      
+        <p>实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。</p>
+<a id="more"></a>
+<h2 id="主要API"><a href="#主要API" class="headerlink" title="主要API"></a>主要API</h2><h3 id="EV-SET"><a href="#EV-SET" class="headerlink" title="EV_SET"></a>EV_SET</h3><p>EV_SET是一个宏：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#define EV_SET(kevp, a, b, c, d, e, f) do &#123;	\</div><div class="line">	struct kevent *__kevp__ = (kevp);	\</div><div class="line">	__kevp__-&gt;ident = (a);			\</div><div class="line">	__kevp__-&gt;filter = (b);			\</div><div class="line">	__kevp__-&gt;flags = (c);			\</div><div class="line">	__kevp__-&gt;fflags = (d);			\</div><div class="line">	__kevp__-&gt;data = (e);			\</div><div class="line">	__kevp__-&gt;udata = (f);			\</div><div class="line">&#125; while(0)</div></pre></td></tr></table></figure>
+<h3 id="kevent结构体"><a href="#kevent结构体" class="headerlink" title="kevent结构体"></a>kevent结构体</h3><p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">struct kevent &#123;</div><div class="line">	uintptr_t	ident;		<span class="comment">/* identifier for this event */</span></div><div class="line">	int16_t		filter;		<span class="comment">/* filter for event */</span></div><div class="line">	uint16_t	flags;		<span class="comment">/* general flags */</span></div><div class="line">	uint32_t	fflags;		<span class="comment">/* filter-specific flags */</span></div><div class="line">	intptr_t	data;		<span class="comment">/* filter-specific data */</span></div><div class="line">	<span class="keyword">void</span>		*udata;		<span class="comment">/* opaque user data identifier */</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>ident：文件描述符，比如打开一个新的文件，它的文件描述符会是3；</li>
+<li>filter：过滤器，可被注册监控的事件；</li>
+<li>flags：传入的filter事件如何设置<ul>
+<li>EV_ADD：添加该事件到kqueue</li>
+<li>EV_DELETE：从kqueue删除该事件</li>
+<li>EV_ENABLE：该事件是否可用，默认可用</li>
+<li>…</li>
+</ul>
+</li>
+<li>fflags：特定的过滤器flag；</li>
+<li>data：特定的过滤器数据值；</li>
+<li>opaque user data identifier；</li>
+</ul>
+<h3 id="filter-amp-fflags"><a href="#filter-amp-fflags" class="headerlink" title="filter &amp; fflags"></a>filter &amp; fflags</h3><p>filter比较重要，需要单独列出。</p>
+<p>filter：</p>
+<ul>
+<li>#define EVFILT_READ  (-1)；</li>
+<li>#define EVFILT_WRITE (-2)；</li>
+<li>#define EVFILT_AIO   (-3)；</li>
+<li>#define EVFILT_VNODE (-4)：检测文件改动，fflags可以具体到特定事件；</li>
+</ul>
+<p>fflags：</p>
+<ul>
+<li>#define NOTE_DELETE 0x0001：文件删除；</li>
+<li>#define NOTE_WRITE  0x0002：文件写入；</li>
+<li>#define NOTE_EXTEND 0x0004：文件扩展；</li>
+<li>#define NOTE_ATTRIB 0x0008：属性改变；</li>
+<li>#define NOTE_LINK   0x0010：文件被链接的数量改变；</li>
+<li>#define NOTE_RENAME 0x0020：文件重命名；</li>
+<li>#define NOTE_EXIT   0x80000000：文件退出；</li>
+<li>…</li>
+</ul>
+<h3 id="kevent"><a href="#kevent" class="headerlink" title="kevent()"></a>kevent()</h3><p>代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span>     <span class="title">kevent</span><span class="params">(</span></span></div><div class="line">         <span class="keyword">int</span> kq,</div><div class="line">	       <span class="keyword">const</span> struct kevent *changelist,</div><div class="line">         <span class="keyword">int</span> nchanges,</div><div class="line">	       struct kevent *eventlist,</div><div class="line">         <span class="keyword">int</span> nevents,</div><div class="line">	       <span class="keyword">const</span> struct timespec *timeout);</div></pre></td></tr></table></figure>
+<ul>
+<li>kq：kqueue返回值；</li>
+<li>changelist &amp; nchanges：注册／反注册事件数组；</li>
+<li>eventlist &amp; nevents：向调用进程返回的事件数组；</li>
+<li>timeout：功能如其名，设置为NULL时，一直等待；</li>
+</ul>
+<p>本人并没有找到kevent函数的源码，一切都封装好，两个数组如何使用，见后面内容。</p>
+<h2 id="逻辑解析"><a href="#逻辑解析" class="headerlink" title="逻辑解析"></a>逻辑解析</h2><p>kqueue由于高度封装，模仿示例(man)就能写出代码。下面先按照本人的理解整理一下基本的逻辑思路，这里以监控文件改动为例(为了方便理解采用了面向对象的角度)：</p>
+<p>创建kqueue对象kq(由kqueue()返回)、创建一个kevent结构体ev，作用是收集参数、创建用于监控的打开文件fd。</p>
+<p>使用宏EV_SET，把ev参数初始化，那么就需要对这些参数有了解：</p>
+<ul>
+<li>第一个参数就是监控打开文件fd；</li>
+<li>第二个参数filter就是事件；</li>
+<li>如何处理filter事件？是设定入kq，还是从kq中删除？这就引入了第三个参数flag，常用的包括EV_ADD、EV_ENABLE等等；</li>
+<li>有些事件需要更细的设定，比如监控改动这个事件EVFILT_VNODE，改动的方式有很多，删除(NOTE_DELETE)、写入、属性改变等等，那么也应该将“关注”的这些动作进行设定声明，这些设定需要传给第四个参数；</li>
+<li>第五个参数data用于返回一些特定数据；</li>
+<li>第六个udata用于携带一些信息，可以在一些情形发挥作用；</li>
+</ul>
+<p>这个饱含信息量的结构体最后会进入kevent中和kq发生化学反应，什么反应就需要知道源码，前面说了我不知道，但是通常也不需要知道，只需要明白这个函数的效果就足够。</p>
+<p>一开始看代码的时候没有弄清楚changelist和eventlist的用处，后来发现并不复杂，前者用来注册，后者用来实际监控注册的事件。</p>
+<p>比如先初始化一个结构体数据：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">EV_SET(&amp;ev,</div><div class="line">       fd,</div><div class="line">       EVFILT_VNODE,</div><div class="line">       EV_ADD | EV_ENABLE,  </div><div class="line">       NOTE_DELETE|NOTE_WRITE,   </div><div class="line">       <span class="number">0</span>,</div><div class="line">       <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>注册就可以通过下面代码完成：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kevent(kq, &amp;ev, <span class="number">1</span>, <span class="literal">NULL</span>, <span class="number">0</span>, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;)</div></pre></td></tr></table></figure>
+<p>而监控的时候可以使用代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kevent</span> <span class="title">eve</span>[1];</span></div><div class="line">kevent(kq, <span class="literal">NULL</span>, <span class="number">0</span>, eve, <span class="number">1</span>, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;);</div></pre></td></tr></table></figure>
+<p>一开始本人困惑于eve如何初始化，不过很快就会发现，kevent函数完成了一切工作，这里eve就是之前注册的ev，在kevent()内部应该完成了一次数据的传递。</p>
+<p>总之很奇怪的写法，但又不得不接受，这么写可能有一些基于性能的考虑，又或者，就是早起代码不规范的产物，但是只要能用，就是好的。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>写一个最简单的实例来进行说明，这个例子主要是监控本地磁盘上readme.md文件的写事件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> fd, kq, n;</div><div class="line">    struct kevent rege[<span class="number">1</span>];</div><div class="line">    struct kevent e[<span class="number">1</span>];</div><div class="line">    fd = open(argv[<span class="number">1</span>], O_RDWR);</div><div class="line">    kq = kqueue();</div><div class="line">    EV_SET(rege, fd, EVFILT_VNODE, EV_ADD | EV_ENABLE | EV_CLEAR, NOTE_WRITE, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (;;) &#123;</div><div class="line">        n = kevent(kq, rege, <span class="number">1</span>, e, <span class="number">1</span>, NULL);</div><div class="line">        <span class="keyword">if</span> (n == -<span class="number">1</span>)</div><div class="line">            err(<span class="number">1</span>, <span class="string">"出现错误！"</span>);</div><div class="line"><span class="comment">//        if (nev == 0)</span></div><div class="line"><span class="comment">//            continue;</span></div><div class="line">        <span class="keyword">if</span> (e-&gt;fflags &amp; NOTE_WRITE) &#123;</div><div class="line">            printf(<span class="string">"出现了写事件！"</span>);</div><div class="line">            e-&gt;fflags &amp;= ~NOTE_WRITE;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        printf(<span class="string">"\n"</span>);</div><div class="line">        <span class="keyword">if</span> (e-&gt;fflags) &#123;</div><div class="line">            warnx(<span class="string">"无法解析的事件！"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当对readme.md进行写操作的时候，代码可以对该事件进行捕捉。</p>
+<p>如果设置了timeout，那么不能取消注释。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>IO多路复用是Java NIO的基础，kqueue通过kevent函数对底层的实现进行了很好的封装，调用就完事。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://blog.csdn.net/linuxchen/article/details/2223475" target="_blank" rel="external">reebsd高级I/O,kevent的资料很详细</a></li>
+<li><a href="https://www.freebsd.org/cgi/man.cgi?query=kqueue&amp;sektion=2&amp;manpath=FreeBSD+5.0-current" target="_blank" rel="external">FreeBSD Manual Pages: kqueue</a></li>
+<li><a href="https://blog.csdn.net/cywosp/article/details/38965239" target="_blank" rel="external">每天进步一点点——Linux中的文件描述符与打开文件之间的关系</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/aix/library/1105_huangrg_kqueue/" target="_blank" rel="external">IBM：使用 kqueue 在 FreeBSD 上开发高性能应用服务器</a></li>
+<li><a href="http://www.icode9.com/content-4-49784.html" target="_blank" rel="external">kqueue示例：1.标准输入流到标准输出流 2.TCP服务器</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+    
+    <div>
+     
+     
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+              <strong>本文作者：</strong>Cgrw
+          </li>
+          <li class="post-copyright-link">
+            <strong>本文链接：</strong>
+            <a href="/2018/11/10/kqueue/" title="kqueue ooo...">2018/11/10/kqueue/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明： </strong>
+            本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+          </li>
+        </ul>
+      
+    </div>
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kqueue/" rel="tag"># kqueue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/Scala04/" rel="next" title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
+                <i class="fa fa-chevron-left"></i> Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/20/Kotlin02/" rel="prev" title="一些Java场景在Kotlin下的解决之道">
+                一些Java场景在Kotlin下的解决之道 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://ww1.sinaimg.cn/large/006QHM1zly1g08j17vbifj30h00mc79v.jpg"
+                alt="Cgrw" />
+            
+              <p class="site-author-name" itemprop="name">Cgrw</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">122</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">82</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cgIIrw" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="cgrwii@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要API"><span class="nav-number">1.</span> <span class="nav-text">主要API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EV-SET"><span class="nav-number">1.1.</span> <span class="nav-text">EV_SET</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kevent结构体"><span class="nav-number">1.2.</span> <span class="nav-text">kevent结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-amp-fflags"><span class="nav-number">1.3.</span> <span class="nav-text">filter & fflags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kevent"><span class="nav-number">1.4.</span> <span class="nav-text">kevent()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑解析"><span class="nav-number">2.</span> <span class="nav-text">逻辑解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Cgrw</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/gitalk.css">
+
+  <script src="/js/src/gitalk.min.js"></script>
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: 'f3e934ed81b61f16f55a',
+		  clientSecret: '705c736c5673541cff62440849c788080a6a7909',
+		  repo: 'blog_talk',
+		  owner: 'cgIIrw',
+		  admin: ['cgIIrw'],
+		  id: location.pathname,
+		  distractionFreeMode: ''
+		})
+		gitalk.render('gitalk-container')
+       </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("71Nrdb8yQucsSKlmleUARloy-gzGzoHsz", "YwMnLmQJk1jktFlmwlgPLmTS");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
