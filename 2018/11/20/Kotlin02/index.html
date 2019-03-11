@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/20/Kotlin02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
-<meta property="og:updated_time" content="2019-02-25T22:19:23.000Z">
+<meta property="og:updated_time" content="2019-03-11T04:31:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一些Java场景在Kotlin下的解决之道">
 <meta name="twitter:description" content="Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,928
+                  1,989
                 </span>
               
 
@@ -430,6 +430,11 @@
       
         <p>Kotlin的设计主管宣称“Kotlin修复了Joshua Bloch的Java Puzzlers丛书中提及的半数问题”，《Effective Java》应该也算丛书的一本吧。本人在使用Kotlin时已经强烈的感受到了这一点。此篇主要记录本人在使用Kotlin重构Java代码时中遇到的一些问题。</p>
 <a id="more"></a>
+<h2 id="命令行编译与运行"><a href="#命令行编译与运行" class="headerlink" title="命令行编译与运行"></a>命令行编译与运行</h2><p>假设现在有一个写好的kotlin文件Ak.kt，首先对其进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kotlinc Ak.kt -include-runtime -d Ak.jar</div></pre></td></tr></table></figure>
+<p>-include-runtime用来打包kotlin运行时库。</p>
+<p>接下来运行程序：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> java -jar Ak.jar</div></pre></td></tr></table></figure>
 <h2 id="伴生对象硬核原理"><a href="#伴生对象硬核原理" class="headerlink" title="伴生对象硬核原理"></a>伴生对象硬核原理</h2><p>虽然在Kotlin的世界里，人们一直强调没有static没有static，但本人还是想通过查看字节码文件这种硬核的方式理解一些概念。编写一个Kotlin例子，package为ObjectDemo：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">AA</span> </span>&#123;</div><div class="line">    var i = <span class="number">19</span></div><div class="line"></div><div class="line">    <span class="function">fun <span class="title">methodA</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    companion object BB&#123;</div><div class="line">        var j = <span class="number">29</span></div><div class="line">        <span class="function">fun <span class="title">methodB</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function">fun <span class="title">main</span><span class="params">(args: Array&lt;String&gt;)</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
 <p>这个例子在AA中放一个i属性，一个methodA方法；伴生对象内放一个j属性以及methodB方法。</p>
@@ -713,7 +718,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象硬核原理"><span class="nav-number">1.</span> <span class="nav-text">伴生对象硬核原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java静态块改写"><span class="nav-number">2.</span> <span class="nav-text">Java静态块改写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免双感叹号使用"><span class="nav-number">3.</span> <span class="nav-text">避免双感叹号使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin之迭代"><span class="nav-number">4.</span> <span class="nav-text">Kotlin之迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的运用"><span class="nav-number">5.</span> <span class="nav-text">数组的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">7.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行编译与运行"><span class="nav-number">1.</span> <span class="nav-text">命令行编译与运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象硬核原理"><span class="nav-number">2.</span> <span class="nav-text">伴生对象硬核原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java静态块改写"><span class="nav-number">3.</span> <span class="nav-text">Java静态块改写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#避免双感叹号使用"><span class="nav-number">4.</span> <span class="nav-text">避免双感叹号使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin之迭代"><span class="nav-number">5.</span> <span class="nav-text">Kotlin之迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的运用"><span class="nav-number">6.</span> <span class="nav-text">数组的运用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
