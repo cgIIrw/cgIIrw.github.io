@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="NIO2,I/O,mmap,Channel," />
+  <meta name="keywords" content="NIO2,mmap,Channel," />
 
 
 
@@ -80,9 +80,9 @@
 
 
 <meta name="description" content="过往写过的一些小case，读取文件的字节还在使用while循环，后来发现Java 7提供的新特性能很轻松的调用相关方法实现，遂感慨：这个版本的更新还是有些东西的。于是以此为契机，从Java NIO说开去，本篇主讲Java NIO基本的底层基础。 缓存区、DMA缓存区的理解可以阅读《Linux/UNIX系统编程手册》，虽然感觉写得不是很深入，但是作为Java程序员来讲似乎够用。 通常来说read()">
-<meta name="keywords" content="NIO2,I&#x2F;O,mmap,Channel">
+<meta name="keywords" content="NIO2,mmap,Channel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="再次更新的I&#x2F;O：NIO2之底层基础">
+<meta property="og:title" content="再次更新的NIO：NIO2之底层基础">
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/17/NIO2/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="过往写过的一些小case，读取文件的字节还在使用while循环，后来发现Java 7提供的新特性能很轻松的调用相关方法实现，遂感慨：这个版本的更新还是有些东西的。于是以此为契机，从Java NIO说开去，本篇主讲Java NIO基本的底层基础。 缓存区、DMA缓存区的理解可以阅读《Linux/UNIX系统编程手册》，虽然感觉写得不是很深入，但是作为Java程序员来讲似乎够用。 通常来说read()">
@@ -92,9 +92,9 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g1fxm3lgbjj30bx090gn7.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g1fyde91fcj30bm095jsl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g1fzalx5vvj30c008xta0.jpg">
-<meta property="og:updated_time" content="2019-03-26T04:48:14.000Z">
+<meta property="og:updated_time" content="2019-03-26T04:53:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="再次更新的I&#x2F;O：NIO2之底层基础">
+<meta name="twitter:title" content="再次更新的NIO：NIO2之底层基础">
 <meta name="twitter:description" content="过往写过的一些小case，读取文件的字节还在使用while循环，后来发现Java 7提供的新特性能很轻松的调用相关方法实现，遂感慨：这个版本的更新还是有些东西的。于是以此为契机，从Java NIO说开去，本篇主讲Java NIO基本的底层基础。 缓存区、DMA缓存区的理解可以阅读《Linux/UNIX系统编程手册》，虽然感觉写得不是很深入，但是作为Java程序员来讲似乎够用。 通常来说read()">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g1clo7tp5nj30o80cudhm.jpg">
 
@@ -132,7 +132,7 @@
 
 
 
-  <title>再次更新的I/O：NIO2之底层基础 | CGRW_BLOG</title>
+  <title>再次更新的NIO：NIO2之底层基础 | CGRW_BLOG</title>
   
 
 
@@ -319,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">再次更新的I/O：NIO2之底层基础</h1>
+          <h1 class="post-title" itemprop="name headline">再次更新的NIO：NIO2之底层基础</h1>
         
 
         <div class="post-meta">
@@ -354,8 +354,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-NIO2/" itemprop="url" rel="index">
-                    <span itemprop="name">Java NIO2</span>
+                  <a href="/categories/NIO2/" itemprop="url" rel="index">
+                    <span itemprop="name">NIO2</span>
                   </a>
                 </span>
 
@@ -371,7 +371,7 @@
 
           
           
-             <span id="/2018/11/17/NIO2/" class="leancloud_visitors" data-flag-title="再次更新的I/O：NIO2之底层基础">
+             <span id="/2018/11/17/NIO2/" class="leancloud_visitors" data-flag-title="再次更新的NIO：NIO2之底层基础">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -530,7 +530,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/2018/11/17/NIO2/" title="再次更新的I/O：NIO2之底层基础">2018/11/17/NIO2/</a>
+            <a href="/2018/11/17/NIO2/" title="再次更新的NIO：NIO2之底层基础">2018/11/17/NIO2/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明： </strong>
@@ -544,8 +544,6 @@
         <div class="post-tags">
           
             <a href="/tags/NIO2/" rel="tag"># NIO2</a>
-          
-            <a href="/tags/I-O/" rel="tag"># I/O</a>
           
             <a href="/tags/mmap/" rel="tag"># mmap</a>
           
