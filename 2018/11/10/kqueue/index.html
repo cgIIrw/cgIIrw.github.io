@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/10/kqueue/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。">
-<meta property="og:updated_time" content="2019-03-21T03:42:49.000Z">
+<meta property="og:updated_time" content="2019-03-29T02:15:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kqueue ooo...">
 <meta name="twitter:description" content="实在不想起一个犯困的标题了，但也没想好要起什么，就这样吧，本篇主要涉及的对象是kqueue。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,304
+                  1,318
                 </span>
               
 
@@ -488,7 +488,7 @@
 <li>第六个udata用于携带一些信息，可以在一些情形发挥作用；</li>
 </ul>
 <p>这个饱含信息量的结构体最后会进入kevent中和kq发生化学反应，什么反应就需要知道源码，前面说了我不知道，但是通常也不需要知道，只需要明白这个函数的效果就足够。</p>
-<p>一开始看代码的时候没有弄清楚changelist和eventlist的用处，后来发现并不复杂，前者用来注册，后者用来实际监控注册的事件。</p>
+<p>一开始看代码的时候没有弄清楚changelist和eventlist的用处，后来发现并不复杂，前者用来注册事件，后者用来实际监控注册的事件。</p>
 <p>比如先初始化一个结构体数据：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">EV_SET(&amp;ev,</div><div class="line">       fd,</div><div class="line">       EVFILT_VNODE,</div><div class="line">       EV_ADD | EV_ENABLE,  </div><div class="line">       NOTE_DELETE|NOTE_WRITE,   </div><div class="line">       <span class="number">0</span>,</div><div class="line">       <span class="number">0</span>)</div></pre></td></tr></table></figure>
 <p>注册就可以通过下面代码完成：</p>
@@ -496,7 +496,7 @@
 <p>而监控的时候可以使用代码：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kevent</span> <span class="title">eve</span>[1];</span></div><div class="line">kevent(kq, <span class="literal">NULL</span>, <span class="number">0</span>, eve, <span class="number">1</span>, &#123;<span class="number">1</span>, <span class="number">0</span>&#125;);</div></pre></td></tr></table></figure>
 <p>一开始本人困惑于eve如何初始化，不过很快就会发现，kevent函数完成了一切工作，这里eve就是之前注册的ev，在kevent()内部应该完成了一次数据的传递。</p>
-<p>总之很奇怪的写法，但又不得不接受，这么写可能有一些基于性能的考虑，又或者，就是早起代码不规范的产物，但是只要能用，就是好的。</p>
+<p>总之很奇怪的写法，但又不得不接受，这么写可能有一些基于性能的考虑，也可能，就是早起代码不规范的产物，又或者是为了隐匿具体实现，但是只要能用，就是好的。</p>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>写一个最简单的实例来进行说明，这个例子主要是监控本地磁盘上readme.md文件的写事件：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> fd, kq, n;</div><div class="line">    struct kevent rege[<span class="number">1</span>];</div><div class="line">    struct kevent e[<span class="number">1</span>];</div><div class="line">    fd = open(argv[<span class="number">1</span>], O_RDWR);</div><div class="line">    kq = kqueue();</div><div class="line">    EV_SET(rege, fd, EVFILT_VNODE, EV_ADD | EV_ENABLE | EV_CLEAR, NOTE_WRITE, <span class="number">0</span>, <span class="number">0</span>);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (;;) &#123;</div><div class="line">        n = kevent(kq, rege, <span class="number">1</span>, e, <span class="number">1</span>, NULL);</div><div class="line">        <span class="keyword">if</span> (n == -<span class="number">1</span>)</div><div class="line">            err(<span class="number">1</span>, <span class="string">"出现错误！"</span>);</div><div class="line"><span class="comment">//        if (nev == 0)</span></div><div class="line"><span class="comment">//            continue;</span></div><div class="line">        <span class="keyword">if</span> (e-&gt;fflags &amp; NOTE_WRITE) &#123;</div><div class="line">            printf(<span class="string">"出现了写事件！"</span>);</div><div class="line">            e-&gt;fflags &amp;= ~NOTE_WRITE;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        printf(<span class="string">"\n"</span>);</div><div class="line">        <span class="keyword">if</span> (e-&gt;fflags) &#123;</div><div class="line">            warnx(<span class="string">"无法解析的事件！"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>当对readme.md进行写操作的时候，代码可以对该事件进行捕捉。</p>
@@ -657,7 +657,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">124</span>
+                  <span class="site-state-item-count">125</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -679,7 +679,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">88</span>
+                  <span class="site-state-item-count">91</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
