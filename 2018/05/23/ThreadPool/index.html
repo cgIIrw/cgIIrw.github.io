@@ -86,12 +86,12 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/23/ThreadPool/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要解析线程池源码，最大的看点在于对shutdown()和shutdownNow()的比较分析以及对线程复用的深入研究，源码中还有很多巧妙的设计，比如ctl等，文章中相关的部分也会一并谈到。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadPoolExecutor流程.png">
-<meta property="og:updated_time" content="2018-09-09T02:56:41.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tqipaxj30ze0vm7gq.jpg">
+<meta property="og:updated_time" content="2019-03-31T01:16:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池源码解析">
 <meta name="twitter:description" content="本篇主要解析线程池源码，最大的看点在于对shutdown()和shutdownNow()的比较分析以及对线程复用的深入研究，源码中还有很多巧妙的设计，比如ctl等，文章中相关的部分也会一并谈到。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/ThreadPoolExecutor流程.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tqipaxj30ze0vm7gq.jpg">
 
 
 
@@ -453,7 +453,7 @@
 <li>handler：拒绝策略；</li>
 </ul>
 <p>要想真正知道这些参数的意涵，需要先了解ThreadPoolExecutor的工作流程：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/ThreadPoolExecutor流程.png" alt="图1"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tqipaxj30ze0vm7gq.jpg" alt="图1"></p>
 <p>图中的1、2、3、4分别表示：</p>
 <ol>
 <li>execute()／submit()任务后，如果正在运行的线程在corePoolSize范围之内，则创建线程运行；</li>
