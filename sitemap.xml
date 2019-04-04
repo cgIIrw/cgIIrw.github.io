@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/05/17/Thread01/</loc>
+    
+    <lastmod>2019-04-04T08:28:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2019/04/04/NIO2Path/</loc>
+    
+    <lastmod>2019-04-04T04:54:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/05/23/ThreadPool/</loc>
     
     <lastmod>2019-03-31T01:16:28.000Z</lastmod>
@@ -859,13 +873,6 @@
     <loc>https://cgiirw.github.io/2018/05/22/JUC_AQS03/</loc>
     
     <lastmod>2018-08-14T03:11:34.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/05/17/Thread01/</loc>
-    
-    <lastmod>2018-08-04T08:05:14.000Z</lastmod>
     
   </url>
   

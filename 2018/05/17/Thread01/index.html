@@ -86,14 +86,14 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/05/17/Thread01/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="这一篇主要涉及线程的生命周期和中断机制，对Thread类下的interrupt()源码进行了解析。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/线程状态.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/blockedOn查找.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/os图.png">
-<meta property="og:updated_time" content="2018-08-04T08:05:14.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3toyb6uj31ge13m14h.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qyzdqzj30wc0gkgs5.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ocvy12j30f808qgmb.jpg">
+<meta property="og:updated_time" content="2019-04-04T08:28:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程生命周期 &amp; 中断机制">
 <meta name="twitter:description" content="这一篇主要涉及线程的生命周期和中断机制，对Thread类下的interrupt()源码进行了解析。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/线程状态.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3toyb6uj31ge13m14h.jpg">
 
 
 
@@ -439,7 +439,7 @@
 <p>返回的是枚举类型，枚举类结构如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title">State</span><span class="params">()</span> </span>&#123;</div><div class="line">  NEW, <span class="comment">// 还没调用start的线程状态；</span></div><div class="line">  RUNNABLE, <span class="comment">// 调用start执行run方法时的状态，包括了准备状态和运行状态；</span></div><div class="line">  BLOCKED, <span class="comment">// 阻塞状态；</span></div><div class="line">  WAITING, <span class="comment">// 等待状态；</span></div><div class="line">  TIMED_WAITING, <span class="comment">// 限时等待状态；</span></div><div class="line">  TERMINATED; <span class="comment">// 线程运行结束后的状态；</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>以上代码中的注释对这些状态进行了简要说明，它们彼此的转换关系可以用一张图来说明：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/线程状态.png" alt="状态图"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3toyb6uj31ge13m14h.jpg" alt="状态图"></p>
 <p>此图出自<a href="https://www.uml-diagrams.org/java-thread-uml-state-machine-diagram-example.html" target="_blank" rel="external">Java Thread States and Life Cycle</a>。</p>
 <p>这张图值得商榷的地方有：在Timed Waiting状态下timeout后，也会进入Blocked状态，但是并没有被notify() / notifyAll()。</p>
 <p>在这里对这张图中的某些要点进行一次强调和说明：</p>
@@ -457,7 +457,7 @@
 <p>在Thread类内部blocker赋值方法如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">blockedOn</span><span class="params">(Interruptible b)</span> </span>&#123;</div><div class="line">    <span class="keyword">synchronized</span> (blockerLock) &#123;</div><div class="line">        blocker = b;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在JDK源代码查找这个方法：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/blockedOn查找.png" alt="blockedOn"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qyzdqzj30wc0gkgs5.jpg" alt="blockedOn"></p>
 <p>除了System类的内部可以指定Thread和Interruptible来调用blockedOn()以外，其它blockedOn()的调用都和AbstractInterruptibleChannel这个抽象类有关。</p>
 <p>当然，必须说明的是，这些blockedOn()大都只是同名，并非调用的相同的方法，但即便如此，在具体实现中都封装了Thread的blockedOn()。下面简单梳理一下调用过程：</p>
 <p>JavaLangAccess是一个接口，内部只声明了一个blockedOn()：</p>
@@ -513,7 +513,7 @@
 <p>继续查找相关实现，跳转到798行：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> Thread::interrupt(Thread* thread) &#123;</div><div class="line">  trace(<span class="string">"interrupt"</span>, thread);</div><div class="line">  debug_only(check_for_dangling_thread_pointer(thread);)</div><div class="line">  os::interrupt(thread);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>定位关键方法：os::interrupt(thread)，这里os对应多个系统，所以有多个不同场景，具体对应哪些系统见下图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/os图.png" alt="os"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ocvy12j30f808qgmb.jpg" alt="os"></p>
 <p>这里不妨选取Linux进行分析，先摆出代码：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> os::interrupt(Thread* thread) &#123;</div><div class="line">  assert(Thread::current() == thread || Threads_lock-&gt;owned_by_self(),</div><div class="line">    <span class="string">"possibility of dangling Thread pointer"</span>);</div><div class="line"></div><div class="line">  OSThread* osthread = thread-&gt;osthread();</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!osthread-&gt;interrupted()) &#123;</div><div class="line">    osthread-&gt;set_interrupted(<span class="literal">true</span>);</div><div class="line">    <span class="comment">// More than one thread can get here with the same value of osthread,</span></div><div class="line">    <span class="comment">// resulting in multiple notifications.  We do, however, want the store</span></div><div class="line">    <span class="comment">// to interrupted() to be visible to other threads before we execute unpark().</span></div><div class="line">    OrderAccess::fence();</div><div class="line">    ParkEvent * <span class="keyword">const</span> slp = thread-&gt;_SleepEvent ;</div><div class="line">    <span class="keyword">if</span> (slp != <span class="literal">NULL</span>) slp-&gt;unpark() ;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// For JSR166. Unpark even if interrupt status already was set</span></div><div class="line">  <span class="keyword">if</span> (thread-&gt;is_Java_thread())</div><div class="line">    ((JavaThread*)thread)-&gt;parker()-&gt;unpark();</div><div class="line"></div><div class="line">  ParkEvent * ev = thread-&gt;_ParkEvent ;</div><div class="line">  <span class="keyword">if</span> (ev != <span class="literal">NULL</span>) ev-&gt;unpark() ;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>接下来将解读上述代码：</p>
@@ -698,7 +698,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">125</span>
+                  <span class="site-state-item-count">126</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
