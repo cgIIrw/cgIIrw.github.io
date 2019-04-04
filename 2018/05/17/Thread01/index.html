@@ -89,7 +89,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3toyb6uj31ge13m14h.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3qyzdqzj30wc0gkgs5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ocvy12j30f808qgmb.jpg">
-<meta property="og:updated_time" content="2019-04-04T08:28:30.000Z">
+<meta property="og:updated_time" content="2019-04-04T11:59:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程生命周期 &amp; 中断机制">
 <meta name="twitter:description" content="这一篇主要涉及线程的生命周期和中断机制，对Thread类下的interrupt()源码进行了解析。">
@@ -393,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,553
+                  3,520
                 </span>
               
 
@@ -441,7 +441,6 @@
 <p>以上代码中的注释对这些状态进行了简要说明，它们彼此的转换关系可以用一张图来说明：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3toyb6uj31ge13m14h.jpg" alt="状态图"></p>
 <p>此图出自<a href="https://www.uml-diagrams.org/java-thread-uml-state-machine-diagram-example.html" target="_blank" rel="external">Java Thread States and Life Cycle</a>。</p>
-<p>这张图值得商榷的地方有：在Timed Waiting状态下timeout后，也会进入Blocked状态，但是并没有被notify() / notifyAll()。</p>
 <p>在这里对这张图中的某些要点进行一次强调和说明：</p>
 <p>Runnable状态可以分成Ready和Running，Runnable并不代表一定在执行线程，可能在等待操作系统分配时间片；</p>
 <p>Timed Waiting在sleeptime elapsed后可以直接进入Runnable态，因为它可以拥有锁，这是它和Waiting的主要区别；</p>
