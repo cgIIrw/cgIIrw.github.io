@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/11/10/Scala04/</loc>
+    
+    <lastmod>2019-04-20T14:40:55.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/01/15/Netty01/</loc>
     
     <lastmod>2019-04-14T06:58:04.000Z</lastmod>
@@ -446,13 +453,6 @@
     <loc>https://cgiirw.github.io/2018/04/23/Union_Find/</loc>
     
     <lastmod>2018-11-21T11:42:29.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/11/10/Scala04/</loc>
-    
-    <lastmod>2018-11-16T22:44:27.000Z</lastmod>
     
   </url>
   

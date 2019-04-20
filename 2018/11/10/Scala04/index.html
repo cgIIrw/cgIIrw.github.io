@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。 在这里也顺便对一些字节码指令进行了解析(本站已然存在有不少解析字节码的文章)，指出了《深入理解Java虚拟机(第2版)》中关于invokevirtual描述错误的地方。">
+<meta name="description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
 <meta name="keywords" content="Scala,字节码解析">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/10/Scala04/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。 在这里也顺便对一些字节码指令进行了解析(本站已然存在有不少解析字节码的文章)，指出了《深入理解Java虚拟机(第2版)》中关于invokevirtual描述错误的地方。">
-<meta property="og:updated_time" content="2018-11-16T22:44:27.000Z">
+<meta property="og:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
+<meta property="og:updated_time" content="2019-04-20T14:40:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
-<meta name="twitter:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。 在这里也顺便对一些字节码指令进行了解析(本站已然存在有不少解析字节码的文章)，指出了《深入理解Java虚拟机(第2版)》中关于invokevirtual描述错误的地方。">
+<meta name="twitter:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
 
 
 
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,807
+                  1,746
                 </span>
               
 
@@ -429,7 +429,6 @@
 
       
         <p>孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。</p>
-<p>在这里也顺便对一些字节码指令进行了解析(本站已然存在有不少解析字节码的文章)，指出了<a href="https://book.douban.com/subject/24722612/" target="_blank" rel="external">《深入理解Java虚拟机(第2版)》</a>中关于invokevirtual描述错误的地方。</p>
 <a id="more"></a>
 <h2 id="孤立对象"><a href="#孤立对象" class="headerlink" title="孤立对象"></a>孤立对象</h2><h3 id="解析前的准备工作"><a href="#解析前的准备工作" class="headerlink" title="解析前的准备工作"></a>解析前的准备工作</h3><p>先写一个最简单的例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">object Testdemo01 &#123;</div><div class="line">  val a = <span class="number">3</span></div><div class="line">  <span class="function">def <span class="title">add</span><span class="params">(x: Int)</span> </span>= x * <span class="number">2</span></div><div class="line"></div><div class="line">  <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</div><div class="line">    add(a)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
