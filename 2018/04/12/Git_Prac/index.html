@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pa5em4j30rk0nstcc.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3otgwjyj30qu0gkwh3.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3oux8xsj30r60gw0vv.jpg">
-<meta property="og:updated_time" content="2019-01-16T05:27:30.000Z">
+<meta property="og:updated_time" content="2019-04-25T02:48:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(一)">
 <meta name="twitter:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,774
+                  1,831
                 </span>
               
 
@@ -471,7 +471,10 @@
 <p><strong>如何将test02.md还原成untracked状态？</strong></p>
 <p>可以使用如下命令：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git rm --cached test02.md</div></pre></td></tr></table></figure>
-<p>不能只使用rm，这样会出现“Changed but not updated:”(而且如果有内容处于staged状态还要添加-f参数)，如果你希望保存文件夹下存在test02.md，那么你也不仅仅要使用git rm，而应该添加–cached参数。</p>
+<p>不能只使用rm，这样会出现“Changed but not updated:”(而且如果有内容处于modified状态或staged状态还要添加-f参数，这样做是为了保证安全)，如果你希望保存文件夹下存在test02.md，那么你也不仅仅要使用git rm，而应该添加–cached参数。</p>
+<p>用如下表格进行总结：</p>
+<pre><code>|  文件夹下保留文件  | 文件夹下不保留文件
+</code></pre><p>—————-|—————–|—————-<br> Has M || M     | git rm –cached | git rm -f<br> Not has M || M | git rm –cached | git rm  </p>
 <h2 id="历史-amp-撤销"><a href="#历史-amp-撤销" class="headerlink" title="历史&amp;撤销"></a>历史&amp;撤销</h2><p>其实所谓历史&amp;撤销，和上一小节联系是很紧密的，之所以单起一节，即是因为这一节更专注于“操作”，也是因为不想全文没什么章节，整篇垮掉…</p>
 <p>承接上一个问题，产生新的问题：</p>
 <p><strong>如果仅仅是一次add犯了错，使test02.md还原成untracked状态还可以使用什么方法？</strong></p>
