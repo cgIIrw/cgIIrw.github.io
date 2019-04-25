@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇继续之前系列，实践变更、回滚提交的操作。">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1fzajerzyq7j30nw0vwahx.jpg">
-<meta property="og:updated_time" content="2019-01-19T11:47:54.000Z">
+<meta property="og:updated_time" content="2019-04-25T02:58:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(三)">
 <meta name="twitter:description" content="本篇继续之前系列，实践变更、回滚提交的操作。">
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,426
+                  1,514
                 </span>
               
 
@@ -407,7 +407,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6
+                  7
                 </span>
               
             </div>
@@ -437,7 +437,12 @@
 <p>完整的格式可以是：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -a --amend -m "描述信息"</div></pre></td></tr></table></figure>
 <p>如果不想修改描述信息，可以将<code>-m &quot;描述信息&quot;</code>更改为<code>--no-edit</code>。</p>
-<p>这次提交不会修改提交时间，但是是一次新的提交，之前的久的提交会被取消。</p>
+<p>这次提交不会修改提交时间，但是是一次新的提交，之前的旧的提交会被取消。</p>
+<p>所以一般来说，这个命令的作用有两个：</p>
+<ul>
+<li>如果提交后，发现有漏掉的文件没有添加，可以将其git add，将其添加进暂存区，使用该命令会替换上一次提交的结果；</li>
+<li>如果单纯想要修改上一次提交的描述信息，可以使用该命令；</li>
+</ul>
 <p><strong>git reset –soft和git reset –hard的区别是什么？</strong></p>
 <p>首先测试一番<code>git reset --soft</code>命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span>git log --oneline</div><div class="line">5100572 (HEAD -&gt; master) text git reset soft02</div><div class="line">ec78d25 add reset head02</div><div class="line">a05a787 After stash02.</div><div class="line">06961ba (branch02) Second commit</div><div class="line">2d7fae0 First commit</div><div class="line"><span class="meta">$</span>git status</div><div class="line">On branch master</div><div class="line">nothing to commit, working tree clean</div><div class="line"><span class="meta">$</span>git reset --soft head^</div><div class="line"><span class="meta">$</span>git status</div><div class="line">On branch master</div><div class="line">Changes to be committed:</div><div class="line">  (use "git reset HEAD &lt;file&gt;..." to unstage)</div><div class="line"></div><div class="line">	modified:   text01.md</div></pre></td></tr></table></figure>
