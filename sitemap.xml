@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://cgiirw.github.io/2018/11/10/kqueue/</loc>
+    <loc>https://cgiirw.github.io/2019/04/29/groupcache01/</loc>
     
-    <lastmod>2019-04-25T09:39:33.000Z</lastmod>
+    <lastmod>2019-04-29T08:30:10.000Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://cgiirw.github.io/2018/04/12/Git_Prac/</loc>
     
-    <lastmod>2019-04-25T09:24:25.000Z</lastmod>
+    <lastmod>2019-04-25T09:58:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/11/10/kqueue/</loc>
+    
+    <lastmod>2019-04-25T09:39:33.000Z</lastmod>
     
   </url>
   
