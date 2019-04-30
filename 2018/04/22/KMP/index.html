@@ -86,16 +86,16 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/04/22/KMP/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="这里介绍的方法来自于《算法(第四版)》一书，通过构造一个确定有限状态自动机来解决KMP算法。">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP01.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP02.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP03.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP04.png">
-<meta property="og:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP05.png">
-<meta property="og:updated_time" content="2018-09-01T11:48:47.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kfpnedj30rm0ggmy1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kfsx2xj30ro0gi0tn.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kgc774j30ro0ggt9m.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kgdyv5j30rm0giq3t.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kg8glgj30ro0ge3zd.jpg">
+<meta property="og:updated_time" content="2019-04-29T09:24:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用确定有限状态自动机解KMP算法">
 <meta name="twitter:description" content="这里介绍的方法来自于《算法(第四版)》一书，通过构造一个确定有限状态自动机来解决KMP算法。">
-<meta name="twitter:image" content="http://7xkn2c.com1.z0.glb.clouddn.com/KMP01.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kfpnedj30rm0ggmy1.jpg">
 
 
 
@@ -442,16 +442,16 @@
 <h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>“KMP算法的主要思想是提前判断如何重新开始查找，而这种判断只取决于模式字符串本身。” ——摘自《算法》中文版496页</p>
 <p>如果说这本书中介绍的关于实现KMP算法的方法和其它文章中构建next数组的方法有什么不同的话，<strong>我认为是前者不仅不回退，而且一直在”前行”，而后者的i不回退但是会“停留”。</strong> 不过这篇文章只单独针对算法书中的方法进行分析。</p>
 <p>为了方便理解和说明，现假设有一个文本字符串txt（此字符串转化成的字符数组为t[]）：ACBACBACAB和一个模式字符串pat（此字符串转化成的字符数组为p[]）：ACBACAB，当i=0，j=0时文本第一个字符和模式第一个字符相等，各自+1进行下一次比较…一直到当i＝5，j＝5时，对应的字符分别是文本的第六个字符B和模式的第六个字符A，此时B不等于A所以不匹配(下图中红色部分)：</p>
-<p><img src="http://7xkn2c.com1.z0.glb.clouddn.com/KMP01.png" alt="图1"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kfpnedj30rm0ggmy1.jpg" alt="图1"></p>
 <p>要使i继续“前行”变更为i+1（也就是i＝6，指向第七个字符）的同时，还能保证算法的正确，那么与i＋1进行匹配的j的值就是本算法的关键。<strong>假设此时j＝k，k就是这样一个数：(1)满足p[0]，p[1]，…，p[k-1]组成的字符串与t[i-k+1]，t[i-k+2]，…，t[i]所组成的字符串相等；(2)为了减少后续比较次数以保证算法花费的时间尽可能少，在满足(1)的条件下k要尽可能大。</strong> 不难发现，p[0]，p[1]，…，p[j-1]所组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]所组成的字符串是相等的。回到实际例子上，也就是模式字符串的ACBAC和文本字符串的ACBAC相等(下图中紫色部分)：</p>
-<p><img src="http://7xkn2c.com1.z0.glb.clouddn.com/KMP02.png" alt="图2"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kfsx2xj30ro0gi0tn.jpg" alt="图2"></p>
 <p><strong>那么求k不就是求p[0]，p[1]，…，p[j-1]加上t[i]所组成字符串的前缀字符串和后缀字符串的最长共有元素的长度吗？</strong></p>
 <p>在所举的实例中，p[0]，p[1]，…，p[j-1]就是ACBAC，而t[i]就是字符B(所指的ACBAC和B为下图中蓝色部分)：</p>
-<p><img src="http://7xkn2c.com1.z0.glb.clouddn.com/KMP03.png" alt="图3"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kgc774j30ro0ggt9m.jpg" alt="图3"></p>
 <p>上图中蓝色部分的ACBAC与B一起组成了字符串ACBACB，它的前缀字符串和后缀字符串的最长共有元素为ACB(下图中绿色部分)，长度为3：</p>
-<p><img src="http://7xkn2c.com1.z0.glb.clouddn.com/KMP04.png" alt="图4"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kgdyv5j30rm0giq3t.jpg" alt="图4"></p>
 <p>这个3也就是k的值，那么t[i+1]就和p<a href="k等于3">k3</a>进行比较(下图中i和j指向的部分)，而p[2]与t[i]，p[1]与t[i-1]，p[0]与t[i-2]就不用再去一一比较(下图中绿色的部分)，因为他们肯定是相等的：</p>
-<p><img src="http://7xkn2c.com1.z0.glb.clouddn.com/KMP05.png" alt="图5"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr4kg8glgj30ro0ge3zd.jpg" alt="图5"></p>
 <p>如此一来，i就做到了不用回退还能一直“前行”，达到了优化之前暴力算法的目的。</p>
 <h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>所以i每前进一位，就需要知道位于文本字符串上的这个位置(更新后的i)从模式字符串上的哪一个字符开始匹配。</p>
 <p>由于只需要寻找接下来从模式字符串上哪一位匹配，可以把j停留在的位置处理成一种状态，模式字符串一共有0，1，2，3，…，M-1这M个状态，我们用KMP算法成功查找到模式字符串第一次出现的位置的过程，其实也是一种j从0不断跳转，直到跳转到M-1状态并最终有t[i] == p[j]，使得j=M的过程。</p>
