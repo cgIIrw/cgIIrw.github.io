@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2019/05/04/vim02/</loc>
+    
+    <lastmod>2019-05-04T13:38:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2015/04/11/Hexo_Getting_Start/</loc>
+    
+    <lastmod>2019-05-04T13:35:54.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2015/08/15/Tools/</loc>
+    
+    <lastmod>2019-05-04T08:19:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/04/29/groupcache01/</loc>
     
     <lastmod>2019-05-03T14:02:20.000Z</lastmod>
@@ -12,20 +33,6 @@
     <loc>https://cgiirw.github.io/2018/06/22/Learning_Vim/</loc>
     
     <lastmod>2019-05-03T12:24:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2015/04/11/Hexo_Getting_Start/</loc>
-    
-    <lastmod>2019-05-03T06:10:46.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2015/08/15/Tools/</loc>
-    
-    <lastmod>2019-05-02T03:58:00.000Z</lastmod>
     
   </url>
   
