@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Scala,字节码解析," />
+  <meta name="keywords" content="Go," />
 
 
 
@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
-<meta name="keywords" content="Scala,字节码解析">
+<meta name="description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
+<meta name="keywords" content="Go">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
-<meta property="og:url" content="https://cgiirw.github.io/2018/11/10/Scala04/index.html">
+<meta property="og:title" content="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
+<meta property="og:url" content="https://cgiirw.github.io/2018/11/05/go-learning/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
-<meta property="og:updated_time" content="2019-04-20T14:40:55.000Z">
+<meta property="og:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg">
+<meta property="og:updated_time" content="2019-05-16T15:51:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
-<meta name="twitter:description" content="孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。">
+<meta name="twitter:title" content="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
+<meta name="twitter:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://cgiirw.github.io/2018/11/10/Scala04/"/>
+  <link rel="canonical" href="https://cgiirw.github.io/2018/11/05/go-learning/"/>
 
 
 
 
 
-  <title>Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象 | CGRW_BLOG</title>
+  <title>阅读《Go程序设计语言》：从Java的视角掌握Go(一) | CGRW_BLOG</title>
   
 
 
@@ -295,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/11/10/Scala04/">
+    <link itemprop="mainEntityOfPage" href="https://cgiirw.github.io/2018/11/05/go-learning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Cgrw">
@@ -312,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象</h1>
+          <h1 class="post-title" itemprop="name headline">阅读《Go程序设计语言》：从Java的视角掌握Go(一)</h1>
         
 
         <div class="post-meta">
@@ -324,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T22:11:31+08:00">
-                2018-11-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T23:45:26+08:00">
+                2018-11-05
               </time>
             
 
@@ -347,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/函数式编程/" itemprop="url" rel="index">
-                    <span itemprop="name">函数式编程</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
                   </a>
                 </span>
 
@@ -364,7 +366,7 @@
 
           
           
-             <span id="/2018/11/10/Scala04/" class="leancloud_visitors" data-flag-title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
+             <span id="/2018/11/05/go-learning/" class="leancloud_visitors" data-flag-title="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -389,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,746
+                  2,802
                 </span>
               
 
@@ -405,7 +407,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  10
                 </span>
               
             </div>
@@ -428,46 +430,100 @@
       
 
       
-        <p>孤立对象和伴生对象都是单例对象，这是Scala和Java语法很大差别的地方，本篇将对这两个概念进行深入研究。</p>
+        <p>本人在阅读<a href="https://book.douban.com/subject/27044219/" target="_blank" rel="external">《Go程序设计语言》</a>时，通过比较Java和Go的不同来快速掌握Go语言。</p>
 <a id="more"></a>
-<h2 id="孤立对象"><a href="#孤立对象" class="headerlink" title="孤立对象"></a>孤立对象</h2><h3 id="解析前的准备工作"><a href="#解析前的准备工作" class="headerlink" title="解析前的准备工作"></a>解析前的准备工作</h3><p>先写一个最简单的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">object Testdemo01 &#123;</div><div class="line">  val a = <span class="number">3</span></div><div class="line">  <span class="function">def <span class="title">add</span><span class="params">(x: Int)</span> </span>= x * <span class="number">2</span></div><div class="line"></div><div class="line">  <span class="function">def <span class="title">main</span><span class="params">(args: Array[String])</span>: Unit </span>= &#123;</div><div class="line">    add(a)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这段代码编译后会产生两个.class文件，首先反编译Testdemo01.class(使用javap -c -p会省略常量池，常量池显现可以采用javap -c -v)，得到：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public final class scala.C2.Testdemo01 &#123;</div><div class="line">  public static void main(java.lang.String[]);</div><div class="line">    Code:</div><div class="line">       0: getstatic     #16                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: aload_0</div><div class="line">       4: invokevirtual #18                 // Method scala/C2/Testdemo01$.main:([Ljava/lang/String;)V</div><div class="line">       7: return</div><div class="line"></div><div class="line">  public static int add(int);</div><div class="line">    Code:</div><div class="line">       0: getstatic     #16                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: iload_0</div><div class="line">       4: invokevirtual #22                 // Method scala/C2/Testdemo01$.add:(I)I</div><div class="line">       7: ireturn</div><div class="line"></div><div class="line">  public static int a();</div><div class="line">    Code:</div><div class="line">       0: getstatic     #16                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: invokevirtual #26                 // Method scala/C2/Testdemo01$.a:()I</div><div class="line">       6: ireturn</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>接下来反编译Testdemo01$.class，得到：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">public final class scala.C2.Testdemo01$ &#123;</div><div class="line">  public static scala.C2.Testdemo01$ MODULE$;</div><div class="line"></div><div class="line">  private final int a;</div><div class="line"></div><div class="line">  public static &#123;&#125;;</div><div class="line">    Code:</div><div class="line">       0: new           #2                  // class scala/C2/Testdemo01$</div><div class="line">       3: invokespecial #14                 // Method "&lt;init&gt;":()V</div><div class="line">       6: return</div><div class="line"></div><div class="line">  public int a();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: getfield      #17                 // Field a:I</div><div class="line">       4: ireturn</div><div class="line"></div><div class="line">  public int add(int);</div><div class="line">    Code:</div><div class="line">       0: iload_1</div><div class="line">       1: iconst_2</div><div class="line">       2: imul</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public void main(java.lang.String[]);</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: aload_0</div><div class="line">       2: invokevirtual #26                 // Method a:()I</div><div class="line">       5: invokevirtual #28                 // Method add:(I)I</div><div class="line">       8: pop</div><div class="line">       9: return</div><div class="line"></div><div class="line">  private scala.C2.Testdemo01$();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: invokespecial #30                 // Method java/lang/Object."&lt;init&gt;":()V</div><div class="line">       4: aload_0</div><div class="line">       5: putstatic     #32                 // Field MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       8: aload_0</div><div class="line">       9: iconst_3</div><div class="line">      10: putfield      #17                 // Field a:I</div><div class="line">      13: return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="字节码解析"><a href="#字节码解析" class="headerlink" title="字节码解析"></a>字节码解析</h3><p>为了方便描述，将反编译Testdemo01.class的内容称为为A，将反编译Testdemo01$.class的内容称为B，将改动源码并反编译后的相异部分称为B_change；</p>
-<p>从内容上来看，作为程序执行唯一入口的public static void main方法出现在A，所以Java虚拟机主要是通过对Testdemo01.class解释、编译来执行程序的。</p>
-<h4 id="A的public-static-void-main方法"><a href="#A的public-static-void-main方法" class="headerlink" title="A的public static void main方法"></a>A的public static void main方法</h4><ul>
-<li><code>getstatic #16</code>：访问类字段，将其压入操作数栈的栈顶；<pre><code>这里的类就是Testdemo01$，而类字段就是它的一个实例MODULE$；
-</code></pre></li>
-<li><code>aload_0</code>：将局部变量表索引为0的位置保存的引用型数值复制一份到操作数栈的栈顶<pre><code>A的main是静态方法，所以局部变量表索引为0的位置存放传入参数java.lang.String[]的字符串数组引用；
-</code></pre></li>
-<li><code>invokevirtual #18</code>：先确定从操作数栈顶开始索引为方法显式参数个数值的元素，然后找到该元素所指向的对象的实际类型，记作C，然后查询并验证C中简单名和描述符都match的方法，如果失败则根据类的继承关系从下往上顺序查询，直到成功或失败，整个过程中栈顶的引用元素和方法的参数也随着命令的执行从栈顶推出<pre><code>[《深入理解Java虚拟机(第2版)》](https://book.douban.com/subject/24722612/)写道的“找到操作数栈顶的第一个元素所指向的对象的实际类型记作C”有误。回到原例，invokevirtual会找到getstatic得到的对象的实际类型，于是找到Testdemo01$并执行它的main方法；
-</code></pre></li>
+<h2 id="程序结构"><a href="#程序结构" class="headerlink" title="程序结构"></a>程序结构</h2><h3 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h3><p>Go和Java一样，存在一定数量的关键字，不能被用作名称，但Go有三十多个内置的预声明常量、类型和函数，它们不是预留的，是可以重声明的；</p>
+<p>和Java不同的是，Go没有复杂的访问修饰符，基本上只包括函数内访问(这里暂时不考虑闭包)、包访问、跨包访问。实体在函数内声明就只在该函数内部局部有效，函数外声明则对包里的所有源文件可见，如果名称以大写字母开头则支持跨包访问。</p>
+<p>Go的编程风格偏向于短名称，特别是作用域小的局部变量，名称作用域越大，越使用长和更有意义的名称；</p>
+<p>缩写词通常使用统一的大小写，比如HTML或者html，但不用Html；</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量的声明形式和Go存在一定的区别，如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name <span class="keyword">type</span> = expression</div></pre></td></tr></table></figure>
+<p>type和expression不能同时省略，当expression省略时，Go存在零值机制保障。</p>
+<p>在Java中，如果是类变量，在连接的准备阶段会赋类型的零值(暂不讨论static final修饰的变量，后续会和const一起讨论)，类初始化的时候会赋上声明的初始值；如果是类的普通变量，在本站内的文章<a href="/2018/04/16/JVM_Oop_Desc/" title="Java虚拟机之对象探秘">Java虚拟机之对象探秘</a>有介绍，new等编译成的指令为普通字段赋上该类型的零值，但初始化器会在每个构造方法中被执行，而且是在显式写进构造方法内的内容执行前执行；如果是方法内的局部变量，必须手动赋值，否则不能使用；</p>
+<p>Go和Java不同的是，Go不存在未初始化的变量，也就是前面提到的，它具有零值机制保障；</p>
+<p>Go和Java不同的是，在函数中存在短变量声明，用来声明和初始化局部变量；</p>
+<p><code>:=</code>表示声明，<code>=</code>表示赋值，但是如果<code>:=</code>左边存在多变量，并不要求全部声明这些变量(但也要保证声明的变量至少有一个)，对其中已经声明过的变量来说，<code>:=</code>相当于<code>=</code>，例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> i <span class="keyword">int</span></div><div class="line">	a, i := <span class="number">1</span>, <span class="number">4</span></div><div class="line">	fmt.Println(i)</div><div class="line">	fmt.Println(a)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>i在a声明之前已然声明过，所以在执行<code>a, i := 1, 4</code>时，i相当于赋值为4，而非再次声明；</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>与Java不同的是，Go语言存在指针，指针的值是变量的地址，并非所有的值都有地址，但所有变量都有地址；</p>
+<p>借用书中的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">x := <span class="number">1</span></div><div class="line">p := &amp;x           <span class="comment">// p是整型指针，只想x</span></div><div class="line">fmt.Println(*p)   <span class="comment">// "1"</span></div><div class="line">*p = <span class="number">2</span>            <span class="comment">// 等于 x = 2</span></div><div class="line">fmt.Println(x)    <span class="comment">// 结果 "2"</span></div></pre></td></tr></table></figure>
+<p>Go语言的指针形式上类似C指针，但是却也存在明显区别：Go指针可以比较，但是不能运算；</p>
+<p>书中提到“每次使用变量的地址或者复制一个指针，我们就创建了新的别名或者方式来标记同一变量”。所以在本人看来，Go指针形式上和C指针相近，但是行为上更像Java的引用；</p>
+<p>地址符加上变量名构成的表达式不能被赋值：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	<span class="keyword">var</span> i <span class="keyword">int</span></div><div class="line">	<span class="keyword">var</span> ii *<span class="keyword">int</span></div><div class="line">	a, i := <span class="number">1</span>, <span class="number">4</span></div><div class="line">	ii = &amp;i</div><div class="line">	&amp;a = ii    <span class="comment">// 出错</span></div><div class="line">	fmt.Println(i)</div><div class="line">	fmt.Println(a)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码通过了GoLand的语法检查，但build会出现<code>cannot assign to &amp;a</code>的错误；</p>
+<h3 id="new函数"><a href="#new函数" class="headerlink" title="new函数"></a>new函数</h3><p>和Java不同的是，Go可以采用new函数创建未命名的某个类型的变量，受零值机制保障，返回其地址，使用new创建变量和一般方法创建相比没有什么不同，只是语法上看似便利罢了；</p>
+<h3 id="变量生存周期"><a href="#变量生存周期" class="headerlink" title="变量生存周期"></a>变量生存周期</h3><p>首先是变量指代的内存被回收的问题。</p>
+<p>在Java中，一切都是对象，垃圾回收与否取决于对象是否是根对象，根对象大体上来说包含以下几种：</p>
+<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中的引用的对象；</li>
+<li>方法区中的类静态属性引用的对象；</li>
+<li>方法区中的常量引用的对象；</li>
+<li>本地方法栈中JNI引用的对象；</li>
 </ul>
-<p>Scala编译出的Testdemo01类下的方法都是静态方法，和上述中的main方法类似，这里就不多言了，可以发现这些静态方法全部封装了反编译出的Testdemo01$类的方法。</p>
-<h4 id="B的public-void-main方法"><a href="#B的public-void-main方法" class="headerlink" title="B的public void main方法"></a>B的public void main方法</h4><ul>
-<li><code>aload_0</code>：将局部变量表索引为0的位置保存的引用型数值复制一份到操作数栈的栈顶<pre><code>B的main不是静态方法，所以索引为0的位置保存的是this，这里将其复制到栈顶；
-</code></pre></li>
-<li><code>aload_0</code>：重复上一步的工作<pre><code>执行两次该字节码指令是因为下面会相继调用两个方法，每个方法调用默认需要传入参数this；
-</code></pre></li>
-<li><code>invokevirtual #26</code>：原理同前文中的<code>invokevirtual #18</code><pre><code>这里相当于执行this.a()，并将结果返回main方法的操作数栈；
-</code></pre></li>
-<li><code>invokevirtual #28</code>：同上<pre><code>这里相当于执行this.add(x)，这里的x是上一步this.a()返回的值；
-</code></pre></li>
+<p>Go与Java不同的是，它没有对象的概念，但判断变量是否要被垃圾回收器回收的方式和Java一样，皆不是采用的引用计数，具体来说是一种Mark Sweep。包级别的变量，以及每个当前执行函数的局部变量，类似Java中的所谓根对象，可以理解为是“根变量”；</p>
+<p>Java所谓的闭包，采用的是capture-by-value，而非capture-by-reference，具体做法是在内部类或者Lambda表达式里将引用的外部变量的值拷贝一份，所以为了引用一致以及线程安全，外部变量会被设定为final，或者如Java 8中那样，隐式设定为final；</p>
+<p>Go是capture-by-reference的，下面给出一个例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">uint</span></span>&#123;</div><div class="line">	i := <span class="keyword">uint</span>(<span class="number">0</span>)</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(ret <span class="keyword">uint</span>)</span></span> &#123;</div><div class="line">		ret = i</div><div class="line">		i += <span class="number">2</span></div><div class="line">		<span class="keyword">return</span></div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	add0 := add()</div><div class="line">	fmt.Println(add0())</div><div class="line">	fmt.Println(add0())</div><div class="line">	fmt.Println(add0())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0</div><div class="line">2</div><div class="line">4</div></pre></td></tr></table></figure>
+<p>i是add()的局部变量，但是它从add中逃逸出来，所以是在堆空间分配的内存，add返回的匿名函数会获取i的地址，并在方法体内进行赋值与运算；</p>
+<h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>HotSpot虚拟机采用的是直接指针访问，不同变量传递的是字符串对象的地址；</p>
+<p>Go语言采用的是值传递，例子见下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">printAddr</span><span class="params">()</span></span>  &#123;</div><div class="line">	x := <span class="string">"Hello"</span></div><div class="line">	fmt.Println(&amp;x)</div><div class="line">	y := x</div><div class="line">	fmt.Println(&amp;y)</div><div class="line">	x = y</div><div class="line">	fmt.Println(&amp;x)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">0xc42007a1d0</div><div class="line">0xc42007a1e0</div><div class="line">0xc42007a1d0</div></pre></td></tr></table></figure>
+<p>Go打印的是变量的地址，传递的是变量内承载的值，接下来看看这里的值，指的是什么。</p>
+<p>扩展前面的例子，添加代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">lenx := unsafe.Sizeof(x)</div><div class="line">fmt.Println(lenx)</div><div class="line">p01 := (* <span class="keyword">uint32</span>)(unsafe.Pointer(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;x))))</div><div class="line">fmt.Println(*p01)</div><div class="line">p02 := (* <span class="keyword">uint32</span>)(unsafe.Pointer(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;y))))</div><div class="line">fmt.Println(*p02)</div><div class="line">plen := (* <span class="keyword">uint8</span>)(unsafe.Pointer(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;x)) + <span class="number">8</span>))</div><div class="line">fmt.Println(*plen)</div></pre></td></tr></table></figure>
+<p>打印为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">16</div><div class="line">17558375</div><div class="line">17558375</div><div class="line">5</div></pre></td></tr></table></figure>
+<p>可以看出，x变量的大小为16个单位(字节)，正好是&amp;x和&amp;y值的差，从两个变量的起始地址开始计算32位的值，结果都是17558375，说明它们都引用了同一地址的数据；从x变量的起始位置开始，计算出偏移量为8的字节表示的值为5，正好是“Hello”字符串的长度。</p>
+<p>所以一个字符串变量承载的信息包括了字符串数据和字符串长度，用一个图简单表示：</p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg" alt="go-learning01"></p>
+<p>和Java相同的是，Go的字符串也是不可变的，所以虽然Go采用的是所谓的值传递，但是不同的变量共用同一段底层数据，所以变量间的赋值开销都很低廉。</p>
+<h3 id="多重赋值"><a href="#多重赋值" class="headerlink" title="多重赋值"></a>多重赋值</h3><p>和Java不同的是，Go可以多重赋值，例如交换两个变量的值可以用很简单的形式表达：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x, y = y, x</div></pre></td></tr></table></figure>
+<p>多重赋值常常搭配函数的多重返回，但有时候返回的值并非都是需要的，不需要的值可以赋给空标识符：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_, ok = method()</div></pre></td></tr></table></figure>
+<h3 id="可赋值性"><a href="#可赋值性" class="headerlink" title="可赋值性"></a>可赋值性</h3><p>Java和Go在很多地方都是隐式赋值，比如函数隐式的将参数的值赋给对应参数的变量等；</p>
+<p>但是Go和Java不同的地方在于，<code>赋值语句</code>是显示赋值，也就是类型必须精准匹配(赋值左右变量类型相同)，nil可以被赋给任何借口变量或引用类型；</p>
+<p><code>==</code>和<code>!=</code>首先需要满足可赋值性；</p>
+<h3 id="类型声明"><a href="#类型声明" class="headerlink" title="类型声明"></a>类型声明</h3><p>和Java不同的是，Go提供关键字type来声明定义一个新的命名类型，它和某个已有的类型使用同样的底层类型，但是它们并不兼容，也就是说它们不是同一类型，不满足前面提到的可赋值性；</p>
+<p>如果两个类型具有相同的底层类型或二者都是指向相同底层类型变量的未命名指针类型，则二者是可以相互转换的；</p>
+<h3 id="包导入"><a href="#包导入" class="headerlink" title="包导入"></a>包导入</h3><p>在Java中，包名和文件夹名是一样的，包下的每个Java文件内只存在一个public类，且类名和文件名必须相同；</p>
+<p>和Java类似的是，在Go中一个文件夹下(不包括子文件夹)通常也只存在一个包，例外是如果存在测试文件，那么测试文件象征的代码属于测试相关包；</p>
+<p>和Java不同的是，文件夹名和包名并不要求一定一致；</p>
+<p>和Java不同的是，Go并不存在类的概念，Go文件名也不需要和代码中的相关模块名称一致；</p>
+<p>在Go中，import的是具体的路径，但是在代码中，如果要引用其它包的成员，则需要用包名来调用；</p>
+<p>通常存在这样的约定：导入路径的最后一段(也就是文件夹名)和包名相匹配，这样方便预测包名是什么；</p>
+<p>不能导入没有被引用的包；</p>
+<h3 id="包初始化"><a href="#包初始化" class="headerlink" title="包初始化"></a>包初始化</h3><p>在Java中以下情形变量声明初始化的顺序是不能通过编译的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> a = b; <span class="comment">// 错误处</span></div><div class="line"><span class="keyword">int</span> b = <span class="number">4</span>;</div></pre></td></tr></table></figure>
+<p>static块还存在一种非法的向前引用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> &#123;</div><div class="line">  a = <span class="number">2</span>;</div><div class="line">  System.out.println(a);  <span class="comment">// 错误处</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">3</span>;</div></pre></td></tr></table></figure>
+<p>和Java不同的是，Go变量通常是按照顺序从前往后初始化，但在某个变量的初始化需要依赖其它变量时，被依赖的变量先初始化；</p>
+<p>和Java不同的是，Go存在一种默认的函数init，它的作用类似Java类初始化的static，或者Java对象初始化的构造器。</p>
+<p>考虑这样一种情形，在同一个包下，不同的go文件包含各自的字段和init函数，首先是main.go：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> bbb = ppr()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">ppr</span><span class="params">()</span> <span class="title">int</span></span> &#123;</div><div class="line">    fmt.Println(<span class="string">"Hello bbb"</span>)</div><div class="line">    <span class="keyword">return</span> <span class="number">77</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</div><div class="line">    fmt.Println(<span class="string">"main"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">    fmt.Println(aa)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来是submain.go：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> aa = <span class="number">3</span></div><div class="line"><span class="keyword">var</span> aaa = pr()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pr</span><span class="params">()</span> <span class="title">int</span></span> &#123;</div><div class="line">    fmt.Println(<span class="string">"Hello aaa"</span>)</div><div class="line">    <span class="keyword">return</span> <span class="number">7</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</div><div class="line">    fmt.Println(<span class="string">"Submain"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>它们在同一个包里，执行打印的顺序如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Hello bbb</div><div class="line">Hello aaa</div><div class="line">main</div><div class="line">Submain</div><div class="line">3</div></pre></td></tr></table></figure>
+<p>由此可知：</p>
+<ul>
+<li>字段的初始化先于init函数，包内所有的字段都初始化后，init函数才执行；</li>
+<li>包内包含main函数的文件的打印语句先于未包含main函数的文件的打印语句执行，字段先于字段，init方法先于init方法；</li>
 </ul>
-<h3 id="孤立对象总结"><a href="#孤立对象总结" class="headerlink" title="孤立对象总结"></a>孤立对象总结</h3><p>现在一切都明了了，Scala将object Testdemo01{…}编译成Testdemo01类和Testdemo01$类，践行的是《Effective Java》中提到的静态工厂方法，只不过在Scala里，整个过程分配在了两个类中；</p>
-<p>伪代码类似：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDemo01</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">		MODULE$.main(args);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</div><div class="line">    	<span class="keyword">return</span> MODULE$.add(a);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">a</span><span class="params">()</span> </span>&#123;</div><div class="line">    	<span class="keyword">return</span> MODULE$.a();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Testdemo01</span>$ </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> a;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> Testdemo01$ MODULE$ = <span class="keyword">new</span> Testdemo01$();</div><div class="line"></div><div class="line">	<span class="keyword">private</span> Testdemo01$() &#123;</div><div class="line">		a = <span class="number">3</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</div><div class="line">		add(a());</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">a</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> a;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> a * <span class="number">2</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="伴生对象"><a href="#伴生对象" class="headerlink" title="伴生对象"></a>伴生对象</h2><p>伴生对象的产生，是在之前的基础上，于同一文件中添加一个同名class。由于之前的分析，当知道这一规则后，本人多少能猜测到一些Scala语言设计者的设计意图，因为之前Testdemo01类都是静态方法，如若单独添加一个同名Class应该是相当于可以添加独立的字段和方法，下面印证一下。</p>
-<p>在前文的代码基础上添加一个同名class：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Testdemo01</span> </span>&#123;</div><div class="line">  val s01 = <span class="string">"chenchen"</span></div><div class="line">  var s02 = <span class="string">"guoguo"</span></div><div class="line"></div><div class="line">  <span class="function">def <span class="title">newAdd</span><span class="params">(b: Int)</span> </span>= &#123;</div><div class="line">     b + <span class="number">1</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>之前反编译得到的Testdemo01$类没有任何变化，变化的是反编译产生的Testdemo01类：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">public class scala.C2.Testdemo01 &#123;</div><div class="line">  private final java.lang.String s01;</div><div class="line"></div><div class="line">  private java.lang.String s02;</div><div class="line"></div><div class="line">  public static void main(java.lang.String[]);</div><div class="line">    Code:</div><div class="line">       0: getstatic     #19                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: aload_0</div><div class="line">       4: invokevirtual #21                 // Method scala/C2/Testdemo01$.main:([Ljava/lang/String;)V</div><div class="line">       7: return</div><div class="line"></div><div class="line">  public static int add(int);</div><div class="line">    Code:</div><div class="line">       0: getstatic     #19                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: iload_0</div><div class="line">       4: invokevirtual #25                 // Method scala/C2/Testdemo01$.add:(I)I</div><div class="line">       7: ireturn</div><div class="line"></div><div class="line">  public static int a();</div><div class="line">    Code:</div><div class="line">       0: getstatic     #19                 // Field scala/C2/Testdemo01$.MODULE$:Lscala/C2/Testdemo01$;</div><div class="line">       3: invokevirtual #29                 // Method scala/C2/Testdemo01$.a:()I</div><div class="line">       6: ireturn</div><div class="line"></div><div class="line">  public java.lang.String s01();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: getfield      #32                 // Field s01:Ljava/lang/String;</div><div class="line">       4: areturn</div><div class="line"></div><div class="line">  public java.lang.String s02();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: getfield      #36                 // Field s02:Ljava/lang/String;</div><div class="line">       4: areturn</div><div class="line"></div><div class="line">  public void s02_$eq(java.lang.String);</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: aload_1</div><div class="line">       2: putfield      #36                 // Field s02:Ljava/lang/String;</div><div class="line">       5: return</div><div class="line"></div><div class="line">  public int newAdd(int);</div><div class="line">    Code:</div><div class="line">       0: iload_1</div><div class="line">       1: iconst_1</div><div class="line">       2: iadd</div><div class="line">       3: ireturn</div><div class="line"></div><div class="line">  public scala.C2.Testdemo01();</div><div class="line">    Code:</div><div class="line">       0: aload_0</div><div class="line">       1: invokespecial #46                 // Method java/lang/Object."&lt;init&gt;":()V</div><div class="line">       4: aload_0</div><div class="line">       5: ldc           #48                 // String chenchen</div><div class="line">       7: putfield      #32                 // Field s01:Ljava/lang/String;</div><div class="line">      10: aload_0</div><div class="line">      11: ldc           #50                 // String guoguo</div><div class="line">      13: putfield      #36                 // Field s02:Ljava/lang/String;</div><div class="line">      16: return</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>main、add、a方法之后就是新增的方法，它们是s01、s02、s02_$eq、newAdd以及Testdemo01方法。其中s01、s02是程序隐藏的get方法，s02_$eq是set方法，成功印证了我的猜测；</p>
-<p>从字节码可以看出，首先编译的是object存在的部分，如果在class中间添加一个和object签名相同的方法，那么object的这个方法将被覆盖为class的方法，然后被编译，限于篇幅实验略；</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本篇主要探讨的是孤立对象和伴生对象，Scala号称没有静态方法域，但通过分析可以很清楚的直到，孤立对象和伴生对象底层是通过静态工厂方法实现的。</p>
+<p>但如果不在同一个包下，比如A文件import了B，那么B内的初始化先执行(包括init函数)，然后再进行A的初始化；</p>
+<h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>Go和Java不同的是，在一个作用域内，如果变量未被使用，编译会报错：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> f, err := os.Open(fname); err != <span class="literal">nil</span> &#123; <span class="comment">// 编译错误：未使用f</span></div><div class="line">  <span class="keyword">return</span> err</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/27044219/" target="_blank" rel="external">Go程序设计语言</a></p>
+<p><a href="https://www.reddit.com/r/learnprogramming/comments/2spfnv/what_is_the_difference_between_a_virtual_machine/" target="_blank" rel="external">What is the difference between a virtual machine and any runtime environment?</a></p>
+<p><a href="https://cloud.tencent.com/developer/article/1072910" target="_blank" rel="external">Golang闭包的实现</a></p>
+<p><a href="https://stackoverflow.com/questions/19957323/go-closure-variable-scope" target="_blank" rel="external">Go closure variable scope</a></p>
+<p><a href="http://outofmemory.cn/code-snippet/9456/java-get-object-memory-address" target="_blank" rel="external">如何获得java对象的内存地址</a></p>
 
       
     </div>
@@ -492,7 +548,7 @@
           </li>
           <li class="post-copyright-link">
             <strong>本文链接：</strong>
-            <a href="/2018/11/10/Scala04/" title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">2018/11/10/Scala04/</a>
+            <a href="/2018/11/05/go-learning/" title="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">2018/11/05/go-learning/</a>
           </li>
           <li class="post-copyright-license">
             <strong>版权声明： </strong>
@@ -505,9 +561,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Scala/" rel="tag"># Scala</a>
-          
-            <a href="/tags/字节码解析/" rel="tag"># 字节码解析</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
         </div>
       
@@ -520,8 +574,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/05/go-learning/" rel="next" title="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
-                <i class="fa fa-chevron-left"></i> 阅读《Go程序设计语言》：从Java的视角掌握Go(一)
+              <a href="/2018/10/20/Review_TCPL/" rel="next" title="快速复习C语言语法(TCPL)">
+                <i class="fa fa-chevron-left"></i> 快速复习C语言语法(TCPL)
               </a>
             
           </div>
@@ -530,8 +584,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/10/kqueue/" rel="prev" title="Kqueue ooo...">
-                Kqueue ooo... <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/10/Scala04/" rel="prev" title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
+                Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -687,7 +741,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#孤立对象"><span class="nav-number">1.</span> <span class="nav-text">孤立对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析前的准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">解析前的准备工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字节码解析"><span class="nav-number">1.2.</span> <span class="nav-text">字节码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A的public-static-void-main方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">A的public static void main方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#B的public-void-main方法"><span class="nav-number">1.2.2.</span> <span class="nav-text">B的public void main方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#孤立对象总结"><span class="nav-number">1.3.</span> <span class="nav-text">孤立对象总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#伴生对象"><span class="nav-number">2.</span> <span class="nav-text">伴生对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序结构"><span class="nav-number">1.</span> <span class="nav-text">程序结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#名称"><span class="nav-number">1.1.</span> <span class="nav-text">名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">1.2.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指针"><span class="nav-number">1.3.</span> <span class="nav-text">指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#new函数"><span class="nav-number">1.4.</span> <span class="nav-text">new函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量生存周期"><span class="nav-number">1.5.</span> <span class="nav-text">变量生存周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#赋值"><span class="nav-number">1.6.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多重赋值"><span class="nav-number">1.7.</span> <span class="nav-text">多重赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可赋值性"><span class="nav-number">1.8.</span> <span class="nav-text">可赋值性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型声明"><span class="nav-number">1.9.</span> <span class="nav-text">类型声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包导入"><span class="nav-number">1.10.</span> <span class="nav-text">包导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包初始化"><span class="nav-number">1.11.</span> <span class="nav-text">包初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">1.12.</span> <span class="nav-text">作用域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
