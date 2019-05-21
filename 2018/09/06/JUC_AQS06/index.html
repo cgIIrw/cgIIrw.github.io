@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/09/06/JUC_AQS06/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇延续之前的AQS系列，解析CountDownLatch，目的在于摸清CountDownLatch的工作机理。 线程内调用await()是如何响应中断的？多个线程各自调用await()并挂起，当同步器的state更新为0后会全部唤醒执行吗？通过本篇文章，诸如此类的问题将得到解决。">
-<meta property="og:updated_time" content="2018-09-08T08:14:44.000Z">
+<meta property="og:updated_time" content="2019-05-21T14:11:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="J.U.C并发框架之AQS(六)：CountDownLatch">
 <meta name="twitter:description" content="本篇延续之前的AQS系列，解析CountDownLatch，目的在于摸清CountDownLatch的工作机理。 线程内调用await()是如何响应中断的？多个线程各自调用await()并挂起，当同步器的state更新为0后会全部唤醒执行吗？通过本篇文章，诸如此类的问题将得到解决。">
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T21:17:01+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-06T21:17:02+08:00">
                 2018-09-06
               </time>
             

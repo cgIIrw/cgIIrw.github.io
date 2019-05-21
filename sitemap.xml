@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/09/07/JUC_COW/</loc>
+    
+    <lastmod>2019-05-21T14:12:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/05/21/Future_Pattern/</loc>
+    
+    <lastmod>2019-05-21T14:11:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/09/06/JUC_AQS06/</loc>
+    
+    <lastmod>2019-05-21T14:11:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/09/05/JUC_AQS05/</loc>
+    
+    <lastmod>2019-05-21T14:10:02.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2018/11/05/go-learning/</loc>
     
     <lastmod>2019-05-16T15:51:42.000Z</lastmod>
@@ -880,34 +908,6 @@
     <loc>https://cgiirw.github.io/2018/09/13/Redis_RDB/</loc>
     
     <lastmod>2018-09-16T22:25:27.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/09/07/JUC_COW/</loc>
-    
-    <lastmod>2018-09-10T01:56:12.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/05/21/Future_Pattern/</loc>
-    
-    <lastmod>2018-09-09T05:03:04.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/09/06/JUC_AQS06/</loc>
-    
-    <lastmod>2018-09-08T08:14:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/09/05/JUC_AQS05/</loc>
-    
-    <lastmod>2018-09-07T06:48:48.000Z</lastmod>
     
   </url>
   
