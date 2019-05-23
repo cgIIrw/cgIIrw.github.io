@@ -86,13 +86,13 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/09/25/Linux_NCGL/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="书在一开始阐明，第十二章主要讨论的是在内核中获取内存的方法。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E6%A0%B8%E6%80%81%E5%88%87%E6%8D%A2%E6%AD%A5%E9%AA%A4%E5%9B%BE.png">
-<meta property="og:updated_time" content="2018-10-20T05:19:14.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3vao35qj30tq11gqjz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tx9u7yj30zs0yg17t.jpg">
+<meta property="og:updated_time" content="2019-05-23T13:51:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Linux内核设计与实现》阅读笔记：(第十二章)内存管理">
 <meta name="twitter:description" content="书在一开始阐明，第十二章主要讨论的是在内核中获取内存的方法。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3vao35qj30tq11gqjz.jpg">
 
 
 
@@ -485,7 +485,7 @@
 <p>但是空闲链表一般的实现方法在Linux中会存在一些局限，内核编写者通过权衡各种利弊为Linux内核提供了slab内存分配器。</p>
 <p>slab负责内存紧缺情况下所有底层的对其、着色、分配、释放以及回收，如果频繁创建很多相同类型的对象，应该考虑用slab高速缓存，而不要自己去实现空闲链表。</p>
 <h2 id="在栈上静态分配"><a href="#在栈上静态分配" class="headerlink" title="在栈上静态分配"></a>在栈上静态分配</h2><p>用户空间能够奢侈的负担起非常大的栈，而且栈空间可以动态增长，见下图进程内存的逻辑结构：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84.png" alt="进程内存结构"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3vao35qj30tq11gqjz.jpg" alt="进程内存结构"></p>
 <p>内核栈小而固定，大小依赖体系结构，也与编译时选项有关，历史上每个页都有两个页的内核栈。</p>
 <p>为了避免终端处理程序放在内核栈中，内核开发者还实现了中断栈，这样中断处理程序不用再和被中断进程共享一个内核栈。</p>
 <p>在内核栈上进行大量的静态分配是很危险的，通过<a href="http://linuxperf.com/?p=116" target="_blank" rel="external">内核栈溢出</a>一文可以看到实验中内存溢出时的打印报告。在栈溢出的时候最好的情况是宕机，最坏是悄无声息破坏数据。</p>
@@ -498,7 +498,7 @@
 </ul>
 <p>进程/task 处于与世隔绝态。一个简单的例子解释：“某进程创建另一个进程”，其实是某进程请求内核创建另一个进程。进程的“创建”只是一种系统级调用。</p>
 <p>系统调用的执行步骤可以通过一张图来说明：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%94%A8%E6%88%B7%E6%80%81%E5%86%85%E6%A0%B8%E6%80%81%E5%88%87%E6%8D%A2%E6%AD%A5%E9%AA%A4%E5%9B%BE.png" alt="系统调用/用户态内核态切换步骤图"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3tx9u7yj30zs0yg17t.jpg" alt="系统调用/用户态内核态切换步骤图"></p>
 <h3 id="CPU控制"><a href="#CPU控制" class="headerlink" title="CPU控制"></a>CPU控制</h3><p>Linux正是通过这种方式“控制”CPU的执行，这里的“控制”指的是执行谁的代码，每当进程进行系统级调用，那么Linux就拿到了CPU的控制权。</p>
 <p>Linux还可以通过时钟中断的方式拿到CPU的控制权。下面引用<a href="https://hui-wang.info/2018/03/25/操作系统对CPU的控制权/" target="_blank" rel="external">操作系统对CPU的控制权</a>一文的描述：</p>
 <blockquote>
