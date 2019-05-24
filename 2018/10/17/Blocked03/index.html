@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/10/17/Blocked03/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="通过上一篇的分析，我们知道当一个线程尝试获取monitor锁失败后，最终会被封装成一个ObjectWaiter对象，放入一个以_cxq为头节点的队列中，这个队列通过一个简单链表实现。每当有新来的节点入队，它的next指针总是指向之前队列的头节点，而_cxq指针会指向该新入队的节点，这就是后来者当头。实际上synchronized锁机制内维护了三个队列，除了cxq，还包括EntryList与Wait">
-<meta property="og:updated_time" content="2018-10-26T08:25:13.000Z">
+<meta property="og:updated_time" content="2019-05-24T15:37:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再谈阻塞(3)：cxq、EntryList与WaitSet">
 <meta name="twitter:description" content="通过上一篇的分析，我们知道当一个线程尝试获取monitor锁失败后，最终会被封装成一个ObjectWaiter对象，放入一个以_cxq为头节点的队列中，这个队列通过一个简单链表实现。每当有新来的节点入队，它的next指针总是指向之前队列的头节点，而_cxq指针会指向该新入队的节点，这就是后来者当头。实际上synchronized锁机制内维护了三个队列，除了cxq，还包括EntryList与Wait">
@@ -324,7 +324,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T21:47:52+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T21:47:53+08:00">
                 2018-10-17
               </time>
             

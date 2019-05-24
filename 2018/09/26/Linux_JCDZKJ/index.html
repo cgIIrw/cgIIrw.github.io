@@ -86,13 +86,13 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/09/26/Linux_JCDZKJ/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要是跟随《Linux内核设计与实现》一书，了解进程地址空间相关的技术，从源码的角度理解Linux里进程和线程的区别。">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/mmap.png">
-<meta property="og:image" content="http://oowdnxekq.bkt.clouddn.com/%E9%A1%B5%E8%A1%A8.png">
-<meta property="og:updated_time" content="2018-10-21T06:11:07.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn172oj317u0fmdjt.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ofmlw6j30xy0dyadg.jpg">
+<meta property="og:updated_time" content="2019-05-24T15:36:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Linux内核设计与实现》阅读笔记：(第十五章)进程地址空间">
 <meta name="twitter:description" content="本篇主要是跟随《Linux内核设计与实现》一书，了解进程地址空间相关的技术，从源码的角度理解Linux里进程和线程的区别。">
-<meta name="twitter:image" content="http://oowdnxekq.bkt.clouddn.com/mmap.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn172oj317u0fmdjt.jpg">
 
 
 
@@ -454,7 +454,7 @@
 <p>mm_users表示正在使用该地址的进程数目，是mm_struct的用户数，也就是使用该地址空间的线程数；mm_count表示mm_struct结构体的主引用计数。通过同时具有这两个计数，内核可以区分使用地址空间的进程数和引用计数。</p>
 <p>mmap vs mm_rb：</p>
 <p>这两个结构体都可以描述地址空间的全部内存区域，mmap是链表，遍历元素更高效；mm_rb是红黑树，搜索元素更高效，下图展示了基本原理：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/mmap.png" alt="mmap vs mm_rb"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3pn172oj317u0fmdjt.jpg" alt="mmap vs mm_rb"></p>
 <p>所有的mm_struct结构体通过自身的mmlist连接在一个双向链表中，受元素是init_mm内存描述符，代表了init进程的地址空间，操作需要加锁防止并发。</p>
 <h3 id="分配内存描述符"><a href="#分配内存描述符" class="headerlink" title="分配内存描述符"></a>分配内存描述符</h3><p>进程描述符task_struct的mm域存放着进程使用的内存描述符。</p>
 <p>进程：fork()利用copy_mm()<code>复制</code>父进程内存描述符</p>
@@ -481,7 +481,7 @@
 <p>为了加快搜索内存中的物理地址，多数体系结构实现了一个翻译后缓冲器(TLB)，当访问虚拟地址时，处理器首先检查TLB是否缓存了该地址到物理地址的映射；</p>
 <p>书中提到的未来改进，架构页表页通过COW处理，可以消除fork()操作中页表拷贝所带来的消耗；</p>
 <p>下图给出了一个三级页表的架构图：</p>
-<p><img src="http://oowdnxekq.bkt.clouddn.com/%E9%A1%B5%E8%A1%A8.png" alt="三级页表架构"></p>
+<p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ofmlw6j30xy0dyadg.jpg" alt="三级页表架构"></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>阅读《Linux内核设计与实现》第十五章旨在了解Linux实现进程地址空间的代码结构，了解了不少相关技术(比如进程和线程)的实现细节。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>《Linux内核设计与实现(第三版)》</p>
 <p>《Linux Kernel Development, 3rd Edition》</p>
