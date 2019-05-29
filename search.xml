@@ -5,10 +5,11 @@
     <url>%2F2019%2F05%2F29%2Fgc01%2F</url>
     <content type="text"><![CDATA[本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。 理论基础本人要实现的算法不是基于引用计数的，而是基于tracing，具体来说就是Mark Sweep GC算法的简易实现，参考自垃圾回收的算法与实现一书。 标记首先看看根对象有哪些： 虚拟机栈（栈帧中的本地变量表）中的引用的对象； 方法区中的类静态属性引用的对象； 方法区中的常量引用的对象； 本地方法栈中JNI引用的对象； 标记阶段，就是将活跃的对象进行标记，简单的方法就是将对象的mark字段设置为true，默认为false； 通常深度优先搜索比广度优先搜索更能压低内存使用量，所以在标记阶段经常使用深度优先搜索； 清除清除阶段遍历整个堆，将没有标记为true的对象进行回收。 分配分配就是将回收的内存再利用。 合并如果回收的内存在地址上是连续的，那么可以将这些内存合并成一个大的内存，这样缓和了碎片化。 引用检测概论R大关于“找出栈上指针/引用”的回答对各种商业级别的虚拟机如何进行引用检测进行了说明。 该文介绍了虚拟机GC的实现，包括了保守式GC（conservative GC）、半保守式GC/根上保守GC（conservative with respect to the roots）、准确式GC（precise GC、exact GC、accurate GC或者type accurate GC）。像HotSpot这种虚拟机采用的是准确式GC，其中有两句话是这么说的： 在HotSpot中，对象的类型信息里有记录自己的OopMap，记录了在该类型的对象内什么偏移量上是什么类型的数据。所以从对象开始向外的扫描可以是准确的；这些数据是在类加载过程中计算得到的； 每个被JIT编译过后的方法也会在一些特定的位置记录下OopMap，记录了执行到该方法的某条指令的时候，栈上和寄存器里哪些位置是引用。这样GC在扫描栈的时候就会查询这些OopMap就知道哪里是引用了； 文中进一步指出了这些特定位置(即安全点)是： 循环的末尾； 方法临返回前/调用方法的call指令后； 可能抛异常的位置； native方法实现首先构造一个实例： 123456789101112131415161718192021222324252627282930public class GcTest01 &#123; public static B newInstance() &#123; A a = new A(); return a.getB(); &#125; public static void main(String[] args) &#123; B bb = newInstance(); System.gc(); &#125; static class A &#123; int x = 77; B b = new B(); public B getB() &#123; return b; &#125; &#125; static class B &#123; int y0 = 8; int y1 = 18; int y2 = 28; int y3 = 38; int y4 = 48; int y5 = 58; int y6 = 68; &#125;&#125; newInstance()执行结束后，对象a不再是根对象，可以被回收处理，而对象a内部生成的B类对象由于被main方法内的变量bb引用，属于根对象，不被回收。 本人进行的工作很简单：实现本地方法System.gc()，用它来主动完成基本的垃圾回收处理功能。当然，System.gc()实际原理非常复杂，这里只为实现简单的功能。 查看System.gc()源码首先看一看整个方法的调用链： 当调用方法System.gc()后，实际上运行了下列代码： 123public static void gc() &#123; Runtime.getRuntime().gc();&#125; 继续追踪，getRuntime()会返回Runtime对象： 123public static Runtime getRuntime() &#123; return currentRuntime;&#125; 而currentRuntime是Runtime类中的私有字段： 1private static Runtime currentRuntime = new Runtime(); gc()是Runtime类下的一个native方法： 1public native void gc(); 这不是一个静态方法，且返回类型为void。 native方法框架首先按照之前站内文Java虚拟机之本地方法调用实现介绍的方法，搭好native方法的框架。 在native_包下，创建java.lang.JRuntime类： 123456789101112public class JRuntime &#123; private static JNINativeMethod[] methods = &#123; new JNINativeMethod("gc", "()V", new JVM_ENTRY.JVM_GC()), &#125;; public static void Java_java_lang_Runtime_registerNatives(String className) &#123; for (JNINativeMethod jniNativeMethod : methods) &#123; Registry.registerMethod(className, jniNativeMethod.getMethodName(), jniNativeMethod.getMethodDescriptor(), jniNativeMethod.getNativeMethod()); &#125; &#125;&#125; Hotspot并不存在Java_java_lang_Runtime_registerNatives()，这里只是为了方便注册进行的简便处理。 接下来在INVOKE_NATIVE内添加代码： 12if (className.equals("java/lang/Runtime")) JRuntime.Java_java_lang_Runtime_registerNatives(className); 框架就搭好了，现在只要在JVM_ENTRY实现gc的本地方法JVM_GC()即可。 垃圾回收算法实现小结本垃圾回收功能的实现采用了显性的方式，要了解更多商业级别的实现细节可以阅读文末的参考。 参考垃圾回收的算法与实现 R大关于活跃分析(liveness analysis)的回答 R大关于“找出栈上指针/引用”的回答 R大关于“java编译生成字节码产生 ()与()的方法疑问”的回答 附：修复遗留的空指针BUG有的类并不含有静态变量，在编写的过程中，设置了当变量个数大于0，才进行类初始化，代码如下： 12345678public LocalVars_(int maxLocals) &#123; if (maxLocals &gt; 0) &#123; slots = new Slot_[maxLocals]; for (int i = 0; i &lt; slots.length; i++) &#123; slots[i] = new Slot_(); &#125; &#125;&#125; 一旦字段个数为0，instanceKlass.getStaticSlotCount()也为0，此时生成的LocalVars对象的slots字段就为null，这将在后续程序运行的过程中，产生错误。于是添加判断语句，修复该错误。]]></content>
       <categories>
-        <category>GC</category>
+        <category>JVM</category>
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>GC</tag>
       </tags>
   </entry>
   <entry>
@@ -1226,9 +1227,9 @@
         <category>效果器</category>
       </categories>
       <tags>
-        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
+        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>

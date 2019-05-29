@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="Java,GC," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。 理论基础本人要实现的算法不是基于引用计数的，而是基于tracing，具体来说就是Mark Sweep GC算法的简易实现，参考自垃圾回收的算法与实现一书。 标记首先看看根对象有哪些：  虚拟机栈（栈帧中的本地变量表）中的引用的对象； 方法区中的类静态属性引用的对象； 方">
-<meta name="keywords" content="Java">
+<meta name="description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。">
+<meta name="keywords" content="Java,GC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Java语言实现简单的垃圾回收功能">
 <meta property="og:url" content="https://cgiirw.github.io/2019/05/29/gc01/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。 理论基础本人要实现的算法不是基于引用计数的，而是基于tracing，具体来说就是Mark Sweep GC算法的简易实现，参考自垃圾回收的算法与实现一书。 标记首先看看根对象有哪些：  虚拟机栈（栈帧中的本地变量表）中的引用的对象； 方法区中的类静态属性引用的对象； 方">
-<meta property="og:updated_time" content="2019-05-29T14:39:38.000Z">
+<meta property="og:description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。">
+<meta property="og:updated_time" content="2019-05-29T14:43:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Java语言实现简单的垃圾回收功能">
-<meta name="twitter:description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。 理论基础本人要实现的算法不是基于引用计数的，而是基于tracing，具体来说就是Mark Sweep GC算法的简易实现，参考自垃圾回收的算法与实现一书。 标记首先看看根对象有哪些：  虚拟机栈（栈帧中的本地变量表）中的引用的对象； 方法区中的类静态属性引用的对象； 方">
+<meta name="twitter:description" content="本人的开源项目pip-boy一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。">
 
 
 
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/GC/" itemprop="url" rel="index">
-                    <span itemprop="name">GC</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -429,6 +429,7 @@
 
       
         <p>本人的开源项目<a href="https://github.com/cgIIrw/pip-boy" target="_blank" rel="external">pip-boy</a>一直缺少垃圾回收功能，这让它看起来更像是一个解释器而非虚拟机，本篇将介绍如何实现简单的垃圾回收功能。</p>
+<a id="more"></a>
 <h2 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h2><p>本人要实现的算法不是基于引用计数的，而是基于tracing，具体来说就是Mark Sweep GC算法的简易实现，参考自<a href="https://book.douban.com/subject/26821357/" target="_blank" rel="external">垃圾回收的算法与实现</a>一书。</p>
 <h3 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h3><p>首先看看根对象有哪些：</p>
 <ul>
@@ -521,6 +522,8 @@
         <div class="post-tags">
           
             <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/GC/" rel="tag"># GC</a>
           
         </div>
       
@@ -636,7 +639,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -647,7 +650,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">95</span>
+                  <span class="site-state-item-count">96</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
