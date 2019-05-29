@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2019/05/29/gc01/</loc>
+    
+    <lastmod>2019-05-29T14:39:38.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/06/22/Learning_Vim/</loc>
+    
+    <lastmod>2019-05-29T00:28:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/01/09/vim03/</loc>
     
-    <lastmod>2019-05-28T09:12:59.000Z</lastmod>
+    <lastmod>2019-05-28T09:34:09.000Z</lastmod>
     
   </url>
   
@@ -180,13 +194,6 @@
     <loc>https://cgiirw.github.io/2019/04/29/groupcache01/</loc>
     
     <lastmod>2019-05-03T14:02:20.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/06/22/Learning_Vim/</loc>
-    
-    <lastmod>2019-05-03T12:24:18.000Z</lastmod>
     
   </url>
   
