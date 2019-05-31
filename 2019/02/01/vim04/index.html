@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2019/02/01/vim04/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要聚焦光标的移动和跳转，有些命令在之前一系列的文章中已经涉及到。">
-<meta property="og:updated_time" content="2019-05-31T09:43:42.000Z">
+<meta property="og:updated_time" content="2019-05-31T13:46:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="收看世界杯并快记常用Vim命令：进阶(三)">
 <meta name="twitter:description" content="本篇主要聚焦光标的移动和跳转，有些命令在之前一系列的文章中已经涉及到。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  639
+                  781
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -454,6 +454,12 @@
 <p>一般来说<code>d</code>和<code>a</code>搭配比较好，而<code>c</code>和<code>i</code>搭配比较好。</p>
 <p><strong>如何将一对括号修改为一对中括号？</strong></p>
 <p>假设现在给以一段字符串：{nihao alibb}，现在要讲{}改编为[]，首先光标停留在<code>{</code>上，然后采用蒂亚戈(%)，此时使用<code>r]</code>更换掉<code>}</code>，接着使用``跳转到之前<code>{</code>的地方，然后使用<code>r[</code>更换<code>[</code>。</p>
+<p><strong>Vim如何翻页？</strong></p>
+<p>向上翻页是<c-b>，向下翻页的方法是<c-f>，向上翻页半屏是<c-u>，向下翻页半屏是<c-d>。</c-d></c-u></c-f></c-b></p>
+<p><strong>前面某问下使用了``跳转命令，它和<c-o>有什么不同？</c-o></strong></p>
+<p>``会更新jump历史，所以连续按此命令会重复在两个位置上跳转，而<code>&lt;C-o&gt;</code>会一直回跳到关闭为止。</p>
+<p><strong>如何标记自定义位置？</strong></p>
+<p>在Normal模式下使用<code>m[字符]</code>的形式标记一个自定义的位置，当要跳转到该位置时，使用`[字符]命令就可以满足要求。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文主要总结文件内跳转操作。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/25869486/" target="_blank" rel="external">《Vim实用技巧》</a></p>
 
