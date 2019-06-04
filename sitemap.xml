@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2019/02/01/vim04/</loc>
+    
+    <lastmod>2019-06-04T10:06:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/</loc>
+    
+    <lastmod>2019-06-02T10:47:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/05/02/name-shadowed/</loc>
     
     <lastmod>2019-06-02T06:56:45.000Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>https://cgiirw.github.io/2019/01/09/vim03/</loc>
     
     <lastmod>2019-06-01T05:50:56.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2019/02/01/vim04/</loc>
-    
-    <lastmod>2019-05-31T13:46:03.000Z</lastmod>
     
   </url>
   
@@ -425,13 +432,6 @@
     <loc>https://cgiirw.github.io/2018/10/20/Review_TCPL/</loc>
     
     <lastmod>2019-03-06T08:09:55.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/04/16/JVM_Oop_Desc/</loc>
-    
-    <lastmod>2019-02-25T21:30:06.000Z</lastmod>
     
   </url>
   

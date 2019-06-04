@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2019/02/01/vim04/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要聚焦光标的移动和跳转，有些命令在之前一系列的文章中已经涉及到。">
-<meta property="og:updated_time" content="2019-05-31T13:46:03.000Z">
+<meta property="og:updated_time" content="2019-06-04T10:06:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="收看世界杯并快记常用Vim命令：进阶(三)">
 <meta name="twitter:description" content="本篇主要聚焦光标的移动和跳转，有些命令在之前一系列的文章中已经涉及到。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  781
+                  1,013
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -460,7 +460,19 @@
 <p>``会更新jump历史，所以连续按此命令会重复在两个位置上跳转，而<code>&lt;C-o&gt;</code>会一直回跳到关闭为止。</p>
 <p><strong>如何标记自定义位置？</strong></p>
 <p>在Normal模式下使用<code>m[字符]</code>的形式标记一个自定义的位置，当要跳转到该位置时，使用`[字符]命令就可以满足要求。</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文主要总结文件内跳转操作。</p>
+<p><strong>如何分屏？</strong></p>
+<p>横向分屏使用<code>:sp</code>命令，纵向使用<code>:vsp</code>。</p>
+<p><strong>如何在各屏中切换？</strong></p>
+<p>首先键入<code>C-w</code>，然后通过<code>w</code>、<code>W</code>在各屏中切换，<code>w</code>和<code>W</code>方向相反。</p>
+<p><strong>如何关闭光标所在窗口、如何关闭其它窗口？</strong></p>
+<p>在键入<code>C-w</code>的条件下，键入<code>c</code>是关闭当前窗口(如果该窗口是唯一窗口则不关闭，如果希望关闭则使用<code>q</code>)，键入<code>o</code>是关闭其他窗口。</p>
+<p><strong>如何将某个窗口和下一个窗口互换？</strong></p>
+<p>键入<code>C-w</code>，通过<code>r</code>进行窗口互换。</p>
+<p><strong>如何新开一个没有任何输入的窗口？</strong></p>
+<p>键入<code>C-w</code>，接着键入<code>n</code>。</p>
+<p><strong>在新开了一个没有任何输入的窗口后，如何保存，保存后如何打开？</strong></p>
+<p>保存采用<code>:w [文件名]</code>的方式，如果希望再次打开，可以使用<code>:sp/vsp [文件名]</code>的方式打开。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文主要总结Vim的跳转操作。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/25869486/" target="_blank" rel="external">《Vim实用技巧》</a></p>
 
       
