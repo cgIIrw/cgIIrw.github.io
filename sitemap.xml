@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2018/04/12/Git_Prac/</loc>
+    
+    <lastmod>2019-06-05T22:58:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/02/01/vim04/</loc>
     
     <lastmod>2019-06-04T10:06:48.000Z</lastmod>
@@ -327,13 +334,6 @@
     <loc>https://cgiirw.github.io/2018/05/22/JUC_AQS03/</loc>
     
     <lastmod>2019-04-29T09:16:37.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2018/04/12/Git_Prac/</loc>
-    
-    <lastmod>2019-04-25T09:58:49.000Z</lastmod>
     
   </url>
   

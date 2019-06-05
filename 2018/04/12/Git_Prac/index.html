@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g2ez11h0mgj30ra05yn8o.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g2etkhbl5dj30mk044jxu.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1g2f00c9nhlj30p80g61kx.jpg">
-<meta property="og:updated_time" content="2019-04-25T09:58:49.000Z">
+<meta property="og:updated_time" content="2019-06-05T22:58:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(一)">
 <meta name="twitter:description" content="之前翻译过一篇简短的《GIT CHEAT SHEET》，这里带着问题实践一下。">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,445
+                  1,456
                 </span>
               
 
@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5
+                  6
                 </span>
               
             </div>
@@ -509,7 +509,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1g2ey31f61yj30pe0di4lx.jpg" alt="git05"></p>
 <p>此时README.md处于untracked状态。</p>
 <p>如何恢复到最开始文件包含modified状态的内容时的状态呢？首先执行<code>git add README.md</code>，然后再采用<code>git reset HEAD README.md</code>命令。或者，执行<u><code>git reset HEAD README.md</code></u>。</p>
-<p>2.如果希望文件夹下不保留文件，需要执行<code>git rm -f</code>，之所以要添加选项-f是为了数据的安全，党使用这个命令后，就意味着将舍弃modified状态和staged状态下的修改。</p>
+<p>2.如果希望文件夹下不保留文件，需要执行<code>git rm -f</code>，之所以要添加选项-f是为了数据的安全，当使用这个命令后，就意味着将舍弃modified状态和staged状态下的修改。</p>
 <ul>
 <li>文件夹下包含staged状态的内容：</li>
 </ul>
@@ -521,7 +521,7 @@
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1g2ez11h0mgj30ra05yn8o.jpg" alt="git06"></p>
 <p>所以要添加选项<code>-f</code>，想来也容易理解其中原因，当你要通过前述方法恢复数据的时候，你无法区分哪一部分是modified的内容，哪一部分是staged的内容，这就造成了信息丢失。</p>
 <h2 id="历史与撤销"><a href="#历史与撤销" class="headerlink" title="历史与撤销"></a>历史与撤销</h2><p><strong>如果仅仅是一次add犯了错，要还原成untracked状态还可以使用什么方法？</strong></p>
-<p>下面我们touch一个新的文件README02.md，这个时候运行git status -s命令有：</p>
+<p>下面我们touch一个新的文件README02.md并add之，这个时候运行git status -s命令有：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g2etkhbl5dj30mk044jxu.jpg" alt="git04"></p>
 <p>此时虽然README02.md的内容处于staged状态，但是它属于new file，所以用A表示。在这种情况下使用如下命令可将README02.md恢复到untracked状态：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git reset HEAD README02.md</div></pre></td></tr></table></figure>
@@ -541,10 +541,10 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git diff xxxx xxxx</div></pre></td></tr></table></figure>
 <p>两个参数xxxx对应要比较的两次提交id，谁作为第一个参数，谁就是参照物，最后的打印会显示以参照物为标准的变化。</p>
 <p><strong>如果git rm –cached README.md后，那么此时再add刚刚已经untracked的README.md后会发生什么呢？</strong></p>
-<p>实际上属于前文某表格下的分析的一种情形，在那里忽略掉了，这里进行一次说明。</p>
+<p>实际上属于前文某表格下的分析的情形，但在那里的分析忽略掉了<code>Not has MM</code>的情况，这里进行说明。</p>
 <p>如果当前的README.md既没有modified状态的内容，也没有staged状态的内容，在执行git rm –cached README.md后，继续add README.md，会出现如下结果：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1g2f00c9nhlj30p80g61kx.jpg" alt="git07"></p>
-<p>此时staged状态下是没有内容的。</p>
+<p>此时modified状态和staged状态下是没有内容的。</p>
 <p><strong>如何列出所有的SHA-1哈希码？</strong></p>
 <p>使用如下命令即可：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git reflog</div></pre></td></tr></table></figure>
