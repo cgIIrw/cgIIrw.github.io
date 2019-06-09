@@ -88,7 +88,7 @@
 <meta property="og:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3ov2afkj30og09qmz6.jpg">
-<meta property="og:updated_time" content="2019-06-06T00:35:00.000Z">
+<meta property="og:updated_time" content="2019-06-06T06:24:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git带着问题去实践(二)">
 <meta name="twitter:description" content="“有人把Git的分支模型称为它的必杀技特性，也正因为这一特性，使得Git从众多版本控制系统中脱颖而出。”">
@@ -392,7 +392,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,935
+                  2,028
                 </span>
               
 
@@ -439,13 +439,19 @@
 <p>其实这不难理解，在没有提交前，所谓的分支不过是各个指针指向当前提交点而已。</p>
 <p>需要说明的是，如果再次用同样的方法，对branch02进行修改，比如更改test.md最后一行为Hello branch02，尝试切换回branch01将会报错：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">error: Your local changes to the following files would be overwritten by checkout:</div><div class="line">	test.md</div><div class="line">Please, commit your changes or stash them before you can switch branches.</div><div class="line">Aborting</div></pre></td></tr></table></figure>
-<p>切换失败，需要commit或者使用<code>stash</code>解决，关于<code>stash</code>以后会讲到。</p>
+<p>切换失败，需要commit或者使用<code>stash</code>解决，关于<code>stash</code>后面会讲到。</p>
 <p><strong>在各支线，用git log命令可以看到其它支线提交的情况吗？</strong></p>
 <p>将branch02分支中add的文件commit，切换到各支线进行测试，结果是不能。</p>
 <p>不仅如此，<code>git log --oneline --decorate</code>这个命令，只会追踪HEAD指针，当其它分支都停留在HEAD指针指向的地方时，命令才会将它们的名字打印出来。</p>
 <p>但是使用<code>git log --oneline --decorate --graph --all</code>可以打印出所有支线组成的树状结构。</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mly1fwr3od7g31j30s4064myl.jpg" alt="图2-1"></p>
 <p>log也可以查看公共仓库的提交，使用<code>git log origin/master</code>命令即可。</p>
+<p><strong>怎么给Git命令取别名？</strong></p>
+<p>以<code>git log --oneline --decorate --graph --all</code>为例，为它取一个别名<code>git tree</code>可以通过如下设置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git config --global alias.tree 'log --oneline --decorate --graph --all'</div></pre></td></tr></table></figure>
+<p>当打下<code>git tree</code>将出现和欲被修改的别名命令同样的效果。</p>
+<p>为了以后的方便，这里将<code>reset HEAD --</code>设置为<code>unstaged</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git config --global alias.unstaged 'reset HEAD --'</div></pre></td></tr></table></figure>
 <p><strong>分支怎么合并到master?</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git checkout master</div><div class="line"><span class="meta">$</span> git merge branch01</div></pre></td></tr></table></figure>
 <p>此时输出：</p>
