@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xdvg7d5kj30e00a0q2x.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xe7ozr8ij30e00c0mx8.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xf0y2iwlj30e008pjre.jpg">
-<meta property="og:updated_time" content="2019-06-11T10:59:25.000Z">
+<meta property="og:updated_time" content="2019-06-12T00:52:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用确定有限状态自动机解KMP算法">
 <meta name="twitter:description" content="这里介绍的方法来自于《算法(第四版)》一书，通过构造一个确定有限状态自动机来解决KMP算法。">
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,057
+                  2,379
                 </span>
               
 
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8
+                  9
                 </span>
               
             </div>
@@ -451,6 +451,7 @@
 <p>不难发现，p[0]，p[1]，…，p[j-1]所组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]所组成的字符串是相等的，即模式字符串的<code>ACBAC</code>和文本字符串的<code>ACBAC</code>相等(下图中紫色部分)：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xdmphks0j30e0080jrb.jpg" alt="图2"></p>
 <p><strong>那么求k不就是求p[0]，p[1]，…，p[j-1]加上t[i]所组成字符串的前缀字符串和后缀字符串的最长共有元素的长度吗？</strong></p>
+<p>要说明的是，一个字符串的前缀字符串指的是除了最后一个字符外，该字符串的全部头部组合；一个字符串的后缀字符串指的是除了第一个字符外，该字符串的全部尾部组合。例如<code>ACBACB</code>的前缀字符串包括：<code>A</code>、<code>AC</code>、<code>ACB</code>、<code>ACBA</code>、<code>ACBAC</code>，后缀字符串包括：<code>B</code>、<code>CB</code>、<code>ACB</code>、<code>BACB</code>、<code>CBACB</code>。</p>
 <p>p[0]，p[1]，…，p[j-1](即紫色部分<code>ACBAC</code>)和t[i](即字符<code>B</code>)组成的字符串为下图中蓝色部分表示：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xdvg7d5kj30e00a0q2x.jpg" alt="图3"></p>
 <p>上图中蓝色部分<code>ACBACB</code>的前缀字符串和后缀字符串最长共有元素为<code>ACB</code>(下图中绿色部分分别为前缀字符串和后缀字符串<code>ACB</code>)，长度为3：</p>
@@ -458,20 +459,46 @@
 <p>这个3也就是k的值，那么接下来t[i+1]就只需要从p[k](k等于3)开始进行比较(虚线部分)，而p[2]与t[i]、p[1]与t[i-1]、p[0]与t[i-2]就不用再去一一比较了(下图中绿色的部分)，因为他们肯定是相等的：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xf0y2iwlj30e008pjre.jpg" alt="图5"></p>
 <p>如此一来，i就做到了不用回退还能一直“前行”，达到了优化之前暴力算法的目的。</p>
-<h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>所以i每前进一位，就需要知道位于文本字符串上的这个位置(更新后的i)从模式字符串上的哪一个字符开始匹配。</p>
-<p>由于只需要寻找接下来从模式字符串上哪一位匹配，可以把j停留在的位置处理成一种状态，模式字符串一共有0，1，2，3，…，M-1这M个状态，我们用KMP算法成功查找到模式字符串第一次出现的位置的过程，其实也是一种j从0不断跳转，直到跳转到M-1状态并最终有t[i] == p[j]，使得j=M的过程。</p>
-<p>现构造一个int类型的二维数组dfa[][]，用来模拟一个确定有限状态自动机。第一维对应需要比较的文本字符串的字符t[i]（传入的字符类型自动向上转化为int类型），第二维表示要比较的模式字符串所处的状态j。而数组的值就表示比较后应该跳转到的状态。</p>
-<p>如何跳转分两种情形，一种是当前i和j指向的字符匹配成功，一种是匹配不成功。</p>
-<h4 id="匹配成功"><a href="#匹配成功" class="headerlink" title="匹配成功"></a>匹配成功</h4><p>如果t[i]等于p[j]，说明匹配成功，j应该跳转到j+1，表示下一个i(也就是i+1)将与这个位置的字符进行比较。所以dfa[][]需要满足dfa[p[j]][j] = j+1的条件，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfa[p[j]][j] = j + <span class="number">1</span>;</div></pre></td></tr></table></figure>
-<p>在匹配之前，由于p[0]，p[1]，…，p[j-1]组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]组成的字符串相等，假设此时这个相等字符串的前缀字符串和后缀字符串的最长共有元素的长度为k，<strong>那么在t[i]与p[j]匹配成功后，需要重新更新这个k，k=dfa[p[j]][k]。</strong> 毕竟这个时候i和j都要＋1，原本的k对应着p[0]，p[1]，…，p[j-1]组成的字符串，更新的k对应p[0]，p[1]，…，p[j-1]，p[j]组成的字符串，而字符串尾部增加字符p[j]导致后缀字符串改变，通过p[j]与p[k]比较后跳转的状态就是更新后的k：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">k = dfa[p[j]][k];</div></pre></td></tr></table></figure>
-<h4 id="匹配不成功"><a href="#匹配不成功" class="headerlink" title="匹配不成功"></a>匹配不成功</h4><p>在匹配之前，由于p[0]，p[1]，…，p[j-1]组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]组成的字符串相等，假设此时这个相等字符串的前缀字符串和后缀字符串的最长共有元素的长度为k，<strong>当匹配不成功时，t[i]!=p[j]，dfa[t[i]][j]=dfa[t[i]][k]。</strong> 这个和匹配成功时，更新k很类似，目的是求出不匹配时，p[0]，p[1]，…，p[j-1]，t[i]组成的字符串的前缀字符串和后缀字符串的最长共有元素的长度。这样，当i+1后，t[i+1]就直接从p[dfa[t[i]][k]]开始匹配：</p>
+<h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>由前文的分析可得，i一直前进，且每进一位，只需要知道位于文本字符串上该位置的字符与模式字符串上的哪个位置的字符进行匹配。</p>
+<p>不妨把j停留在的位置理解成一种状态，模式字符串一共有0，1，2，3，…，M-1这M个状态，<strong>那么用KMP算法成功查找到模式字符串第一次出现的位置的过程，其实也是一种j从0不断跳转，直到跳转到M-1状态并满足t[i] == p[j]的过程</strong>。</p>
+<p>接下来需要构造一个int类型的二维数组dfa，用来模拟一个确定有限状态自动机：</p>
+<ul>
+<li>第一维：对应需要比较的文本字符串的字符(在实际的Java代码中传入的字符类型自动向上转化为int类型)；</li>
+<li>第二维：表示要比较的模式字符串所处的状态；</li>
+<li>dfa元素的值：表示比较后应该跳转到的状态；</li>
+</ul>
+<p>dfa一旦构造成功，就可以通过它找到文本字符串每个位置应该和模式字符串的什么位置比较，从而对之前的暴力解法for循环内的部分进行优化，这，就是《算法》一书介绍的KMP算法思想，暴力算法改进如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(String pat, String txt)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> j, M = pat.length();</div><div class="line">    <span class="keyword">int</span> i, N = txt.length();</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; N &amp;&amp; j &lt; M; i++)</div><div class="line">      j = dfa[txt.charAt(i)][j];</div><div class="line">    <span class="keyword">if</span> (j == M)</div><div class="line">        <span class="keyword">return</span> i - M;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> N;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h4><p>那么dfa如何构造？</p>
+<p>考虑到跳转分两种情形，一种是当前i和j指向的字符匹配不成功，一种则是匹配成功，所以分别对这两种情形进行分析。</p>
+<ol>
+<li>匹配不成功</li>
+</ol>
+<p>在匹配之前，由于p[0]，p[1]，…，p[j-1]组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]组成的字符串相等，设此时这个相等字符串的前缀字符串和后缀字符串的最长共有元素的长度为k，当匹配不成功时，t[i]不等于p[j]，dfa[t[i]][j]的值表示i+1后，t[i+1]从什么地方开始匹配，它应该等于dfa[t[i]][k]。</p>
+<p>为什么dfa[t[i]][j]应该等于dfa[t[i]][k]？</p>
+<p>这个问题可以转化为：已知一个字符串S，它的前缀字符串和后缀字符串的最长共有元素的长度为k，现将一个字符拼接在S的尾部组成新的字符串S’，求此新的字符串的前缀字符串和后缀字符串的最长共有元素的长度k’为多少。</p>
+<p>首先能够确定的是，k’的大小不会超过k+1，也就是说k’只可能&lt;= k+1。分两种情况讨论：</p>
+<ul>
+<li>当拼接的字符等于S[k]时，k’的大小为k+1；</li>
+<li>当拼接的字符不等于S[k]时，k’等于S[0]、S[1]、S[2]、…、S[k-1]与该字符组成的字符串的前缀字符串和后缀字符串的最长共有元素的长度；</li>
+</ul>
+<p>实际上这正是dfa[t[i]][k]的含义，当跳过这一小段文字，读至本文末尾就会发现，以上便是字符匹配的成功和不成功的两种情形，也就是说，本方法不停通过迭代进行构造。</p>
+<p>匹配不成功的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; R; c++) &#123;</div><div class="line">  dfa[c][j] = dfa[c][k];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>c是扩展ASCII中的字符，范围在0 ～ 255。</p>
-<h4 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h4><p>设定初始值后，通过以上两种情形的处理，k可以不断迭代更新，最终构建出dfa[][]。每次循环中匹配成功的代码不能在匹配失败的代码之前，不然会被覆盖：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>, j = <span class="number">1</span>; j &lt; pat.length(); j++) &#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; <span class="number">256</span>; c++) &#123;</div><div class="line">    dfa[c][j] = dfa[c][k];</div><div class="line">  dfa[pat.charAt(j)][j] = j + <span class="number">1</span>;</div><div class="line">  k = dfa[pat.charAt(j)][k];  </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本篇主要针对《算法》一书上介绍的方法进行分析。如果i“匍匐前进”(每次不匹配后，下一次进行比较时还是i)而不是”大步向前”(无论每次匹配是否成功，下一次比较时是i+1)，似乎更能构造出便于理解的所谓“next”数组，但两者的基本原理是一样的，都是要构造一个字符串，找到它的前缀字符串和后缀字符串的最长共有元素的长度。书中的方法可能是希望将KMP放在自动机问题的框架中来思考。</p>
+<ol>
+<li>匹配成功</li>
+</ol>
+<p>如果t[i]等于p[j]，说明匹配成功，j应该跳转到j+1，表示t[i+1]将与p[j+1]进行比较。所以dfa需要满足dfa[p[j]][j] = j+1的条件，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfa[p[j]][j] = j + <span class="number">1</span>;</div></pre></td></tr></table></figure>
+<h4 id="更新k"><a href="#更新k" class="headerlink" title="更新k"></a>更新k</h4><p>无论匹配成功与否，每经过一轮匹配，k值都应该更新：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">k = dfa[p[j]][k];</div></pre></td></tr></table></figure>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><p>设定初始值后，通过以上两种情形的处理，k可以不断迭代更新，最终构建出dfa，代码编写如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">dfa[pat.charAt(<span class="number">0</span>)][<span class="number">0</span>] = <span class="number">1</span>;</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>, j = <span class="number">1</span>; j &lt; pat.length(); j++) &#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; <span class="number">256</span>; c++) &#123;</div><div class="line">    dfa[c][j] = dfa[c][k];</div><div class="line">  dfa[pat.charAt(j)][j] = j + <span class="number">1</span>;</div><div class="line">  k = dfa[pat.charAt(j)][k];  </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>关于初始值的说明：pat.charAt(0)是模式字符串的第一个字符，它与模式字符串所处的第0号状态的字符当然相等，所以dfa[pat.charAt(0)][0]的结果是跳转到状态1。</p>
+<p>实际编写代码的时候需要注意：每次循环中匹配成功的代码不能在匹配失败的代码之前，不然会被覆盖。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本篇主要分析了<a href="https://book.douban.com/subject/10432347/" target="_blank" rel="external">《算法(第4版)》</a>一书介绍的方法。再回味一下书中给出的那句话：“KMP算法的主要思想是提前判断如何重新开始查找，而这种判断只取决于模式字符串本身。”这句话揭示KMP算法的本质。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/10432347/" target="_blank" rel="external">《算法(第4版)》</a></p>
 
       
     </div>
@@ -693,7 +720,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP算法"><span class="nav-number">2.</span> <span class="nav-text">KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFA"><span class="nav-number">2.1.</span> <span class="nav-text">DFA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配成功"><span class="nav-number">2.1.1.</span> <span class="nav-text">匹配成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配不成功"><span class="nav-number">2.1.2.</span> <span class="nav-text">匹配不成功</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代"><span class="nav-number">2.1.3.</span> <span class="nav-text">迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP算法"><span class="nav-number">2.</span> <span class="nav-text">KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFA"><span class="nav-number">2.1.</span> <span class="nav-text">DFA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.1.1.</span> <span class="nav-text">字符匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新k"><span class="nav-number">2.1.2.</span> <span class="nav-text">更新k</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">2.1.3.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
