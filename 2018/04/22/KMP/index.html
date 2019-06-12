@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xdvg7d5kj30e00a0q2x.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xe7ozr8ij30e00c0mx8.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xf0y2iwlj30e008pjre.jpg">
-<meta property="og:updated_time" content="2019-06-12T00:52:07.000Z">
+<meta property="og:updated_time" content="2019-06-12T01:01:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用确定有限状态自动机解KMP算法">
 <meta name="twitter:description" content="这里介绍的方法来自于《算法(第四版)》一书，通过构造一个确定有限状态自动机来解决KMP算法。">
@@ -395,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,379
+                  2,378
                 </span>
               
 
@@ -441,7 +441,7 @@
 <p>在暴力算法中，每次字符串上对应的单个字符匹配失败，i会回退到i-j+1的位置与j=0再次尝试新的匹配，在for循环执行完后，如果j等于模式字符串的长度M，则表示匹配成功，返回第一次出现的位置i-M，否则表示匹配失败，返回文本字符串的长度N来表示。</p>
 <h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>“KMP算法的主要思想是提前判断如何重新开始查找，而这种判断只取决于模式字符串本身。” ——摘自《算法》中文版496页</p>
 <p>如果说这本书中介绍的关于实现KMP算法的方法和其它文章中构建next数组的方法有什么不同的话，<strong>我认为是前者不仅不回退，而且一直在”前行”，而后者的i不回退但是会“停留”。</strong> 不过这篇文章只单独针对《算法》书中的方法进行分析。</p>
-<p>为了方便理解和说明，现假设有一个文本字符串txt（此字符串转化成的字符数组为t）：<code>ACBACBACAB</code>和一个模式字符串pat（此字符串转化成的字符数组为p）：<code>ACBACAB</code>，当i=0，j=0时文本第一个字符和模式第一个字符相等，各自+1进行下一次比较…一直到当i＝5、j＝5时，对应的字符分别是文本的第六个字符<code>B</code>和模式的第六个字符<code>A</code>，此时<code>B</code>不等于<code>A</code>所以不匹配(下图中浅红色部分)：</p>
+<h3 id="示例说明"><a href="#示例说明" class="headerlink" title="示例说明"></a>示例说明</h3><p>为了方便理解，现假设有一个文本字符串txt（此字符串转化成的字符数组为t）：<code>ACBACBACAB</code>和一个模式字符串pat（此字符串转化成的字符数组为p）：<code>ACBACAB</code>，当i=0，j=0时文本第一个字符和模式第一个字符相等，各自+1进行下一次比较…一直到当i＝5、j＝5时，对应的字符分别是文本的第六个字符<code>B</code>和模式的第六个字符<code>A</code>，此时<code>B</code>不等于<code>A</code>所以不匹配(下图中浅红色部分)：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g3xcj9614nj30e0080dfq.jpg" alt="图1"></p>
 <p>要使i继续“前行”变更为i+1（也就是i＝6，指向第七个字符）的同时，还能保证算法的正确，那么找到与i＋1进行匹配的j的值就是本算法的关键。假设此时j＝k，k就是这样一个数：</p>
 <ul>
@@ -471,10 +471,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">search</span><span class="params">(String pat, String txt)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> j, M = pat.length();</div><div class="line">    <span class="keyword">int</span> i, N = txt.length();</div><div class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, j = <span class="number">0</span>; i &lt; N &amp;&amp; j &lt; M; i++)</div><div class="line">      j = dfa[txt.charAt(i)][j];</div><div class="line">    <span class="keyword">if</span> (j == M)</div><div class="line">        <span class="keyword">return</span> i - M;</div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">return</span> N;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="字符匹配"><a href="#字符匹配" class="headerlink" title="字符匹配"></a>字符匹配</h4><p>那么dfa如何构造？</p>
 <p>考虑到跳转分两种情形，一种是当前i和j指向的字符匹配不成功，一种则是匹配成功，所以分别对这两种情形进行分析。</p>
-<ol>
-<li>匹配不成功</li>
-</ol>
-<p>在匹配之前，由于p[0]，p[1]，…，p[j-1]组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]组成的字符串相等，设此时这个相等字符串的前缀字符串和后缀字符串的最长共有元素的长度为k，当匹配不成功时，t[i]不等于p[j]，dfa[t[i]][j]的值表示i+1后，t[i+1]从什么地方开始匹配，它应该等于dfa[t[i]][k]。</p>
+<h5 id="匹配不成功"><a href="#匹配不成功" class="headerlink" title="匹配不成功"></a>匹配不成功</h5><p>在匹配之前，由于p[0]，p[1]，…，p[j-1]组成的字符串和t[i-j]，t[i-j+1]，…，t[i-1]组成的字符串相等，设此时这个相等字符串的前缀字符串和后缀字符串的最长共有元素的长度为k，当匹配不成功时，t[i]不等于p[j]，dfa[t[i]][j]的值表示i+1后，t[i+1]从什么地方开始匹配，它应该等于dfa[t[i]][k]。</p>
 <p>为什么dfa[t[i]][j]应该等于dfa[t[i]][k]？</p>
 <p>这个问题可以转化为：已知一个字符串S，它的前缀字符串和后缀字符串的最长共有元素的长度为k，现将一个字符拼接在S的尾部组成新的字符串S’，求此新的字符串的前缀字符串和后缀字符串的最长共有元素的长度k’为多少。</p>
 <p>首先能够确定的是，k’的大小不会超过k+1，也就是说k’只可能&lt;= k+1。分两种情况讨论：</p>
@@ -486,10 +483,7 @@
 <p>匹配不成功的代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> c = <span class="number">0</span>; c &lt; R; c++) &#123;</div><div class="line">  dfa[c][j] = dfa[c][k];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>c是扩展ASCII中的字符，范围在0 ～ 255。</p>
-<ol>
-<li>匹配成功</li>
-</ol>
-<p>如果t[i]等于p[j]，说明匹配成功，j应该跳转到j+1，表示t[i+1]将与p[j+1]进行比较。所以dfa需要满足dfa[p[j]][j] = j+1的条件，代码如下：</p>
+<h5 id="匹配成功"><a href="#匹配成功" class="headerlink" title="匹配成功"></a>匹配成功</h5><p>如果t[i]等于p[j]，说明匹配成功，j应该跳转到j+1，表示t[i+1]将与p[j+1]进行比较。所以dfa需要满足dfa[p[j]][j] = j+1的条件，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dfa[p[j]][j] = j + <span class="number">1</span>;</div></pre></td></tr></table></figure>
 <h4 id="更新k"><a href="#更新k" class="headerlink" title="更新k"></a>更新k</h4><p>无论匹配成功与否，每经过一轮匹配，k值都应该更新：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">k = dfa[p[j]][k];</div></pre></td></tr></table></figure>
@@ -720,7 +714,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP算法"><span class="nav-number">2.</span> <span class="nav-text">KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DFA"><span class="nav-number">2.1.</span> <span class="nav-text">DFA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.1.1.</span> <span class="nav-text">字符匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新k"><span class="nav-number">2.1.2.</span> <span class="nav-text">更新k</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">2.1.3.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#预热"><span class="nav-number">1.</span> <span class="nav-text">预热</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KMP算法"><span class="nav-number">2.</span> <span class="nav-text">KMP算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例说明"><span class="nav-number">2.1.</span> <span class="nav-text">示例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DFA"><span class="nav-number">2.2.</span> <span class="nav-text">DFA</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字符匹配"><span class="nav-number">2.2.1.</span> <span class="nav-text">字符匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#匹配不成功"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">匹配不成功</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#匹配成功"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">匹配成功</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新k"><span class="nav-number">2.2.2.</span> <span class="nav-text">更新k</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">2.2.3.</span> <span class="nav-text">完整代码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
