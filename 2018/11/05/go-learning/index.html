@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg">
-<meta property="og:updated_time" content="2019-05-16T15:51:42.000Z">
+<meta property="og:updated_time" content="2019-06-20T15:00:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
 <meta name="twitter:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,802
+                  2,800
                 </span>
               
 
@@ -482,7 +482,7 @@
 <p>可以看出，x变量的大小为16个单位(字节)，正好是&amp;x和&amp;y值的差，从两个变量的起始地址开始计算32位的值，结果都是17558375，说明它们都引用了同一地址的数据；从x变量的起始位置开始，计算出偏移量为8的字节表示的值为5，正好是“Hello”字符串的长度。</p>
 <p>所以一个字符串变量承载的信息包括了字符串数据和字符串长度，用一个图简单表示：</p>
 <p><img src="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg" alt="go-learning01"></p>
-<p>和Java相同的是，Go的字符串也是不可变的，所以虽然Go采用的是所谓的值传递，但是不同的变量共用同一段底层数据，所以变量间的赋值开销都很低廉。</p>
+<p>和Java相同的是，Go的字符串也是不可变的。虽然Go采用的是所谓的值传递，但是不同的变量共用同一段底层数据，所以变量间的赋值开销都很低廉。</p>
 <h3 id="多重赋值"><a href="#多重赋值" class="headerlink" title="多重赋值"></a>多重赋值</h3><p>和Java不同的是，Go可以多重赋值，例如交换两个变量的值可以用很简单的形式表达：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x, y = y, x</div></pre></td></tr></table></figure>
 <p>多重赋值常常搭配函数的多重返回，但有时候返回的值并非都是需要的，不需要的值可以赋给空标识符：</p>
