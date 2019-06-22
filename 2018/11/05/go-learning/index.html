@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/007lBb0Mgy1g33a47seeuj30i3079q2w.jpg">
-<meta property="og:updated_time" content="2019-06-20T15:00:53.000Z">
+<meta property="og:updated_time" content="2019-06-21T05:57:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读《Go程序设计语言》：从Java的视角掌握Go(一)">
 <meta name="twitter:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言。">
@@ -436,7 +436,7 @@
 <p>和Java不同的是，Go没有复杂的访问修饰符，基本上只包括函数内访问(这里暂时不考虑闭包)、包访问、跨包访问。实体在函数内声明就只在该函数内部局部有效，函数外声明则对包里的所有源文件可见，如果名称以大写字母开头则支持跨包访问。</p>
 <p>Go的编程风格偏向于短名称，特别是作用域小的局部变量，名称作用域越大，越使用长和更有意义的名称；</p>
 <p>缩写词通常使用统一的大小写，比如HTML或者html，但不用Html；</p>
-<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量的声明形式和Go存在一定的区别，如下所示：</p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量的声明形式和Java存在一定的区别，如下所示：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> name <span class="keyword">type</span> = expression</div></pre></td></tr></table></figure>
 <p>type和expression不能同时省略，当expression省略时，Go存在零值机制保障。</p>
 <p>在Java中，如果是类变量，在连接的准备阶段会赋类型的零值(暂不讨论static final修饰的变量，后续会和const一起讨论)，类初始化的时候会赋上声明的初始值；如果是类的普通变量，在本站内的文章<a href="/2018/04/16/JVM_Oop_Desc/" title="Java虚拟机之对象探秘">Java虚拟机之对象探秘</a>有介绍，new等编译成的指令为普通字段赋上该类型的零值，但初始化器会在每个构造方法中被执行，而且是在显式写进构造方法内的内容执行前执行；如果是方法内的局部变量，必须手动赋值，否则不能使用；</p>
@@ -584,8 +584,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/10/Scala04/" rel="prev" title="Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象">
-                Scala入门，以Java程序员的视角(三)：孤立对象和伴生对象 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/07/go-learning02/" rel="prev" title="阅读《Go程序设计语言》：从Java的视角掌握Go(二)">
+                阅读《Go程序设计语言》：从Java的视角掌握Go(二) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -670,7 +670,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">133</span>
+                  <span class="site-state-item-count">134</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
