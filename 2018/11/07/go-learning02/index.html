@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2018/11/07/go-learning02/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言，这是第二篇。">
-<meta property="og:updated_time" content="2019-06-22T15:51:18.000Z">
+<meta property="og:updated_time" content="2019-07-06T15:50:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阅读《Go程序设计语言》：从Java的视角掌握Go(二)">
 <meta name="twitter:description" content="本人在阅读《Go程序设计语言》时，通过比较Java和Go的不同来快速掌握Go语言，这是第二篇。">
@@ -438,7 +438,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">8</div><div class="line">8</div></pre></td></tr></table></figure>
 <p>各占8个字节。</p>
 <p>rune和byte分别是int32和uint8的同义词，所谓同义词就是它们满足前面提到的可赋值性：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ww <span class="keyword">byte</span></div><div class="line"><span class="keyword">var</span> www <span class="keyword">uint8</span></div><div class="line"><span class="keyword">var</span> rr <span class="keyword">rune</span></div><div class="line"><span class="keyword">var</span> rrr <span class="keyword">int32</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(ww == www)</div><div class="line">	fmt.Println(rr== rrr)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ww <span class="keyword">byte</span></div><div class="line"><span class="keyword">var</span> www <span class="keyword">uint8</span></div><div class="line"><span class="keyword">var</span> rr <span class="keyword">rune</span></div><div class="line"><span class="keyword">var</span> rrr <span class="keyword">int32</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	fmt.Println(ww == www)</div><div class="line">	fmt.Println(rr == rrr)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>输出结果是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">true</div><div class="line">true</div></pre></td></tr></table></figure>
 <p>Go还存在一种无符号整数uintptr，它的大小不定，但可以存放指针；</p>
@@ -606,7 +606,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">135</span>
+                  <span class="site-state-item-count">136</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -617,7 +617,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -628,7 +628,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-count">99</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
