@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[ToneZ]]></title>
     <url>%2F2019%2F07%2F12%2FToneZ%2F</url>
-    <content type="text"><![CDATA[ToneZ教程。]]></content>
+    <content type="text"><![CDATA[ToneZ教程。 OscillatorsToneZ提供四个oscillators，它们的工作方式相同并各自独立： OSC1，2，3，4：用于在不同oscillators之间切换。 波形选择boxes：左边的box定义oscillator的主要波形，有8种不同波形可用： Saw Sine Triangle Square Pulse 6 special waves White Noise 右边的box定义次要的波形。]]></content>
       <categories>
         <category>合成器</category>
       </categories>
