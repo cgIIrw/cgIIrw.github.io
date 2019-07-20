@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,Two Sum," />
+  <meta name="keywords" content="Java,Two Sum,LeetCode," />
 
 
 
@@ -80,13 +80,13 @@
 
 
 <meta name="description" content="问题描述 Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, w">
-<meta name="keywords" content="Java,Two Sum">
+<meta name="keywords" content="Java,Two Sum,LeetCode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Two Sum">
 <meta property="og:url" content="https://cgiirw.github.io/2015/08/22/LeetCode_Two_Sum/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="问题描述 Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, w">
-<meta property="og:updated_time" content="2018-10-31T01:38:11.000Z">
+<meta property="og:updated_time" content="2019-07-19T07:01:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Two Sum">
 <meta name="twitter:description" content="问题描述 Given an array of integers, find two numbers such that they add up to a specific target number. The function twoSum should return indices of the two numbers such that they add up to the target, w">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  680
+                  684
                 </span>
               
 
@@ -438,7 +438,7 @@
 <p>这一题大致是说在给定的整数数组中找到两个整数，使得两个数字的和等于一个给定的数，这里假定问题存在一个解。</p>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>暴力求解的时间复杂度过高，当然还有采用先排序再两边夹逼的方法，但是目前比较好的方法是采用Hash表。</p>
 <p>Hash表解此题的核心思想是用key存储原数组中的值，用value存储原数组值的索引。</p>
-<p>此题假设有一个解，但是并非不能有重复的数出现，比如提供的数组为[5,3,3,5,7]，如果target是6，那么如何处理重复的数就派生出两种稍微不同的解法。</p>
+<p>此题假设每种输入只会对应一个答案，但是并非不能有重复的数出现，比如提供的数组为[5,3,3,5,7]，如果target是6，那么下面的哈希(1)方法并不能处理这种情况。</p>
 <h3 id="哈希-1"><a href="#哈希-1" class="headerlink" title="哈希(1)"></a>哈希(1)</h3><p>事先存好，存好后如果出现相同的数会覆盖前面出现的数，这里不妨采用HashMap。下面手写实现的类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></div><div class="line">&#123;</div><div class="line">    pubic <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] numbers,<span class="keyword">int</span> target )</div><div class="line">    &#123;</div><div class="line">      <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">      Map map = <span class="keyword">new</span> HashMap();</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++ )</div><div class="line">      &#123;</div><div class="line">        map.put(numbers[i],i);</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; numbers.length; i++)</div><div class="line">      &#123;</div><div class="line">        <span class="keyword">int</span> gap = target - numbers[i];</div><div class="line">        <span class="keyword">if</span> (map.get(gap) != <span class="keyword">null</span> &amp;&amp; (<span class="keyword">int</span>)map.get(gap) != i)</div><div class="line">        &#123;</div><div class="line">        res[<span class="number">0</span>] = i+<span class="number">1</span>;</div><div class="line">        res[<span class="number">1</span>] = (<span class="keyword">int</span>)map.get(gap) + <span class="number">1</span>;</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这段代码中，首先将提供的数组全部存储在容器中，这里如果存在相同的数，会覆盖。由于题目假设只有一个解，那么重复的数字不会超过2。if语句中<code>!= i</code>，是因为自己总是会和自己相等。</p>
@@ -487,6 +487,8 @@
             <a href="/tags/Java/" rel="tag"># Java</a>
           
             <a href="/tags/Two-Sum/" rel="tag"># Two Sum</a>
+          
+            <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           
         </div>
       
