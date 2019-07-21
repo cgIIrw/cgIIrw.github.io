@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本人在之前的文章收看世界杯并快记常用Vim命令里已经介绍了一些基本的Vim命令。本篇将采用问答的方式对其中部分命令进行进阶学习，内容主要参考自《Vim实用技巧》。">
 <meta property="og:image" content="http://y1.ifengimg.com/a/2014_32/ba3236523a1f022.jpg">
-<meta property="og:updated_time" content="2019-07-20T05:11:25.000Z">
+<meta property="og:updated_time" content="2019-07-21T05:43:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="收看世界杯并快记常用Vim命令：进阶(一)">
 <meta name="twitter:description" content="本人在之前的文章收看世界杯并快记常用Vim命令里已经介绍了一些基本的Vim命令。本篇将采用问答的方式对其中部分命令进行进阶学习，内容主要参考自《Vim实用技巧》。">
@@ -391,7 +391,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,462
+                  1,545
                 </span>
               
 
@@ -443,10 +443,10 @@
 <p><strong><code>f</code>的重复操作是什么？</strong></p>
 <p>下一个威廉是<code>;</code>，上一个威廉是<code>,</code>。需要注意的是，这两个命令都是行内有效。</p>
 <p><strong><code>cw</code>和<code>dw</code>的区别是什么？</strong></p>
-<p>类似<code>s</code>命令和<code>x</code>命令的区别，<code>cw</code>比<code>dw</code>多一个切入Insert模式的操作，阿尔巴防守尚可，进攻时切入对方禁区能力亦佳。</p>
-<p>这里如果<code>w</code>换成<code>e</code>，各自的效果是一样的，单词的反向删除这是将<code>w</code>换成<code>b</code>，此时删除的部分将不包含光标所在的位置。</p>
+<p>类似<code>s</code>命令和<code>x</code>命令的区别，<code>cw</code>比<code>dw</code>多一个切入Insert模式的操作，除此之外，<code>dw</code>会删除单个字词后面的空格。阿尔巴防守尚可，进攻时切入对方禁区能力亦佳。</p>
+<p>这里如果<code>w</code>换成<code>e</code>，两者删除的效果相同，前者仍然会进入Insert模式，后者停留在Normal模式。单词的反向删除是将<code>w</code>换成<code>b</code>，此时删除的部分将不包含光标所在的位置。</p>
 <p><strong><code>cw</code>和<code>dw</code>如果要删除完整的单词该怎么做？</strong></p>
-<p>在这两个命令中间添加<code>a</code>。和上一条不一样的是，这里<code>w</code>不能换成<code>e</code>。如果要删除整个段落，可以将<code>w</code>换成<code>p</code>。</p>
+<p>在这两个命令中间添加<code>a</code>，两者都会删除单词后面的空格。和上一条不一样的是，这里<code>w</code>不能换成<code>e</code>。如果要删除整个段落，可以将<code>w</code>换成<code>p</code>。</p>
 <p><strong>如何简单的给数字进行加操作或者减操作？</strong></p>
 <p><code>&lt;数字&gt;&lt;C-a&gt;</code>用来进行加操作，<code>&lt;数字&gt;&lt;C-x&gt;</code>用来进行减操作，光标并非一定要在数字上，当光标不在数字上，它会正向对最近的一个数字进行操作。</p>
 <p><strong>盛世美颜谨慎出场？</strong></p>
@@ -454,6 +454,7 @@
 <p>d3w和3dw效果一样(这里的次数3用来泛指)，迭戈科斯塔只在必须时使用。</p>
 <p><strong>如何一次将某单词全部字母大写或者小写？</strong></p>
 <p>操作符<code>g</code>和<code>动作命令</code>组合可以形成一个操作，这里<code>g~aw</code>可以在大小写转换中切换，<code>gUaw</code>用来将单词转换成大写，<code>guaw</code>将单词转换成小写。它们都是一个操作，可以用<code>.</code>来进行重复操作。</p>
+<p>金咕咕(gugU)用来切换大小写。</p>
 <p><strong>如何将对单词的操作用于行？</strong></p>
 <p>操作符通常连续调用两次会把对单词的操作作用于行，但是这里<code>gUgU</code>可以简化为<code>gUU</code>。</p>
 <p><strong>除了<code>&lt;esc&gt;</code>，还有什么方式可以将Insert模式切换回Normal模式？</strong></p>
@@ -463,14 +464,14 @@
 <p><strong>如何在Insert模式进行单词自动补全？</strong></p>
 <p>在该模式下键入<code>&lt;C-p&gt;</code>即可。</p>
 <p><strong>Insert模式如何粘贴寄存器文本？</strong></p>
-<p>首先是复制一块内容，采用<code>y</code> + <code>t</code> + “截止位置(不包含该位置)”，例如有一行文字：“Cgrw, hello!”，光标停留在“C”位，如果要复制Cgrw，可以采用<code>yt,</code>的组合。</p>
+<p>首先是复制一块内容，采用<code>y</code> + <code>t</code> + “截止位置(不包含该位置)”，例如有一行文字：“Cgrw, hello!”，光标停留在“C”位，如果要复制<code>Cgrw</code>，可以采用<code>yt,</code>的组合。</p>
 <p>然后进入Insert模式，按下<code>&lt;C-r&gt;0</code>，此时文字粘贴到了期望处，这里<code>0</code>是寄存器名字。</p>
 <p><strong>Insert模式如何简单的进行算数？</strong></p>
 <p>可以借助<code>＝</code>寄存器来实现，进入Insert模式按下<code>&lt;C-r&gt;=</code>，然后回车。</p>
 <p><strong>如何在Insert模式输入特殊符号？</strong></p>
 <p>首先查询符号的字符编码，如果是三位以内，例如<code>A</code>是065，那么直接输入<code>&lt;C-v&gt;065</code>；如果字符编码超过三位，例如倒立的<code>?</code>，则输入<code>&lt;C-v&gt;u00bf</code>。</p>
 <p><strong>Replace模式是什么模式？</strong></p>
-<p>Replace模式相比Insert模式可以直接在文本上替换，而非插入新的内容，除此之外和Insert模式基本相同，比如在该模式下，前述的Insert模式粘贴寄存器文本、进行算数以及输入特殊符号等方法都适用该模式。</p>
+<p>通过在Normal模式键入<code>R</code>切换到Replace模式。Replace模式相比Insert模式可以直接在文本上替换，而非插入新的内容，除此之外和Insert模式基本相同，比如在该模式下，前述的Insert模式粘贴寄存器文本、进行算数以及输入特殊符号等方法都适用该模式。</p>
 <p><strong>如何通过Visual模式将某个单词修改成另一个单词？</strong></p>
 <p>这里提供两种方法：</p>
 <ul>
@@ -486,7 +487,7 @@
 <li>键入大写<code>V</code>表示欲对行操作，然后键入<code>r</code>表示替换，最后接上要替换的内容，整个命令为：<code>Vr-</code>(<code>-</code>为要替换的内容)；</li>
 </ul>
 <p><strong>如何在长短不一的高亮块后添加文本？</strong></p>
-<p>相比{% post_link Learning_Vim %}文中内马尔的操作，这里只需注意在进入Visual模式后，还需先添加一个<code>$</code>，它可以到达每行文本的末尾。</p>
+<p>相比<a href="https://cgiirw.github.io/2018/06/22/Learning_Vim/">收看世界杯并快记常用Vim命令</a>一文中内马尔的操作，这里只需注意在进入Visual模式后，还需先添加一个<code>$</code>，它可以到达每行文本的末尾。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文主要用于熟悉一些Vim常用的操作。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://book.douban.com/subject/25869486/" target="_blank" rel="external">《Vim实用技巧》</a></p>
 
