@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[ToneZ]]></title>
     <url>%2F2019%2F07%2F12%2FToneZ%2F</url>
-    <content type="text"><![CDATA[ToneZ教程。 OscillatorsToneZ提供四个oscillators，它们的工作方式相同并各自独立： OSC1，2，3，4：用于在不同oscillators之间切换。 波形选择boxes：左边的box定义oscillator的主要波形，有8种不同波形可用： Saw Sine Triangle Square Pulse 6 special waves White Noise 右边的box定义次要的波形。 Morph：]]></content>
+    <content type="text"><![CDATA[ToneZ教程。 OscillatorsToneZ提供四个oscillators，它们的工作方式相同并各自独立： OSC1，2，3，4：用于在不同oscillators之间切换。 波形选择boxes：左边的box定义oscillator的主要波形，有8种不同波形可用： Saw Sine Triangle Square Pulse 6 special waves White Noise 右边的box定义次要的波形。 Morph：两个波形之间的morphing水平。(默认情况下，morph是0%，意味着只计算左边box定义的波形)(注：白噪不能被morphed) Voices：当使用者敲击一个音符时复合声音数，每个oscillator最多能达到8个。 Volume：oscillator的音量。 Detune：控制失谐量。 Width：控制音场的大小。 Octave：改变oscillator的octave。 Semi：改变oscillator的semitone(半音程)。 Cent：改变oscillator的cents。 Retrig：触发oscillator。 Phase：仅当能触发的时候，控制波形起始的点。 Pan：改变oscillator的声相。]]></content>
       <categories>
         <category>合成器</category>
       </categories>
@@ -1282,9 +1282,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
