@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本文是Sylenth1Manual的简明翻译。 概览Sylenth1的用户界面分成四个部分，每个部分拥有不同的颜色以便彼此区分。第一个部分被称作Part，包含两个振荡器和一个滤波器。Sylenth1拥有两个Part，分别为Part A和Part B，但是同一时间用户界面只显示其中一个。Part A有一个红色的背景颜色，Part B则是黄色。 第二部分是绿色，包含一个滤波控制和一个混合器面板，它们控">
+<meta name="description" content="本文是Sylenth1Manual的简明翻译。">
 <meta name="keywords" content="Sylenth1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sylenth1手册简明翻译">
 <meta property="og:url" content="https://cgiirw.github.io/2019/08/29/Sylenth1/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="本文是Sylenth1Manual的简明翻译。 概览Sylenth1的用户界面分成四个部分，每个部分拥有不同的颜色以便彼此区分。第一个部分被称作Part，包含两个振荡器和一个滤波器。Sylenth1拥有两个Part，分别为Part A和Part B，但是同一时间用户界面只显示其中一个。Part A有一个红色的背景颜色，Part B则是黄色。 第二部分是绿色，包含一个滤波控制和一个混合器面板，它们控">
-<meta property="og:updated_time" content="2019-08-30T14:38:28.000Z">
+<meta property="og:description" content="本文是Sylenth1Manual的简明翻译。">
+<meta property="og:updated_time" content="2019-09-13T14:31:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sylenth1手册简明翻译">
-<meta name="twitter:description" content="本文是Sylenth1Manual的简明翻译。 概览Sylenth1的用户界面分成四个部分，每个部分拥有不同的颜色以便彼此区分。第一个部分被称作Part，包含两个振荡器和一个滤波器。Sylenth1拥有两个Part，分别为Part A和Part B，但是同一时间用户界面只显示其中一个。Part A有一个红色的背景颜色，Part B则是黄色。 第二部分是绿色，包含一个滤波控制和一个混合器面板，它们控">
+<meta name="twitter:description" content="本文是Sylenth1Manual的简明翻译。">
 
 
 
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  464
+                  919
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -429,6 +429,7 @@
 
       
         <p>本文是Sylenth1Manual的简明翻译。</p>
+<a id="more"></a>
 <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><p>Sylenth1的用户界面分成四个部分，每个部分拥有不同的颜色以便彼此区分。第一个部分被称作Part，包含两个振荡器和一个滤波器。Sylenth1拥有两个Part，分别为Part A和Part B，但是同一时间用户界面只显示其中一个。Part A有一个红色的背景颜色，Part B则是黄色。</p>
 <p>第二部分是绿色，包含一个滤波控制和一个混合器面板，它们控制从两个Part传入的声音。第三部分是界面底部的蓝色面板，包含全部的调制选项。最后的第四部分由一个LCD显示器形成，包含主线效果。</p>
 <p>紧接着这四个部分，在位于界面底部的地方有一个键盘、弯音轮、调制轮和滑音控制。</p>
@@ -436,7 +437,14 @@
 <p>过滤器的输出随后重塑于振荡包络发生器，接着再进入混合器，最终，在施加了主线效果后音频输出信号发送到宿主。</p>
 <p>从图中可以看出，滤波控制面板同时控制part A和part B的滤波器。</p>
 <p>主线效果由一个琶音器和七个串联的声音效果器组成。第一个效果器是失真，接着是移相、合唱、均衡、混响、延迟，最后是压缩。</p>
-<h3 id="通过Part进行工作"><a href="#通过Part进行工作" class="headerlink" title="通过Part进行工作"></a>通过Part进行工作</h3><h2 id="各部分细述"><a href="#各部分细述" class="headerlink" title="各部分细述"></a>各部分细述</h2><h2 id="减少CPU使用率的小建议"><a href="#减少CPU使用率的小建议" class="headerlink" title="减少CPU使用率的小建议"></a>减少CPU使用率的小建议</h2><h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2>
+<h3 id="通过Part进行工作"><a href="#通过Part进行工作" class="headerlink" title="通过Part进行工作"></a>通过Part进行工作</h3><h4 id="Part选择"><a href="#Part选择" class="headerlink" title="Part选择"></a>Part选择</h4><p>你可以通过用户界面顶栏的“Part Select”按钮在两个Part之间进行切换。很容易在用户界面知道当前显示的是哪个Part，因为Part A拥有偏红背景色，而Part B则是黄色。</p>
+<h4 id="Solo"><a href="#Solo" class="headerlink" title="Solo"></a>Solo</h4><p>紧挨“Part Select”右边，你能找到名叫“Solo”的按钮，当该按钮被激活时，你将只听到当前所选Part的声音，这在你工作于复杂声音时非常有用。</p>
+<h3 id="控制旋钮"><a href="#控制旋钮" class="headerlink" title="控制旋钮"></a>控制旋钮</h3><h4 id="旋钮和控制"><a href="#旋钮和控制" class="headerlink" title="旋钮和控制"></a>旋钮和控制</h4><p>旋钮、滑块和其它控件可以通过单击按钮并在垂直方向上下拖拽来控制。如果你需要一个更高精度的控制，你可以在拖拽鼠标的时候按住Shift键。你也可以在旋转模式按住Alt键来控制按钮。</p>
+<h4 id="中心值"><a href="#中心值" class="headerlink" title="中心值"></a>中心值</h4><p>某些旋钮和控件具有居中的默认设置，例如平移旋钮或八度音阶以及振荡器上的音符值。双击这些控件将使它们跳转到其中心值。或者，在单击旋钮的同时按住Ctrl键可以使所有旋钮居中。</p>
+<h4 id="参数值显示"><a href="#参数值显示" class="headerlink" title="参数值显示"></a>参数值显示</h4><p>但凡你通过拖动旋钮更改参数值的时候，该参数值将显示在LCD屏幕上。</p>
+<p>如果你想知道参数的确切值，但却又不想更改它，只需单击一次旋钮即可。这将在屏幕上显示其值而不更改它。</p>
+<h4 id="MIDI控制"><a href="#MIDI控制" class="headerlink" title="MIDI控制"></a>MIDI控制</h4><p>Sylenth1上的大多数旋钮都可以通过MIDI Control Changes(CC)控制。每个旋钮都有一个默认的CC参数，在附录中列出。你也可以通过鼠标右键单击它们来轻松地将CC分配给旋钮。此时将弹出一个菜单，在这里可以学习或取消一个MIDI控制器。</p>
+<h2 id="各部分细述"><a href="#各部分细述" class="headerlink" title="各部分细述"></a>各部分细述</h2><h2 id="减少CPU使用率的小建议"><a href="#减少CPU使用率的小建议" class="headerlink" title="减少CPU使用率的小建议"></a>减少CPU使用率的小建议</h2><h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2>
       
     </div>
     
@@ -486,8 +494,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/12/ToneZ/" rel="next" title="ToneZ">
-                <i class="fa fa-chevron-left"></i> ToneZ
+              <a href="/2019/08/20/Effective_Java_3/" rel="next" title="《Effective Java第三版》快读(一)">
+                <i class="fa fa-chevron-left"></i> 《Effective Java第三版》快读(一)
               </a>
             
           </div>
@@ -578,7 +586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">138</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -649,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#音频路径"><span class="nav-number">1.1.</span> <span class="nav-text">音频路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Part进行工作"><span class="nav-number">1.2.</span> <span class="nav-text">通过Part进行工作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各部分细述"><span class="nav-number">2.</span> <span class="nav-text">各部分细述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少CPU使用率的小建议"><span class="nav-number">3.</span> <span class="nav-text">减少CPU使用率的小建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">1.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#音频路径"><span class="nav-number">1.1.</span> <span class="nav-text">音频路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过Part进行工作"><span class="nav-number">1.2.</span> <span class="nav-text">通过Part进行工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Part选择"><span class="nav-number">1.2.1.</span> <span class="nav-text">Part选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Solo"><span class="nav-number">1.2.2.</span> <span class="nav-text">Solo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制旋钮"><span class="nav-number">1.3.</span> <span class="nav-text">控制旋钮</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#旋钮和控制"><span class="nav-number">1.3.1.</span> <span class="nav-text">旋钮和控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中心值"><span class="nav-number">1.3.2.</span> <span class="nav-text">中心值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数值显示"><span class="nav-number">1.3.3.</span> <span class="nav-text">参数值显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MIDI控制"><span class="nav-number">1.3.4.</span> <span class="nav-text">MIDI控制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各部分细述"><span class="nav-number">2.</span> <span class="nav-text">各部分细述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减少CPU使用率的小建议"><span class="nav-number">3.</span> <span class="nav-text">减少CPU使用率的小建议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
             
 
           </div>

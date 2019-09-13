@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。">
-<meta property="og:updated_time" content="2019-05-24T15:46:02.000Z">
+<meta property="og:updated_time" content="2019-09-10T10:19:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Java编程风格规范">
 <meta name="twitter:description" content="编程也需要好的习惯和规范，翻译自《Google Java编程风格指南》(链接见最后)。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,633
+                  4,641
                 </span>
               
 
@@ -477,7 +477,7 @@
 </ul>
 <p>示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> <span class="keyword">new</span> MyClass() &#123;</div><div class="line">  <span class="keyword">if</span> (condition()) &#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      something();</div><div class="line">    &#125; <span class="keyword">catch</span> (ProblemException e) &#123;</div><div class="line">      recover();</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
 <p>后续给出了enum类的一些例外。</p>
-<h3 id="空块：可以用简洁版本"><a href="#空块：可以用简洁版本" class="headerlink" title="空块：可以用简洁版本"></a>空块：可以用简洁版本</h3><p>一个空的块状结构里什么也不包含，大括号可以简洁地写成<em>{}</em>，不需要换行。例外：如果它是一个多块语句的一部分（if/else或try/catch/finally），即使大括号内没内容，右大括号也要换行。</p>
+<h3 id="空块：可以用简洁版本"><a href="#空块：可以用简洁版本" class="headerlink" title="空块：可以用简洁版本"></a>空块：可以用简洁版本</h3><p>一个空的块状结构里什么也不包含，大括号可以简洁地写成<code>{}</code>，不需要换行。例外：如果它是一个多块语句的一部分（if/else或try/catch/finally），即使大括号内没内容，右大括号也要换行。</p>
 <p>示例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">doNothing</span><span class="params">()</span> </span>&#123;&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="块缩进：2个空格"><a href="#块缩进：2个空格" class="headerlink" title="块缩进：2个空格"></a>块缩进：2个空格</h2><p>每当开始新的块，缩进增加<u>2个空格</u>，当块结束时，缩进返回先前的缩进级别，缩进级别适用于代码和注释。</p>
 <h2 id="一行一个语句"><a href="#一行一个语句" class="headerlink" title="一行一个语句"></a>一行一个语句</h2><p>每个语句后要换行。</p>
@@ -495,13 +495,13 @@
 </blockquote>
 <h3 id="从哪断开"><a href="#从哪断开" class="headerlink" title="从哪断开"></a>从哪断开</h3><p>自动换行的基本准则：更倾向于在更高的语法级别处断开。</p>
 <ol>
-<li>在<code>非赋值运算符</code>处断开：在该符号前断开（比如+，它将位于下一行）。这条规则也适用于以下“类运算符”符号，点分隔符（.），类型界限中的&amp;（<t extends="" foo="" &="" bar="">），catch块中的管道符号（catch (FooException | BarException e)；</t></li>
+<li>在<code>非赋值运算符</code>处断开：在该符号前断开（比如+，它将位于下一行）。这条规则也适用于以下“类运算符”符号，点分隔符（.），类型界限中的&amp;（<code>&lt;T extends Foo &amp; Bar&gt;</code>），catch块中的管道符号（catch (FooException | BarException e)；</li>
 <li>在<code>赋值运算符</code>处断开：通常做法是在该符号后断开（比如=，它与前面的内容留在同一行）。这条规则也适用于foreach语句中的分号；</li>
 <li>方法名或构造函数名与左括号留在同一行；</li>
 <li>逗号（,）与其前面的内容留在同一行；</li>
 </ol>
 <h3 id="自动换行时缩进至少-4个空格"><a href="#自动换行时缩进至少-4个空格" class="headerlink" title="自动换行时缩进至少+4个空格"></a>自动换行时缩进至少+4个空格</h3><p>自动换行时，第一行后的每一行至少比第一行多缩进4个空格（注意：制表符在前面说过了，制表符不用于缩进）。当存在连续自动换行时，缩进可能会多缩进不只4个空格（语法元素存在多级时）。一般而言，两个连续行使用相同的缩进当且仅当他们开始于同级语法元素。</p>
-<h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><h3 id="垂直空白"><a href="#垂直空白" class="headerlink" title="垂直空白"></a>垂直空白</h3><p>一下情况需要使用一个空行：</p>
+<h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><h3 id="垂直空白"><a href="#垂直空白" class="headerlink" title="垂直空白"></a>垂直空白</h3><p>以下情况需要使用一个空行：</p>
 <ol>
 <li>类内连续的成员之间：字段，构造函数，方法，潜入类，静态初始化块，实例初始化块；<ul>
 <li>例外：两个连续的字段之间的空行是可选的，用于字段的空行主要是用来对字段进行逻辑分组。</li>
@@ -514,33 +514,33 @@
 <p>多个连续的空行是允许的，但是没必要这么做（也不鼓励这样做）。</p>
 <h3 id="水平空白"><a href="#水平空白" class="headerlink" title="水平空白"></a>水平空白</h3><p>除了语言需求和其它规则，并且除了文字，注释和Javadoc用到单个空格，单个ASCII空格也出现在以下几个地方：</p>
 <ol>
-<li><p>分割任何保留字与紧随其后的左括号（<em>(</em>）（如if、for或catch等）</p>
+<li><p>分割任何保留字与紧随其后的左括号（<code>(</code>）（如if、for或catch等）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (; ; ) &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>分割任何保留字与其前面的右大括号（<em>}</em>）（如else,catch）</p>
+<li><p>分割任何保留字与其前面的右大括号（<code>}</code>）（如else,catch）</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">      something();</div><div class="line">    &#125; <span class="keyword">catch</span> (ProblemException e) &#123;</div><div class="line">      recover();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 </li>
-<li><p>在任何大括号前（<em>{</em>）。但是有两个例外：</p>
+<li><p>在任何大括号前（<code>{</code>）。但是有两个例外：</p>
 <ul>
 <li>@SomeAnnotation({a, b})（不使用空格）</li>
-<li>String[][] x = foo;（大括号间没有空格，见第八条下面的那点）</li>
+<li>String[][] x = {{"foo"}};（大括号间没有空格，见第八条下面的那点）</li>
 </ul>
 </li>
 <li>任何二元或三元运算符的两侧。这也适用于以下“类运算符”符号：<ul>
-<li>类型界限中的&amp;（<t extends="" foo="" &="" bar="">）</t></li>
-<li>catch块中的管道符号|（catch (FooException | BarException e)）</li>
+<li>类型界限中的&amp;（<code>&lt;T extends Foo &amp; Bar&gt;</code>）</li>
+<li>catch块中的管道符号|（<code>catch (FooException | BarException e)</code>）</li>
 <li>foreach语句中的分号</li>
 </ul>
 </li>
-<li>在, : ;及右括号（<em>)</em>）后</li>
-<li>如果在一条语句后做注释，则双斜杠两遍都需要空格，可以允许多个空格，但是没有必要</li>
+<li>在, : ;及右括号（<code>)</code>）后</li>
+<li>如果在一条语句后做注释，则双斜杠两边都需要空格，可以允许多个空格，但是没有必要</li>
 <li>类型和变量之间，比如：List list</li>
 <li>数组初始化中，大括号内的空格是可选的，即new int[] {5, 6}和new int[] {5, 6 }都是可以的<ul>
 <li>这个规则并不要求或禁止一行的开关或结尾需要额外的空格，只对内部空格做要求</li>
 </ul>
 </li>
 </ol>
-<h3 id="水平对齐：never-required"><a href="#水平对齐：never-required" class="headerlink" title="水平对齐：never required"></a>水平对齐：never required</h3><p>属于说明：水平对齐指的是通过增加可变数量的空格来使某一行的字符与上一行的相应字符对齐。</p>
+<h3 id="水平对齐：never-required"><a href="#水平对齐：never-required" class="headerlink" title="水平对齐：never required"></a>水平对齐：never required</h3><p>术语说明：水平对齐指的是通过增加可变数量的空格来使某一行的字符与上一行的相应字符对齐。</p>
 <p>这是允许的，但是Google编程风格对此不作要求。</p>
 <blockquote>
 <p>Tip:<u>对齐可增加代码可读性，但它为日后的维护带来问题。考虑未来某个时候，我们需要修改一堆对齐的代码中的一行。这可能导致原本很漂亮的对齐代码变得错位。很可能它会提示你调整周围代码的空白来使这一堆代码重新水平对齐(比如程序员想保持这种水平对齐的风格)，这就会让你做许多的无用功，增加了reviewer的工作并且可能导致更多的合并冲突。</u></p>
@@ -550,7 +550,7 @@
 <p>没有方法和文档的枚举类可写成数组初始化的格式：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">enum</span> Suit &#123; CLUBS, HEARTS, SPADES, DIAMONDS &#125;</div></pre></td></tr></table></figure>
 <p>由于枚举类也是一个类，因此所有适用于其它类的格式规则也适用于枚举类。</p>
-<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><h4 id="每次只声明一个变量"><a href="#每次只声明一个变量" class="headerlink" title="每次只声明一个变量"></a>每次只声明一个变量</h4><p>不要使用组合声明，比如int a, b;。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><h4 id="每次只声明一个变量"><a href="#每次只声明一个变量" class="headerlink" title="每次只声明一个变量"></a>每次只声明一个变量</h4><p>不要使用组合声明，比如<code>int a, b;</code>。</p>
 <h4 id="需要时才声明，并尽快进行初始化"><a href="#需要时才声明，并尽快进行初始化" class="headerlink" title="需要时才声明，并尽快进行初始化"></a>需要时才声明，并尽快进行初始化</h4><p>不要在一个代码块的开头把局部变量一次性都声明了(这是c语言的做法)，而是在第一次需要使用它时才声明。 局部变量在声明时最好就进行初始化，或者声明后尽快进行初始化。</p>
 <h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><h4 id="数组初始化：可写成块状结构"><a href="#数组初始化：可写成块状结构" class="headerlink" title="数组初始化：可写成块状结构"></a>数组初始化：可写成块状结构</h4><p>数组初始化可以写成块状结构，比如，下面的写法都是OK的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>,</div><div class="line">  <span class="number">1</span>,</div><div class="line">  <span class="number">2</span>,</div><div class="line">  <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[] &#123;</div><div class="line">  <span class="number">0</span>, <span class="number">1</span>,</div><div class="line">  <span class="number">2</span>, <span class="number">3</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> <span class="keyword">int</span>[]</div><div class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</div></pre></td></tr></table></figure></p>
 <h4 id="非C风格的数组声明"><a href="#非C风格的数组声明" class="headerlink" title="非C风格的数组声明"></a>非C风格的数组声明</h4><p>中括号是类型的一部分：String[] args， 而非String args[]。</p>
@@ -752,7 +752,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">137</span>
+                  <span class="site-state-item-count">138</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

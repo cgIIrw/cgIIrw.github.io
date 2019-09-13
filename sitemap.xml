@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://cgiirw.github.io/2019/08/20/Effective_Java_3/</loc>
+    
+    <lastmod>2019-09-13T14:33:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://cgiirw.github.io/2019/08/29/Sylenth1/</loc>
     
-    <lastmod>2019-08-30T14:38:28.000Z</lastmod>
+    <lastmod>2019-09-13T14:31:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/</loc>
+    
+    <lastmod>2019-09-10T10:19:24.000Z</lastmod>
     
   </url>
   
@@ -131,13 +145,6 @@
     <loc>https://cgiirw.github.io/2015/07/15/Django01/</loc>
     
     <lastmod>2019-05-24T15:46:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://cgiirw.github.io/2014/07/20/Google_Java_styleguide/</loc>
-    
-    <lastmod>2019-05-24T15:46:02.000Z</lastmod>
     
   </url>
   
