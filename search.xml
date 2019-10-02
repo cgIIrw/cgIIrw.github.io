@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[节日快乐]]></title>
+    <url>%2F2019%2F10%2F02%2Fxg%2F</url>
+    <content type="text"><![CDATA[在颓废了几个月后，我终于下定决心，准备花五天时间全倾全力写一首流行歌。为什么要这么做呢？理由可能有很多，所以就不赘述了。 具体的安排大概是： 十月二日熟悉吉他； 十月三日熟悉钢琴； 十月四日熟悉弦乐与鼓； 十月五日、六日完成自己的作品； 在这期间穿插着了解和声以及作曲方面的知识； 随着项目的进行，我会把一些使用到的效果器和音源列出。 先出门买点无糖可乐….]]></content>
+      <categories>
+        <category>音乐</category>
+      </categories>
+      <tags>
+        <tag>节日</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[实用乐理快速入门]]></title>
     <url>%2F2019%2F09%2F22%2FMusic-Theory%2F</url>
-    <content type="text"><![CDATA[本篇对实用的乐理知识进行快速入门。 五线谱十分钟五线谱： https://weibo.com/tv/v/I80u2BDkj?fid=1034:4419077494739702 音程键盘上的键可以看成七进制，度数 = 末项 - 首项 + 1； 半音数：首项到末项包含的键的个数(黑键和白键数量和) - 1； 三全音：半音有六个相当于全音有三个，所以半音为六的音程又称为三全音； 音程转位： 度数相加等于9； 大小增减是互换； 纯音程不变； 音程的协和性： 完全协和音程：纯一度、纯八度 协和音程：纯四度、纯五度 不完全协和音程：大小三度、大小六度 不协和音程：大小二度、大小七度、增四减五度 除非半音数为6，否则半音数唯一确定音程名，具体情况见下： 半音数 &lt;=&gt; 音程名 0 &lt;=&gt; 纯1度 1 &lt;=&gt; 小2度 －－－－－－－－－ 2 &lt;=&gt; 大2度 3 &lt;=&gt; 小3度 －－－－－－－－－ 4 &lt;=&gt; 大3度 5 &lt;=&gt; 纯4度 6 &lt;=&gt; 增4 / 减5度 －－－－－－－－－ 7 &lt;=&gt; 纯5度 8 &lt;=&gt; 小6度 －－－－－－－－－ 9 &lt;=&gt; 大6度 10 &lt;=&gt; 小7度 －－－－－－－－－ 11 &lt;=&gt; 大7度 12 &lt;=&gt; 纯8度 和弦调式小结]]></content>
+    <content type="text"><![CDATA[本篇对实用的乐理知识进行快速入门(未完待续)。 五线谱十分钟五线谱： https://weibo.com/tv/v/I80u2BDkj?fid=1034:4419077494739702 音程键盘上的级数可以看成七进制，度数 = 末项级数 - 首项级数 + 1； 半音数：首项到末项包含的键的个数(黑键和白键数量和) - 1； 三全音：半音有六个相当于全音有三个，所以半音为六的音程又称为三全音； 音程转位： 度数相加等于9； 大小增减是互换； 纯音程不变； 音程的协和性： 完全协和音程：纯一度、纯八度 协和音程：纯四度、纯五度 不完全协和音程：大小三度、大小六度 不协和音程：大小二度、大小七度、增四减五度 除非半音数为6，否则半音数唯一确定音程名，具体情况见下： 半音数 &lt;=&gt; 音程名 0 &lt;=&gt; 纯1度 1 &lt;=&gt; 小2度 －－－－－－－－－ 2 &lt;=&gt; 大2度 3 &lt;=&gt; 小3度 －－－－－－－－－ 4 &lt;=&gt; 大3度 5 &lt;=&gt; 纯4度 6 &lt;=&gt; 增4 / 减5度 －－－－－－－－－ 7 &lt;=&gt; 纯5度 8 &lt;=&gt; 小6度 －－－－－－－－－ 9 &lt;=&gt; 大6度 10 &lt;=&gt; 小7度 －－－－－－－－－ 11 &lt;=&gt; 大7度 12 &lt;=&gt; 纯8度 和弦注意根音和低音的区别 三和弦大三和弦：例如 C 三音、五音与根音的关系 大三度 纯五度 小三和弦：例如 Cm 三音、五音与和根音的关系 小三度 纯五度 增三和弦：例如 Caug 三音、五音与和根音的关系 大三度 增五度 减三和弦：例如 Bdim Bo 三音、五音与和根音的关系 小三度 减五度 七和弦CEG第一转位：C/E C表示根音，E表示低音 大三和弦 + 小七度 ＝ 属七和弦 调式I：主音 II：上主音 III：中音 IV：下属音 V：属音 VI：下中音 VII：导音 关系大小调： 小结]]></content>
       <categories>
         <category>音乐</category>
       </categories>
@@ -112,10 +123,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -148,9 +159,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1316,9 +1327,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
