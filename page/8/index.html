@@ -430,7 +430,7 @@
           <p>当一个线程执行结束，是怎么唤醒后续线程的？一个线程cancel后是怎样出队的？上一篇主要分析了获取锁，这一篇将聚焦释放锁以解答自己的困惑。本篇还是承接《J.U.C并发框架之AQS(一)：ReentrantLock获取锁》的实验用例，锁限定为非中断且非公平且独占的情形，而中断锁、非公平锁以及独占锁的研究将在后续开专篇解析。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/21/JUC_AQS02/#more" rel="contents">
+            <a class="btn" href="/2018/05/21/JUC_AQS02/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -626,7 +626,7 @@
           <p>解析ReentrantLock，就是解析AQS！但后者毕竟是一个框架，大而全，且部分功能交由子类重现，不容易找到一个阅读源码的切入点，所以不妨从ReentrantLock开始，先理解AQS实现的独占锁。在解析的过程中，对一些过于简单的细节，不再堆砌，只抓核心功能的实现部分。本解析采用的是jdk1.8.0_171。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/20/JUC_AQS01/#more" rel="contents">
+            <a class="btn" href="/2018/05/20/JUC_AQS01/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -822,7 +822,7 @@
           <p>本篇将入门J.U.C并发框架CAS，会对一部分源码进行解析。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/19/JUC_CAS/#more" rel="contents">
+            <a class="btn" href="/2018/05/19/JUC_CAS/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1018,7 +1018,7 @@
           <p>这一篇主要涉及线程的生命周期和中断机制，对Thread类下的interrupt()源码进行了解析。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/17/Thread01/#more" rel="contents">
+            <a class="btn" href="/2018/05/17/Thread01/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1214,7 +1214,7 @@
           <p>本篇主要用来入门Git协作。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/15/Git-Prac04/#more" rel="contents">
+            <a class="btn" href="/2018/05/15/Git-Prac04/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1410,7 +1410,7 @@
           <p>本篇继续之前系列，实践变更、回滚提交的操作。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/11/Git-Prac03/#more" rel="contents">
+            <a class="btn" href="/2018/05/11/Git-Prac03/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1606,7 +1606,7 @@
           <p>Java虚拟机规范对本地方法和本地方法栈的实现要求是非常宽松的，甚至明确说明“如果Java虚拟机不支持native方法，自己也不依赖传统栈(通常指“C Stacks”)的话，可以无需支持本地方法栈”。商业级别的HotSpot将虚拟机栈和本地方法栈合并，并采用JNI规范来实现本地方法。而本文也采用虚拟机栈和本地方法栈合并的模式来模仿编写。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/07/JVMNative/#more" rel="contents">
+            <a class="btn" href="/2018/05/07/JVMNative/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1802,7 +1802,7 @@
           <p>本篇将主要记录invokestatic、invokespecial、invokevirtual指令的实现以及类初始化的编写，invokeinterface的实现基本类似就不赘述了。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/04/JVM_032/#more" rel="contents">
+            <a class="btn" href="/2018/05/04/JVM_032/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1998,7 +1998,7 @@
           <p>本篇主要涉及四种方法调用指令：invokestatic、invokespecial、invokevirtual以及invokeinterface。invokestatic和invokespecial指令调用的方法，都可以在解析阶段确定唯一调用版本，在类加载的时候就把符号引用解析为该方法的直接引用，剩下两种需要在运行时再确定。此外，final方法是非虚方法。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/03/JVM_031/#more" rel="contents">
+            <a class="btn" href="/2018/05/03/JVM_031/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2194,7 +2194,7 @@
           <p>《算法(第4版)》5.2节讲到了单词查找树(也就是字典树)，这里结合LeetCode相关题目进行分析。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/05/03/Trie/#more" rel="contents">
+            <a class="btn" href="/2018/05/03/Trie/#espandi" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
