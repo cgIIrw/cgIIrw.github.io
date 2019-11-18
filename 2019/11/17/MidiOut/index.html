@@ -79,17 +79,23 @@
 
 
 
-<meta name="description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器。">
+<meta name="description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。">
 <meta name="keywords" content="MIDI Out,CC控制器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIDI Out实用小贴士">
 <meta property="og:url" content="https://cgiirw.github.io/2019/11/17/MidiOut/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器。">
-<meta property="og:updated_time" content="2019-11-17T15:10:20.000Z">
+<meta property="og:description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g920wu5pywj30id06f402.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g920xm79j3j30dl0d1q4p.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g921183w8kj30fl05naad.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9212khll8j30ge0acmy7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9212vmh2hj30i407zq3a.jpg">
+<meta property="og:updated_time" content="2019-11-18T03:34:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MIDI Out实用小贴士">
-<meta name="twitter:description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器。">
+<meta name="twitter:description" content="本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g920wu5pywj30id06f402.jpg">
 
 
 
@@ -389,7 +395,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  29
+                  292
                 </span>
               
 
@@ -428,9 +434,22 @@
       
 
       
-        <p>本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器。</p>
+        <p>本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。</p>
 <a id="more"></a>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
+<h2 id="Kontakt多通道乐器演奏"><a href="#Kontakt多通道乐器演奏" class="headerlink" title="Kontakt多通道乐器演奏"></a>Kontakt多通道乐器演奏</h2><p>用Kontakt打开两把吉他乐器：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g920wu5pywj30id06f402.jpg" alt="01.PNG"></p>
+<p>自带的键盘只会触发一个乐器的声音，但通过观察可以发现，在面板上两款乐器拥有不同的MIDI通道，分别是[A] 1和[A] 2；</p>
+<p>将Kontakt的Input port设置为一个数字，这里设置为0：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g920xm79j3j30dl0d1q4p.jpg" alt="02.PNG"></p>
+<p>打开两个MIDI Out，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1和2：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g921183w8kj30fl05naad.jpg" alt="03.PNG"></p>
+<p>在一个旋钮上设置CC控制器号，比如这里设置为CC1号控制器：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g9212khll8j30ge0acmy7.jpg" alt="04.PNG"></p>
+<p>创建控制器包络：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g9212vmh2hj30i407zq3a.jpg" alt="05.PNG"></p>
+<p>这样就可以通过CC1号模拟吉他的揉弦颤音技巧。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本人的使用心得和习惯是，能画包络就不在钢琴卷帘窗口写事件，这样清晰明了，不会忽略一些隐藏的控制事件。这样方便在不同的MIDI Out中画MIDI音符的同时，还能出发CC控制器(如果在MIDI Out的钢琴卷帘窗填写控制事件不会触发有效果)。</p>
+
       
     </div>
     
@@ -645,7 +664,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kontakt多通道乐器演奏"><span class="nav-number">1.</span> <span class="nav-text">Kontakt多通道乐器演奏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
