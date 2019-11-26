@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Remake 《以父之名》开头弦乐]]></title>
+    <url>%2F2019%2F11%2F26%2Fyifuzhiming-remake%2F</url>
+    <content type="text"><![CDATA[周杰伦的《以父之名》开头的弦乐太优美了，remake之。 小结]]></content>
+      <categories>
+        <category>音乐</category>
+      </categories>
+      <tags>
+        <tag>remake</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[MIDI Out实用小贴士]]></title>
     <url>%2F2019%2F11%2F17%2FMidiOut%2F</url>
-    <content type="text"><![CDATA[本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。 Kontakt多通道乐器演奏用Kontakt打开两把吉他乐器： 自带的键盘只会触发一个乐器的声音，但通过观察可以发现，在面板上两款乐器拥有不同的MIDI通道，分别是[A] 1和[A] 2； 将Kontakt的Input port设置为一个数字，这里设置为0： 打开两个MIDI Out，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1和2： 在一个旋钮上设置CC控制器号，比如这里设置为CC1号控制器： 创建控制器包络： 这样就可以通过CC1号模拟吉他的揉弦颤音技巧。 小结本人的使用心得和习惯是，能画包络就不在钢琴卷帘窗口写事件，这样清晰明了，不会忽略一些隐藏的控制事件。这样方便在不同的MIDI Out中画MIDI音符的同时，还能出发CC控制器(如果在MIDI Out的钢琴卷帘窗填写控制事件不会触发有效果)。]]></content>
+    <content type="text"><![CDATA[本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器等小技巧。 Kontakt多通道乐器演奏用Kontakt打开两把吉他乐器： 自带的键盘只会触发一个乐器的声音，但通过观察可以发现，在面板上两款乐器拥有不同的MIDI通道，分别是[A] 1和[A] 2； 将Kontakt的Input port设置为一个数字，这里设置为0： 打开两个MIDI Out，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1和2： 在一个旋钮上设置CC控制器号，比如这里设置为CC1号控制器： 创建控制器包络： 这样就可以通过CC1号模拟吉他的揉弦颤音技巧。 Kontakt多通道乐器添加效果器小结本人的使用心得和习惯是，能画包络就不在钢琴卷帘窗口写事件，这样清晰明了，不会忽略一些隐藏的控制事件。这样方便在不同的MIDI Out中画MIDI音符的同时，还能触发CC控制器(如果在MIDI Out的钢琴卷帘窗填写控制事件不会有触发效果)。]]></content>
       <categories>
         <category>FL Studio</category>
       </categories>
@@ -1374,9 +1385,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
