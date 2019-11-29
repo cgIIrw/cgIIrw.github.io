@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CC控制器列表]]></title>
+    <url>%2F2019%2F11%2F29%2FMIDI-CC-List%2F</url>
+    <content type="text"></content>
+      <categories>
+        <category>MIDI</category>
+      </categories>
+      <tags>
+        <tag>参考手册</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Remake 《以父之名》开头弦乐]]></title>
     <url>%2F2019%2F11%2F26%2Fyifuzhiming-remake%2F</url>
-    <content type="text"><![CDATA[周杰伦的《以父之名》开头的弦乐太优美了，remake之。 小结]]></content>
+    <content type="text"><![CDATA[周杰伦的《以父之名》开头的弦乐太优美了，remake之。 这里用到了EWQLSO银版弦乐。 模仿真实乐器演奏声相 模拟真实表演； 乐器彼此不打架，更突出； Dynamics relative to timbre 声音由大变小，音色会改变； 通过声音判断距离远近； Delay VOLUME, VELOCITY, AND EXPRESSION 三种方法使声音听起来大声。 ARTICULATIONS BY INSTRUMENTARTICULATIONS BY TYPE小结翻译 articulations：发音、表达，演奏法 portato [意]波弓。介于连奏与断奏之间 subtle 微妙的 Brass 铜管总称 percussion 打击乐 woodwinds 木管乐器 TERMINOLOGY 术语 Trombones 长号 legato 连奏 staccato 断音 SOUNDSCAPE 声音范围 Articulation File：拥有扩展名.nki Articulation: what plays when a note sounds. 章节章节七：打击乐器]]></content>
       <categories>
         <category>音乐</category>
       </categories>
