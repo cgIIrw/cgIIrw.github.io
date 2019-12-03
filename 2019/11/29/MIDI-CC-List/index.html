@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2019/11/29/MIDI-CC-List/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="这是一份MIDI CC控制器列表。">
-<meta property="og:updated_time" content="2019-12-03T09:07:57.000Z">
+<meta property="og:updated_time" content="2019-12-03T13:12:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC控制器列表">
 <meta name="twitter:description" content="这是一份MIDI CC控制器列表。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  520
+                  754
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -443,12 +443,24 @@
 <li>11 表情：用来控制表情；</li>
 <li>12 效果控制器1：通常用来控制合成器或工作站的某个效果器参数；</li>
 <li>13 效果控制器2：通常用来控制合成器或工作站的某个效果器参数；</li>
-<li>16 － 19 一般控制</li>
+<li>16 － 19：一般控制；</li>
 <li>32 － 63 Controller 0-31 Least Significant Bit (LSB)：对应0到31号控制器，对参数进行微调；</li>
 <li>64 Damper(制音)踏板 ／ 延音踏板控制：On/Off switch that controls sustain. (See also Sostenuto CC 66) 0 to 63 = Off, 64 to 127 = On；</li>
 <li>65 Portamento(滑音)切换开关：0 to 63 = Off, 64 to 127 = On；</li>
-<li>66：sostenuto(持续音)切换开关：On/Off switch – Like the Sustain controller (CC 64), However it only holds notes that were “On” when the pedal was pressed. People use it to “hold” chords” and play melodies over the held chord；</li>
-<li>67 弱音踏板(Soft Pedal)：On/Off switch - Lowers the volume of notes played. 0 to 63 = O , 64 to 127 = On；</li>
+<li>66 sostenuto(持续音)切换开关：On/Off switch – Like the Sustain controller (CC 64), However it only holds notes that were “On” when the pedal was pressed. People use it to “hold” chords” and play melodies over the held chord；</li>
+<li>67 弱音踏板(Soft Pedal)：On/Off switch - Lowers the volume of notes played. 0 to 63 = O, 64 to 127 = On；</li>
+<li>68 连奏脚踏开关：On/Off switch - Turns Legato effect between 2 subsequent notes On or Off. 0 to 63 = O, 64 to 127 = On；</li>
+<li>69 保持音2：另一种制造持续音的方法(查看MIDI CC 64或MIDI CC 66)；</li>
+<li>70 声音控制器1：通常控制声音的产生方式，默认是Sound Variation；</li>
+<li>71 声音控制器2：允许对受控滤波器进行重塑，默认是resonance(共振)，也可以是timbre(音色)或harmonics(谐波)；</li>
+<li>72 声音控制器3：对受控放大器的释放时间进行控制，默认是Release Time；</li>
+<li>73 声音控制器4：控制声音的“Attack”；</li>
+<li>74 声音控制器5：控制受控滤波器的滤波频率；</li>
+<li>75 声音控制器6：通用声音控制；</li>
+<li>76 声音控制器7：通用声音控制；</li>
+<li>77 声音控制器8：通用声音控制；</li>
+<li>78 声音控制器9：通用声音控制；</li>
+<li>79 声音控制器10：通用声音控制；</li>
 </ul>
 <h2 id="没有定义的控制器"><a href="#没有定义的控制器" class="headerlink" title="没有定义的控制器"></a>没有定义的控制器</h2><ul>
 <li>3</li>
@@ -458,7 +470,7 @@
 <li>85 - 90</li>
 <li>102 - 119</li>
 </ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>具体到某个乐器，请先查看说明书，以上参数未必完全适用每个乐器插件。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>具体到某个乐器，先查看说明书，以上参数未必完全适用每个乐器插件。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://nickfever.com/Music/midi-cc-list" target="_blank" rel="external">https://nickfever.com/Music/midi-cc-list</a></p>
 
       
