@@ -79,14 +79,17 @@
 
 
 
+<meta name="description" content="这是一份MIDI CC控制器列表。">
 <meta name="keywords" content="参考手册">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CC控制器列表">
 <meta property="og:url" content="https://cgiirw.github.io/2019/11/29/MIDI-CC-List/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
-<meta property="og:updated_time" content="2019-11-29T15:37:49.000Z">
+<meta property="og:description" content="这是一份MIDI CC控制器列表。">
+<meta property="og:updated_time" content="2019-12-03T09:07:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC控制器列表">
+<meta name="twitter:description" content="这是一份MIDI CC控制器列表。">
 
 
 
@@ -386,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  520
                 </span>
               
 
@@ -402,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -425,7 +428,39 @@
       
 
       
-        
+        <p>这是一份MIDI CC控制器列表。</p>
+<a id="more"></a>
+<ul>
+<li>0 Bank选择：用来切换音色选择库，每个MIDI通道可以访问16384个音色；</li>
+<li>1 Modulation：通常用来控制颤音效果(vibrato effect)，包括音高响度亮度等等；</li>
+<li>2 呼吸控制器：通常关联aftertouch信息，最初旨在和呼吸控制器一起使用，例如用力吹气会产生更高的MIDI控制值，也可以用来当作Modulation使用；</li>
+<li>4 Foot控制器：通常关联aftertouch信息，可以根据踏板的踩踏方式发送连续的值信息；</li>
+<li>5 Portamento(滑音)时间：在两个连续演奏的音符之间控制滑音速率；</li>
+<li>6 Data Entry Most Significant Bit(MSB)：Controls Value for NRPN or RPN parameters；</li>
+<li>7 音量：控制通道的音量；</li>
+<li>8 平衡(Balance)：控制左右平衡，产生立体声，0是绝对左边，64是中间，127是绝对右边；</li>
+<li>10 Pan：控制左右平衡，产生mono声，0是绝对左边，64是中间，127是绝对右边；</li>
+<li>11 表情：用来控制表情；</li>
+<li>12 效果控制器1：通常用来控制合成器或工作站的某个效果器参数；</li>
+<li>13 效果控制器2：通常用来控制合成器或工作站的某个效果器参数；</li>
+<li>16 － 19 一般控制</li>
+<li>32 － 63 Controller 0-31 Least Significant Bit (LSB)：对应0到31号控制器，对参数进行微调；</li>
+<li>64 Damper(制音)踏板 ／ 延音踏板控制：On/Off switch that controls sustain. (See also Sostenuto CC 66) 0 to 63 = Off, 64 to 127 = On；</li>
+<li>65 Portamento(滑音)切换开关：0 to 63 = Off, 64 to 127 = On；</li>
+<li>66：sostenuto(持续音)切换开关：On/Off switch – Like the Sustain controller (CC 64), However it only holds notes that were “On” when the pedal was pressed. People use it to “hold” chords” and play melodies over the held chord；</li>
+<li>67 弱音踏板(Soft Pedal)：On/Off switch - Lowers the volume of notes played. 0 to 63 = O , 64 to 127 = On；</li>
+</ul>
+<h2 id="没有定义的控制器"><a href="#没有定义的控制器" class="headerlink" title="没有定义的控制器"></a>没有定义的控制器</h2><ul>
+<li>3</li>
+<li>9</li>
+<li>14 - 15</li>
+<li>20 - 31</li>
+<li>85 - 90</li>
+<li>102 - 119</li>
+</ul>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>具体到某个乐器，请先查看说明书，以上参数未必完全适用每个乐器插件。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://nickfever.com/Music/midi-cc-list" target="_blank" rel="external">https://nickfever.com/Music/midi-cc-list</a></p>
+
       
     </div>
     
@@ -538,8 +573,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -619,6 +663,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#没有定义的控制器"><span class="nav-number">1.</span> <span class="nav-text">没有定义的控制器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
