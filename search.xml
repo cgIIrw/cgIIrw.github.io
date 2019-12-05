@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Melodyne使用]]></title>
+    <url>%2F2019%2F12%2F05%2FMelodyne%2F</url>
+    <content type="text"><![CDATA[Melodyne是强大的，想要学会使用它。]]></content>
+      <categories>
+        <category>效果器</category>
+      </categories>
+      <tags>
+        <tag>Melodyne</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CC控制器列表]]></title>
     <url>%2F2019%2F11%2F29%2FMIDI-CC-List%2F</url>
     <content type="text"><![CDATA[这是一份MIDI CC控制器列表。 0 Bank选择：用来切换音色选择库，每个MIDI通道可以访问16384个音色； 1 Modulation：通常用来控制颤音效果(vibrato effect)，包括音高响度亮度等等； 2 呼吸控制器：通常关联aftertouch信息，最初旨在和呼吸控制器一起使用，例如用力吹气会产生更高的MIDI控制值，也可以用来当作Modulation使用； 4 Foot控制器：通常关联aftertouch信息，可以根据踏板的踩踏方式发送连续的值信息； 5 Portamento(滑音)时间：在两个连续演奏的音符之间控制滑音速率； 6 Data Entry Most Significant Bit(MSB)：控制NRPN或RPN的参数值； 7 音量：控制通道的音量； 8 平衡(Balance)：控制左右平衡，产生立体声声音，0是绝对左边，64是中间，127是绝对右边； 10 Pan：控制左右平衡，产生单声道声音，0是绝对左边，64是中间，127是绝对右边； 11 表情：用来控制表情； 12 效果控制器1：通常用来控制合成器或工作站的某个效果器参数； 13 效果控制器2：通常用来控制合成器或工作站的某个效果器参数； 16 － 19：一般控制； 32 － 63 Controller 0-31 Least Significant Bit (LSB)：对应0到31号控制器，对参数进行微调； 64 Damper(制音)踏板 ／ 延音踏板控制：On/Off switch that controls sustain. (See also Sostenuto CC 66) 0 to 63 = Off, 64 to 127 = On； 65 Portamento(滑音)切换开关：0 to 63 = Off, 64 to 127 = On； 66 sostenuto(持续音)切换开关：On/Off switch – Like the Sustain controller (CC 64), However it only holds notes that were “On” when the pedal was pressed. People use it to “hold” chords” and play melodies over the held chord； 67 弱音踏板(Soft Pedal)：On/Off switch - Lowers the volume of notes played. 0 to 63 = O, 64 to 127 = On； 68 连奏脚踏开关：On/Off switch - Turns Legato effect between 2 subsequent notes On or Off. 0 to 63 = O, 64 to 127 = On； 69 保持音2：另一种制造持续音的方法(查看MIDI CC 64或MIDI CC 66)； 70 声音控制器1：通常控制声音的产生方式，默认是Sound Variation； 71 声音控制器2：允许对受控滤波器进行重塑，默认是resonance(共振)，也可以是timbre(音色)或harmonics(谐波)； 72 声音控制器3：对受控放大器的释放时间进行控制，默认是Release Time； 73 声音控制器4：控制声音的“Attack”； 74 声音控制器5：控制受控滤波器的滤波频率； 75 声音控制器6：通用声音控制； 76 声音控制器7：通用声音控制； 77 声音控制器8：通用声音控制； 78 声音控制器9：通用声音控制； 79 声音控制器10：通用声音控制； 80 一般用途的MIDI CC控制器：开关切换 0到63为Off，64到127为On； 81 一般用途的MIDI CC控制器：开关切换 0到63为Off，64到127为On； 82 一般用途的MIDI CC控制器：开关切换 0到63为Off，64到127为On； 83 一般用途的MIDI CC控制器：开关切换 0到63为Off，64到127为On； 84 Portamento(滑音)控制：控制滑音量； 91 效果1深度：通常控制reverb发送量； 92 效果2深度：通常控制tremolo(颤音)量； 93 效果3深度：通常控制chorus(合唱)量； 94 效果4深度：通常控制detune(失谐)量； 95 效果5深度：通常控制phaser(移相)量； 96 数据增益：通常用来增加RPN和NRPN信息的数据； 97 数据衰减：通常用来衰减RPN和NRPN信息的数据； 98 未注册的LSB(NRPN)参数值：对6、38、96和97号控制器来说，选择的是NRPN参数； 99 未注册的MSB(NRPN)参数值：对6、38、96和97号控制器来说，选择的是NRPN参数； 100 注册的LSB(RPN)参数值：对6、38、96和97号控制器来说，选择的是RPN参数； 101 注册的MSB(RPN)参数值：对6、38、96和97号控制器来说，选择的是RPN参数； 120 关闭所有声音：静音所有音符，无论是否存在释放时间或是否处于sustain； 121 重置所有控制器：将所有控制器重置为默认值； 122 本地键盘开关：关闭MIDI键盘或工作站的内部连接等等； 123 关闭所有音符：静音所有音符，但释放时间会保留，并且音符的延音不会关闭，直到延音踏板没有被按下； 124 Omni模式关闭：设置为“Omni Off”模式； 125 Omni模式开启：设置为“Omni On”模式； 126 Mono模式：将设备设置为单音模式； 127 Poly模式：将设备设置为复音模式； 没有定义的控制器 3 9 14 - 15 20 - 31 85 - 90 102 - 119 小结具体到某个乐器插件，以上参数未必完全适用。 参考https://nickfever.com/Music/midi-cc-list]]></content>
@@ -192,10 +203,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -228,9 +239,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
