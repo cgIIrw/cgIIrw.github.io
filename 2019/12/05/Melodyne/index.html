@@ -88,7 +88,8 @@
 <meta property="og:description" content="Melodyne是强大的，想要学会使用它。">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9qgapkmbjj308u056dfu.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9qgen09nyj309806c3yj.jpg">
-<meta property="og:updated_time" content="2019-12-09T07:14:45.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9qjzw8p98j30p6082t9t.jpg">
+<meta property="og:updated_time" content="2019-12-09T09:55:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Melodyne使用">
 <meta name="twitter:description" content="Melodyne是强大的，想要学会使用它。">
@@ -392,7 +393,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  958
+                  1,238
                 </span>
               
 
@@ -408,7 +409,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -467,6 +468,18 @@
 <h3 id="打开或关闭循环模式"><a href="#打开或关闭循环模式" class="headerlink" title="打开或关闭循环模式"></a>打开或关闭循环模式</h3><p>可以通过双击时间标尺正下方的窄条中的循环范围来打开或关闭循环模式。 激活循环模式后，循环范围会高亮；</p>
 <p>将鼠标指针悬停在循环块中间，按住鼠标左键左右拖动，可以移动循环块，此时如果按住<code>Alt</code>可以忽略时间网格线；</p>
 <p>按住<code>Shift</code>，鼠标单击的地方将被包含在循环块中，包含的位置受时间网格线制约，此时如果同时按住<code>Alt</code>将不受时间网格线影响；</p>
+<h2 id="选择音符"><a href="#选择音符" class="headerlink" title="选择音符"></a>选择音符</h2><p>单击选中，颜色更深；</p>
+<p>按住<code>Command</code>可以对音符进行多选，也可以在多选中进行反选；</p>
+<p>还可以通过普通的鼠标圈选操作来多选音符；</p>
+<p><code>Shift</code>的多选操作也和普通的Mac操作相同；</p>
+<h3 id="Selection-using-the-Pitch-Ruler-用音高尺进行选择"><a href="#Selection-using-the-Pitch-Ruler-用音高尺进行选择" class="headerlink" title="Selection using the Pitch Ruler(用音高尺进行选择)"></a>Selection using the Pitch Ruler(用音高尺进行选择)</h3><p>单击音高标尺中的音符以选择相应音高的所有音符；</p>
+<h2 id="Macro矫正音高"><a href="#Macro矫正音高" class="headerlink" title="Macro矫正音高"></a>Macro矫正音高</h2><p>首先应选择想要编辑的音符，如果没有选择任何音符，默认宏的编辑将影响所有音符；</p>
+<p>打开宏：选择Edit &gt; Quantization &gt; Correct Pitch，弹出窗口：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g9qjzw8p98j30p6082t9t.jpg" alt="Melodyne03.png"></p>
+<p>Pitch Center栏：矫正强度，从0%到100%，通常是移动到最近的半音；</p>
+<p>Pitch Drift栏：用来修正音高缓慢波动时的音高线，音调快速波动(调制轮或颤音效果)不受影响；</p>
+<p>Snap to …：选中后，忽略音阶以外的音符，Pitch Center将不再仅仅是以最近的半音为目的移动音高；</p>
+<p>Include notes fine-tuned manually：如果激活该选项将会处理那些已经用音高工具微调的音符；</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
       
     </div>
@@ -684,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检测算法"><span class="nav-number">1.</span> <span class="nav-text">检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Melodic-algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">The Melodic algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Percussive-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">The Percussive algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Polyphonic-Sustain-Decay-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">The Polyphonic (Sustain/Decay) algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Universal-algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">The Universal algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playback-navigation-zooming"><span class="nav-number">2.</span> <span class="nav-text">Playback, navigation, zooming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrolling-and-zooming-in-the-Note-Editor-音符编辑器的滚动与缩放"><span class="nav-number">2.1.</span> <span class="nav-text">Scrolling and zooming in the Note Editor(音符编辑器的滚动与缩放)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-note-about-automatic-scrolling-in-the-Note-Editor"><span class="nav-number">2.2.</span> <span class="nav-text">A note about automatic scrolling in the Note Editor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle-mode-循环模式"><span class="nav-number">3.</span> <span class="nav-text">Cycle mode(循环模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义循环范围"><span class="nav-number">3.1.</span> <span class="nav-text">定义循环范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开或关闭循环模式"><span class="nav-number">3.2.</span> <span class="nav-text">打开或关闭循环模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检测算法"><span class="nav-number">1.</span> <span class="nav-text">检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Melodic-algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">The Melodic algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Percussive-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">The Percussive algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Polyphonic-Sustain-Decay-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">The Polyphonic (Sustain/Decay) algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Universal-algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">The Universal algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playback-navigation-zooming"><span class="nav-number">2.</span> <span class="nav-text">Playback, navigation, zooming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrolling-and-zooming-in-the-Note-Editor-音符编辑器的滚动与缩放"><span class="nav-number">2.1.</span> <span class="nav-text">Scrolling and zooming in the Note Editor(音符编辑器的滚动与缩放)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-note-about-automatic-scrolling-in-the-Note-Editor"><span class="nav-number">2.2.</span> <span class="nav-text">A note about automatic scrolling in the Note Editor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle-mode-循环模式"><span class="nav-number">3.</span> <span class="nav-text">Cycle mode(循环模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义循环范围"><span class="nav-number">3.1.</span> <span class="nav-text">定义循环范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开或关闭循环模式"><span class="nav-number">3.2.</span> <span class="nav-text">打开或关闭循环模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择音符"><span class="nav-number">4.</span> <span class="nav-text">选择音符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Selection-using-the-Pitch-Ruler-用音高尺进行选择"><span class="nav-number">4.1.</span> <span class="nav-text">Selection using the Pitch Ruler(用音高尺进行选择)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro矫正音高"><span class="nav-number">5.</span> <span class="nav-text">Macro矫正音高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
