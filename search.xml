@@ -14,7 +14,7 @@
   <entry>
     <title><![CDATA[Melodyne使用]]></title>
     <url>%2F2019%2F12%2F05%2FMelodyne%2F</url>
-    <content type="text"><![CDATA[Melodyne是强大的，想要学会使用它。]]></content>
+    <content type="text"><![CDATA[Melodyne是强大的，想要学会使用它。 检测算法The Melodic algorithm这是旋律算法，在该算法下，应该尽量使用干净无混响的录音； Blobs的产生取决于断音和连奏； The Percussive algorithm该算法主要应对打击乐器以及噪音等。它们都以相同的音高显示，调整Blob只会以半音显示相对值； The Polyphonic (Sustain/Decay) algorithm这是处理复音的算法，可以检测和编辑钢琴或吉他之类的声音，这里存在两个版本： 和弦延音算法，早期版本的Melodyne用户已经很熟悉，并且适用于多种和弦音频材料； 和弦衰减算法是一种变体，特别适合于高频打击乐信号，通过其可以看出音调； 该算法对一些质量的音频存在无法使用的情况； The Universal algorithm通用算法特别适合包含打击乐和音调元素的复杂信号。例如，如果您希望更改整个音乐的音调，时间或节奏，则此算法将提供最佳的音质； Playback, navigation, zooming双击时间标尺将从双击的地方开始播放，单击时间标尺指针将暂停播放回转到单击处； 在音符编辑器中双击进行播放，再次双击则暂停，指针停留在正播放处； 单击时间标尺并向上向下拖动可以对显示内容进行缩放； Scrolling and zooming in the Note Editor通过手形图标或按下快捷键Command + Shift单击鼠标左键并移动来显示音频区域； 小结]]></content>
       <categories>
         <category>效果器</category>
       </categories>
@@ -47,7 +47,7 @@
   <entry>
     <title><![CDATA[MIDI Out实用小贴士]]></title>
     <url>%2F2019%2F11%2F17%2FMidiOut%2F</url>
-    <content type="text"><![CDATA[本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器等小技巧。 Kontakt多通道乐器演奏用Kontakt打开两把吉他乐器： 自带的键盘只会触发一个乐器的声音，但通过观察可以发现，在面板上两款乐器拥有不同的MIDI通道，分别是[A] 1和[A] 2； 将Kontakt的Input port设置为一个数字，这里设置为0： 打开两个MIDI Out，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1和2： 在一个旋钮上设置CC控制器号，比如这里设置为CC1号控制器： 创建控制器包络： 这样就可以通过CC1号模拟吉他的揉弦颤音技巧。 Kontakt多通道乐器添加效果器之前使用便携版会出现BUG，所以在这里首先确定实验的版本，本人使用的是5.0.1。 版本确定后，点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它； 除了Kt.st.1和四个aux分左右声道，其它都是包含左右声道的单个声道，所以只用设置一个通道： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 小结本人的使用心得和习惯是，能画包络就不在钢琴卷帘窗口写事件，这样清晰明了，不会忽略一些隐藏的控制事件。这样方便在不同的MIDI Out中画MIDI音符的同时，还能触发CC控制器(如果在MIDI Out的钢琴卷帘窗填写控制事件不会有触发效果)。]]></content>
+    <content type="text"><![CDATA[本篇是MIDI Out的小贴士，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器等小技巧。 Kontakt多通道乐器演奏用Kontakt打开两把吉他乐器： 自带的键盘只会触发一个乐器的声音，但通过观察可以发现，在面板上两款乐器拥有不同的MIDI通道，分别是[A] 1和[A] 2； 将Kontakt的Input port设置为一个数字，这里设置为0： 打开两个MIDI Out，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1和2： 在一个旋钮上设置CC控制器号，比如这里设置为CC1号控制器： 创建控制器包络： 这样就可以通过CC1号模拟吉他的揉弦颤音技巧。 Kontakt多通道乐器添加效果器之前使用便携版会出现BUG，所以在这里首先确定实验的版本，本人使用的是5.0.1。 版本确定后，点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它； 除了Kt.st.1和四个aux分左右声道，其它都是包含左右声道的单个声道，所以只用设置一个通道(可能因为版本存在BUG，更换版本并不是这个效果，具体视情况而定)： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 小结本人的使用心得和习惯是，能画包络就不在钢琴卷帘窗口写事件，这样清晰明了，不会忽略一些隐藏的控制事件。这样方便在不同的MIDI Out中画MIDI音符的同时，还能触发CC控制器(如果在MIDI Out的钢琴卷帘窗填写控制事件不会有触发效果)。]]></content>
       <categories>
         <category>FL Studio</category>
       </categories>
@@ -1418,9 +1418,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
