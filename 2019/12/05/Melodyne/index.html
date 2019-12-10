@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9qvzamucdj30sw0ac760.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9r2ufomlrj30by05g3yj.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g9rizg1wwjj30ae0a4jsr.jpg">
-<meta property="og:updated_time" content="2019-12-10T05:14:17.000Z">
+<meta property="og:updated_time" content="2019-12-10T05:43:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Melodyne使用">
 <meta name="twitter:description" content="Melodyne是强大的，想要学会使用它。">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,084
+                  2,222
                 </span>
               
 
@@ -413,7 +413,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  8
                 </span>
               
             </div>
@@ -445,7 +445,7 @@
 <h3 id="The-Percussive-algorithm"><a href="#The-Percussive-algorithm" class="headerlink" title="The Percussive algorithm"></a>The Percussive algorithm</h3><p>该算法主要应对打击乐器以及噪音等。它们都以相同的音高显示，调整Blob只会以半音显示相对值；</p>
 <h3 id="The-Polyphonic-Sustain-Decay-algorithm"><a href="#The-Polyphonic-Sustain-Decay-algorithm" class="headerlink" title="The Polyphonic (Sustain/Decay) algorithm"></a>The Polyphonic (Sustain/Decay) algorithm</h3><p>这是处理复音的算法，可以检测和编辑钢琴或吉他之类的声音，这里存在两个版本：</p>
 <ul>
-<li>和弦延音算法，早期版本的Melodyne用户已经很熟悉，并且适用于多种和弦音频材料；</li>
+<li>和弦延音算法，早期版本的Melodyne用户已经很熟悉，并且适用于多种和弦音频素材；</li>
 <li>和弦衰减算法是一种变体，特别适合于高频打击乐信号，通过其可以看出音调；</li>
 </ul>
 <p>该算法对一些质量的音频存在无法使用的情况；</p>
@@ -510,6 +510,19 @@
 <p>可以在主菜单中<code>Options</code>下的同名(Pitch Grid)子菜单或通过单击<code>Pitch Ruler</code>正上方的谱号图标来更改与<code>Pitch Grid</code>相关的选项：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g9rizg1wwjj30ae0a4jsr.jpg" alt="Screen Shot 2019-12-10 at 12.42.18.png"></p>
 <h3 id="Activating-the-Pitch-Grid-and-selecting-display-options"><a href="#Activating-the-Pitch-Grid-and-selecting-display-options" class="headerlink" title="Activating the Pitch Grid and selecting display options"></a>Activating the Pitch Grid and selecting display options</h3><p>单击谱号图标可激活或禁用<code>Pitch Grid</code>，从而打开和关闭吸附功能。当网格处于非活动状态时，可以自由地按音高移动音符，甚至可以移动到落在半音阶音符之间的频率。在这种情况下，<code>Pitch Ruler</code>在音符之间显示淡淡的线条(仅供参考)。</p>
+<p>由上图可以看到，选项分三个部分：</p>
+<h4 id="Snap"><a href="#Snap" class="headerlink" title="Snap"></a>Snap</h4><ul>
+<li>No Snap：取消网格吸附；</li>
+<li>Chromatic Snap：半音阶吸附；</li>
+<li>Scale Snap：音阶吸附，这里的音阶是插件根据音频素材自动检测的大小音阶，也可以更改；</li>
+</ul>
+<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>该部分可以选择音符编辑器的背景外观。</p>
+<ul>
+<li>Piano Keyboard：显示为钢琴键盘的白键黑键黑白配；</li>
+<li>Scale Notes：给音阶较亮的着色；</li>
+<li>Pitch Lines：显示音高线；</li>
+</ul>
+<h4 id="Ruler"><a href="#Ruler" class="headerlink" title="Ruler"></a>Ruler</h4><p>该部分的选项用来决定显示音符名称还是音阶名；</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
       
     </div>
@@ -727,7 +740,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检测算法"><span class="nav-number">1.</span> <span class="nav-text">检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Melodic-algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">The Melodic algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Percussive-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">The Percussive algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Polyphonic-Sustain-Decay-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">The Polyphonic (Sustain/Decay) algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Universal-algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">The Universal algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playback-navigation-zooming"><span class="nav-number">2.</span> <span class="nav-text">Playback, navigation, zooming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrolling-and-zooming-in-the-Note-Editor-音符编辑器的滚动与缩放"><span class="nav-number">2.1.</span> <span class="nav-text">Scrolling and zooming in the Note Editor(音符编辑器的滚动与缩放)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-note-about-automatic-scrolling-in-the-Note-Editor"><span class="nav-number">2.2.</span> <span class="nav-text">A note about automatic scrolling in the Note Editor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle-mode-循环模式"><span class="nav-number">3.</span> <span class="nav-text">Cycle mode(循环模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义循环范围"><span class="nav-number">3.1.</span> <span class="nav-text">定义循环范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开或关闭循环模式"><span class="nav-number">3.2.</span> <span class="nav-text">打开或关闭循环模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择音符"><span class="nav-number">4.</span> <span class="nav-text">选择音符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Selection-using-the-Pitch-Ruler-用音高尺进行选择"><span class="nav-number">4.1.</span> <span class="nav-text">Selection using the Pitch Ruler(用音高尺进行选择)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro矫正音高"><span class="nav-number">5.</span> <span class="nav-text">Macro矫正音高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro量化时间线"><span class="nav-number">6.</span> <span class="nav-text">Macro量化时间线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#量化时间线：量化什么，量化到哪？"><span class="nav-number">6.1.</span> <span class="nav-text">量化时间线：量化什么，量化到哪？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开Macro量化时间线工具并设置参数"><span class="nav-number">6.2.</span> <span class="nav-text">打开Macro量化时间线工具并设置参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Time-Grid"><span class="nav-number">7.</span> <span class="nav-text">The Time Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activating-and-setting-the-Time-Grid"><span class="nav-number">7.1.</span> <span class="nav-text">Activating and setting the Time Grid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pitch-Grid-and-scales"><span class="nav-number">8.</span> <span class="nav-text">Pitch Grid and scales</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-functions-of-the-Pitch-Ruler-and-access-to-the-Pitch-Grid"><span class="nav-number">8.1.</span> <span class="nav-text">The functions of the Pitch Ruler and access to the Pitch Grid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activating-the-Pitch-Grid-and-selecting-display-options"><span class="nav-number">8.2.</span> <span class="nav-text">Activating the Pitch Grid and selecting display options</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检测算法"><span class="nav-number">1.</span> <span class="nav-text">检测算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Melodic-algorithm"><span class="nav-number">1.1.</span> <span class="nav-text">The Melodic algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Percussive-algorithm"><span class="nav-number">1.2.</span> <span class="nav-text">The Percussive algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Polyphonic-Sustain-Decay-algorithm"><span class="nav-number">1.3.</span> <span class="nav-text">The Polyphonic (Sustain/Decay) algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Universal-algorithm"><span class="nav-number">1.4.</span> <span class="nav-text">The Universal algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Playback-navigation-zooming"><span class="nav-number">2.</span> <span class="nav-text">Playback, navigation, zooming</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrolling-and-zooming-in-the-Note-Editor-音符编辑器的滚动与缩放"><span class="nav-number">2.1.</span> <span class="nav-text">Scrolling and zooming in the Note Editor(音符编辑器的滚动与缩放)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-note-about-automatic-scrolling-in-the-Note-Editor"><span class="nav-number">2.2.</span> <span class="nav-text">A note about automatic scrolling in the Note Editor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle-mode-循环模式"><span class="nav-number">3.</span> <span class="nav-text">Cycle mode(循环模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义循环范围"><span class="nav-number">3.1.</span> <span class="nav-text">定义循环范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开或关闭循环模式"><span class="nav-number">3.2.</span> <span class="nav-text">打开或关闭循环模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择音符"><span class="nav-number">4.</span> <span class="nav-text">选择音符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Selection-using-the-Pitch-Ruler-用音高尺进行选择"><span class="nav-number">4.1.</span> <span class="nav-text">Selection using the Pitch Ruler(用音高尺进行选择)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro矫正音高"><span class="nav-number">5.</span> <span class="nav-text">Macro矫正音高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Macro量化时间线"><span class="nav-number">6.</span> <span class="nav-text">Macro量化时间线</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#量化时间线：量化什么，量化到哪？"><span class="nav-number">6.1.</span> <span class="nav-text">量化时间线：量化什么，量化到哪？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开Macro量化时间线工具并设置参数"><span class="nav-number">6.2.</span> <span class="nav-text">打开Macro量化时间线工具并设置参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Time-Grid"><span class="nav-number">7.</span> <span class="nav-text">The Time Grid</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activating-and-setting-the-Time-Grid"><span class="nav-number">7.1.</span> <span class="nav-text">Activating and setting the Time Grid</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pitch-Grid-and-scales"><span class="nav-number">8.</span> <span class="nav-text">Pitch Grid and scales</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-functions-of-the-Pitch-Ruler-and-access-to-the-Pitch-Grid"><span class="nav-number">8.1.</span> <span class="nav-text">The functions of the Pitch Ruler and access to the Pitch Grid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activating-the-Pitch-Grid-and-selecting-display-options"><span class="nav-number">8.2.</span> <span class="nav-text">Activating the Pitch Grid and selecting display options</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Snap"><span class="nav-number">8.2.1.</span> <span class="nav-text">Snap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Background"><span class="nav-number">8.2.2.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ruler"><span class="nav-number">8.2.3.</span> <span class="nav-text">Ruler</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">9.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
