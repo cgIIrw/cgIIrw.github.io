@@ -36,7 +36,7 @@
   <entry>
     <title><![CDATA[Remake 《以父之名》开头弦乐]]></title>
     <url>%2F2019%2F11%2F26%2Fyifuzhiming-remake%2F</url>
-    <content type="text"><![CDATA[周杰伦的《以父之名》开头的弦乐太优美了，remake之。 这里用到了EWQLSO银版弦乐。 模仿真实乐器演奏声相 模拟真实表演； 乐器彼此不打架，更突出； Dynamics relative to timbre 声音由大变小，音色会改变； 通过声音判断距离远近； Delay VOLUME, VELOCITY, AND EXPRESSION 三种方法使声音听起来大声。 ARTICULATIONS BY INSTRUMENTARTICULATIONS BY TYPE小结翻译 articulations：发音、表达，演奏法 portato [意]波弓。介于连奏与断奏之间 subtle 微妙的 Brass 铜管总称 percussion 打击乐 woodwinds 木管乐器 TERMINOLOGY 术语 Trombones 长号 legato 连奏 staccato 断音 SOUNDSCAPE 声音范围 Articulation File：拥有扩展名.nki Articulation: what plays when a note sounds. 章节章节七：打击乐器]]></content>
+    <content type="text"><![CDATA[周杰伦的《以父之名》开头的弦乐太优美了，remake之。 这里用到了EWQLSO银版弦乐。 模仿真实乐器演奏声相 模拟真实表演； 乐器彼此不打架，更突出； Dynamics relative to timbre 声音由大变小，音色会改变； 通过声音判断距离远近； Delay VOLUME, VELOCITY, AND EXPRESSION 三种方法使声音听起来大声。 ARTICULATIONS BY INSTRUMENTARTICULATIONS BY TYPE调性吉他部分吉他乐器使用的是RealGuitar 3，第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现；第二段的音色比较高亮，采用了Steel String。 在原本的基础上添加了数个效果器，让音色稍微厚实一点，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 这两个效果器，怪美的。 最后再挂一个EQ。 底噪底噪用来模拟实录的声音，原曲的底噪声很大，这里用FL Studio自带的插件生成： 小结翻译 articulations：演奏法 portato [意]波弓。介于连奏与断奏之间 subtle 微妙的 Brass 铜管总称 percussion 打击乐 woodwinds 木管乐器 TERMINOLOGY 术语 Trombones 长号 legato 连奏 staccato 断音 SOUNDSCAPE 声音范围 Articulation File：拥有扩展名.nki Articulation: what plays when a note sounds. 章节章节七：打击乐器]]></content>
       <categories>
         <category>音乐</category>
       </categories>
