@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[MIDI Out实战：Remake《以父之名》开头部分]]></title>
     <url>%2F2019%2F12%2F17%2Fyifuzhiming-remake%2F</url>
-    <content type="text"><![CDATA[本篇是关于MIDI Out的使用实战，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器等小技巧，实战的方式是remake《以父之名》开头部分。 视频演示： 工程文件： 弦乐音源使用的是EWQLSO银版 + EDIROL.Orchestral(因为前者没有pizzcato)。 Kontakt多通道乐器演奏使用Kontakt挂上五款相应的乐器： 将Kontakt的Input port设置为一个数字，这里设置为0： 五款乐器拥有不同的midi通道，分别是[A] 1和[A] 2 …； 打开五个MIDI Out插件，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1、2、3、4、5，例如： 在一个旋钮上设置CC控制器号，比如这里设置为CC11号控制器： 创建控制器包络： Kontakt多通道乐器添加效果器之前使用便携版会出现BUG，所以在这里首先确定实战的版本，本人使用的是Kontakt 5.0.1。 版本确定后，点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 吉他部分吉他乐器使用的是RealGuitar 3(上一台电脑没有该乐器，换另一台电脑没有FL Studio，这里使用Reaper完成)。第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现，值大于0即开启连音滑弦功能： 第二段的音色较高亮，采用了Steel String； 效果器添加了数个，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 这两个UI，怪美的，想挂。 最后再挂一个EQ。]]></content>
+    <content type="text"><![CDATA[本篇是关于MIDI Out的使用实战，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器等小技巧，实战的方式是remake《以父之名》开头部分。 视频演示： 工程文件： https://github.com/cgIIrw/InTheNameofFather-Intro 弦乐音源使用的是EWQLSO银版 + EDIROL.Orchestral(因为前者没有pizzcato)。 Kontakt多通道乐器演奏使用Kontakt挂上五款相应的乐器： 将Kontakt的Input port设置为一个数字，这里设置为0： 五款乐器拥有不同的midi通道，分别是[A] 1和[A] 2 …； 打开五个MIDI Out插件，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1、2、3、4、5，例如： 在一个旋钮上设置CC控制器号，比如这里设置为CC11号控制器： 创建控制器包络： Kontakt多通道乐器添加效果器之前使用便携版会出现BUG，所以在这里首先确定实战的版本，本人使用的是Kontakt 5.0.1。 版本确定后，点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 吉他部分吉他乐器使用的是RealGuitar 3(上一台电脑没有该乐器，换另一台电脑没有FL Studio，这里使用Reaper完成)。第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现，值大于0即开启连音滑弦功能： 第二段的音色较高亮，采用了Steel String； 效果器添加了数个，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 这两个UI，怪美的，想挂。 最后再挂一个EQ。]]></content>
       <categories>
         <category>FL Studio</category>
       </categories>
@@ -1374,9 +1374,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
