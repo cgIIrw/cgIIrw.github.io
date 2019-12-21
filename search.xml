@@ -171,10 +171,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -207,9 +207,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1375,9 +1375,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
