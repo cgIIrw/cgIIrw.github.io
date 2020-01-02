@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[读《计算的本质：深入剖析程序和计算机》]]></title>
+    <url>%2F2020%2F01%2F02%2FUnder-Comp%2F</url>
+    <content type="text"><![CDATA[作为计算机专业的混子，本人已经熟练掌握十几种语言“Hello World”的书写，但还不会使用Ruby，正好通过阅读这本书学习新的“Hello World”书写方式，以及复习SICP。 小结]]></content>
+      <categories>
+        <category>Ruby</category>
+      </categories>
+      <tags>
+        <tag>Ruby</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[用Python写Reaper脚本]]></title>
     <url>%2F2019%2F12%2F21%2FReaScript%2F</url>
     <content type="text"><![CDATA[insert_audition_track脚本演示： 本脚本在原工程保持不变的情况下，创建并置顶一条“Audition”轨，将多个选中的items带FX转化为audio文件，audio文件夹下会产生各item生成的audio文件以及glue在一起的单个audio文件。 工程地址：https://github.com/cgIIrw/reaper-script]]></content>
