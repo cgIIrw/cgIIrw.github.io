@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ILYA EFIMOV ACOUSTIC GUITAR手册粗翻]]></title>
+    <url>%2F2020%2F01%2F03%2FIEAG-Manual%2F</url>
+    <content type="text"><![CDATA[本文是ILYA EFIMOV ACOUSTIC GUITAR手册粗翻。 小结]]></content>
+      <categories>
+        <category>软音源</category>
+      </categories>
+      <tags>
+        <tag>未完待续</tag>
+        <tag>Guitar</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[快读《Fluent Python》]]></title>
     <url>%2F2020%2F01%2F03%2FFluent-Python%2F</url>
     <content type="text"><![CDATA[一星期快读《Fluent Python》。 小结]]></content>
@@ -210,10 +222,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -246,9 +258,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1414,9 +1426,9 @@
         <category>效果器</category>
       </categories>
       <tags>
-        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
+        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
