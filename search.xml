@@ -447,7 +447,7 @@
   <entry>
     <title><![CDATA[FL Studio 12.0.2 Mac版本开箱指南]]></title>
     <url>%2F2018%2F10%2F15%2FFL_Studio_12_Mac%2F</url>
-    <content type="text"><![CDATA[Image-Line正式开发原生非移植版FL Studio for Mac三年多，期间Cakewalk就放弃了把SONAR移植到Mac，可见任务的艰难，最终在上半年，FL Studio 20 for Mac正式版终于推出，实在可喜可贺，特别是对中国的玩家，毕竟国内拥有大量的水果用户。但本篇将开箱的是一款FL Studio在Mac平台上的移植版本，供折腾、学习和研究所用。 还要说明的是，这也不是指官方推出的FL Studio 12 Native OS X ALPHA那个测试版本，而是Crossover Wrap版本，使用了CodeWeavers公司的一种叫做CrossOver的技术（这项技术是基于Wine），可以让原生Windows程序在Mac上运行。 初体验解压后直接移动到应用程序文件夹中，单击图标后就能运行软件。 注册时点开左上角的选项（如上图），然后选择FLRegKey.reg文件，注册成功。 播放演示工程歌曲，非常流畅，不得不说这是一次相当满意的体验。 设置&amp;安装插件要想真正制作点什么，加载第三方插件是最基本的要求。如果是要加载Nexus 2等软音源，常常会出现“cannot import isskin.dll”之类的错误。解决方法如下： 下载Vs6sp6.exe：点击下载链接 解压Vs6sp6.exe文件 在解压得到的Vs6sp6文件夹中解压vcredist.exe文件 在解压得到的vcredist文件夹中找到mfc42.dll, msvcrt.dll, msvcp60.dll三个dll文件 把找到的三个dll文件放在/Users/yourname/Library/Application Support/FL Studio/Bottles/flstudio/drive_c/windows路径下 这里安装的插件也是Windows版本而不是苹果系统的版本，所以安装文件都是exe格式，要运行exe文件可以点击文件-&gt;打开： 安装完成后就能正常打开插件了： 遇到的问题目前遇到的问题还是在安装某些插件上，主要反映为以下两个： 安装Sylenth1 v3以前的版本，发不出声音，这个问题应该是插件本身所致，因为Sylenth1的官网已经发布消息称新的版本已经解决了在Crossover中运行的问题。 另一个是安装相当一部分插件的时候会出现Runtime Error(at -1:0)错误，具体描述是：Cannot Import dll:&lt;UTF8&gt;C:\users\crossover\Temple\is-CA80N.tmp\ISSKINU.DLL.如下图： 小结通过上述折腾，可以很轻松的得出此版本存在兼容问题的结论，但程序的运行还算稳定，甚至可以完成基本的单曲创作。]]></content>
+    <content type="text"><![CDATA[Image-Line正式开发原生非移植版FL Studio for Mac三年多，期间Cakewalk就放弃了把SONAR移植到Mac，可见任务的艰难，最终在上半年，FL Studio 20 for Mac正式版终于推出，实在可喜可贺，特别是对中国的玩家，毕竟国内拥有大量的水果用户。但本篇将开箱的是一款FL Studio在Mac平台上的移植版本，供折腾、学习和研究所用。 还要说明的是，这也不是指官方推出的FL Studio 12 Native OS X ALPHA那个测试版本，而是Crossover Wrap版本，使用了CodeWeavers公司的一种叫做CrossOver的技术（这项技术是基于Wine），可以让原生Windows程序在Mac上运行。 初体验解压后直接移动到应用程序文件夹中，单击图标后就能运行软件。 注册时点开左上角的选项（如上图），然后选择FLRegKey.reg文件，注册成功。 播放演示工程歌曲，非常流畅，不得不说这是一次相当满意的体验。 设置&amp;安装插件要想真正制作点什么，加载第三方插件是最基本的要求。如果是要加载Nexus 2等软音源，常常会出现“cannot import isskin.dll”之类的错误。解决方法如下： 下载Vs6sp6.exe：点击下载链接 解压Vs6sp6.exe文件 在解压得到的Vs6sp6文件夹中解压vcredist.exe文件 在解压得到的vcredist文件夹中找到mfc42.dll, msvcrt.dll, msvcp60.dll三个dll文件 把找到的三个dll文件放在/Users/yourname/Library/Application Support/FL Studio/Bottles/flstudio/drive_c/windows路径下 这里安装的插件也是Windows版本而不是苹果系统的版本，所以安装文件都是exe格式，要运行exe文件可以点击文件-&gt;打开： 安装完成后就能正常打开插件了： 遇到的问题目前遇到的问题还是在安装某些插件上，主要反映为以下两个： 安装Sylenth1 v3以前的版本，发不出声音，这个问题应该是插件本身所致，因为Sylenth1的官网已经发布消息称新的版本已经解决了在Crossover中运行的问题。 另一个是安装相当一部分插件的时候会出现Runtime Error(at -1:0)错误，具体描述是：Cannot Import dll:&lt;UTF8&gt;C:\users\crossover\Temple\is-CA80N.tmp\ISSKINU.DLL.如下图： 如何添加注册表文件在菜单栏的文件中，单击运行命令...，输入regedit，在弹出的窗口中添加.reg文件。 小结通过上述折腾，可以很轻松的得出此版本存在兼容问题的结论，但程序的运行还算稳定，甚至可以完成基本的单曲创作。]]></content>
       <categories>
         <category>DAW</category>
       </categories>
@@ -768,8 +768,8 @@
         <category>MySQL</category>
       </categories>
       <tags>
-        <tag>LeetCode</tag>
         <tag>MySQL</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1426,9 +1426,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
@@ -1556,8 +1556,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Two Sum</tag>
         <tag>LeetCode</tag>
+        <tag>Two Sum</tag>
       </tags>
   </entry>
   <entry>
