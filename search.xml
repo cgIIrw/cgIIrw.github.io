@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[DeepLearning-Goodfellow]]></title>
+    <title><![CDATA[《深度学习》读书笔记]]></title>
     <url>%2F2020%2F01%2F10%2FDeepLearning-Goodfellow%2F</url>
     <content type="text"><![CDATA[一位过世友人曾送给我一本《深度学习》，今无意翻到此书，心想再不看可能再也不会看了。希望能在六月初非走马观花看完此书，谨以本篇笔记悼念那位过世友人。]]></content>
       <categories>
@@ -233,10 +233,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -269,9 +269,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
