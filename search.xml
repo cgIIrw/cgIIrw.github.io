@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[DeepLearning-Goodfellow]]></title>
+    <url>%2F2020%2F01%2F10%2FDeepLearning-Goodfellow%2F</url>
+    <content type="text"><![CDATA[一位过世友人曾送给我一本《深度学习》，今无意翻到此书，心想再不看可能再也不会看了。希望能在六月初非走马观花看完此书，谨以本篇笔记悼念那位过世友人。]]></content>
+      <categories>
+        <category>深度学习</category>
+      </categories>
+      <tags>
+        <tag>未完待续</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ILYA EFIMOV ACOUSTIC GUITAR手册粗翻]]></title>
     <url>%2F2020%2F01%2F03%2FIEAG-Manual%2F</url>
     <content type="text"><![CDATA[本文是ILYA EFIMOV ACOUSTIC GUITAR手册粗翻。 小结]]></content>
@@ -1426,9 +1437,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
