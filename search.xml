@@ -15,7 +15,7 @@
   <entry>
     <title><![CDATA[快读《Fluent Python》]]></title>
     <url>%2F2020%2F01%2F03%2FFluent-Python%2F</url>
-    <content type="text"><![CDATA[一星期快读《Fluent Python》。 小结]]></content>
+    <content type="text"><![CDATA[一星期快读《Fluent Python》。 第一章 Python数据模型魔术方法/特殊方法/双下方法(dunder method)利用Python数据模型的好处之一： 不必记住操作的各式名称； 方便利用标准库； 实现__getitem__方法使类对象变得可迭代； __len__等的具体实现可以代理到其它对象的方法； 小结]]></content>
       <categories>
         <category>Fluent_Python</category>
       </categories>
@@ -768,8 +768,8 @@
         <category>MySQL</category>
       </categories>
       <tags>
-        <tag>MySQL</tag>
         <tag>LeetCode</tag>
+        <tag>MySQL</tag>
       </tags>
   </entry>
   <entry>
@@ -1426,9 +1426,9 @@
         <category>效果器</category>
       </categories>
       <tags>
-        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
+        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
@@ -1556,8 +1556,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Two Sum</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
