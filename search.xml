@@ -26,7 +26,7 @@
   <entry>
     <title><![CDATA[快读《Fluent Python》]]></title>
     <url>%2F2020%2F01%2F03%2FFluent-Python%2F</url>
-    <content type="text"><![CDATA[一星期快读《Fluent Python》。 第一章 Python数据模型魔术方法/特殊方法/双下方法(dunder method)利用Python数据模型的好处之一： 不必记住操作的各式名称； 方便利用标准库； 实现__getitem__方法使类对象变得可迭代； __len__等的具体实现可以代理到其它对象的方法； 小结]]></content>
+    <content type="text"><![CDATA[一星期快读《Fluent Python》。 第一章 Python数据模型魔术方法/特殊方法/双下方法(dunder method)利用Python数据模型的好处之一： 不必记住操作的各式名称； 方便利用标准库； 实现__getitem__方法使类对象变得可迭代； __len__等的具体实现可以代理到其它对象的方法； 特殊方法被解释器调用； 通过内置函数使用特殊方法是最好的选择； 不要随意添加自己实现的特殊方法； __repr__和__str__的区别：后者在str()和print函数使用时被调用，没有__str__解释器会用__repr__替代； 关于自定义布尔值： 123456789101112131415161718&gt;&gt;&gt; class A:... pass...&gt;&gt;&gt; a = A()&gt;&gt;&gt; bool(a)True&gt;&gt;&gt; class B:... def __len__(self):... return 0...&gt;&gt;&gt; b = B()&gt;&gt;&gt; bool(b)False&gt;&gt;&gt; len(a)Traceback (most recent call last): File "&lt;stdin&gt;", line 1, in &lt;module&gt;AttributeError: A instance has no attribute '__len__'&gt;&gt;&gt; 有上述代码可知，当类没有实现__bool__和__len__时，bool(对象)返回True，如果不存在__bool__方法，那么bool(对象)会调用对象.__len__()如果返回0，则bool返回False； 小结]]></content>
       <categories>
         <category>Fluent_Python</category>
       </categories>
@@ -233,10 +233,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -269,9 +269,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1437,9 +1437,9 @@
         <category>效果器</category>
       </categories>
       <tags>
-        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
+        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
