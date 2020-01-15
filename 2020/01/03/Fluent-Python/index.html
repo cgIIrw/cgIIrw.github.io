@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2020/01/03/Fluent-Python/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="一星期快读《Fluent Python》。">
-<meta property="og:updated_time" content="2020-01-10T14:16:07.000Z">
+<meta property="og:updated_time" content="2020-01-10T14:19:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快读《Fluent Python》">
 <meta name="twitter:description" content="一星期快读《Fluent Python》。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  265
+                  275
                 </span>
               
 
@@ -443,8 +443,8 @@
 <p><code>__repr__</code>和<code>__str__</code>的区别：后者在str()和print函数使用时被调用，没有<code>__str__</code>解释器会用<code>__repr__</code>替代；</p>
 <p>关于自定义布尔值：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span>&gt;&gt; class A:</div><div class="line">...     pass</div><div class="line">...</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; a = A()</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; bool(a)</div><div class="line">True</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; class B:</div><div class="line">...     def __len__(self):</div><div class="line">...         return 0</div><div class="line">...</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; b = B()</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; bool(b)</div><div class="line">False</div><div class="line"><span class="meta">&gt;</span>&gt;&gt; len(a)</div><div class="line">Traceback (most recent call last):</div><div class="line">  File "&lt;stdin&gt;", line 1, in &lt;module&gt;</div><div class="line">AttributeError: A instance has no attribute '__len__'</div><div class="line"><span class="meta">&gt;</span>&gt;&gt;</div></pre></td></tr></table></figure>
-<p>有上述代码可知，当类没有实现<code>__bool__</code>和<code>__len__</code>时，bool(对象)返回True，如果不存在<code>__bool__</code>方法，那么bool(对象)会调用<code>对象.__len__()</code>如果返回0，则bool返回False；</p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
+<p>有上述代码可知，当类没有实现<code>__bool__</code>和<code>__len__</code>时，bool(对象)返回True，如果不存在<code>__bool__</code>方法，那么bool(对象)会调用<code>对象.__len__()</code>，如果返回0，则bool返回False；</p>
+<h2 id="第二章-序列构成的数组"><a href="#第二章-序列构成的数组" class="headerlink" title="第二章 序列构成的数组"></a>第二章 序列构成的数组</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
       
     </div>
     
@@ -663,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-Python数据模型"><span class="nav-number">1.</span> <span class="nav-text">第一章 Python数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章-Python数据模型"><span class="nav-number">1.</span> <span class="nav-text">第一章 Python数据模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章-序列构成的数组"><span class="nav-number">2.</span> <span class="nav-text">第二章 序列构成的数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
