@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2019/08/20/Effective_Java_3/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="之前已经拜读过第二版，本篇是对第三版的快读小记。">
-<meta property="og:updated_time" content="2020-01-15T09:02:02.000Z">
+<meta property="og:updated_time" content="2020-01-16T10:24:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Effective Java第三版》快读">
 <meta name="twitter:description" content="之前已经拜读过第二版，本篇是对第三版的快读小记。">
@@ -389,7 +389,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,092
+                  1,667
                 </span>
               
 
@@ -405,7 +405,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  6
                 </span>
               
             </div>
@@ -485,7 +485,38 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">String</span> firstLineOfFile(<span class="built_in">String</span> path) throws IOException &#123;</div><div class="line">  <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</div><div class="line">      <span class="keyword">new</span> FileReader(path))) &#123;</div><div class="line">    <span class="keyword">return</span> br.readLine();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>也可以配合catch：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">String</span> firstLineOfFile(<span class="built_in">String</span> path) &#123;</div><div class="line">  <span class="keyword">try</span> (BufferedReader br = <span class="keyword">new</span> BufferedReader(</div><div class="line">      <span class="keyword">new</span> FileReader(path))) &#123;</div><div class="line">    <span class="keyword">return</span> br.readLine();</div><div class="line">    <span class="comment">// 如果不能打开或者读取文件，则返回默认值</span></div><div class="line">  &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">    <span class="keyword">return</span> defaltVal;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="章节名：Methods-Common-to-All-Objects"><a href="#章节名：Methods-Common-to-All-Objects" class="headerlink" title="章节名：Methods Common to All Objects"></a>章节名：Methods Common to All Objects</h1><h2 id="重写equals方法时遵守通用约定"><a href="#重写equals方法时遵守通用约定" class="headerlink" title="重写equals方法时遵守通用约定"></a>重写equals方法时遵守通用约定</h2><h2 id="重写equals方法时也要重写hashcode方法"><a href="#重写equals方法时也要重写hashcode方法" class="headerlink" title="重写equals方法时也要重写hashcode方法"></a>重写equals方法时也要重写hashcode方法</h2><h2 id="始终重写toString方法"><a href="#始终重写toString方法" class="headerlink" title="始终重写toString方法"></a>始终重写toString方法</h2><h2 id="谨慎地重写clone方法"><a href="#谨慎地重写clone方法" class="headerlink" title="谨慎地重写clone方法"></a>谨慎地重写clone方法</h2><h2 id="考虑实现Comparable接口"><a href="#考虑实现Comparable接口" class="headerlink" title="考虑实现Comparable接口"></a>考虑实现Comparable接口</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
+<h1 id="章节名：Methods-Common-to-All-Objects"><a href="#章节名：Methods-Common-to-All-Objects" class="headerlink" title="章节名：Methods Common to All Objects"></a>章节名：Methods Common to All Objects</h1><h2 id="重写equals方法时遵守通用约定"><a href="#重写equals方法时遵守通用约定" class="headerlink" title="重写equals方法时遵守通用约定"></a>重写equals方法时遵守通用约定</h2><ol>
+<li>如果不覆盖equals方法，类的每个实例只与自身相等，Object的equals()实现：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>重写equals()时，必须遵守通用约定：自反性，对称性、传递性、一致性，非空性(对于非空引用x，x.equals(null)必须返回false)；</li>
+<li>如何编写高质量的equals方法？书中提供了一些条例，其实可以配合String的equals方法来看，代码如下：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</div><div class="line">        String anotherString = (String)anObject;</div><div class="line">        <span class="keyword">int</span> n = value.length;</div><div class="line">        <span class="keyword">if</span> (n == anotherString.value.length) &#123;</div><div class="line">            <span class="keyword">char</span> v1[] = value;</div><div class="line">            <span class="keyword">char</span> v2[] = anotherString.value;</div><div class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (v1[i] != v2[i])</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">                i++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>1. 首先使用`==`来检查是否为被比较对象引用，这是一种优化，特别是有些比较很昂贵；
+
+2. 使用`instanceof`运算符检查参数是否具有正确类型(或接口)；
+
+3. 参数转换为正确类型(或接口)；
+
+4. 对需要比较的属性进行比较，比如上列代码中的字符串长度以及每个字符；
+</code></pre><ol>
+<li>上文第三条的第四点中提到的<code>比较</code>，在不同的类型中会使用不同的比较形式，具体看书中给出的例子；</li>
+<li>equals()的参数Object不能替换成其它类型，因为这样做就不是重写的Object.equals方法，只是重载了方法，使用Override注解会阻止你犯这个错误；</li>
+<li>除非必须，不要重写equals方法；</li>
+</ol>
+<h2 id="重写equals方法时也要重写hashcode方法"><a href="#重写equals方法时也要重写hashcode方法" class="headerlink" title="重写equals方法时也要重写hashcode方法"></a>重写equals方法时也要重写hashcode方法</h2><ol>
+<li>同一段代码在不同的应用程序中执行，hashCode方法返回的hashcode值始终一样；</li>
+<li>两个对象使用equals方法比较返回为True，那么两个对象的hashcode值相同；</li>
+<li>如果两个对象使用equals方法比较返回为False，那么两个对象的hashcode值未必不同，为不相等的对象生成不同hashcode值可能提高散列表的性能；</li>
+</ol>
+<h2 id="始终重写toString方法"><a href="#始终重写toString方法" class="headerlink" title="始终重写toString方法"></a>始终重写toString方法</h2><ol>
+<li>除非父类已经这样做了，否则应该在每个实例化的类中重写Object的toString实现；</li>
+<li>重写过程中，无论是否指定格式，应该在文档中表明意图；</li>
+<li>在静态工具类编写toString无意义，也不应该在大多数枚举类型中写toString方法，但应该在抽象类中定义；</li>
+</ol>
+<h2 id="谨慎地重写clone方法"><a href="#谨慎地重写clone方法" class="headerlink" title="谨慎地重写clone方法"></a>谨慎地重写clone方法</h2><h2 id="考虑实现Comparable接口"><a href="#考虑实现Comparable接口" class="headerlink" title="考虑实现Comparable接口"></a>考虑实现Comparable接口</h2><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2>
       
     </div>
     
