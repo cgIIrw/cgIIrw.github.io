@@ -86,6 +86,7 @@
 <meta property="og:url" content="https://cgiirw.github.io/2019/10/19/Reaper/index.html">
 <meta property="og:site_name" content="CGRW_BLOG">
 <meta property="og:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gbsxlig8e3j313k0q8n44.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g7zznnrv88j30o60lqdh8.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g7z8gqd90dj30xq0j0n2c.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g7z9nm9tiwj31400l0jwy.jpg">
@@ -105,11 +106,11 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83wpdd2ivj30xq0g042p.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g840qknfpqj30ya10igun.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g87eur11gkj30y20p8n7o.jpg">
-<meta property="og:updated_time" content="2020-02-11T14:13:27.000Z">
+<meta property="og:updated_time" content="2020-02-11T16:41:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reaper实用操作">
 <meta name="twitter:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g7zznnrv88j30o60lqdh8.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gbsxlig8e3j313k0q8n44.jpg">
 
 
 
@@ -409,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,552
+                  3,709
                 </span>
               
 
@@ -455,9 +456,22 @@
 <li>几乎所有view菜单的选项都在Doctor显示，可以在View中打开或者隐藏；</li>
 <li>TCP可以自定义工具栏，在工具栏空白处右键就能看到选项；</li>
 </ul>
-<h2 id="Starting-a-New-Project"><a href="#Starting-a-New-Project" class="headerlink" title="Starting a New Project"></a>Starting a New Project</h2><p>默认新建项目是没有保存提示的。使用快捷键<code>command,</code>进入Preferences，在Project栏下勾选<code>prompt to save on new project</code>，这样新建工程时会弹出<code>Save Project</code>窗口，用来进行保存位置等设定；</p>
-<p>在弹出的<code>Save Project</code>窗口中，勾选<code>Create subdirectory for project</code>，这样在新建工程时会创建一个文件夹，产生的工程文件将保存在该文件夹中；</p>
-<p>在Preferences的Project栏下，还存在一个<code>Open properties on new project</code>选项，勾选它会在新建工程时多弹出一个<code>Project Settings</code>窗口，在第一个空行中可以指定media files的保存路径，这样录制的音频就会存放在该路径。这个窗口也可以通过菜单栏的File来打开；</p>
+<h2 id="Starting-a-New-Project"><a href="#Starting-a-New-Project" class="headerlink" title="Starting a New Project"></a>Starting a New Project</h2><ul>
+<li><p>默认新建项目时是没有保存提示的。使用快捷键<code>command,</code>进入Preferences，在Project栏下勾选<code>prompt to save on new project</code>，这样新建工程时会弹出<code>Save Project</code>窗口，用来进行保存位置等设定，工程文件格式为<code>.RPP</code>；</p>
+</li>
+<li><p>在弹出的<code>Save Project</code>窗口中，勾选<code>Create subdirectory for project</code>，这样在新建工程时会创建一个文件夹，产生的工程文件(比如录制音频产生的波形文件和波形图文件等)将保存在该文件夹中；</p>
+</li>
+<li><p>在Preferences的<code>Project</code>栏下，还存在一个<code>Open properties on new project</code>选项，勾选它会在新建工程时多弹出一个<code>Project Settings</code>窗口，在第一个空行中可以指定media files的保存路径，这样录制的音频就会存放在该路径。这个窗口也可以通过菜单栏File下的<code>Project Settings</code>打开；</p>
+</li>
+<li><p>通过<code>Project Settings</code>的<code>Save as default project settings</code>设定后，每次新建工程都会按照默认来设定；</p>
+</li>
+</ul>
+<p>Preferences的<code>Project</code>界面如下：</p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gbsxlig8e3j313k0q8n44.jpg" alt="Screen Shot 2020-02-12 at 00.34.17.png"></p>
+<ul>
+<li>在Preferences的<code>Project</code>界面中选中<code>Timestamp backup</code>，每次手动保存项目时，会生成一个文件名包含时间标记的备份文件，格式后缀为<code>.RPP-bak</code>；</li>
+<li>也可以将项目设定为自动保存，需要勾选下方的<code>Save...</code>选项生效，工程在什么时候自动保存也可以根据相应选项按需求选择；</li>
+</ul>
 <h2 id="The-Tracks"><a href="#The-Tracks" class="headerlink" title="The Tracks"></a>The Tracks</h2><p>双击控制面板就可以添加一个track，按TAB可以在多个track的名称输入框切换；</p>
 <p>双击track中的旋钮，旋钮数值会回到默认值；</p>
 <p>Mac按住option移动旋钮可以对不同偏移量的效果进行试听，松开旋钮回到之前的数值；</p>
