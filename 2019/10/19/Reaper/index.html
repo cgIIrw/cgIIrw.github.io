@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83wpdd2ivj30xq0g042p.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g840qknfpqj30ya10igun.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g87eur11gkj30y20p8n7o.jpg">
-<meta property="og:updated_time" content="2020-02-13T15:37:36.000Z">
+<meta property="og:updated_time" content="2020-02-14T18:07:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reaper实用操作">
 <meta name="twitter:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,891
+                  3,925
                 </span>
               
 
@@ -489,17 +489,21 @@
 <li>轨道管理器提供了freeze功能；</li>
 <li>track管理器可以通过设置与TCP的显示同步；</li>
 </ul>
-<h2 id="Recording-Audio"><a href="#Recording-Audio" class="headerlink" title="Recording Audio"></a>Recording Audio</h2><h2 id="Editing-in-Reaper"><a href="#Editing-in-Reaper" class="headerlink" title="Editing in Reaper"></a>Editing in Reaper</h2><p>按delete并没有永久性的删除素材；</p>
-<p>将鼠标移动到音频素材边缘，按住option，光标变成一个小手，通过拖拽音频块可以伸缩音频；</p>
-<p>将鼠标移动到音频块，按下s，指针左右就分割成两个部分；</p>
-<p>如果要合并分割的音频块，可以用shift全选，然后在菜单栏的Item中选择<code>Heal splits in items</code>；</p>
-<p>如果素材块中有间隔，要想强行合并，可以在Item下选择<code>Glue items</code>；</p>
-<p>音频重叠默认会开启淡入淡出效果，可以在工具栏关闭；</p>
-<p>在音频内选中一块区域，使用<code>shift command X</code>可以剪切选中的部分，<code>shift command C</code>是拷贝选中部分；</p>
-<p>在音频内选择一块区域，然后在Item中选择<code>Split items at time selection</code>，或者<code>shift S</code>，就可以将该选择区域分割开来；</p>
-<p>如果要裁剪音频内选择区域之外的部分，可以在Item中选择第二个<code>Trim items...</code>；</p>
-<p>在音频块内移动音频可以按住option，音频在音频块内部是自动循环的，可以在Preferences中Project下的Media item Defaults进行修改；</p>
-<p>双击音频块会弹出Media Item Properties窗口，将Loop source取消选择来关闭循环；</p>
+<h2 id="Recording-Audio"><a href="#Recording-Audio" class="headerlink" title="Recording Audio"></a>Recording Audio</h2><h2 id="Editing-in-Reaper"><a href="#Editing-in-Reaper" class="headerlink" title="Editing in Reaper"></a>Editing in Reaper</h2><ul>
+<li>Media Item：容纳视频、音频和MIDI的载体；</li>
+<li>按delete并没有永久性的删除素材；</li>
+<li>将鼠标移动到音频素材边缘，按住option，光标变成一个小手，通过拖拽音频块可以<code>伸缩音频</code>；</li>
+<li>将鼠标移动到音频块，按下s，指针左右就分割成两个部分；</li>
+<li>如果要合并分割的音频块，可以用shift全选，然后在菜单栏的Item中选择<code>Heal splits in items</code>；</li>
+<li>如果素材块中有间隔，要想强行合并，可以在Item下选择<code>Glue items</code>；</li>
+<li>音频重叠默认会开启淡入淡出效果，可以在<code>TCP</code>工具栏关闭；</li>
+<li>在音频内选中一块区域，使用<code>shift command X</code>可以剪切选中的部分，<code>shift command C</code>是拷贝选中部分；</li>
+<li>在音频内选择一块时间区域，然后在Item中选择<code>Split items at time selection</code>，或者<code>shift S</code>，就可以将该选择区域分割开来，称为一个item；</li>
+<li>如果要裁剪音频内选择区域之外的部分，可以在Item中选择第二个<code>Trim items...</code>，此时素材外的内容都不再显现；</li>
+<li>在音频块<code>内</code>移动音频可以按住option实现；</li>
+<li>音频在音频块内部是自动循环的，可以在Preferences中Project下的Media item Defaults取消；</li>
+<li>双击音频块会弹出Media Item Properties窗口，将Loop source取消选择来关闭循环；</li>
+</ul>
 <h2 id="Using-Sends"><a href="#Using-Sends" class="headerlink" title="Using Sends"></a>Using Sends</h2><p>路由矩阵：在Mac上的快捷键是<code>option R</code>，或者在菜单栏的View中进行选择，如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g7zznnrv88j30o60lqdh8.jpg" alt="send00.png"></p>
 <p>横坐标表示发送处，纵坐标是被发送轨。文件夹轨道内的轨道会有<code>F</code>标识。</p>
