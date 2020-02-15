@@ -95,7 +95,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g808kub5f5j31em0twdr6.jpg">
 <meta property="og:image" content="https://cgiirw.github.io/images/Folders.gif">
 <meta property="og:image" content="https://cgiirw.github.io/images/Folders02.gif">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxmo8zwq5j315g0h8aig.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g8150al788j315e0qcwol.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxo13edzzj30wm0bumzy.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxognl28nj317w0o6tmk.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g81776h3vqj31c412snbl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g81fwiied6j319g0r8du7.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g81gzfhi19j30sk0zkdmv.jpg">
@@ -108,7 +111,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83wpdd2ivj30xq0g042p.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g840qknfpqj30ya10igun.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g87eur11gkj30y20p8n7o.jpg">
-<meta property="og:updated_time" content="2020-02-15T17:44:37.000Z">
+<meta property="og:updated_time" content="2020-02-15T19:12:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reaper实用操作">
 <meta name="twitter:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
@@ -412,7 +415,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,979
+                  4,169
                 </span>
               
 
@@ -428,7 +431,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14
+                  15
                 </span>
               
             </div>
@@ -552,8 +555,28 @@
 <li>Loop<code>选区</code>和时间选择是可以分开的，可以在Option下的<code>Loop points linked...</code>设定；</li>
 <li>选项中的<code>items(full)</code>用来全部锁定，上厕所的好帮手；</li>
 </ul>
-<h2 id="Takes-and-Comping"><a href="#Takes-and-Comping" class="headerlink" title="Takes and Comping"></a>Takes and Comping</h2><p>默认点击素材的时候，鼠标游标线也会跟着更改位置，这里可以在Preferences下的Editing Behavior进行更改，具体如下图：</p>
+<h2 id="Takes-and-Comping"><a href="#Takes-and-Comping" class="headerlink" title="Takes and Comping"></a>Takes and Comping</h2><ul>
+<li>Take的目的是方便录制多个片段，取最好的片段；</li>
+<li>默认情况下，<code>Show all takes in lanes(when room)</code>等被勾选，同一轨上的不同takes会并排陈列，很直观的展现，设置选项示图如下：</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxmo8zwq5j315g0h8aig.jpg" alt="Takes01.png"></p>
+<ul>
+<li>默认点击素材的时候，游标线也会跟着更改位置，这里可以在Preferences下的Editing Behavior进行更改，默认是<code>Select item and move edit cursor</code>具体如下图：</li>
+</ul>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g8150al788j315e0qcwol.jpg" alt="take01.png"></p>
+<ul>
+<li>勾选<code>Overlap and crossfade items when splitting...</code>选项的位置如图所示：</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxo13edzzj30wm0bumzy.jpg" alt="take02.png"></p>
+<ul>
+<li>选取后首先在TCP的轨道处<code>双击轨道</code>，全选所有素材，选择下图<code>Lock to active take</code>，可以放置鼠标改变已经选择的片段：</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gbxognl28nj317w0o6tmk.jpg" alt="take03.png"></p>
+<ul>
+<li>如果确定好了选择的片段，不想再修改，可以再选择上图的<code>Crop to active take</code>；</li>
+<li>选择的序列是可以保存的，设置位于Comps中；</li>
+<li>可以按住<code>shift</code>键来拖动不同take间crossfade的位置；</li>
+</ul>
 <h2 id="Markers-amp-Regions"><a href="#Markers-amp-Regions" class="headerlink" title="Markers &amp; Regions"></a>Markers &amp; Regions</h2><h3 id="Marker"><a href="#Marker" class="headerlink" title="Marker"></a>Marker</h3><p>快捷键是<code>M</code>，稍微详细点的设置是<code>shift M</code>；</p>
 <p>可以通过数字键在标记中进行切换；</p>
 <p>按顺序逆序切换可以通过<code>[</code>以及<code>]</code>来实现；</p>
