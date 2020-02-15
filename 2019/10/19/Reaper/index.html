@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83wpdd2ivj30xq0g042p.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g840qknfpqj30ya10igun.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g87eur11gkj30y20p8n7o.jpg">
-<meta property="og:updated_time" content="2020-02-14T18:07:43.000Z">
+<meta property="og:updated_time" content="2020-02-15T12:23:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reaper实用操作">
 <meta name="twitter:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,925
+                  3,934
                 </span>
               
 
@@ -506,15 +506,20 @@
 </ul>
 <h2 id="Using-Sends"><a href="#Using-Sends" class="headerlink" title="Using Sends"></a>Using Sends</h2><p>路由矩阵：在Mac上的快捷键是<code>option R</code>，或者在菜单栏的View中进行选择，如图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g7zznnrv88j30o60lqdh8.jpg" alt="send00.png"></p>
-<p>横坐标表示发送处，纵坐标是被发送轨。文件夹轨道内的轨道会有<code>F</code>标识。</p>
-<p>路由图标：按住option后点击图标，可以进行开关切换；</p>
+<ul>
+<li>横坐标表示发送源(source)，纵坐标是被发送到的目的地(destination)。文件夹轨道内的轨道会有<code>F</code>标识；</li>
+<li>路由图标：按住option后点击图标，可以进行开关切换；</li>
+</ul>
 <p>下图将用来表明文件夹轨道下轨道的发送情况：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g7z8gqd90dj30xq0j0n2c.jpg" alt="send01.png"></p>
-<p>文件夹轨道下第二个轨道发送勾选的是<code>Parent Folder Send</code>以及<code>Track 7: Bus</code>，这表明该轨的信号发送到了文件夹B轨和Bus轨上。文件夹轨道下第一轨的信号只发送到B，所以当B静音后，该轨也不会有声音发出；</p>
-<p>当一个轨道设置发送到其它地方的时候，单击发送图标会出现弹窗。可以将<code>Post-Fader...</code>更改为<code>Pre-Fader...</code>，见图：</p>
+<ul>
+<li>文件夹轨道下第二个轨道发送勾选的是<code>Parent Folder Send</code>以及<code>Track 7: Bus</code>，这表明该轨的信号发送到了文件夹B轨和Bus轨上。文件夹轨道下第一轨的信号只发送到B，所以当B静音后，该轨也不会有声音发出；</li>
+<li>当一个轨道设置发送到其它地方的时候，单击路由图标会出现弹窗。可以将<code>Post-Fader...</code>更改为<code>Pre-Fader...</code>，这样原轨道的音量推子将不会作用于目标输出信号，如此设定可以方便用其它设备进行监听和混音，见图：</li>
+</ul>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g7z9nm9tiwj31400l0jwy.jpg" alt="send02.png"></p>
-<p>这样原轨道的音量推子将不会作用于发送处，如此设定可以方便用其它设备进行监听和混音；</p>
-<p>也可以在Preferences统一进行默认设置。具体操作是在Project下的Track/Send Defaults窗口。可以将<code>Send Default gain</code>设置为<code>-inf</code>dB，将<code>Send/hardware output default mode:</code>设置为<code>Pre-Fader...</code>，具体情形见下图：</p>
+<ul>
+<li>也可以在Preferences统一进行默认设置。具体操作是在Project下的Track/Send Defaults窗口。可以将<code>Send Default gain</code>设置为<code>-inf</code>dB，将<code>Send/hardware output default mode:</code>设置为<code>Pre-Fader...</code>，具体情形见下图：</li>
+</ul>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g7zz8ilcqkj316u0rczss.jpg" alt="send03.png"></p>
 <h2 id="Plug-ins-amp-FX"><a href="#Plug-ins-amp-FX" class="headerlink" title="Plug-ins &amp; FX"></a>Plug-ins &amp; FX</h2><p>单击轨道上的<code>FX</code>图标就可以弹出插件和效果器窗口；</p>
 <p>如果要取消所有已经添加的效果器或插件，可以按住<code>Option</code>并单击图标；</p>
