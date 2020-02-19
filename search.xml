@@ -1448,9 +1448,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
@@ -1585,7 +1585,7 @@
   <entry>
     <title><![CDATA[小工具]]></title>
     <url>%2F2015%2F08%2F15%2FTools%2F</url>
-    <content type="text"><![CDATA[这里做一个小工具一个集合，防止电脑崩坏后的不知所措。 新建文件菜单新建文件菜单(New File)：一款可以在Mac上右键创建文件的应用； 七牛图床失效解决方法七牛云测试域名失效导致图片外链失效的解决办法 修改Mac键盘映射Seil：用来修改Mac键盘的键映射； 下载地址：我是地址 痛点：本人使用Mac原生输入法，平时切换中英文输入法直接按caps lock就可以，但是在Intellij Idea中切入英文伴随的全部是大写，而通常本人打大写字母使用的是shift，遂通过Seil这款小工具更改键盘映射； 使用方法见链接：我是链接 防止他人网站挂掉还是简单记录一下步骤： 首先，打开系统偏好设置－键盘－键盘－修饰键，将Caps Lock键设为“无操作”； 然后，下载Seil后将Caps Lock键映射为Key Code 80（或者其他一个不存在的键，80代表F19）； 最后，打开系统偏好设置－键盘－快捷键－输入源，将切换到上一个输入法的快捷键设置为F19（通过选择后按一下Caps Lock）； svg-term：将asciinema动画转换为svgsvg-term-cli 安装方法和基本使用格式如下： 12$ npm install -g svg-term-cli # 安装方法$ svg-term --cast 113643 --out examples/parrot.svg # 基本格式 详细了解可查看帮助文档：svg-term –help Vultr搭建SS主要步骤：地址01 或 地址02 在CentOS安装git：yum install git BBR加速：https://wangejiba.com/3842.html BBR安装主要命令： 1wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh tldr用于查询Linux命令的用法，但查询到的内容进行了简化，并添加了示例。 安装方法(全局安装)：npm install -g tldr 使用方法：tldr [命令] MacOS-RAR想在某音乐平台上上传自己的作品，结果发现入驻需要提供分轨，而且必须以RAR的形式上传。Mac用户怎么将多个文件打包成RAR文件？ 一种解决方法如下： 首先进入网址：https://www.rarlab.com/download.htm ； 下载对应操作系统版本的软件并解压成文件夹； 进入该文件夹，在控制台输入：sudo install -c -o $USER rar /usr/local/bin/； 假设现在有一个文件夹分轨需要被压缩成RAR，进入该文件夹所在目录； 在控制台输入：rar a xx.rar 分轨，这里xx是打包成的RAR文件名； 此方法用来救急还是不错的。]]></content>
+    <content type="text"><![CDATA[这里做一个小工具一个集合，防止电脑崩坏后的不知所措。 新建文件菜单新建文件菜单(New File)：一款可以在Mac上右键创建文件的应用； 七牛图床失效解决方法七牛云测试域名失效导致图片外链失效的解决办法 修改Mac键盘映射Seil：用来修改Mac键盘的键映射； 下载地址：我是地址 痛点：本人使用Mac原生输入法，平时切换中英文输入法直接按caps lock就可以，但是在Intellij Idea中切入英文伴随的全部是大写，而通常本人打大写字母使用的是shift，遂通过Seil这款小工具更改键盘映射； 使用方法见链接：我是链接 防止他人网站挂掉还是简单记录一下步骤： 首先，打开系统偏好设置－键盘－键盘－修饰键，将Caps Lock键设为“无操作”； 然后，下载Seil后将Caps Lock键映射为Key Code 80（或者其他一个不存在的键，80代表F19）； 最后，打开系统偏好设置－键盘－快捷键－输入源，将切换到上一个输入法的快捷键设置为F19（通过选择后按一下Caps Lock）； svg-term：将asciinema动画转换为svgsvg-term-cli 安装方法和基本使用格式如下： 12$ npm install -g svg-term-cli # 安装方法$ svg-term --cast 113643 --out examples/parrot.svg # 基本格式 详细了解可查看帮助文档：svg-term –help Vultr搭建SS主要步骤：地址01 或 地址02 在CentOS安装git：yum install git BBR加速：https://wangejiba.com/3842.html BBR安装主要命令： 1wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh tldr用于查询Linux命令的用法，但查询到的内容进行了简化，并添加了示例。 安装方法(全局安装)：npm install -g tldr 使用方法：tldr [命令] MacOS-RAR想在某音乐平台上上传自己的作品，结果发现入驻需要提供分轨，而且必须以RAR的形式上传。Mac用户怎么将多个文件打包成RAR文件？ 一种解决方法如下： 首先进入网址：https://www.rarlab.com/download.htm ； 下载对应操作系统版本的软件并解压成文件夹； 进入该文件夹，在控制台输入：sudo install -c -o $USER rar /usr/local/bin/； 假设现在有一个文件夹分轨需要被压缩成RAR，进入该文件夹所在目录； 在控制台输入：rar a xx.rar 分轨，这里xx是打包成的RAR文件名； 此方法用来救急还是不错的。 FLV TO MP3实用快速的在线网站： https://convertio.co/zh/]]></content>
       <categories>
         <category>Tools</category>
       </categories>
