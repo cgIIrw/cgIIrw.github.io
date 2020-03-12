@@ -83,6 +83,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Ableton Live常用快捷键操作]]></title>
+    <url>%2F2019%2F12%2F19%2FAbleton_Live01%2F</url>
+    <content type="text"><![CDATA[本篇是Ableton Live常用快捷键的汇总。 FLIPPABLE VIEWS shift tab：在Device界面和Clip界面切换； PLAYBACK and RECORD Fn + &lt;-：将指针移动到界面最左边； shift + 空格：从暂停位置开始继续播放： option + 空格：播放selected time区域的内容，然后暂停； command shift + F：打开／关闭Follow； ZOOMING - +：指针处水平拉伸； z：放大选中的clip／时间区域； shift + z：缩小选中的clip／时间区域，再按一次缩小所有内容； command + 鼠标上下滚动：水平拉伸： 鼠标滚轮：上下滚动； shift + 鼠标滚轮：左右滚动： option command + 鼠标左键 ／ 三只手指触屏(自定义)：用来精准定位需要查看的位置； option + 轨道向下小三角：缩放所有的轨道： s：对所有轨道进行height折叠： ALL THE SINGLE-LETTER COMMANDS r：反转选中的音频； 激活／关闭：0； CREATE AND CAPTURE command shift + t：新增midi轨道； command + t：新增audio轨； command option + t：return轨； ARRANGEMENT TIMELINE EDITING command + i：插入空白内容； command + l：对选定区域打开／关闭Loop循环； AUTOMATION B：出现画笔图标，可以画出阶梯型包络； 红线上出现蓝点后单击：创建锚点； 单击包络上的锚点：取消锚点； 按住option：出现曲线图标，画包络曲线； 按住shift：微调； 包络手动录制： MIDI EDITING command shift + m：创建midi卷帘窗口； command shift + u：量化设置； command + u：量化； 上、下、左、右键：上、下、左、右移动音符； shift + 上、下键：上、下移动八度； command + 左、右键：左、右微调音符； command shift + D：将选中的音符复制一倍； shift + 左、右键：缩短、加长音符； PARAMETER MAPPING command + k：打开Key Mappings浏览界面： 小结参考：Ableton Live 10 Keyboard Shortcuts]]></content>
+      <categories>
+        <category>DAW</category>
+      </categories>
+      <tags>
+        <tag>DAW</tag>
+        <tag>Ableton Live</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Kontakt多通道实战：Remake《以父之名》开头部分]]></title>
     <url>%2F2019%2F12%2F17%2Fyifuzhiming-remake%2F</url>
     <content type="text"><![CDATA[本篇是关于Kontakt多通道实战，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器、在Reaper中多通道输入和多通道输出等小技巧，实战的方式是remake《以父之名》开头部分。 视频演示： 弦乐音源使用的是EWQLSO银版 + EDIROL.Orchestral(因为前者没有pizzcato)，后来还随意添加了一个Nexus 2的XP Dance Orchestra - Cello Section 2。 Kontakt多通道乐器演奏FL Studio使用Kontakt挂上五款相应的乐器： 将Kontakt的Input port设置为一个数字，这里设置为0： 五款乐器拥有不同的midi通道，分别是[A] 1和[A] 2 …； 打开五个MIDI Out插件，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1、2、3、4、5，例如： 在一个旋钮上设置CC控制器号，比如这里设置为CC11号控制器： 创建控制器包络： Reaper第一步同样是在Kontakt添加五把乐器； 第二步单击选项： 第三步删除多余MIDI轨道； 输入的MIDI信号可以在Kontakt轨道的路由中单独设置； Kontakt多通道乐器添加效果器FL Studio点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 Reaper第一步，在Kontakt完成前述和FL Studio上一样的操作：点击Add Channels产生5条5条非aux轨，将5把乐器的Output依次设置为以上5轨； 第二步： 最后一步删除产生的多余轨道； 吉他部分吉他乐器使用的是RealGuitar 3(上一台电脑没有该乐器，换另一台电脑没有FL Studio，这里使用Reaper完成)。第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现，值大于0即开启连音滑弦功能： 第二段的音色较高亮，采用了Steel String； 效果器添加了数个，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 这两个UI，怪美的，想挂。 最后再挂一个EQ。 工程文件https://github.com/cgIIrw/InTheNameofFather-Intro 参考REAPER Mania - Multi Channel Routing and Midi Tracks in REAPER]]></content>
@@ -244,10 +256,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -280,9 +292,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1448,9 +1460,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
