@@ -108,6 +108,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdi13bkf4j307m060glk.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g82ov5rnkyj30no096q4n.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g82rjqqhibj30wq0gqag7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1gfld1nxsr0j30s20fs40c.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83kjv83foj312a0kctgt.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83kk3x8nij30mu0fa76p.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1g83vj1r0xsj30vw0n8n3y.jpg">
@@ -124,7 +125,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdj6rba2nj319q0jaad6.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqtzdkh6j31720kan8h.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqw1lpvwj31060feq7k.jpg">
-<meta property="og:updated_time" content="2020-06-02T23:26:18.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1gfr2wt16gmj31i40wkqh8.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1gfr3452vk3j31fs0fidm7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006QHM1zly1gfr34q3cnfj30fg0c6gn6.jpg">
+<meta property="og:updated_time" content="2020-06-13T15:39:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reaper实用操作">
 <meta name="twitter:description" content="本篇主要记录一些本人认为在Reaper上比较实用的操作，摘自Kenny Gioia的教程。">
@@ -428,7 +432,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,813
+                  5,048
                 </span>
               
 
@@ -444,7 +448,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  17
+                  18
                 </span>
               
             </div>
@@ -529,7 +533,15 @@
 <li><p>track管理器可以通过设置与TCP的显示同步；</p>
 </li>
 </ul>
-<h2 id="Recording-Audio"><a href="#Recording-Audio" class="headerlink" title="Recording Audio"></a>Recording Audio</h2><h2 id="Editing-in-Reaper"><a href="#Editing-in-Reaper" class="headerlink" title="Editing in Reaper"></a>Editing in Reaper</h2><ul>
+<h2 id="Recording-Audio"><a href="#Recording-Audio" class="headerlink" title="Recording Audio"></a>Recording Audio</h2><ul>
+<li><p>监听按钮空心状：不通过Reaper进行监听，方便在低延迟模式直接从声卡监听；</p>
+</li>
+<li><p>监听按钮实心状：始终实时进行监听；</p>
+</li>
+<li><p>监听按钮红色实心状：在录制开始或停止后都能监听，但在播放时不能听见输入声，只能听见播放声；</p>
+</li>
+</ul>
+<h2 id="Editing-in-Reaper"><a href="#Editing-in-Reaper" class="headerlink" title="Editing in Reaper"></a>Editing in Reaper</h2><ul>
 <li><p>Media Item：容纳视频、音频和MIDI的载体；</p>
 </li>
 <li><p>按delete并没有永久性的删除素材；</p>
@@ -743,7 +755,12 @@
 <ul>
 <li>Take Envelope和Track Envelope的区别是，前者只运用在一个素材上，而后者应用在轨道上的全部素材；</li>
 </ul>
-<h2 id="MIDI"><a href="#MIDI" class="headerlink" title="MIDI"></a>MIDI</h2><p>按住<code>command</code>点击鼠标左键画MIDI item的时候，如果选中了其它素材，将会拷贝该素材；</p>
+<h2 id="MIDI"><a href="#MIDI" class="headerlink" title="MIDI"></a>MIDI</h2><ul>
+<li>在MIDI钢琴卷帘窗口设置鼠标左按的默认效果：</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1gfld1nxsr0j30s20fs40c.jpg" alt="MIDI01.png"></p>
+<p>这样就不会在输入音符或者左按空白处时移动<code>edit cursor</code>；</p>
+<p>按住<code>command</code>点击鼠标左键画MIDI item的时候，如果选中了其它素材，将会拷贝该素材；</p>
 <p>Reaper有两个MIDI编辑器，一个是inline编辑器，可以通过右键midi item，通过选项或者快捷键<code>E</code>来设定，具体如下图：</p>
 <p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1g83kjv83foj312a0kctgt.jpg" alt="midi01.png"></p>
 <p>双击操作可以用来删除错误音符；</p>
@@ -792,23 +809,23 @@
 <h2 id="Freeze"><a href="#Freeze" class="headerlink" title="Freeze"></a>Freeze</h2><ul>
 <li>Reaper每轨可以分层冻结，例如进行如下操作：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdarnvplsj31fo0ni485.jpg" alt="Screen Shot 2020-06-02 at 01.21.57.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdarnvplsj31fo0ni485.jpg" alt="Freeze01.png"></p>
 <p>那么前两个FX就被冻结：</p>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdau8x8grj30lo0agwf1.jpg" alt="Screen Shot 2020-06-02 at 01.24.46.png"> </p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdau8x8grj30lo0agwf1.jpg" alt="Freeze02.png"> </p>
 <p>剩下的可以继续按这种方法冻结，这样就完成了两次冻结，冻结状态还可以在View下的<code>Track Manager</code>下查看；</p>
 <h2 id="快捷键补充附录"><a href="#快捷键补充附录" class="headerlink" title="快捷键补充附录"></a>快捷键补充附录</h2><p>走带控制器：<code>option + command + t</code>；</p>
 <h2 id="Reaper-6部分＊实用＊新功能"><a href="#Reaper-6部分＊实用＊新功能" class="headerlink" title="Reaper 6部分＊实用＊新功能"></a>Reaper 6部分＊实用＊新功能</h2><ul>
 <li>新的主题默认会隐藏一些控件，可以在菜单栏Options下的Themes内设置：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf7r670d78j316a0gojxm.jpg" alt="Screen Shot 2020-05-28 at 06.16.14.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf7r670d78j316a0gojxm.jpg" alt="New01.png"></p>
 <ul>
 <li>在钢琴卷帘窗口显示音符的长度：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf7tpixfogj31ui0uu17e.jpg" alt="Screen Shot 2020-05-28 at 07.43.19.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf7tpixfogj31ui0uu17e.jpg" alt="New02.png"></p>
 <ul>
 <li>Track Wiring：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf8q63ga7zj30oo0m8tfo.jpg" alt="Screen Shot 2020-05-29 at 02.27.06.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf8q63ga7zj30oo0m8tfo.jpg" alt="New03.png"></p>
 <p>单击Fader会弹出窗口，在该窗口内可以调整所有发送轨的发送量；</p>
 <ul>
 <li><p>按住option并单击发送栏可以快速删除发送连接；</p>
@@ -816,18 +833,18 @@
 <li><p>实际使用时困惑于如何调整各轨道窗的大小：</p>
 </li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf8tpfwhl1j31ni0o2q81.jpg" alt="Screen Shot 2020-05-29 at 04.29.38.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gf8tpfwhl1j31ni0o2q81.jpg" alt="New04.png"></p>
 <h2 id="MIDI音符人性化"><a href="#MIDI音符人性化" class="headerlink" title="MIDI音符人性化"></a>MIDI音符人性化</h2><ul>
 <li>选中部分音符，按快捷键<code>h</code>，或者在左边空白处右键，选择如图选项进行人性化设置：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfcajhkrknj31040sgqbe.jpg" alt="Screen Shot 2020-06-01 at 04.28.37.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfcajhkrknj31040sgqbe.jpg" alt="H01.png"></p>
 <ul>
 <li>使用<code>command + i</code>可以反选之前没有选中的剩余音符；</li>
 </ul>
 <h2 id="Customizing-Zoom-and-Scroll"><a href="#Customizing-Zoom-and-Scroll" class="headerlink" title="Customizing Zoom and Scroll"></a>Customizing Zoom and Scroll</h2><ul>
 <li>Actions中选择<code>Show action list...</code>，第二行设置如下：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdj6rba2nj319q0jaad6.jpg" alt="Screen Shot 2020-06-02 at 06.13.26.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfdj6rba2nj319q0jaad6.jpg" alt="Cus01.png"></p>
 <p>这样左右移动的方向符合本人习惯，并且View: Scrollhorizontally reversed设置为shift + HorizWheel增加一个鼠标滑轮的操作；</p>
 <ul>
 <li>同上适用放大缩小，本人的习惯是：水平向上是放大，水平向下是缩小；垂直向上是缩小，垂直向下是放大，水平缩放的快捷键是<code>command + 鼠标方向</code>；垂直缩放的快捷键是<code>option + 鼠标方向</code>；</li>
@@ -835,11 +852,24 @@
 <h2 id="The-Pitch-Envelope"><a href="#The-Pitch-Envelope" class="headerlink" title="The Pitch Envelope"></a>The Pitch Envelope</h2><ul>
 <li>要更改Audio的pitch可以通过如下选项弹出包络：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqtzdkh6j31720kan8h.jpg" alt="Screen Shot 2020-06-03 at 07.22.55.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqtzdkh6j31720kan8h.jpg" alt="Pitch01.png"></p>
 <ul>
 <li>要想更改包络的范围可以通过如下设置选项完成：</li>
 </ul>
-<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqw1lpvwj31060feq7k.jpg" alt="Screen Shot 2020-06-03 at 07.25.27.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zgy1gfeqw1lpvwj31060feq7k.jpg" alt="Pitch02.png"></p>
+<h2 id="对Reaper内轨道进行内录"><a href="#对Reaper内轨道进行内录" class="headerlink" title="对Reaper内轨道进行内录"></a>对Reaper内轨道进行内录</h2><ul>
+<li><p>render、freeze等方式虽然能对轨道进行渲染，但是自动控制包络等还是会独立存在；</p>
+</li>
+<li><p>将想要内录的轨道放入新建的文件夹轨道下，对文件夹轨道进行渲染：</p>
+</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1gfr2wt16gmj31i40wkqh8.jpg" alt="内录01.png"></p>
+<ul>
+<li>建立一个内录轨，<code>将目标轨发送到内录轨</code>，对多个选项进行如下设置：</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1gfr3452vk3j31fs0fidm7.jpg" alt="内录02.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006QHM1zly1gfr34q3cnfj30fg0c6gn6.jpg" alt="内录03.png"></p>
+<p>按下录音键开始进行内录；</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>还有很多教程中介绍的技巧和操作没有在本篇小文中列出，后续如有实际使用会继续添加。</p>
 
       
@@ -1060,7 +1090,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-a-New-Project"><span class="nav-number">2.</span> <span class="nav-text">Starting a New Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Tracks"><span class="nav-number">3.</span> <span class="nav-text">The Tracks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Track-Manager"><span class="nav-number">4.</span> <span class="nav-text">The Track Manager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recording-Audio"><span class="nav-number">5.</span> <span class="nav-text">Recording Audio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editing-in-Reaper"><span class="nav-number">6.</span> <span class="nav-text">Editing in Reaper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Sends"><span class="nav-number">7.</span> <span class="nav-text">Using Sends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plug-ins-amp-FX"><span class="nav-number">8.</span> <span class="nav-text">Plug-ins & FX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Folders"><span class="nav-number">9.</span> <span class="nav-text">Folders</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Track-Grouping"><span class="nav-number">10.</span> <span class="nav-text">Track Grouping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Locking"><span class="nav-number">11.</span> <span class="nav-text">Locking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Takes-and-Comping"><span class="nav-number">12.</span> <span class="nav-text">Takes and Comping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markers-amp-Regions"><span class="nav-number">13.</span> <span class="nav-text">Markers & Regions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Marker"><span class="nav-number">13.1.</span> <span class="nav-text">Marker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Region"><span class="nav-number">13.2.</span> <span class="nav-text">Region</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stretch-Markers"><span class="nav-number">14.</span> <span class="nav-text">Stretch Markers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Automation-Envelopes"><span class="nav-number">15.</span> <span class="nav-text">Using Automation - Envelopes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIDI"><span class="nav-number">16.</span> <span class="nav-text">MIDI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Media-Explorer"><span class="nav-number">17.</span> <span class="nav-text">The Media Explorer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Project-Media-FX-Bay"><span class="nav-number">18.</span> <span class="nav-text">The Project Media / FX Bay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rendering-Mixing-Down-amp-Stems"><span class="nav-number">19.</span> <span class="nav-text">Rendering, Mixing Down & Stems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tempo-Mapping-in-REAPER"><span class="nav-number">20.</span> <span class="nav-text">Tempo Mapping in REAPER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Freeze"><span class="nav-number">21.</span> <span class="nav-text">Freeze</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键补充附录"><span class="nav-number">22.</span> <span class="nav-text">快捷键补充附录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reaper-6部分＊实用＊新功能"><span class="nav-number">23.</span> <span class="nav-text">Reaper 6部分＊实用＊新功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIDI音符人性化"><span class="nav-number">24.</span> <span class="nav-text">MIDI音符人性化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Customizing-Zoom-and-Scroll"><span class="nav-number">25.</span> <span class="nav-text">Customizing Zoom and Scroll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Pitch-Envelope"><span class="nav-number">26.</span> <span class="nav-text">The Pitch Envelope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">27.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-a-New-Project"><span class="nav-number">2.</span> <span class="nav-text">Starting a New Project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Tracks"><span class="nav-number">3.</span> <span class="nav-text">The Tracks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Track-Manager"><span class="nav-number">4.</span> <span class="nav-text">The Track Manager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recording-Audio"><span class="nav-number">5.</span> <span class="nav-text">Recording Audio</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Editing-in-Reaper"><span class="nav-number">6.</span> <span class="nav-text">Editing in Reaper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Sends"><span class="nav-number">7.</span> <span class="nav-text">Using Sends</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Plug-ins-amp-FX"><span class="nav-number">8.</span> <span class="nav-text">Plug-ins & FX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Folders"><span class="nav-number">9.</span> <span class="nav-text">Folders</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Track-Grouping"><span class="nav-number">10.</span> <span class="nav-text">Track Grouping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Locking"><span class="nav-number">11.</span> <span class="nav-text">Locking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Takes-and-Comping"><span class="nav-number">12.</span> <span class="nav-text">Takes and Comping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Markers-amp-Regions"><span class="nav-number">13.</span> <span class="nav-text">Markers & Regions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Marker"><span class="nav-number">13.1.</span> <span class="nav-text">Marker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Region"><span class="nav-number">13.2.</span> <span class="nav-text">Region</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stretch-Markers"><span class="nav-number">14.</span> <span class="nav-text">Stretch Markers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Using-Automation-Envelopes"><span class="nav-number">15.</span> <span class="nav-text">Using Automation - Envelopes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIDI"><span class="nav-number">16.</span> <span class="nav-text">MIDI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Media-Explorer"><span class="nav-number">17.</span> <span class="nav-text">The Media Explorer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Project-Media-FX-Bay"><span class="nav-number">18.</span> <span class="nav-text">The Project Media / FX Bay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rendering-Mixing-Down-amp-Stems"><span class="nav-number">19.</span> <span class="nav-text">Rendering, Mixing Down & Stems</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tempo-Mapping-in-REAPER"><span class="nav-number">20.</span> <span class="nav-text">Tempo Mapping in REAPER</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Freeze"><span class="nav-number">21.</span> <span class="nav-text">Freeze</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快捷键补充附录"><span class="nav-number">22.</span> <span class="nav-text">快捷键补充附录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reaper-6部分＊实用＊新功能"><span class="nav-number">23.</span> <span class="nav-text">Reaper 6部分＊实用＊新功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIDI音符人性化"><span class="nav-number">24.</span> <span class="nav-text">MIDI音符人性化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Customizing-Zoom-and-Scroll"><span class="nav-number">25.</span> <span class="nav-text">Customizing Zoom and Scroll</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Pitch-Envelope"><span class="nav-number">26.</span> <span class="nav-text">The Pitch Envelope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对Reaper内轨道进行内录"><span class="nav-number">27.</span> <span class="nav-text">对Reaper内轨道进行内录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">28.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
