@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[一个梦]]></title>
+    <url>%2F2020%2F07%2F05%2F%20pitiful%2F</url>
+    <content type="text"><![CDATA[我，大概，就是后浪翻滚时带飞的泥沙吧，生长在一个偏远山区，初中毕业后出去打工，后来家人觉得还是要有个学历，于是又把我拽回来读高中，费了九牛二虎之力考入本地大学，毕业后又跑到江苏打工，期间遇到一个同乡厂妹，谈了一段柏拉图式的恋爱。 再然后，我和这个厂妹分手了。。。。可就在刚刚，做梦梦到她和一个开拖拉机的人结婚了，还当场宰了一头猪。。。。。。惊醒之余，写下这篇流水记。 本来这么简短的文字发个微博再正常不过，但说实在的，我挺怕这个时候她真结婚了，如若她看到我发的东西，难免会产生不必要的误会，毕竟这只是我的一个梦。我知道她“关心”我，会关注我随便写的文字。 不过这个博客她不知道，嘿嘿嘿，当我想到这点，不禁笑出了声～～～ 打开微信，看到亲戚发给我的微信文章，题目是《彻底变了，不看分数，哈佛等美国315所大学发布….》———— 看来不仅我做梦，我亲戚也在做梦，还在想着混学历 ———— 又或者，是想通过这篇文章戏谑我学历低？？？ 和厂妹混过的，应该只渴望本升专吧！]]></content>
+      <categories>
+        <category>幸福生活</category>
+      </categories>
+      <tags>
+        <tag>梦</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[一道几何题解02]]></title>
     <url>%2F2020%2F02%2F01%2FElem_Geometry02%2F</url>
     <content type="text"><![CDATA[网上又看到一道初等几何题。 长这样： 答案： 小结童趣。]]></content>
@@ -331,8 +342,8 @@
       </categories>
       <tags>
         <tag>Kotlin</tag>
-        <tag>重构</tag>
         <tag>持续更新</tag>
+        <tag>重构</tag>
       </tags>
   </entry>
   <entry>
@@ -413,8 +424,8 @@
         <category>C语言</category>
       </categories>
       <tags>
-        <tag>持续更新</tag>
         <tag>review</tag>
+        <tag>持续更新</tag>
       </tags>
   </entry>
   <entry>
