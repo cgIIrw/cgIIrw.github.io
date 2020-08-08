@@ -14,7 +14,7 @@
   <entry>
     <title><![CDATA[《深度学习》读书笔记]]></title>
     <url>%2F2020%2F01%2F10%2FDeepLearning-Goodfellow%2F</url>
-    <content type="text"><![CDATA[一位过世友人曾送给我一本《深度学习》，今无意翻到此书，心想再不看可能再也不会看了。希望能在六月初非走马观花看完此书，谨以本篇笔记悼念那位过世友人。]]></content>
+    <content type="text"><![CDATA[读书笔记。]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
@@ -30,8 +30,8 @@
         <category>Fluent_Python</category>
       </categories>
       <tags>
-        <tag>未完待续</tag>
         <tag>Python</tag>
+        <tag>未完待续</tag>
       </tags>
   </entry>
   <entry>
@@ -49,7 +49,7 @@
   <entry>
     <title><![CDATA[读《计算的本质：深入剖析程序和计算机》]]></title>
     <url>%2F2020%2F01%2F01%2FUnder-Comp%2F</url>
-    <content type="text"><![CDATA[作为计算机专业的混子，本人已经熟练掌握十几种语言“Hello World”的书写，但还不会使用Ruby，正好通过阅读这本书学习新的“Hello World”书写方式，以及复习SICP。 小结]]></content>
+    <content type="text"><![CDATA[读书笔记。 小结]]></content>
       <categories>
         <category>Ruby</category>
       </categories>
