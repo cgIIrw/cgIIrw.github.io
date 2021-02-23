@@ -3,59 +3,12 @@
   <entry>
     <title><![CDATA[一道几何题解02]]></title>
     <url>%2F2020%2F02%2F01%2FElem_Geometry02%2F</url>
-    <content type="text"><![CDATA[网上又看到一道初等几何题。 长这样： 答案： 小结童趣。]]></content>
+    <content type="text"><![CDATA[网上又看到一道初等几何题。 长这样： 答案： 小结彼时正值妹妹问数学题，很多题套路都差不多。]]></content>
       <categories>
         <category>初等数学</category>
       </categories>
       <tags>
         <tag>数学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《深度学习》读书笔记]]></title>
-    <url>%2F2020%2F01%2F10%2FDeepLearning-Goodfellow%2F</url>
-    <content type="text"><![CDATA[读书笔记。]]></content>
-      <categories>
-        <category>深度学习</category>
-      </categories>
-      <tags>
-        <tag>未完待续</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[快读《Fluent Python》]]></title>
-    <url>%2F2020%2F01%2F03%2FFluent-Python%2F</url>
-    <content type="text"><![CDATA[一星期快读《Fluent Python》。 第一章 Python数据模型魔术方法/特殊方法/双下方法(dunder method)利用Python数据模型的好处之一： 不必记住操作的各式名称； 方便利用标准库； 实现__getitem__方法使类对象变得可迭代； __len__等的具体实现可以代理到其它对象的方法； 特殊方法被解释器调用； 通过内置函数使用特殊方法是最好的选择； 不要随意添加自己实现的特殊方法； __repr__和__str__的区别：后者在str()和print函数使用时被调用，没有__str__解释器会用__repr__替代； 关于自定义布尔值： 123456789101112131415161718&gt;&gt;&gt; class A:... pass...&gt;&gt;&gt; a = A()&gt;&gt;&gt; bool(a)True&gt;&gt;&gt; class B:... def __len__(self):... return 0...&gt;&gt;&gt; b = B()&gt;&gt;&gt; bool(b)False&gt;&gt;&gt; len(a)Traceback (most recent call last): File "&lt;stdin&gt;", line 1, in &lt;module&gt;AttributeError: A instance has no attribute '__len__'&gt;&gt;&gt; 有上述代码可知，当类没有实现__bool__和__len__时，bool(对象)返回True，如果不存在__bool__方法，那么bool(对象)会调用对象.__len__()，如果返回0，则bool返回False； 第二章 序列构成的数组小结]]></content>
-      <categories>
-        <category>Fluent_Python</category>
-      </categories>
-      <tags>
-        <tag>未完待续</tag>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自己动手实现简单的编译器]]></title>
-    <url>%2F2020%2F01%2F02%2FMyCompiler%2F</url>
-    <content type="text"><![CDATA[适逢阅读《计算的本质：深入剖析程序和计算机》之际，写一个简单的编译器练手。 小结]]></content>
-      <categories>
-        <category>编译器</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>未完待续</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[读《计算的本质：深入剖析程序和计算机》]]></title>
-    <url>%2F2020%2F01%2F01%2FUnder-Comp%2F</url>
-    <content type="text"><![CDATA[读书笔记。 小结]]></content>
-      <categories>
-        <category>Ruby</category>
-      </categories>
-      <tags>
-        <tag>未完待续</tag>
-        <tag>Ruby</tag>
       </tags>
   </entry>
   <entry>
@@ -85,7 +38,7 @@
   <entry>
     <title><![CDATA[Kontakt多通道实战：Remake《以父之名》开头部分]]></title>
     <url>%2F2019%2F12%2F17%2Fyifuzhiming-remake%2F</url>
-    <content type="text"><![CDATA[本篇是关于Kontakt多通道实战，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器、在Reaper中多通道输入和多通道输出等小技巧，实战的方式是remake《以父之名》开头部分。 视频演示： 弦乐音源使用的是EWQLSO银版 + EDIROL.Orchestral(因为前者没有pizzcato)，后来还随意添加了一个Nexus 2的XP Dance Orchestra - Cello Section 2。 Kontakt多通道乐器演奏FL Studio使用Kontakt挂上五款相应的乐器： 将Kontakt的Input port设置为一个数字，这里设置为0： 五款乐器拥有不同的midi通道，分别是[A] 1和[A] 2 …； 打开五个MIDI Out插件，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1、2、3、4、5，例如： 在一个旋钮上设置CC控制器号，比如这里设置为CC11号控制器： 创建控制器包络： Reaper第一步同样是在Kontakt添加五把乐器； 第二步单击选项： 第三步删除多余MIDI轨道； 输入的MIDI信号可以在Kontakt轨道的路由中单独设置； Kontakt多通道乐器添加效果器FL Studio点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 Reaper第一步，在Kontakt完成前述和FL Studio上一样的操作：点击Add Channels产生5条5条非aux轨，将5把乐器的Output依次设置为以上5轨； 第二步： 最后一步删除产生的多余轨道； 吉他部分吉他乐器使用的是RealGuitar 3(上一台电脑没有该乐器，换另一台电脑没有FL Studio，这里使用Reaper完成)。第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现，值大于0即开启连音滑弦功能： 第二段的音色较高亮，采用了Steel String； 效果器添加了数个，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 这两个UI，怪美的，想挂。 最后再挂一个EQ。 工程文件https://github.com/cgIIrw/InTheNameofFather-Intro 参考REAPER Mania - Multi Channel Routing and Midi Tracks in REAPER]]></content>
+    <content type="text"><![CDATA[本篇是关于Kontakt多通道实战，主要用来记录如何在FL Studio中用MIDI Out画CC控制器、多通道添加效果器、在Reaper中多通道输入和多通道输出等小技巧，实战的方式是remake《以父之名》开头部分。 视频演示： 弦乐音源使用的是EWQLSO银版 + EDIROL.Orchestral(因为前者没有pizzcato)，后续添加了一个Nexus 2的XP Dance Orchestra - Cello Section 2音色。 Kontakt多通道乐器演奏FL Studio使用Kontakt挂上五款相应的乐器： 将Kontakt的Input port设置为一个数字，这里设置为0： 五款乐器拥有不同的midi通道，分别是[A] 1和[A] 2 …； 打开五个MIDI Out插件，将Port设置为和Kontakt的Input port相同的数字，通道分别设置为1、2、3、4、5，例如： 在一个旋钮上设置CC控制器号，比如这里设置为CC11号控制器： 创建控制器包络： Reaper第一步同样是在Kontakt添加五把乐器； 第二步单击选项： 第三步删除多余MIDI轨道； 输入的MIDI信号可以在Kontakt轨道的路由中单独设置； Kontakt多通道乐器添加效果器FL Studio点击菜单栏的Output选项，弹出相应界面，点击Add Channels，在Quantity处设置4，这样就有5条非aux轨： 将5把乐器的Output分别设置为以上5轨，在第一轨的channel output configuration里，物理输出默认为Kt.st.1的左右声道，貌似是直接发送到master上的，效果器分轨设定的效果对其没有作用，所以本人将其设置为其它： 接下来点击Kontakt水果界面的齿轮键，继续点击弹出来的菜单栏的第二个选项，在Processing下，为每个输出通道设置对应的效果器轨： 如此这般，混音台上每个效果器轨上的效果器就能作用于单个乐器了。 Reaper第一步，在Kontakt完成前述和FL Studio上一样的操作：点击Add Channels产生5条5条非aux轨，将5把乐器的Output依次设置为以上5轨； 第二步： 最后一步删除产生的多余轨道； 吉他部分吉他乐器使用的是RealGuitar 3(这里使用Reaper完成)。第一段旋律的音色选用了Steel 2，这段旋律在独奏模式下涉及滑弦、推弦等技法，本人简单使用了CC#37号控制器来实现，值大于0即开启连音滑弦功能： 第二段的音色较高亮，采用了Steel String； 效果器添加了数个，一个是RC-20 RETRO COLOR： 一个是ValhallaVintageVerb： 工程文件https://github.com/cgIIrw/InTheNameofFather-Intro 参考REAPER Mania - Multi Channel Routing and Midi Tracks in REAPER]]></content>
       <categories>
         <category>Remake</category>
       </categories>
@@ -96,17 +49,6 @@
         <tag>MIDI Out</tag>
         <tag>CC控制器</tag>
         <tag>Kontakt</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[2019年度循环歌曲Top10]]></title>
-    <url>%2F2019%2F12%2F07%2FTop10Musicof2019%2F</url>
-    <content type="text"><![CDATA[这份2019年度歌单是在今年循环次数较多的一些歌曲中进行的选择。 入选基本要求： 本年度发行的歌曲； 每名歌手只能入选一首； 10 The Weeknd - Blinding Lights评：80s……. 9 Haiwee - 吆喝小组-窝头和山药（remix）评：我愿称之为中国Skrillex，但做的音乐多鬼畜，sigh… https://music.163.com/#/song?id=1396198567 8 Bhad Bhabie - Babyface Savage feat. Tory Lanez评：flow很耐听，beat也很炸… 7 Kygo &amp; Whitney Houston - Higher Love评：搭配MV太有感了，话说Kygo是和人声切片杠上了么… 6 Charli XCX - White Mercedes评：副歌旋律的确很容易和别首撞衫，但道理和酷玩的《Viva La Vida》一样，就是挡不住的好听啊….. 5 張震嶽 ayal komod - 遠走高飛 Gone Away评：阿岳一度有说他在听Malone的歌，看来“吸”很大…. 4 Charlie Puth - Cheating on You评：这首歌等于我从小区门口到家的距离，诠释了什么叫一首歌的时间…. 3 Bazzi - Paradise评：编排简单却不单调，歌曲开头用了几个我也很喜欢的弦乐技法… 2 Post Malone - Goodbyes ft. Young Thug评：我的整个2019就是这首歌啊，本就是太热门的歌，也没什么特别想说的…. 1 Avicii - Bad Reputation ft. Joe Janiak评：据说整张专辑在音色上借鉴了印度地方特色音乐，但能让我感受到“咖喱味”的，反倒是弦乐铺张很多的曲，比如Tough Love(当然这也和本人听歌背景有关，听的印度音乐多磅礴)。回到Bad Reputation，drop音色干净又清脆，很有Putty Piano的质感…]]></content>
-      <categories>
-        <category>歌单</category>
-      </categories>
-      <tags>
-        <tag>2019Top10</tag>
       </tags>
   </entry>
   <entry>
@@ -759,7 +701,7 @@
   <entry>
     <title><![CDATA[一道几何题解]]></title>
     <url>%2F2018%2F07%2F11%2FElem_Geometry%2F</url>
-    <content type="text"><![CDATA[浏览云风的BLOG，居然发现了一道初等几何题，拿起笔记本写了个答案。 这道题是这样的： 我的答案： 看到60度，直觉就是去构造正三角形了。]]></content>
+    <content type="text"><![CDATA[浏览云风的BLOG，居然发现了一道初等几何题，拿起笔记本写了个答案。 这道题是这样的： 我的答案：]]></content>
       <categories>
         <category>初等数学</category>
       </categories>
@@ -1586,7 +1528,7 @@
   <entry>
     <title><![CDATA[小工具]]></title>
     <url>%2F2015%2F08%2F15%2FTools%2F</url>
-    <content type="text"><![CDATA[这里做一个小工具一个集合，防止电脑崩坏后的不知所措。 新建文件菜单新建文件菜单(New File)：一款可以在Mac上右键创建文件的应用； 七牛图床失效解决方法七牛云测试域名失效导致图片外链失效的解决办法 修改Mac键盘映射Seil：用来修改Mac键盘的键映射； 下载地址：我是地址 痛点：本人使用Mac原生输入法，平时切换中英文输入法直接按caps lock就可以，但是在Intellij Idea中切入英文伴随的全部是大写，而通常本人打大写字母使用的是shift，遂通过Seil这款小工具更改键盘映射； 使用方法见链接：我是链接 防止他人网站挂掉还是简单记录一下步骤： 首先，打开系统偏好设置－键盘－键盘－修饰键，将Caps Lock键设为“无操作”； 然后，下载Seil后将Caps Lock键映射为Key Code 80（或者其他一个不存在的键，80代表F19）； 最后，打开系统偏好设置－键盘－快捷键－输入源，将切换到上一个输入法的快捷键设置为F19（通过选择后按一下Caps Lock）； svg-term：将asciinema动画转换为svgsvg-term-cli 安装方法和基本使用格式如下： 12$ npm install -g svg-term-cli # 安装方法$ svg-term --cast 113643 --out examples/parrot.svg # 基本格式 详细了解可查看帮助文档：svg-term –help Vultr搭建SS主要步骤：地址01 或 地址02 在CentOS安装git：yum install git BBR加速：https://wangejiba.com/3842.html BBR安装主要命令： 1wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh tldr用于查询Linux命令的用法，但查询到的内容进行了简化，并添加了示例。 安装方法(全局安装)：npm install -g tldr 使用方法：tldr [命令] MacOS-RAR想在某音乐平台上上传自己的作品，结果发现入驻需要提供分轨，而且必须以RAR的形式上传。Mac用户怎么将多个文件打包成RAR文件？ 一种解决方法如下： 首先进入网址：https://www.rarlab.com/download.htm ； 下载对应操作系统版本的软件并解压成文件夹； 进入该文件夹，在控制台输入：sudo install -c -o $USER rar /usr/local/bin/； 假设现在有一个文件夹分轨需要被压缩成RAR，进入该文件夹所在目录； 在控制台输入：rar a xx.rar 分轨，这里xx是打包成的RAR文件名； 此方法用来救急还是不错的。 FLV TO MP3实用快速的在线网站： https://convertio.co/zh/ YouTube字幕下载https://downsub.com/ VST插件安装路径 FL Studio移植版C盘路径/Users/yin/Library/Application Support/FL Studio/Bottles/flstudio]]></content>
+    <content type="text"><![CDATA[这里做一个小工具一个集合，防止电脑崩坏后的不知所措。 新建文件菜单新建文件菜单(New File)：一款可以在Mac上右键创建文件的应用； 七牛图床失效解决方法七牛云测试域名失效导致图片外链失效的解决办法 修改Mac键盘映射Seil：用来修改Mac键盘的键映射； 下载地址：我是地址 痛点：本人使用Mac原生输入法，平时切换中英文输入法直接按caps lock就可以，但是在Intellij Idea中切入英文伴随的全部是大写，而通常本人打大写字母使用的是shift，遂通过Seil这款小工具更改键盘映射； 使用方法见链接：我是链接 防止他人网站挂掉还是简单记录一下步骤： 首先，打开系统偏好设置－键盘－键盘－修饰键，将Caps Lock键设为“无操作”； 然后，下载Seil后将Caps Lock键映射为Key Code 80（或者其他一个不存在的键，80代表F19）； 最后，打开系统偏好设置－键盘－快捷键－输入源，将切换到上一个输入法的快捷键设置为F19（通过选择后按一下Caps Lock）； svg-term：将asciinema动画转换为svgsvg-term-cli 安装方法和基本使用格式如下： 12$ npm install -g svg-term-cli # 安装方法$ svg-term --cast 113643 --out examples/parrot.svg # 基本格式 详细了解可查看帮助文档：svg-term –help Vultr搭建SS主要步骤：地址01 或 地址02 在CentOS安装git：yum install git BBR加速：https://wangejiba.com/3842.html BBR安装主要命令： 1wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; ./bbr.sh tldr用于查询Linux命令的用法，但查询到的内容进行了简化，并添加了示例。 安装方法(全局安装)：npm install -g tldr 使用方法：tldr [命令] MacOS-RAR想在某音乐平台上上传自己的作品，结果发现入驻需要提供分轨，而且必须以RAR的形式上传。Mac用户怎么将多个文件打包成RAR文件？ 一种解决方法如下： 首先进入网址：https://www.rarlab.com/download.htm ； 下载对应操作系统版本的软件并解压成文件夹； 进入该文件夹，在控制台输入：sudo install -c -o $USER rar /usr/local/bin/； 假设现在有一个文件夹分轨需要被压缩成RAR，进入该文件夹所在目录； 在控制台输入：rar a xx.rar 分轨，这里xx是打包成的RAR文件名； 此方法用来救急还是不错的。 FLV TO MP3实用快速的在线网站： https://convertio.co/zh/ 如果视频过大，可以考虑使用名为MusicExtractor的软件来进行转换； 如果不考虑提取音频的大小，可以使用自带的方法提取出.m4a格式的音频： YouTube字幕下载https://downsub.com/ VST插件安装路径 FL Studio移植版C盘路径/Users/yin/Library/Application Support/FL Studio/Bottles/flstudio 微PE工具：U盘 系统ISO 微PE 运行微PE将U盘安装完毕，接着将系统ISO放入U盘； bios无需改动； 使用PE前要将盘格式化； 如果启动器红灯，将其它盘设置为逻辑盘，更改方法可以使用PE的工具； 如果不能加载ISO，可以用微PE自带的虚拟光驱进行加载，然后找到instal文件； 运行后，就可以拔掉U盘； youtube-dl列出可供下载的格式： 1$youtube-dl -F "YouTube链接" 具体使用可参考：链接1 、链接2 1080P会将视频和音频分开，所以需要安装FFmpeg；]]></content>
       <categories>
         <category>Tools</category>
       </categories>
