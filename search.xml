@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[韦达跳跃]]></title>
+    <url>%2F2021%2F03%2F01%2FVieta_Jumping%2F</url>
+    <content type="text"><![CDATA[来自1988年的IMO试题。 解答： 小结答案写得有点随意。]]></content>
+      <categories>
+        <category>初等数学</category>
+      </categories>
+      <tags>
+        <tag>数学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[一道几何题解02]]></title>
     <url>%2F2020%2F02%2F01%2FElem_Geometry02%2F</url>
     <content type="text"><![CDATA[网上又看到一道初等几何题。 长这样： 答案： 小结彼时正值妹妹问数学题，很多题套路都差不多。]]></content>
@@ -187,10 +198,10 @@
         <category>NIO2</category>
       </categories>
       <tags>
-        <tag>Netty</tag>
         <tag>SO_KEEPALIVE</tag>
         <tag>SO_BACKLOG</tag>
         <tag>closeFuture</tag>
+        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -223,9 +234,9 @@
         <category>NIO2</category>
       </categories>
       <tags>
+        <tag>Netty</tag>
         <tag>Kqueue</tag>
         <tag>多路复用</tag>
-        <tag>Netty</tag>
       </tags>
   </entry>
   <entry>
@@ -1391,9 +1402,9 @@
         <category>效果器</category>
       </categories>
       <tags>
+        <tag>ValhallaRoom</tag>
         <tag>FAT-Filter</tag>
         <tag>Sausage-Fattener</tag>
-        <tag>ValhallaRoom</tag>
       </tags>
   </entry>
   <entry>
